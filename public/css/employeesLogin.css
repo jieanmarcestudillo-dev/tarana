@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+* {
+    border: 0;
+    box-sizing: border-box;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.left {
+    background-color: #800000;
+    width: 100%;
+    height: 100vh;
+}
+
+.left .company {
+    height: 90vh;
+    margin: 2.5rem 0 0 8.5rem;
+}
+
+.right {
+    color: #303030;
+    width: 100%;
+    height: 100vh;
+}
+.right .welcome {
+    margin-top: 2.2rem;
+    color: #303030;
+    text-transform: uppercase;
+}
+
+.right .logo {
+    width: 30%;
+}
+
+.right .form-control {
+    height: 2.9rem;
+    outline: 0;
+    color: #303841 !important;
+}
+
+.right .checkBox .form-check-label {
+    letter-spacing: 1px;
+    color: #303030;
+}
+
+.homeButton2{
+    position: relative;
+    float: right;
+    margin: 1rem -2rem 0 0;
+}
+
+.homeButton i, .homeButton2 i{
+    font-size: 18px;
+    color: #800000;
+    border: 1px solid #800000;
+    padding: 10px 14px;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.homeButton i:hover , .homeButton2 i:hover{
+    background-color: #800000;
+    color: #fff;
+}
+
+.right .loginBtn {
+    width: 100%;
+    height: 2.9rem;
+    background-color: #800000;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    font-size: 1.2rem;
+    transition: 0.5s;
+}
+
+.right .loginBtn:hover {
+    background-color: #eeeeee;
+    color: #303841;
+    border: 1px solid #303841;
+}
