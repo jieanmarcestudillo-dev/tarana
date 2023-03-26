@@ -68,6 +68,10 @@
                                 <input type="password" class="form-control" name="applicantPassword" id="applicantPassword" placeholder="Password" required>
                                 <label for="floatingInput" class="text-muted">Password</label>
                             </div>
+                            <div class="mb-3 checkBox">
+                                <input type="checkbox" class="form-check-input ms-1" onclick="seePassword2()">
+                                <label class="form-check-label">Show Password</label>
+                            </div>
                             <ul class="navbar-nav text-center">
                                 <li class="nav-item"><a href="/forgotPasswordRoutes" class="nav-link">Forgot Password?</a></li>
                             </ul>

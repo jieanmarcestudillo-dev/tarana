@@ -82,6 +82,18 @@ $(document).ready(function(){
     }
 // FUNCTION FOR PASSWORD ENABLE
 
+// FUNCTION FOR PASSWORD ENABLE
+function seePassword2() {
+    var x = document.getElementById("applicantPassword");
+    if (x.type === 'password'){
+        x.type ="text";
+    }else{
+        x.type="password";
+    }
+    
+}
+// FUNCTION FOR PASSWORD ENABLE
+
 // SIGN UP FUNCTION
     $('#applicantRegistrationForm').on( 'submit' , function(e){
             e.preventDefault();
