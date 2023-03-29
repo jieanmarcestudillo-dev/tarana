@@ -87,7 +87,7 @@
     {{-- END OF CONTENT --}}
 
     {{-- JS --}}
-        <script src="{{ asset('/js/applicantsAuthentication.js') }}"></script>
+        <script src="{{ asset('/js/applicantsAuthentications.js') }}"></script>
     {{-- JS --}}
 </body>
 </html>

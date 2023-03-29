@@ -81,7 +81,7 @@ $(document).ready(function(){
 
 // GENERATE AGE 
     function calculateAge() {
-        var birthDate = new Date(document.getElementById("appBirthday").value); 
+        var birthDate = new Date(document.getElementById("updateEmployeeBirthday").value); 
         var birthDateDay = birthDate.getDate();
         var birthDateMonth = birthDate.getMonth();
         var birthDateYear = birthDate.getFullYear();
@@ -97,7 +97,7 @@ $(document).ready(function(){
         else calculateAge = todayYear - birthDateYear - 1; 
 
         var outputValue = calculateAge;
-        document.getElementById("appAge").value = calculateAge;
+        document.getElementById("updateEmployeeAge").value = calculateAge;
     }
 // GENERATE AGE 
 

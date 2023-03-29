@@ -97,6 +97,7 @@ $(document).ready(function(){
     }
 // FETCH RECOMMENDED APPLICANTS ON CERTAIN OPERATION 
 
+
 // RECRUIT RECOMMEND APPLICANTS
     function recommendApplicantRecruit(id){
         $.ajaxSetup({
@@ -104,7 +105,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var opertaionId = localStorage.getItem('operationId'); 
+        var operationId = localStorage.getItem('operationId'); 
         var applicantId = id;
         Swal.fire({
             title: 'Are you sure?',
@@ -120,7 +121,7 @@ $(document).ready(function(){
                     url: "/recruitRecommendedApplicant",
                     type: 'GET',
                     dataType: 'json',
-                    data: {applicantId: applicantId, opertaionId: opertaionId},
+                    data: {applicantId: applicantId, operationId: operationId},
                     success: function(response) {
                         if(response == 2){
                             Swal.fire({

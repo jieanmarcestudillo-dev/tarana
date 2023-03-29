@@ -25,17 +25,21 @@
                         <a class='homeButton' href="/" data-title='Back to Home?'><i class="bi bi-house"></i></a>
                         <img class="border-0 logo" src="{{ URL('/assets/frontend/scpi.webp')}}">
                         <p class="title mt-lg-3">APPLICANT PORTAL</p>
-                        <form name="applicantLoginForm" id="applicantLoginForm">
+                           <form name="applicantLoginForm" id="applicantLoginForm">
                             <div class="form-floating mb-3">
-                                <input type="username" class="form-control" name="applicantUsername" id="applicantUsername" placeholder="Username" required>
-                                <label for="floatingInput" class="text-muted">Username</label>
+                                <input type="email" class="form-control" name="applicantEmail" id="applicantEmail" placeholder="Email" required>
+                                <label for="floatingInput" class="text-muted">Email</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control" name="applicantPassword" id="applicantPassword" placeholder="Password" required>
                                 <label for="floatingInput" class="text-muted">Password</label>
                             </div>
+                            <div class="mb-3 checkBox">
+                                <input type="checkbox" class="form-check-input ms-1" onclick="seePassword2()">
+                                <label class="form-check-label">Show Password</label>
+                            </div>
                             <ul class="navbar-nav text-center">
-                                <li class="nav-item"><a href="#" class="nav-link">Forgot Password?</a></li>
+                                <li class="nav-item"><a href="/forgotPasswordRoutes" class="nav-link">Forgot Password?</a></li>
                             </ul>
                                 <button type="submit" id="appLoginBtn" name="appLoginBtn" class="btn rounded-pill">LOGIN</button>
                             <ul class="navbar-nav text-center">
@@ -59,7 +63,7 @@
                             @csrf
                             <p class="title mt-lg-3">CREATE ACCOUNT</p>
                             <div class="mb-3">
-                                <input type="email" class="form-control rounded-pill" required id="applicantSignUpEmail" name="applicantSignUpEmail" placeholder="Username">
+                                <input type="email" class="form-control rounded-pill" required id="applicantSignUpEmail" name="applicantSignUpEmail" placeholder="Email">
                             </div>
                             <div class="mb-3">
                                 <input type="password" class="form-control rounded-pill" required id="applicantSignUpPassword" name="applicantSignUpPassword" placeholder="Password">
@@ -84,7 +88,7 @@
     {{-- END OF CONTENT --}}
 
     {{-- JS --}}
-        <script src="{{ asset('/js/applicantsAuthentication.js') }}"></script>
+        <script src="{{ asset('/js/applicantsAuthentications.js') }}"></script>
     {{-- JS --}}
 </body>
 </html>

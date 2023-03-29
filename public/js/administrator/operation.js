@@ -228,12 +228,6 @@ $(document).ready(function(){
                             'The date of both operation start/end must not be the same',
                             'error'
                             )
-                        }else if(response == 5){
-                            Swal.fire(
-                            'Invalid File Extention',
-                            'Sorry, Only JPG, JPEG, PNG, GIF, SVG files are allowed.',
-                            'error'
-                            )
                         }
                     },
                     error:function(error){

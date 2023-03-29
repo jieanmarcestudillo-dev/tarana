@@ -10,7 +10,7 @@ use App\Models\operations;
 use App\Models\applied;
 use App\Models\backout;
 use App\Models\declined;
-use App\Models\completedOperation;
+use App\Models\completed;
 use Session;
 use Hash;
 use Auth;
@@ -434,9 +434,9 @@ class RecruiterController extends Controller
                                     </div> 
                                     <div class='col-md-6'>                                 
                                 ";
-                                $applicantData = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                                ->join('applicants', 'completedOperation.applicant_id', '=', 'applicants.applicant_id')
-                                ->where([['completedOperation.operation_id', '=', $certainData->certainOperation_id],
+                                $applicantData = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                                ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+                                ->where([['completed.operation_id', '=', $certainData->certainOperation_id],
                                 ['operations.certainOperation_id', '=', $certainData->certainOperation_id]])->orderBy('applicants.position')->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
@@ -490,7 +490,7 @@ class RecruiterController extends Controller
 
                 // SEARCH COMPLETED
                     public function searchCompleted(Request $request){ 
-                        $operations = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
+                        $operations = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                         ->where('operationId', 'like', $request->searchShips)->first();
                         if($operations){
                                 $startDate = date('F d, Y | D',strtotime($operations->operationStart));
@@ -521,9 +521,9 @@ class RecruiterController extends Controller
                                     </div> 
                                     <div class='col-md-6'>                                 
                                 ";
-                                $applicantData = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                                ->join('applicants', 'completedOperation.applicant_id', '=', 'applicants.applicant_id')
-                                ->where([['completedOperation.operation_id', '=', $operations->certainOperation_id],
+                                $applicantData = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                                ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+                                ->where([['completed.operation_id', '=', $operations->certainOperation_id],
                                 ['operations.certainOperation_id', '=', $operations->certainOperation_id]])->orderBy('applicants.position')->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
@@ -575,9 +575,9 @@ class RecruiterController extends Controller
                 // PRINT COMPLETED OPERATION
                     public function printCompletedOperation(Request $request, $id){
                         $operationId = $id;
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->join('applicants', 'completedOperation.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['completedOperation.operation_id', '=', $opertaionId],['operations.certainOperation_id', '=', $opertaionId]])->orderBy('applicants.position')->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+                        ->where([['completed.operation_id', '=', $opertaionId],['operations.certainOperation_id', '=', $opertaionId]])->orderBy('applicants.position')->get();
                         $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
                         foreach($data as $operations){
                             $applicantsAttendance = [
@@ -592,7 +592,7 @@ class RecruiterController extends Controller
                             ]; 
                         }
                         $pdf = PDF::loadView('fetch.recruiter.applicantAttendance', $applicantsAttendance);
-                        return $pdf->download('operation'.$certainData->operationId.'.pdf');
+                        return $pdf->stream('operation'.$certainData->operationId.'.pdf');
                     }
                 // PRINT COMPLETED OPERATION
 
@@ -856,7 +856,8 @@ class RecruiterController extends Controller
                         ->where([['applied.operation_id', '=', $opertaionId],['operations.certainOperation_id', '=', $opertaionId],
                         ['applied.is_recruited', '!=' , 0]])->orderBy('applicants.position')->get();
                         $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
-                        foreach($data as $certainData){
+                        foreach($data as $count => $certainData){
+                            $count = $count +1;
                             $applicantsAttendance = [
                                 'foreman' => $foreman,
                                 'operationId' => $certainData->operationId,
@@ -864,12 +865,12 @@ class RecruiterController extends Controller
                                 'shipCarry' => $certainData->shipCarry,
                                 'operationStart' => $certainData->operationStart,
                                 'operationEnd' => $certainData->operationEnd,
-                                'slot' => $certainData->slot,
-                                'data' => $data,
+                                'slot' => $count,
+                                'data' => $data
                             ]; 
                         }
                         $pdf = PDF::loadView('fetch.recruiter.applicantAttendance', $applicantsAttendance);
-                        return $pdf->download('attendance_'.$certainData->operationId.'.pdf');
+                        return $pdf->stream('attendance_'.$certainData->operationId.'.pdf');
                     }
                 // PRINT ATTENDANCE
 
@@ -928,18 +929,18 @@ class RecruiterController extends Controller
                 // CONFIRMATION EMPLOYEES PASSWORD
 
                 // SUBMITTING ATTENDANCE INTO DB
-                    public function submitApplicantAttendance(Request $request){
+                    public function submitAppAttendance(Request $request){
                         $randomNumber = rand(00001,99999);
                         $year = date("Y");
                         $certainCode = $year.''.$randomNumber;                       
                         $data = operations::select('operationStart', 'operationEnd')->where([
                         ['certainOperation_id', '=', $request->operationId]])->first();
-                        $currentDateTime = date('F d, Y | h:i:A');
-                        $operationStart = date('F d, Y | | h:i:A',strtotime($data->operationStart));
-                        $operationEnd = date('F d, Y | | h:i:A',strtotime($data->operationEnd));
+                        $currentDateTime = date('m-d-Y h:i A');
+                        $operationStart = date('m-d-Y h:i A',strtotime($data->operationStart));
+                        $operationEnd = date('m-d-Y h:i A',strtotime($data->operationEnd));
                         if($currentDateTime > $operationEnd){
                             foreach ($request->applicantId as $index => $applicantId) {
-                                $submitAttendance = completedOperation::create([
+                                $submitAttendance = completed::create([
                                     'operation_id' => $request->operationId,
                                     'applicant_id' => $applicantId,
                                     'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
@@ -991,33 +992,33 @@ class RecruiterController extends Controller
 
                 // APPLICANT EXPERIENCE
                     public function applicantExperienceSoya(Request $request){ 
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completedOperation.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Soya']])->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Soya']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }
 
                     public function applicantExperienceCable(Request $request){ 
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completedOperation.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Cable']])->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Cable']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }  
 
                     public function applicantExperienceRice(Request $request){ 
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completedOperation.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Rice']])->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Rice']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }  
 
                     
                     public function applicantExperienceWood(Request $request){ 
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completedOperation.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Wood']])->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Wood']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }
                     
                     public function applicantExperiencePlyWood(Request $request){ 
-                        $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completedOperation.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Plywood']])->get();
+                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Plywood']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }
                 // APPLICANT EXPERIENCE

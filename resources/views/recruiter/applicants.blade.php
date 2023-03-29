@@ -30,9 +30,9 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
-                                        <a class="text-white nav-link me-3">
-                                            <span id="fetchFirstname"></span>
-                                            <span id="fetchLastname"></span>
+                                        <a class="nav-link me-3">
+                                            <span>{{ auth()->guard('employeesModel')->user()->firstname}}</span>
+                                            <span>{{ auth()->guard('employeesModel')->user()->lastname}}</span>
                                         </a>
                                     </li>
                                 </ul>

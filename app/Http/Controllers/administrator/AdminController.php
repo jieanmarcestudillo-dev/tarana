@@ -10,7 +10,7 @@ use App\Models\applicants;
 use App\Models\operations;
 use App\Models\backout;
 use App\Models\blockedApplicants;
-use App\Models\completedoperation;
+use App\Models\completed;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\employeesImport;
 use App\Imports\operationImport;
@@ -128,36 +128,36 @@ class AdminController extends Controller
             // ADD
                 public function addOperation(Request $request){ 
                     date_default_timezone_set('Asia/Manila');
-                    $currentDateTime = date('F d, Y | h:i: A');
-                    $newOperationStartDate = date('F d, Y | h:i: A',strtotime($request->addOperationStart));
-                    $newOperationEndDate = date('F d, Y | h:i: A',strtotime($request->addOperationEnd));
-                    if($currentDateTime > $newOperationStartDate && $currentDateTime = $newOperationStartDate){
-                        // invalid operation start date/time';
+                    $currentDateTime = date('m-d-Y h:i A');
+                    $newOperationStartDate = date('m-d-Y h:i A',strtotime($request->addOperationStart));
+                    $newOperationEndDate = date('m-d-Y h:i A',strtotime($request->addOperationEnd));
+                    if($currentDateTime > $newOperationStartDate){
+                        // INVALID OPERATION START | DATE AND TIME
                         return response()->json(4);
-                        exit();
-                    }else if($currentDateTime > $newOperationEndDate || $newOperationEndDate < $newOperationStartDate){
-                        // invalid operation end date/time';
-                        return response()->json(3);
                         exit();
                     }else if($newOperationStartDate == $newOperationEndDate){
                         // the date of both operation date and time must not the same';
                         return response()->json(2);
-                        exit();
-                    }else{         
+                        exit();               
+                    }else if($newOperationEndDate < $newOperationStartDate ){
+                        // invalid operation end date/time';
+                        return response()->json(3);
+                        exit();    
+                    }else{
                         $filename = $request->file('addOperationPhoto');
                         $imageName =   time().rand() . '.' .  $filename->getClientOriginalExtension();
                         $path = $request->file('addOperationPhoto')->storeAs('ship', $imageName, 'public');
                         $imageData['addOperationPhoto'] = '/storage/'.$path;
                         $addOperation = operations::create([
-                            'operationId' => $request->addOperationId,
-                            'photos' => $imageData['addOperationPhoto'],
-                            'shipName' => $request->addShipsName,
-                            'shipCarry' => $request->addShipsCarry,
-                            'operationStart' => $request->addOperationStart,
-                            'operationEnd' => $request->addOperationEnd,
-                            'slot' => $request->addApplicantsSlot,
-                            'foreman' => $request->allForemanAdd,
-                            'is_completed' => 0
+                        'operationId' => $request->addOperationId,
+                        'photos' => $imageData['addOperationPhoto'],
+                        'shipName' => $request->addShipsName,
+                        'shipCarry' => $request->addShipsCarry,
+                        'operationStart' => $request->addOperationStart,
+                        'operationEnd' => $request->addOperationEnd,
+                        'slot' => $request->addApplicantsSlot,
+                        'foreman' => $request->allForemanAdd,
+                        'is_completed' => 0
                         ]);
                         return response()->json($addOperation ? 1 : 0);
                         exit();
@@ -549,9 +549,8 @@ class AdminController extends Controller
 
                 // FETCH APPLICANTS ON CERTAIN OPERATION
                     public function showApplicantOnCertainOperation(Request $request){
-                        $data = completedOperation::join('applicants', 'completedOperation.applicant_id', '=', 'applicants.applicant_id')
-                        ->where('completedOperation.operation_id', '=', $request->operationId)
-                        ->orderBy('applicants.position')->get();
+                        $data = completed::join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+                        ->where('completed.operation_id', '=', $request->operationId)->orderBy('applicants.position')->get();
                         echo "
                         <table class='table table-bordered text-center align-middle'>
                             <thead> 
@@ -613,6 +612,7 @@ class AdminController extends Controller
                         $update->middlename=$request->input('updateEmployeeMiddlename');
                         $update->lastname=$request->input('updateEmployeeLastname');
                         $update->extention=$request->input('updateEmployeeExt');
+                        $update->gender=$request->input('updateEmployeesSex');
                         $update->status=$request->input('updateEmployeeStatus');
                         $update->birthday=$request->input('updateEmployeeBirthday');
                         $update->age=$request->input('updateEmployeeAge');
@@ -632,6 +632,7 @@ class AdminController extends Controller
                         $update->middlename=$request->input('updateEmployeeMiddlename');
                         $update->lastname=$request->input('updateEmployeeLastname');
                         $update->extention=$request->input('updateEmployeeExt');
+                        $update->gender=$request->input('updateEmployeesSex');
                         $update->status=$request->input('updateEmployeeStatus');
                         $update->birthday=$request->input('updateEmployeeBirthday');
                         $update->age=$request->input('updateEmployeeAge');

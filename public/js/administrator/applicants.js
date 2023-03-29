@@ -324,6 +324,7 @@ $(document).ready(function(){
                                 }).then((result) => {
                                 if (result) {
                                     $('#applicants').DataTable().ajax.reload();
+                                    $('#inactiveApplicants').DataTable().ajax.reload();
                                 }
                                 });
                             }else if(response == 0){

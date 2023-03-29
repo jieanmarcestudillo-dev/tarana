@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
@@ -12,7 +13,7 @@ use App\Models\operations;
 use App\Models\applied;
 use App\Models\declined;
 use App\Models\backout;
-use App\Models\completedOperation;
+use App\Models\completed;
 use App\Models\blockedApplicants;
 use Auth;    
 use Session;
@@ -90,6 +91,8 @@ class ApplicantsController extends Controller
                                 'emailAddress' => $request->applicantSignUpEmail,
                                 'password' => $hashed,
                                 'is_active' => 1,
+                                'personal_id' => '/storage/applicant_Id/noId.jpg',
+                                'personal_id2' => '/storage/applicant_Id/noId.jpg'
                             ]);
                             if($applicantSignUp){
                                 echo 1; // SUCCESSFULLY CREATE
@@ -187,7 +190,6 @@ class ApplicantsController extends Controller
                                         <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (recruiter) are invites you to join in the operation as $position from
                                         <span class='fw-bold'>$newOperationStartDate until $newOperationEndDate</span> to manage the $certainData->shipCarry of the $certainData->shipName Cargo Ship. If you are available to work at Subic Consolidated Project Inc., please respond to our invitation to notify the recruiter. Thank you, and may God bless the workers.</p>
                                             <button onclick=acceptInvitation('$certainData->operation_id') class='btn btn-success btn-sm'>Accept</button>
-                                            <button onclick=coWorkersDetails('$certainData->certainOperation_id') class='btn btn-secondary btn-sm'>Co-Workers</button>
                                             <button onclick=declineInvitation('$certainData->certainOperation_id') class='btn btn-danger btn-sm'>Decline</button>
                                     </div>
                                 </div>
@@ -226,7 +228,7 @@ class ApplicantsController extends Controller
                             <div class='col-lg-6 col-sm-12 g-0 gx-lg-5 text-center text-lg-start'>
                             <div class='card mb-3 shadow border-2 border rounded' style='width:100%'>
                                 <div class='row g-0'>
-                                        <img loading='lazy' src='$item->photos' class='card-img-top img-thumdnail' style='height:230px; width:100%;'>
+                                    <img loading='lazy' src='$item->photos' class='card-img-top img-thumdnail' style='height:230px; width:100%;' alt='ship'>
                                     <div class='col-md-12'>
                                         <ul class='list-group list-group-flush fw-bold'>      
                                             <li class='list-group-item'>
@@ -273,17 +275,14 @@ class ApplicantsController extends Controller
                                                         if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 0){
                                                             echo"
                                                                 <button onclick=acceptInvitation('$appliedData->operation_id') class='btn btn-sm btn-success px-4 py-2'>Accept</button>
-                                                                <button onclick=coWorkersDetails('$item->certainOperation_id') class='btn btn-sm btn-secondary px-3 py-2'>Co-Workers</button>
                                                                 <button onclick=declineInvitation('$item->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Decline</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick=coWorkersDetails('$item->certainOperation_id') class='btn btn-sm btn-secondary py-2'>Co-Workers</button>
                                                                 <button onclick=backOutOperation('$item->certainOperation_id') class='btn btn-sm btn-danger px-3 py-2'>Back Out</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 0 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick=coWorkersDetails('$item->certainOperation_id') class='btn btn-sm btn-secondary px-3 py-2'>Co-Workers</button>
                                                                 <button onclick=backOutOperation('$item->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                                             ";
                                                         }else{
@@ -335,16 +334,16 @@ class ApplicantsController extends Controller
                                 if($operationsData->isNotEmpty()){
                                     foreach($operationsData as $certainOperationsData){
                                         // APPLYING OPERATION
-                                        $applyingOperationStart = date('F d, Y | h:i:a',strtotime($certainOperationsData->operationStart));
-                                        $applyingOperationEnd  = date('F d, Y | h:i:a',strtotime($certainOperationsData->operationEnd));
+                                        $applyingOperationStart = date('m-d-Y h:i A',strtotime($certainOperationsData->operationStart));
+                                        $applyingOperationEnd  = date('m-d-Y h:i A',strtotime($certainOperationsData->operationEnd));
                                     }
                                     $applyingData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                                     ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1]])->get();
                                     if($applyingData->isNotEmpty()){
                                         foreach($applyingData as $certainApplyingData){
                                             // CHECK IF THEY ARE ALREADY SCHED ON SAME DATE/TIME
-                                            $scheduledOperationStart = date('F d, Y | h:i:a',strtotime($certainApplyingData->operationStart));
-                                            $scheduledOperationEnd = date('F d, Y | h:i:a',strtotime($certainApplyingData->operationEnd));
+                                            $scheduledOperationStart = date('m-d-Y h:i A',strtotime($certainApplyingData->operationStart));
+                                            $scheduledOperationEnd = date('m-d-Y h:i A',strtotime($certainApplyingData->operationEnd));
                                         }   
                                         if($applyingOperationStart == $scheduledOperationStart){
                                             echo 3; // NOT AVAILABLE ON THAT DAY
@@ -561,50 +560,8 @@ class ApplicantsController extends Controller
                                     </li>
                                 </ul>
                             </div>
-                            <div class='card col-lg-6 col-sm-12 text-center text-lg-start rounded-0'>
-                            <div class='card-body' style='height:280px; overflow-y:auto;'>
-                                <h5 class='card-title'>CO-WORKERS</h5>
-                                <table class='table table-bordered  text-center align-middle'>
-                                    <thead>
-                                        <tr>
-                                            <th scope='col'>#</th>
-                                            <th scope='col'>Full Name</th>
-                                            <th scope='col'>Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            ";
-                            $coWorkers = applied::join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                            ->where([['applied.operation_id', '=', $certainData->operation_id],['is_recruited', '=', 1],
-                            ['applicants.applicant_id', '!=',  auth()->guard('applicantsModel')->user()->applicant_id]])
-                            ->orderBy('applicants.position' )
-                            ->get(['applicants.lastname','applicants.firstname','applicants.extention', 'applicants.position']);
-                                foreach($coWorkers as  $count => $applicantData){
-                                    $coWorker = $applicantData->firstname.' '.$applicantData->lastname.' '.$applicantData->extention;
-                                    $count = $count +1;
-                                    echo"
-                                        <tr>
-                                            <td class='fw-bold'>$count</td>
-                                            <td>$coWorker</td>
-                                            <td>$applicantData->position</td>
-                                        </tr>
-                                    ";
-                                }
-                            echo"
-                            </tbody>              
-                            </table>
-                            </div>   
-                            </div>   
-                            </div>";
+                        </div>";
                     }
-                }else{
-                    echo "
-                    <div class='row applicantNoSched' style='padding-top:15rem; color: #800000;'>
-                        <div class='alert alert-light text-center fs-4' role='alert' style='color: #800000;'>
-                            NO SCHEDULED YET
-                        </div>
-                    </div>
-                    ";
                 }
             }
         // FETCH
@@ -618,12 +575,12 @@ class ApplicantsController extends Controller
         // ROUTES
 
         // FETCH
-            public function applicantCompletedOperation(Request $request){
-                $data = completedOperation::join('operations', 'completedOperation.operation_id', '=', 'operations.certainOperation_id')
-                ->join('employees', 'employees.employee_id', '=', 'completedOperation.recruiter_id')
-                ->where([['completedOperation.applicant_id', '=', auth()->guard('applicantsModel')->user()->applicant_id]])
-                ->orderBy('completedOperation.completed_id')->get(['operations.*', 'employees.lastname', 'employees.firstname', 'employees.extention']);
-                return response()->json($data);
+            public function applicantCompletedOperation(Request $request){  
+                $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                ->join('employees', 'employees.employee_id', '=', 'completed.recruiter_id')
+                ->where('completed.applicant_id', '=', auth()->guard('applicantsModel')->user()->applicant_id)
+                ->get(['operations.*', 'employees.lastname', 'employees.firstname', 'employees.extention']);
+                return response()->json($data); 
             }
         // FETCH
     // COMPLETED DASHBOARD

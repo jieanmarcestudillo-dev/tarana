@@ -5,7 +5,7 @@ $(document).ready(function(){
         }
     });
     showOperationDetails();
-    totalRecruitedApplicantTable();
+    totalApplicantTable();
     badgeAcceptInvitation();
     badgeApplicantTotal();
     badgeRecommendApplicant();
@@ -28,9 +28,9 @@ $(document).ready(function(){
 // FETCH CERTAIN OPERATION
 
 // FETCH APPLICANT FOR CERTAIN OPERATION IN TABLES
-    function totalRecruitedApplicantTable(){
+    function totalApplicantTable(){
         operationId = localStorage.getItem('operationId'); 
-        var table = $('#viewRecruitedApplicantTable').DataTable({
+        var table = $('#viewApplicantTable').DataTable({
             "language": {
                 "emptyTable": "No Applicants Found"
             },
@@ -43,7 +43,7 @@ $(document).ready(function(){
             "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
             "iDisplayLength": 25,
             "ajax":{
-                "url":"/totalRecruitedApplicants",
+                "url":"/totalApplicantOfCertainOperation",
                 "dataSrc": "",
                 "data": {
                     "operationId": operationId
@@ -61,7 +61,7 @@ $(document).ready(function(){
                 {"data":"position"},
                 {"data":"phoneNumber"},
                 { "mData": function (data, type, row) {
-                    return "<button data-title='Applicant Information' type='button' onclick=viewApplicants("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button> <button data-title='Cancel Recruitment?' type='button' onclick=cancelRecruitApplicants("+data.applicant_id+") class='btn btn-outline-danger btn-sm rounded-0 py-2 px-3'><i class='bi bi-x-lg'></i></button>";
+                    return "<button data-title='Applicant Information' type='button' onclick=viewApplicants("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button> <button data-title='Recruit Applicant?' type='button' onclick=recruitApplicants("+data.applicant_id+") class='btn btn-outline-success btn-sm rounded-0 py-2 px-3'><i class='bi bi-check2-all'></i></button>"
                 }},
             ],
             order: [[1, 'asc']],
@@ -74,6 +74,62 @@ $(document).ready(function(){
         }).draw();
     }
 // FETCH APPLICANT FOR CERTAIN OPERATION IN TABLES
+
+// BADGE FOR APPLICANT TOTAL
+    function badgeApplicantTotal(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForTotalApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForTotalApplicants").html(data);
+            }
+        })
+    }
+// BADGE FOR APPLICANT TOTAL
+
+// BADGE FOR APPLICANT TOTAL
+    function badgeRecommendApplicant(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForRecommendApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForRecommendApplicants").html(data);
+            }
+        })
+    }
+// BADGE FOR APPLICANT TOTAL
+
+// BADGE FOR APPLICANT TOTAL
+    function badgeAcceptInvitation(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeAcceptInvitation",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+            $("#badgeAcceptInvitation").html(data);
+            }
+        })
+    }
+// BADGE FOR APPLICANT TOTAL
+
+// BADGE FOR APPLICANT TOTAL
+    function badgeForAll(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForAll",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForAll").html(data);
+            }
+        })
+    }
+// BADGE FOR APPLICANT TOTAL
 
 // SHOW CERTAIN APPLICANTS DETAILS
     function viewApplicants(id){
@@ -184,105 +240,49 @@ $(document).ready(function(){
                 month: 'long',
                 year: 'numeric'
             });
-            var newDate = new Date(response[0].birthday);
+            var newDate = new Date(response.birthday);
             $('#applicantsBirthday').html(dtFormat.format(newDate));    
         })    
     }
 // SHOW CERTAIN APPLICANTS DETAILS
 
-// CAMCEL RECRUIT APPLICANTS
-    function cancelRecruitApplicants(id){
+// RECRUIT APPLICANTS
+    function recruitApplicants(id){
         applicantId = id;
         operationId = localStorage.getItem('operationId'); 
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want to CANCEL this applicant's RECRUITMENT?",
+            text: "Do you want to RECRUIT this applicant?",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d72323',
-            confirmButtonText: 'Yes, Cancel it!'
+            confirmButtonText: 'Yes, Recruit it!'
             }).then((result) => {
             if (result.isConfirmed) {
                     $.ajax({
-                    url: "/cancelRecruitment",
+                    url: "/recruitApplicants",
                     type: 'GET',
                     dataType: 'json',
                     data: {applicantId: applicantId, operationId: operationId},
                 });
                 Swal.fire({
-                    title: 'CANCEL SUCCESSFULY',
-                    icon: 'info',
+                    title: 'RECRUIT SUCCESSFULY',
+                    icon: 'success',
                     showConfirmButton: false,
                     timer: 1000,
                 }).then((result) => {
                 if (result) {
                     badgeApplicantTotal();
-                    badgeForRecruitedApplicants();
                     showOperationDetails();
-                    $('#viewRecruitedApplicantTable').DataTable().ajax.reload();
+                    badgeForRecruitedApplicants();
+                    $('#viewApplicantTable').DataTable().ajax.reload();
                 }
                 });
             }
         })
     }
-// CAMCEL RECRUIT APPLICANTS
-
-// BADGE FOR APPLICANT TOTAL
-    function badgeApplicantTotal(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForTotalApplicants",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForTotalApplicants").html(data);
-            }
-        })
-    }
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR APPLICANT TOTAL
-    function badgeRecommendApplicant(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForRecommendApplicants",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForRecommendApplicants").html(data);
-            }
-        })
-    }
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR APPLICANT TOTAL
-    function badgeAcceptInvitation(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeAcceptInvitation",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-            $("#badgeAcceptInvitation").html(data);
-            }
-        })
-    }
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR APPLICANT TOTAL
-    function badgeForAll(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForAll",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForAll").html(data);
-            }
-        })
-    }
-// BADGE FOR APPLICANT TOTAL
+// RECRUIT APPLICANTS
 
 // BADGE FOR RECRUITED APPLICANT
     function badgeForRecruitedApplicants(){

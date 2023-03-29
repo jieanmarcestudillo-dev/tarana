@@ -128,7 +128,7 @@ $(document).ready(function(){
             month: 'long',
             year: 'numeric'
         });
-        var newDate = new Date(response[0].birthday);
+        var newDate = new Date(response.birthday);
         $('#applicantsBirthday').html(dtFormat.format(newDate));    
     })    
     }
@@ -159,62 +159,64 @@ $(document).ready(function(){
                     showCancelButton: true,
                     confirmButtonText: 'Submit',
                     }).then((response) => {
-                        if(response.value === ""){
-                            Swal.fire(
-                                'Cancel Failed',
-                                'Please Enter Your Password',
-                                'error'
-                            )
-                        }else{
-                            $.ajax({
-                                url: '/confirmationPassword',
-                                type: 'GET',
-                                dataType: 'text',
-                                data: {employeePassword: response.value},
-                                success:function(response2){
-                                    if(response2 == 1){
-                                        $.ajax({
-                                            url: '/submitApplicantAttendance',
-                                            method: 'POST',
-                                            dataType: 'text',
-                                            data:{operationId:operationId,applicantId:applicantId},
-                                            success: function(response3) {
-                                                if(response3 == 1){
-                                                    Swal.fire({
-                                                        title: 'OPERATION WAS COMPLETE SUCCESSFULLY',
-                                                        icon: 'success',
-                                                        showConfirmButton: false,
-                                                        timer: 1500,
-                                                    }).then((result) => {
-                                                    if (result) {
-                                                        recruiterFormedGroup();
-                                                    }
-                                                    });
-                                                }else if(response3 == 2){
-                                                    Swal.fire(
-                                                        'SUBMIT FAILED',
-                                                        'The operation was not already done',
-                                                        'error'
-                                                    )
-                                                }else if(response3 == 3){
-                                                    Swal.fire(
-                                                        'SUBMIT FAILED',
-                                                        'Operation still operate, please wait until done',
-                                                        'error'
-                                                    )
+                    if(response.value === ""){
+                        Swal.fire(
+                            'Cancel Failed',
+                            'Please Enter Your Password',
+                            'error'
+                        )
+                    }else{
+                        $.ajax({
+                            url: '/confirmationPassword',
+                            type: 'GET',
+                            dataType: 'text',
+                            data: {employeePassword: response.value},
+                            success:function(response2){
+                                if(response2 == 1){
+                                    $.ajax({
+                                        url: '/submitAppAttendance',
+                                        method: 'POST',
+                                        dataType: 'text',
+                                        data:{operationId:operationId , applicantId:applicantId},
+                                        success: function(response3) {
+                                            if(response3 == 1){
+                                                Swal.fire({
+                                                    title: 'OPERATION WAS COMPLETE SUCCESSFULLY',
+                                                    icon: 'success',
+                                                    showConfirmButton: false,
+                                                    timer: 1500,
+                                                }).then((result) => {
+                                                if (result) {
+                                                    recruiterFormedGroup();
                                                 }
+                                                });
+                                            }else if(response3 == 2){
+                                                Swal.fire(
+                                                    'SUBMIT FAILED',
+                                                    'The operation was not already done',
+                                                    'error'
+                                                )
+                                            }else if(response3 == 3){
+                                                Swal.fire(
+                                                    'SUBMIT FAILED',
+                                                    'Operation still operate, please wait until done',
+                                                    'error'
+                                                )
+                                            }else{
+                                                console.log(response3);
                                             }
-                                        });                                
-                                    }else if(response2 == 0){
-                                            Swal.fire(
-                                            'Wrong Password',
-                                            'Please re-type your password',
-                                            'error'
-                                            )
-                                    }
+                                        }
+                                    });                                
+                                }else if(response2 == 0){
+                                        Swal.fire(
+                                        'Wrong Password',
+                                        'Please re-type your password',
+                                        'error'
+                                        )
                                 }
-                            });
-                        }
+                            }
+                        });
+                    }
                 });
             }
         });

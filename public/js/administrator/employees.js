@@ -260,6 +260,7 @@ $(document).ready(function(){
                     if(response == 1){
                         // OPERATION SUBMIT SUCCESSFULY
                         $("#addEmployeeForm").trigger("reset");
+                        $("#fileImport").trigger("reset");
                         $('#activeEmployees').DataTable().ajax.reload();
                         Swal.fire({
                             position: 'center',

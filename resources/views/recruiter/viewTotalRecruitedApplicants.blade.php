@@ -66,7 +66,7 @@
                                     <div class='col-2 text-end'>
                                     </div>
                                 </div>   
-                                <table class='table table-border text-center align-middle' id='viewRecruitedApplicantTable'>
+                                <table class='table table-bordered text-center align-middle' id='viewRecruitedApplicantTable'>
                                     <thead class='text-center'>
                                         <th class='text-center'>#</th>
                                         <th class='text-center'>Full Name</th>
@@ -85,7 +85,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/recruiter/viewRecruitedApplicants.js') }}"></script>
+        <script src="{{ asset('/js/recruiter/recruitedApplicants.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 

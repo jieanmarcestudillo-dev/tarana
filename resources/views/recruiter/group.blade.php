@@ -51,7 +51,7 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/recruiter/formedGroup.js') }}"></script>
+        <script src="{{ asset('/js/recruiter/certainGroup4.js') }}"></script>
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}

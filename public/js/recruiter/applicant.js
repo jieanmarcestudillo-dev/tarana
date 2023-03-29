@@ -145,8 +145,8 @@ $(document).ready(function(){
             $('#personalId').attr("src", response.personal_id)
             $('#personalId2').attr("src", response.personal_id2)
         }else{
-            $('#personalId').attr("src","/storage/applicant_id/noId.jpg")
-            $('#personalId2').attr("src","/storage/applicant_id/noId.jpg")
+            $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
+            $('#personalId2').attr("src","/storage/applicant_Id/noId.jpg")
         }        
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',

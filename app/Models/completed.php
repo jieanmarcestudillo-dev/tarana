@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class completedOperation extends Model
+class completed extends Model
 {
     use HasFactory;
 
-    protected $guard = 'completedOperation';
+    protected $guard = 'completed';
 
-    protected $table = 'completedoperation';
+    protected $table = 'completed';
     
     protected $guard_name = 'web';
 

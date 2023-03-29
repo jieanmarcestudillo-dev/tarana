@@ -76,9 +76,9 @@ return [
             'provider' => 'declinedModel',
         ],
 
-        'completedOperation' => [
+        'completed' => [
             'driver' => 'session',
-            'provider' => 'completedOperation',
+            'provider' => 'completed',
         ],
     ],
 
@@ -140,9 +140,9 @@ return [
             'model' => App\Models\declined::class
         ],
 
-        'completedOperation' => [
+        'completed' => [
             'driver' => 'eloquent',
-            'model' => App\Models\completedOperation::class
+            'model' => App\Models\completed::class
         ],
     ],
 

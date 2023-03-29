@@ -20,6 +20,8 @@ use App\Http\Controllers\homeController;
     use App\Http\Controllers\recruiter\RecruiterController;  
 // RECRUITER USE
 
+    
+// Route::domain('tarana.mleystock-pile.com')->group(function(){
 // APPLICANT ROUTES
     // APPLICANT CREDENTIALS
         Route::get('applicantLoginFunction', [ApplicantsController::class,'applicantLoginFunction'])->name('login');
@@ -211,9 +213,10 @@ use App\Http\Controllers\homeController;
         // GET
             
         // POST
-            Route::post('submitApplicantAttendance', [RecruiterController::class,'submitApplicantAttendance']);
+            Route::post('submitAppAttendance',[RecruiterController::class,'submitAppAttendance']);
             Route::post('editRecruiterInfo', [RecruiterController::class,'editRecruiterInfo']);
             Route::post('updateUsersPassword', [RecruiterController::class,'updateUsersPassword']);
         // POST
     // FETCH DATA
 // RECRUITER ROUTES
+// });

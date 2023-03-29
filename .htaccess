@@ -1,0 +1,21 @@
+# <IfModule mod_rewrite.c>
+
+#     <IfModule mod_negotiation.c>
+#         Options -MultiViews -Indexes
+#     </IfModule>
+#     RewriteEngine On
+#     RewriteBase/ 
+#     RewriteRule ^-$public/index.php[L]
+#     RewriteRule ^((?!public/).*)$ public/$1 [L]
+#     RewriteCond %{REQUEST_URI} (.+)/$
+#     RewriteCond %{REQUEST_URI} (.+)/$
+#     RewriteCond %{REQUEST_FILENAME} !-d
+#     RewriteCond %{REQUEST_FILENAME} !-f
+#     RewriteRule ^ %1 [L,R=301]
+# </IfModule>
+
+# Options -Indexes
+# <Files .env>
+#     Order allow,deny
+#     Deny from all
+# </Files>

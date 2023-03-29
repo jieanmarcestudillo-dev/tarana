@@ -524,7 +524,7 @@
                         &copy; 2023. All Rights Reserved.
                     </div>
                     <div class="credits text-secondary text-center text-md-start mt-2 fs-7">
-                        Built by <a href="https://bootstrapbrain.com/" class="link-secondary text-decoration-none">BootstrapBrain</a> with <span class="text-primary">&#9829;</span>
+                        Built by <a href="#" class="link-secondary text-decoration-none">In The </a> Script Team<span class="text-primary">&#9829;</span>
                     </div>
                     </div>
 

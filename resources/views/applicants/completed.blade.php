@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- CSS --}}
         <link href="{{ asset('/css/applicants/applicantsDashboard.css') }}" rel="stylesheet">
@@ -29,9 +30,9 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
-                                        <a class="text-white nav-link me-3">
-                                            <span id="fetchFirstname"></span>
-                                            <span id="fetchLastname"></span>
+                                        <a class="nav-link me-3">
+                                            <span>{{ auth()->guard('applicantsModel')->user()->firstname}}</span>
+                                            <span>{{ auth()->guard('applicantsModel')->user()->lastname}}</span>
                                         </a>
                                     </li>
                                 </ul>

@@ -69,8 +69,8 @@ $(document).ready(function(){
 
 // FUNCTION FOR PASSWORD ENABLE
     function seePassword() {
-        var x = document.getElementById("appSignupPassword");
-        var a = document.getElementById("appSignupConfirmPass");
+        var x = document.getElementById("applicantSignUpPassword");
+        var a = document.getElementById("applicantSignUpConfirmPassword");
         if (x.type === 'password' && a.type === 'password'){
             x.type ="text";
             a.type ="text";
@@ -81,6 +81,7 @@ $(document).ready(function(){
         
     }
 // FUNCTION FOR PASSWORD ENABLE
+
 
 // FUNCTION FOR PASSWORD ENABLE
 function seePassword2() {
