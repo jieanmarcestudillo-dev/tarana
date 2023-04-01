@@ -142,7 +142,7 @@
                             </div>
                             <div class="row g-1 mt-3">
                                 <div class="col-4">
-                                    <label class="form-label">Applicants Slot:</label>
+                                    <label class="form-label">Workers Slot:</label>
                                     <input type="number" value="0" min='0' class="form-control shadow-sm bg-body rounded text-center" id="addApplicantsSlot" name="addApplicantsSlot">
                                 </div>
                                 <div class="col-8">

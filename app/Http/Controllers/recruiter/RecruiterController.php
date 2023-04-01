@@ -443,7 +443,7 @@ class RecruiterController extends Controller
                                     <div class='card-body' style='height:280px; overflow-y:auto;'>
                                     <div class='row'>
                                         <div class='col-9'>
-                                            <h5 class='card-title'>Applicants Participated</h5>
+                                            <h5 class='card-title'>Workers Participated</h5>
                                         </div>
                                         <div class='col-3 text-end'>
                                             <a href='printCompletedOperation/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>
@@ -768,6 +768,7 @@ class RecruiterController extends Controller
                                             <ul class='list-group list-group-flush'>
                                                 <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
                                                 <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
+                                                <li class='list-group-item fw-bold'>Slot:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->slot out of $certainData->totalWorkers Workers</a></li>
                                                 <li class='list-group-item fw-bold text-success'>Operation Start: </br>
                                                     <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>
                                                     <a class='nav-link text-dark'>Time: <span class='fw-normal'>$startTime</a>
@@ -787,10 +788,10 @@ class RecruiterController extends Controller
                                 ['applied.is_recruited', '!=' , 0]])->orderBy('applicants.position')->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
-                                    <div class='card-body' style='height:280px; overflow-y:auto;'>
+                                    <div class='card-body' style='height:300px; overflow-y:auto;'>
                                     <div class='row'>
                                         <div class='col-6'>
-                                            <h5 class='card-title text-start'>Applicants Recruited</h5>
+                                            <h5 class='card-title text-start'>Workers Recruited</h5>
                                         </div>
                                         <div class='col-6 text-end align-middle'>
                                             <a href='printAttendance/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>

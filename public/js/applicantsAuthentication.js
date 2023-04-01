@@ -35,7 +35,8 @@ $(document).ready(function(){
                       })
                       Toast.fire({
                         icon: 'success',
-                        title: 'Signed in successfully'
+                        title: 'Signed in successfully',
+                        text: 'Welcome Workers',
                       })
             }
             else if(response == 0){
@@ -82,7 +83,6 @@ $(document).ready(function(){
     }
 // FUNCTION FOR PASSWORD ENABLE
 
-
 // FUNCTION FOR PASSWORD ENABLE
 function seePassword2() {
     var x = document.getElementById("applicantPassword");
@@ -98,51 +98,122 @@ function seePassword2() {
 // SIGN UP FUNCTION
     $('#applicantRegistrationForm').on( 'submit' , function(e){
             e.preventDefault();
-            var data = $('#applicantRegistrationForm').serialize();
-            $.ajax({
-            url:"/applicantSignUpFunction",
-            method:"POST",
-            dataType:"text",
-            data:data,
-            success: function(response) {
-            if(response == 1){
-            Swal.fire({
-            icon: 'success',
-            title: 'REGISTER SUCCESSFULLY',
-            showConfirmButton: false,
-            timer: 1500
-            }).then((result) => {
-            if (result) {
-                $("#applicantRegistrationForm").trigger("reset");
+            var email = $('#applicantSignUpEmail').val();
+            var password = $('#applicantSignUpPassword').val();
+            var confirmPassword = $('#applicantSignUpConfirmPassword').val();
+            if(password != confirmPassword){
+                Swal.fire(
+                    'PASSWORD MISMATCH',
+                    'Please, check your password',
+                    'error'
+                )      
             }
-            })
+            else if(password < 6 || password > 20){
+                Swal.fire(
+                    'PASSWORD FAILED',
+                    'The password must be longer than 6 characters and less than 20 characters',
+                    'error'
+                )     
+            }else if(password === 'password'){
+                Swal.fire(
+                    'PASSWORD FAILED',
+                    'The password can not be set to password',
+                    'error'
+                )   
+            }else{
+                Swal.fire({
+                    title: 'Have you ever worked before?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        $.ajax({
+                            url:"/applicantSignUpFunction",
+                            method:"POST",
+                            dataType:"text",
+                            data:{email:email,password:password,isPro:1},
+                            success: function(response) {
+                            if(response == 1){
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'REGISTER SUCCESSFULLY',
+                            showConfirmButton: false,
+                            timer: 1500
+                            }).then((result) => {
+                            if (result) {
+                                $("#applicantRegistrationForm").trigger("reset");
+                            }
+                            })
+                            }
+                            else if(response == 2){
+                            Swal.fire(
+                                'PASSWORD MISMATCH',
+                                'Please, check your password',
+                                'error'
+                            )          
+                            }
+                            else if(response == 0){
+                            Swal.fire(
+                            'SORRY REGISTRATION FAILED',
+                            'Sorry, please re-enter your credentials',
+                            'error'
+                            )
+                            }
+                            else if(response == 3){
+                            Swal.fire(
+                            'EMAIL ADDRESS NOT AVAILABLE',
+                            'Sorry, please choose another valid email',
+                            'error'
+                            )
+                            }
+                            },
+                            error:function(er){
+                            console.log(er)
+                            }
+                        });
+                    }else if(result.isDenied) {
+                        $.ajax({
+                            url:"/applicantSignUpFunction",
+                            method:"POST",
+                            dataType:"text",
+                            data:{email:email,password:password,isPro:0},
+                            success: function(response) {
+                            if(response == 1){
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'REGISTER SUCCESSFULLY',
+                            showConfirmButton: false,
+                            timer: 1500
+                            }).then((result) => {
+                            if (result) {
+                                $("#applicantRegistrationForm").trigger("reset");
+                            }
+                            })
+                            }                   
+                            else if(response == 2){
+                            Swal.fire(
+                            'EMAIL ADDRESS NOT AVAILABLE',
+                            'Sorry, please choose another valid email',
+                            'error'
+                            )
+                            }
+                            else{
+                            Swal.fire(
+                            'SORRY REGISTRATION FAILED',
+                            'Sorry, please re-enter your credentials',
+                            'error'
+                            )
+                            }
+                            },
+                            error:function(er){
+                            console.log(er)
+                            }
+                        });
+                    }
+                })
             }
-            else if(response == 2){
-            Swal.fire(
-                'PASSWORD MISMATCH',
-                'Please, check your password',
-                'error'
-            )          
-            }
-            else if(response == 0){
-            Swal.fire(
-            'SORRY REGISTRATION FAILED',
-            'Sorry, please re-enter your credentials',
-            'error'
-            )
-            }
-            else if(response == 3){
-            Swal.fire(
-            'EMAIL ADDRESS NOT AVAILABLE',
-            'Sorry, please choose another valid email',
-            'error'
-            )
-            }
-            },
-            error:function(er){
-            console.log(er)
-            }
-        });
     });
 // SIGN UP FUNCTION
 

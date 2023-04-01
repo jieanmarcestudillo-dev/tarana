@@ -24,6 +24,7 @@ class operations extends Model
         'shipCarry',
         'operationStart',
         'operationEnd',
+        'totalWorkers',
         'slot',
         'foreman',
         'status',

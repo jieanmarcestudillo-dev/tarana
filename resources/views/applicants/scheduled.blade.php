@@ -42,7 +42,7 @@
 
                 {{-- MAIN CONTENT --}}
                     <div class="container-fluid mainBar">
-                        <div class='mb-4' id="fetchAllSchedule"></div>
+                        <div class='mb-4 row' id="fetchAllSchedule"></div>
                     </div>
                 {{-- MAIN CONTENT --}}
             </div>

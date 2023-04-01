@@ -38,6 +38,7 @@ class applicants extends Authenticatable
         'password',
         'personal_id1',
         'personal_id2',
+        'is_pro',
         'is_active',
         'is_utilized',
         'is_blocked'

@@ -79,29 +79,22 @@ class ApplicantsController extends Controller
 
             // APPLICANTS SIGNUP
                 public function applicantSignUpFunction(Request $request){
-                    $existingEmail = applicants::select('emailAddress')->where('emailAddress','=',$request->applicantSignUpEmail)->get();
+                    $existingEmail = applicants::select('emailAddress')->where('emailAddress','=',$request->email)->get();
                     if($existingEmail->isNotEmpty()){
-                        return response()->json(3); // CHOOSE ANOTHER EMAIL
+                        return response()->json(2); // CHOOSE ANOTHER EMAIL
                     }else{
-                        if($request->applicantSignUpPassword != $request->applicantSignUpConfirmPassword){
-                            return response()->json(2); // PASSWORD MISMATCH
-                        }else{
-                            $hashed = Hash::make($request->applicantSignUpPassword);
-                            $applicantSignUp = applicants::create([
-                                'emailAddress' => $request->applicantSignUpEmail,
-                                'password' => $hashed,
-                                'is_active' => 1,
-                                'personal_id' => '/storage/applicant_Id/noId.jpg',
-                                'personal_id2' => '/storage/applicant_Id/noId.jpg'
-                            ]);
-                            if($applicantSignUp){
-                                echo 1; // SUCCESSFULLY CREATE
-                                exit();
-                            }else{
-                                echo 0; // ERROR ON BACKEND
-                                exit();
-                            }
-                        }
+                        $applicantSignUp = applicants::create([
+                            'photos' => '/storage/applicants/defaultImage.png',
+                            'emailAddress' => $request->email,
+                            'password' => Hash::make($request->password),
+                            'is_pro' => $request->isPro,
+                            'is_active' => 1,
+                            'is_blocked' => 0,
+                            'is_utilized' => 0,
+                            'personal_id' => '/storage/applicant_Id/noId.jpg',
+                            'personal_id2' => '/storage/applicant_Id/noId.jpg'
+                        ]);
+                        return response()->json($applicantSignUp ? 1 : 0);
                     }
                 }
             // APPLICANTS SIGNUP
@@ -216,7 +209,7 @@ class ApplicantsController extends Controller
         // FETCH
             // FETCH APPLICANT OPERATION
                 public function applicantOperation(Request $request){
-                    $data = operations::where([['is_completed', '=', 0],['foreman' , '!=', 0]])->with('employees', 'applicants')->get();
+                    $data = operations::where([['is_completed', '=', 0],['foreman' , '!=', 0]])->orderBy('operationStart')->with('employees', 'applicants')->get();
                     if($data->isNotEmpty()){
                         foreach($data as $item){
                             $operationStartDate = date('F d, Y',strtotime($item->operationStart));
@@ -244,10 +237,10 @@ class ApplicantsController extends Controller
                                             <li class='list-group-item'>
                                                 <div class='row'>
                                                     <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                                        Foreman: <span class='fw-normal'>$recruiter</span>                                                    
+                                                        Accepted By: <span class='fw-normal'>$recruiter</span>                                                    
                                                     </div>
                                                     <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                        Available Slot:<span class='fw-normal'> $item->slot Applicants</span>
+                                                        Available Workers:<span class='fw-normal'> $item->slot out of $item->totalWorkers</span>
                                                     </div>
                                                 </div>
                                             </li>
@@ -516,51 +509,53 @@ class ApplicantsController extends Controller
                         $operationEndDate = date('F d, Y',strtotime($certainData->operationEnd));
                         $operationEndTime = date('D | h:i: A ',strtotime($certainData->operationEnd)); 
                         $recruiter = $certainData->firstname.' '.$certainData->lastname.' '.$certainData->extention;
+                        $coWorkers = $certainData->totalWorkers - 1;
                         echo"
-                        <div class='row g-0'>
-                            <div class='card col-lg-6 col-sm-12 text-center text-lg-start'>
-                                <img loading='lazy' src='$certainData->photos' class='card-img-top img-thumdnail' style='height:230px; width:100%;'>
-                                <ul class='list-group list-group-flush fw-bold'>      
-                                    <li class='list-group-item'>
-                                        <div class='row'>
-                                            <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                                Ship's Name: <span class='fw-normal'> $certainData->shipName</span>
+                            <div class='col-lg-6 col-sm-12 text-center text-lg-start gy-3'>
+                                <div class='card shadow-lg'>
+                                    <img loading='lazy' src='$certainData->photos' class='card-img-top img-fluid' style='height:230px; width:100%;'>
+                                    <ul class='list-group list-group-flush fw-bold'>      
+                                        <li class='list-group-item'>
+                                            <div class='row'>
+                                                <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
+                                                    Ship's Name: <span class='fw-normal'> $certainData->shipName</span>
+                                                </div>
+                                                <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
+                                                    Ship's Carry:<span class='fw-normal'> $certainData->shipCarry</span>
+                                                </div>
                                             </div>
-                                            <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                Ship's Carry:<span class='fw-normal'> $certainData->shipCarry</span>
+                                        </li>
+                                        <li class='list-group-item'>
+                                            <div class='row'>
+                                                <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
+                                                    Accepted By: <span class='fw-normal'>$recruiter</span>                                                    
+                                                </div>
+                                                <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
+                                                    Co-Workers:<span class='fw-normal'> $coWorkers Total</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class='list-group-item'>
-                                        <div class='row'>
-                                            <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                                Foreman: <span class='fw-normal'>$recruiter</span>                                                    
+                                        </li>
+                                        <li class='list-group-item fw-bold' style='color:#'>    
+                                            <div class='row'>
+                                                <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
+                                                    <p class='fw-bold text-success'>Operation Start:</p>
+                                                    <a class='fw-bold text-dark nav-link' style='margin-top:-13px;'>Date: <span class='fw-normal'>$operationStartDate</span></a>
+                                                    <a class='fw-bold text-dark nav-link'>Time: <span class='fw-normal'>$operationStartTime</span></a>
+                                                </div>
+                                                <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
+                                                    <p class='fw-bold text-danger'>Operation End:</p>
+                                                    <a class='fw-bold text-dark nav-link' style='margin-top:-13px;'>Date: <span class='fw-normal'>$operationEndDate</span></a>
+                                                    <a class='fw-bold text-dark nav-link'>Time: <span class='fw-normal'>$operationEndTime</span></a>
+                                                </div>
                                             </div>
-                                            <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                Total Applicants:<span class='fw-normal'> $certainData->slot</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class='list-group-item fw-bold' style='color:#'>    
-                                        <div class='row'>
-                                            <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                <p class='fw-bold text-success'>Operation Start:</p>
-                                                <a class='fw-bold text-dark nav-link' style='margin-top:-13px;'>Date: <span class='fw-normal'>$operationStartDate</span></a>
-                                                <a class='fw-bold text-dark nav-link'>Time: <span class='fw-normal'>$operationStartTime</span></a>
-                                            </div>
-                                            <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                <p class='fw-bold text-danger'>Operation End:</p>
-                                                <a class='fw-bold text-dark nav-link' style='margin-top:-13px;'>Date: <span class='fw-normal'>$operationEndDate</span></a>
-                                                <a class='fw-bold text-dark nav-link'>Time: <span class='fw-normal'>$operationEndTime</span></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class='list-group-item text-center text-lg-end'>
-                                        <button onclick=backOutOperation('$certainData->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
-                                    </li>
-                                </ul>
+                                        </li>
+                                        <li class='list-group-item text-center text-lg-end'>
+                                            <button onclick=backOutOperation('$certainData->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>";
+                        ";
                     }
                 }
             }
