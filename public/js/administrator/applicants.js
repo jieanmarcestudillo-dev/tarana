@@ -25,7 +25,7 @@ $(document).ready(function(){
         "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
         "iDisplayLength": 25,
         "ajax":{
-            "url":"/getAllApplicantsData",
+            "url":"/getAdminAllApplicantsData",
             "dataSrc": "",
         },
         "columns":[
@@ -37,7 +37,7 @@ $(document).ready(function(){
             {"data":"position"},
             {"data": "applicant_id",
                 mRender: function (data, type, row) {
-                return '<button type="button" data-title="View Applicants?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye-fill"></i></button> <button type="button" onclick=deactivateApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-danger btn-sm py-2 px-3" data-title="Deactivate Applicants?"><i class="bi bi-bucket-fill"></i></button>  <button type="button" data-title="Blocked Applicants?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-dark btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-x-lg"></i></button>'
+                return '<button type="button" data-title="View Applicant?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=deactivateApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-danger btn-sm py-2 px-3" data-title="Deactivate Applicant?"><i class="bi bi-trash3"></i></button>  <button type="button" data-title="Blocked Applicant?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-dark btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-x-lg"></i></button> <button type="button" data-title="Print Applicant?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
             }
             }
         ],
@@ -78,7 +78,7 @@ $(document).ready(function(){
                 {"data":"phoneNumber"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View Applicants?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-eye-fill"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate Applicants?"><i class="bi bi-person-check-fill"></i></button> <button type="button" onclick=blockedApplicant('+data+') class="btn rounded-0 rounded-0 btn-outline-dark btn-sm px-3 py-2" data-title="Blocked Applicants?"><i class="bi bi-x-lg"></i></button>'
+                    return '<button type="button" data-title="View Applicant?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate Applicant?"><i class="bi bi-check-lg"></i></button> <button type="button" onclick=blockedApplicant('+data+') class="btn rounded-0 rounded-0 btn-outline-danger btn-sm px-3 py-2" data-title="Blocked Applicant?"><i class="bi bi-x-lg"></i></button> <button type="button" data-title="Print Applicant?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
                     }
                 }
             ],
@@ -127,7 +127,7 @@ $(document).ready(function(){
                 {"data":"reason"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View Applicants?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm">Details</button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm" data-title="Unblock?">Unblock</button>'
+                    return '<button type="button" data-title="View Applicant?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3" data-title="Unblock?"><i class="bi bi-check-lg"></i></button> <button type="button" data-title="Print Applicant?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
                     }
                 }
             ],
@@ -169,7 +169,7 @@ $(document).ready(function(){
                 {"data":"position"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View Applicants?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye-fill"></i></button> <button type="button" onclick=unUtilizedAccount('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-title="Unutilized Applicants?"><i class="bi bi-person-bounding-box"></i></button>'
+                    return '<button type="button" data-title="View Applicant?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=unUtilizedAccount('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-title="Unutilized Applicant?"><i class="bi bi-person-bounding-box"></i></button>'
                 }
                 }
             ],
@@ -221,7 +221,7 @@ $(document).ready(function(){
     function deactivateApplicants(id){
         Swal.fire({
         title: 'Are you sure?',
-        text: "Do you want to DEACTIVATE this applicants?",
+        text: "Do you want to DEACTIVATE this applicant?",
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -255,7 +255,7 @@ $(document).ready(function(){
     function activateApplicants(id){
         Swal.fire({
         title: 'Are you sure?',
-        text: "Do you want to activate this applicants?",
+        text: "Do you want to activate this applicant?",
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -289,7 +289,7 @@ $(document).ready(function(){
     function blockedApplicant(id){
         Swal.fire({
         title: 'Are you sure?',
-        text: "Do you want to BLOCK this applicants?",
+        text: "Do you want to BLOCK this applicant?",
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

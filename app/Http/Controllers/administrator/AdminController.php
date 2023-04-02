@@ -468,8 +468,8 @@ class AdminController extends Controller
 
             // FETCH
                 // ALL ACTIVE APPLICANTS DATA
-                    public function getAllApplicantsData(Request $request){
-                            $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', '']])->get();
+                    public function getAdminAllApplicantsData(Request $request){
+                            $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro', '=' , 0]])->get();
                             return response()->json($data);
                     }  
                 // ALL ACTIVE APPLICANTS DATA

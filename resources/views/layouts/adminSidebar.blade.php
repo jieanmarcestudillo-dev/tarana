@@ -9,6 +9,7 @@
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminEmployeesRoutes"><i class="bi bi-person-workspace pe-3"></i> Employees</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="#"><i class="bi bi-people-fill pe-3"></i> Old Workers</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminApplicantsRoutes"><i class="bi bi-people-fill pe-3"></i> New Workers</a>
+        <a class="list-group-item list-group-item-action list-group-item-light" href="#"><i class="bi bi-archive pe-3"></i> Archive</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminManageAccount"><i class="bi bi-pencil-square pe-3"></i> Manage Account</a>
     </div>
     <div class="sidebar-footing border-top pt-4 text-center">

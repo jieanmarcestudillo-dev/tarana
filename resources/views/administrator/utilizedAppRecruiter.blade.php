@@ -62,7 +62,7 @@
                                                 <th class="text-center">#</th>
                                                 <th class="text-center">Company Id</th>
                                                 <th class="text-center">Recruiter</th>
-                                                <th class="text-center">Actions</th>
+                                                <th class="text-center col-2">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>

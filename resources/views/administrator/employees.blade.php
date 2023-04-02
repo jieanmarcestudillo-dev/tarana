@@ -68,7 +68,7 @@
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Position</th>
-                                                <th class="text-center">Actions</th>
+                                                <th class="text-center col-2">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>

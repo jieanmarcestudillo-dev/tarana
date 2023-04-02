@@ -26,13 +26,13 @@
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
                             {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
-                            <h4 class="ms-2">BLOCKED APPLICANTS</h4>
+                            <h4 class="ms-2">NEW APPLICANTS</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
-                                        <a class="text-white nav-link me-3">
-                                            <span id="fetchFirstname"></span>
-                                            <span id="fetchLastname"></span>
+                                        <a class="nav-link me-3">
+                                            <span>{{ auth()->guard('employeesModel')->user()->firstname}}</span>
+                                            <span>{{ auth()->guard('employeesModel')->user()->lastname}}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -66,7 +66,7 @@
                                                 <th class="text-center">Full Name</th>
                                                 <th class="text-center">Position</th>
                                                 <th class="text-center">Reason</th>
-                                                <th class="text-center">Actions</th>
+                                                <th class="text-center col-2">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>

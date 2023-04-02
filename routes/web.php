@@ -107,7 +107,7 @@ use App\Http\Controllers\homeController;
                 Route::get('getCertainEmployee', [AdminController::class,'getCertainEmployee']);
                 Route::get('deactivateEmployee', [AdminController::class,'deactivateEmployee']);
                 Route::get('activateEmployee', [AdminController::class,'activateEmployee']);
-                Route::get('getAllApplicantsData', [AdminController::class,'getAllApplicantsData']);
+                Route::get('getAdminAllApplicantsData', [AdminController::class,'getAdminAllApplicantsData']);
                 Route::get('viewApplicants', [AdminController::class,'viewApplicants']);
                 Route::get('deactivateApplicants', [AdminController::class,'deactivateApplicants']);
                 Route::get('activateApplicant', [AdminController::class,'activateApplicant']);
