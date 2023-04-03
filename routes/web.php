@@ -94,6 +94,10 @@ use App\Http\Controllers\homeController;
             Route::get('adminCompletedOperation', [AdminController::class,'adminCompletedOperation'])->name('adminCompletedOperation');
             Route::get('adminCredentials', [AdminController::class,'adminCredentials'])->name('adminCredentials');
             Route::get('utilizedAppRecruiter', [AdminController::class,'utilizedAppRecruiter'])->name('utilizedAppRecruiter');
+            Route::get('adminOldApplicantsRoutes', [AdminController::class,'adminOldApplicantsRoutes']);
+            Route::get('inactiveOldApplicantsRoutes', [AdminController::class,'inactiveOldApplicantsRoutes']);
+            Route::get('blockedOldApplicantsRoutes', [AdminController::class,'blockedOldApplicantsRoutes']);
+
         });
     // ROUTES
 
@@ -127,6 +131,10 @@ use App\Http\Controllers\homeController;
                 Route::get('unutilizedApplicant', [AdminController::class,'unutilizedApplicant']);
                 Route::get('getEmpCurrentlyUtilizing', [AdminController::class,'getEmpCurrentlyUtilizing']);
                 Route::get('unutilizedEmployee', [AdminController::class,'unutilizedEmployee']);
+                Route::get('getAdminAllOldApplicantsData', [AdminController::class,'getAdminAllOldApplicantsData']);
+                Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
+                Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
+                Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
         // GET
 
         // POST
@@ -209,7 +217,6 @@ use App\Http\Controllers\homeController;
             Route::get('totalRecruitedApplicants', [RecruiterController::class,'totalRecruitedApplicants']);
             Route::get('badgeForRecruitedApplicants', [RecruiterController::class,'badgeForRecruitedApplicants']);
             Route::get('searchCompleted', [RecruiterController::class,'searchCompleted']);
-            Route::get('printCompletedOperation/{id}', [RecruiterController::class,'printCompletedOperation']);
         // GET
             
         // POST

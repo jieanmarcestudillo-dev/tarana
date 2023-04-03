@@ -308,6 +308,7 @@ class RecruiterController extends Controller
                             $endDate = date('F d, Y | D',strtotime($data[0]->operationEnd));
                             $endTime = date('h:i: A ',strtotime($data[0]->operationEnd));
                             $totalApplicants = count($data[0]->applicants);
+                            $totalWorkers = $data[0]->totalWorkers;
                             $photos = $data[0]->photos;
                             $shipName = $data[0]->shipName;
                             $shipCarry = $data[0]->shipCarry;
@@ -334,7 +335,7 @@ class RecruiterController extends Controller
                                             </ul>
                                         </div>
                                         <div class='col-md-3'>
-                                            <h4 class='text-center' style='margin-top:7.3rem; color:#800000;'>$slot Slot</h4>
+                                            <h4 class='text-center' style='margin-top:7.3rem; color:#000;'>$slot Slots out of $totalWorkers</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -571,30 +572,6 @@ class RecruiterController extends Controller
                         }
                     }
                 // SEARCH COMPLETED
-
-                // PRINT COMPLETED OPERATION
-                    public function printCompletedOperation(Request $request, $id){
-                        $operationId = $id;
-                        $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
-                        ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['completed.operation_id', '=', $opertaionId],['operations.certainOperation_id', '=', $opertaionId]])->orderBy('applicants.position')->get();
-                        $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
-                        foreach($data as $operations){
-                            $applicantsAttendance = [
-                                'foreman' => $foreman,
-                                'operationId' => $operations->operationId,
-                                'shipName' => $certainData->shipName,
-                                'shipCarry' => $certainData->shipCarry,
-                                'operationStart' => $certainData->operationStart,
-                                'operationEnd' => $certainData->operationEnd,
-                                'slot' => $certainData->slot,
-                                'data' => $data,
-                            ]; 
-                        }
-                        $pdf = PDF::loadView('fetch.recruiter.applicantAttendance', $applicantsAttendance);
-                        return $pdf->stream('operation'.$certainData->operationId.'.pdf');
-                    }
-                // PRINT COMPLETED OPERATION
 
                 // SEARCH APPLICANT LASTNAME
                     public function fetchApplicantLastname(Request $request){ 

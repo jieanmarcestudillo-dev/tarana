@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\employeesImport;
 use App\Imports\operationImport;
 use Illuminate\Support\Carbon;
+use PDF;
 use Session;
 use Hash;
 use Auth;
@@ -464,6 +465,26 @@ class AdminController extends Controller
                         return view('administrator/utilized');
                     }
                 // BLOCKED APPLICANTS ROUTES
+
+                // OLD APPLICANTS ROUTES
+                        public function adminOldApplicantsRoutes(){
+                        return view('administrator/oldApplicants');
+                    }
+                // OLD APPLICANTS ROUTES
+
+                // INACTIVE OLD APPLICANTS ROUTES
+                        public function inactiveOldApplicantsRoutes(){
+                        return view('administrator/inactiveOldApplicants');
+                    }
+                // INACTIVE OLD APPLICANTS ROUTES
+
+                // BLOCKED OLD APPLICANTS ROUTES
+                        public function blockedOldApplicantsRoutes(){
+                        return view('administrator/blockedOldApplicants');
+                    }
+                // BLOCKED OLD APPLICANTS ROUTES
+
+
             // ROUTES
 
             // FETCH
@@ -474,6 +495,13 @@ class AdminController extends Controller
                     }  
                 // ALL ACTIVE APPLICANTS DATA
 
+                // ALL ACTIVE OLD APPLICANTS DATA
+                    public function getAdminAllOldApplicantsData(Request $request){
+                            $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro', '=' , 1]])->get();
+                            return response()->json($data);
+                    }  
+                // ALL ACTIVE OLD APPLICANTS DATA
+
                 // ALL INACTIVE APPLICANTS DATA
                     public function getInactiveApplicantsData(Request $request){
                         $data = applicants::where([['is_active', '=', 0], ['is_blocked', '!=', 1]])->get();
@@ -481,34 +509,50 @@ class AdminController extends Controller
                     }  
                 // ALL INACTIVE APPLICANTS DATA
 
+                // ALL INACTIVE APPLICANTS DATA
+                        public function getInactiveOldApplicantsData(Request $request){
+                            $data = applicants::where([['is_active', '=', 0], ['is_blocked', '!=', 1],['is_pro', '=' , 1]])->get();
+                            return response()->json($data);
+                        }  
+                // ALL INACTIVE APPLICANTS DATA
+
+                // ALL INACTIVE OLD APPLICANTS DATA
+                        public function getBlockedOldApplicantsData(Request $request){
+                            $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
+                            ->where('applicants.is_pro', '=' , 1)->get(['applicants.*', 'blockedapplicants.blockId', 
+                            'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
+                            return response()->json($data);
+                        }  
+                // ALL INACTIVE OLD APPLICANTS DATA
+
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
-                    public function getCurrentlyUtilizing(Request $request){
-                        $data = applicants::where([['is_active', '=', 1],['is_utilized', '=', 1]])->get();
-                        return response()->json($data);
-                    }  
+                        public function getCurrentlyUtilizing(Request $request){
+                            $data = applicants::where([['is_active', '=', 1],['is_utilized', '=', 1]])->get();
+                            return response()->json($data);
+                        }  
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
 
                 // ALL BLOCKED APPLICANTS DATA
-                    public function getBlockedApplicants(Request $request){
-                        $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
-                        ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
-                        return response()->json($data);
-                    }  
+                        public function getBlockedApplicants(Request $request){
+                            $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
+                            ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
+                            return response()->json($data);
+                        }  
                 // ALL BLOCKED APPLICANTS DATA
                 
                 // FETCH SPECIFIC APPLICANTS
-                    public function viewApplicants(Request $request){ 
-                        $data = applicants::where('applicant_id', '=', $request->applicantId)->first();
-                        return response()->json($data);
-                    }  
+                        public function viewApplicants(Request $request){ 
+                            $data = applicants::where('applicant_id', '=', $request->applicantId)->first();
+                            return response()->json($data);
+                        }  
                 // FETCH SPECIFIC APPLICANTS
 
                 // DEACTIVATE APPLICANT
-                    public function deactivateApplicants(Request $request){  
-                        $applicant = applicants::find($request->applicantId);
-                        $applicant->is_active = 0;
-                        $applicant->save();
-                    }  
+                        public function deactivateApplicants(Request $request){  
+                            $applicant = applicants::find($request->applicantId);
+                            $applicant->is_active = 0;
+                            $applicant->save();
+                        }  
                 // DEACTIVATE APPLICANT
 
                 // ACTIVATE APPLICANT
@@ -669,4 +713,28 @@ class AdminController extends Controller
         // UPDATE PASSWORD
 
     // ADMIN OPERATION FUNCTION
+                
+    // PRINT COMPLETED OPERATION
+        public function printCompletedOperation(Request $request, $id){
+            $operationId = $id;
+            $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+            ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+            ->where([['completed.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId]])->orderBy('applicants.position')->get();
+            $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
+            foreach($data as $operations){
+                $operationCompleted = [
+                    'foreman' => $foreman,
+                    'operationId' => $operations->operationId,
+                    'shipName' => $operations->shipName,
+                    'shipCarry' => $operations->shipCarry,
+                    'operationStart' => $operations->operationStart,
+                    'operationEnd' => $operations->operationEnd,
+                    'slot' => $operations->slot,
+                    'data' => $data,
+                ]; 
+            }
+            $pdf = PDF::loadView('fetch.recruiter.recruiterCompleted', $operationCompleted);
+            return $pdf->stream('operation'.$operations->operationId.'.pdf');
+        }
+    // PRINT COMPLETED OPERATION
 }
