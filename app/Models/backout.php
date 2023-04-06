@@ -22,5 +22,6 @@ class backout extends Model
         'applicant_id',
         'reason',
         'date_time_backOut',
+        'is_archived',
     ];
 }

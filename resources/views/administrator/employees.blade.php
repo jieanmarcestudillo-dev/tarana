@@ -56,8 +56,9 @@
                                         <a class="nav-link" href="/utilizedAppRecruiter">Currently Utilizing</a>
                                     </li>
                                     <li class="nav-item ms-auto">
-                                        <button type="button" class="btn btn-success ms-auto py-2 px-3 btn-sm my-1 rounded-0" data-bs-toggle="modal" data-bs-target="#importExcel">Import Employee <i class="bi bi-file-earmark-excel"></i></button>
-                                        <button type="button" class="btn btn-primary ms-auto py-2 px-3 btn-sm my-1 rounded-0" data-bs-toggle="modal" data-bs-target="#addEmployeesModal">Add Employees <i class="bi bi-plus-lg"></i></button>
+                                        <a href="{{ url('downloadTemplate/employeesImport.xlsx') }}" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
+                                        <button type="button" class="btn btn-success ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#importExcel">Import Employee <i class="bi bi-file-earmark-excel"></i></button>
+                                        <button type="button" class="btn btn-primary ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#addEmployeesModal">Add Employees <i class="bi bi-plus-lg"></i></button>
                                     </li>
                                 </ul>
                                     <table id="activeEmployees" class="table table-sm table-bordered text-center align-middle">

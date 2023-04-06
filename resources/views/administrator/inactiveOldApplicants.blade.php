@@ -46,13 +46,13 @@
                         <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
                             <ul class="nav nav-tabs mb-4">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/adminOldApplicantsRoutes">Applicants</a>
+                                    <a class="nav-link" href="/adminOldApplicantsRoutes">On-Call Workers</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">&nbsp;&nbsp;Inactive Applicants&nbsp;&nbsp;</a>
+                                    <a class="nav-link active" href="#">&nbsp;&nbsp;Inactive On-Call Workers&nbsp;&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
-                                        <a class="nav-link" href="/blockedOldApplicantsRoutes">Blocked Applicants</a>
+                                        <a class="nav-link" href="/blockedOldApplicantsRoutes">Blocked On-Call Workers</a>
                                 </li>
                                 <li class="nav-item">
                                         <a class="nav-link" href="/utilizedApplication">Currently Utilizing</a>

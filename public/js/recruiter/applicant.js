@@ -1,12 +1,55 @@
 $(document).ready(function(){
+    onCallWorkersTable();
     applicantsTable();
 });
+
+// FETCH ACTIVE EMPLOYEES FOR TABLES
+    function onCallWorkersTable(){
+    var table = $('#onCallWorkers').DataTable({
+        "language": {
+            "emptyTable": "No Workers Found"
+        },
+        "lengthChange": true,
+        "scrollCollapse": true,
+        "paging": true,
+        "info": true,
+        "responsive": true,
+        "ordering": false,
+        "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+        "iDisplayLength": 25,
+        "ajax":{
+            "url":"/getAllOnCallWorkers",
+            "dataSrc": "",
+        },
+        "columns":[
+            {"data":"applicant_id"},
+            {"data":"firstname"},
+            {"data":"middlename"},
+            {"data":"lastname"},
+            {"data":"position"},
+            {"data":"phoneNumber"},
+            {"data": "applicant_id",
+                mRender: function (data, type, row) {
+                return '<button type="button" data-title="View Details?" onclick=viewOnCallWorkers('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button>'
+            }
+            }
+        ],
+        order: [[1, 'asc']],
+    });
+    table.on('order.dt search.dt', function () {
+        let i = 1;
+        table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
+    }
+// FETCH ACTIVE EMPLOYEES FOR TABLES
 
 // FETCH ACTIVE EMPLOYEES FOR TABLES
     function applicantsTable(){
     var table = $('#applicants').DataTable({
         "language": {
-            "emptyTable": "No Applicants Found"
+            "emptyTable": "No Workers Found"
         },
         "lengthChange": true,
         "scrollCollapse": true,
@@ -46,6 +89,39 @@ $(document).ready(function(){
 
 // SHOW CERTAIN APPLICANTS DETAILS
     function viewApplicants(id){
+        $('#viewApplicantsDetails').modal('show')
+        $.ajax({
+            url: '/viewApplicants',
+            type: 'GET',
+            dataType: 'json',
+            data: {applicantId: id},
+        })
+        .done(function(response) {
+            if(response.photos != ''){
+                $('#applicantsPhoto').attr("src",response.photos)
+            }else{
+                $('#applicantsPhoto').attr("src","/assets/applicants/defaultImage.png")
+            }
+            $('#applicantsLastname').val(response.lastname)           
+            $('#applicantsFirstname').val(response.firstname)           
+            $('#applicantsMiddlename').val(response.middlename)
+            $('#applicantsExt').val(response.extention)           
+            $('#applicantsPosition').val(response.position)           
+            $('#applicantsStatus').val(response.status)           
+            $('#applicantsSex').val(response.Gender)           
+            $('#applicantsAge').val(response.age)           
+            $('#applicantsBirthday').val(response.birthday)           
+            $('#applicantsAddress').val(response.address)           
+            $('#applicantsPnumber').val(response.phoneNumber)           
+            $('#applicantsEmail').val(response.emailAddress)           
+            $('#applicantsNationality').val(response.nationality)           
+            $('#applicantsReligion').val(response.religion)           
+        })
+    }
+// SHOW CERTAIN APPLICANTS DETAILS
+
+// SHOW CERTAIN APPLICANTS DETAILS
+    function viewOnCallWorkers(id){
     $('#viewApplicantsDetails').modal('show')
     $.ajax({
         url: '/getCertainApplicants',

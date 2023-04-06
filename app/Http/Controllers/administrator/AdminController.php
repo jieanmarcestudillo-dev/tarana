@@ -9,6 +9,7 @@ use App\Models\employees;
 use App\Models\applicants;
 use App\Models\operations;
 use App\Models\backout;
+use App\Models\declined;
 use App\Models\blockedApplicants;
 use App\Models\completed;
 use Maatwebsite\Excel\Facades\Excel;
@@ -712,29 +713,66 @@ class AdminController extends Controller
             }
         // UPDATE PASSWORD
 
-    // ADMIN OPERATION FUNCTION
-                
-    // PRINT COMPLETED OPERATION
-        public function printCompletedOperation(Request $request, $id){
-            $operationId = $id;
-            $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
-            ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-            ->where([['completed.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId]])->orderBy('applicants.position')->get();
-            $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
-            foreach($data as $operations){
-                $operationCompleted = [
-                    'foreman' => $foreman,
-                    'operationId' => $operations->operationId,
-                    'shipName' => $operations->shipName,
-                    'shipCarry' => $operations->shipCarry,
-                    'operationStart' => $operations->operationStart,
-                    'operationEnd' => $operations->operationEnd,
-                    'slot' => $operations->slot,
-                    'data' => $data,
-                ]; 
+        // PRINT COMPLETED OPERATION
+            public function printCompletedOperation(Request $request, $id){
+                $operationId = $id;
+                $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
+                ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
+                ->where([['completed.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId]])->orderBy('applicants.position')->get();
+                $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
+                foreach($data as $operations){
+                    $operationCompleted = [
+                        'foreman' => $foreman,
+                        'operationId' => $operations->operationId,
+                        'shipName' => $operations->shipName,
+                        'shipCarry' => $operations->shipCarry,
+                        'operationStart' => $operations->operationStart,
+                        'operationEnd' => $operations->operationEnd,
+                        'slot' => $operations->slot,
+                        'data' => $data,
+                    ]; 
+                }
+                $pdf = PDF::loadView('fetch.recruiter.recruiterCompleted', $operationCompleted);
+                return $pdf->stream('operation'.$operations->operationId.'.pdf');
             }
-            $pdf = PDF::loadView('fetch.recruiter.recruiterCompleted', $operationCompleted);
-            return $pdf->stream('operation'.$operations->operationId.'.pdf');
-        }
-    // PRINT COMPLETED OPERATION
-}
+        // PRINT COMPLETED OPERATION
+    
+        // DOWNLOAD TEMPLATE
+            public function downloadTemplate($filename){
+                return response()->download('C:/xampp/htdocs/tarana/storage/app/public/template/'.$filename);
+            }
+        // DOWNLOAD TEMPLATE
+
+        // ARCHIVE
+                // BACKOUT ARCHIVED ROUTES
+                    public function backOutArchiveRoutes(){
+                        return view('administrator/backOutArchive');
+                    }
+                // BACKOUT ARCHIVED ROUTES
+                
+                // DECLINED ARCHIVED ROUTES
+                    public function declinedArchiveRoutes(){
+                        return view('administrator/declinedArchive');
+                    }
+                // DECLINED ARCHIVED ROUTES
+
+                // FETCH
+                    // BACKOUT ARCHIVED DATA
+                        public function getBackOutArchived(Request $request){
+                            $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
+                            ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')->orderBy('backout.backOut_id', 'DESC')->get();
+                            return response()->json($data);
+                        }
+                    // BACKOUT ARCHIVED DATA
+
+                    // DECLINED ARCHIVED DATA
+                        public function getDeclinedArchived(Request $request){
+                            $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
+                            ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')->orderBy('operations.operationStart', 'DESC')->get();
+                            return response()->json($data);
+                        }
+                    // DECLINED ARCHIVED DATA
+                // FETCH
+        // ARCHIVE
+    }
+    // ADMIN OPERATION FUNCTION

@@ -97,7 +97,8 @@ use App\Http\Controllers\homeController;
             Route::get('adminOldApplicantsRoutes', [AdminController::class,'adminOldApplicantsRoutes']);
             Route::get('inactiveOldApplicantsRoutes', [AdminController::class,'inactiveOldApplicantsRoutes']);
             Route::get('blockedOldApplicantsRoutes', [AdminController::class,'blockedOldApplicantsRoutes']);
-
+            Route::get('backOutArchiveRoutes', [AdminController::class,'backOutArchiveRoutes']);
+            Route::get('declinedArchiveRoutes', [AdminController::class,'declinedArchiveRoutes']);
         });
     // ROUTES
 
@@ -135,6 +136,9 @@ use App\Http\Controllers\homeController;
                 Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
                 Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
                 Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
+                Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
+                Route::get('getBackOutArchived', [AdminController::class,'getBackOutArchived']);
+                Route::get('getDeclinedArchived', [AdminController::class,'getDeclinedArchived']);
         // GET
 
         // POST
@@ -160,6 +164,7 @@ use App\Http\Controllers\homeController;
             Route::get('recruitApplicantsRoutes', [RecruiterController::class,'recruitApplicantsRoutes'])->name('recruitApplicantsRoutes');
             Route::get('recruitRecommendedRoutes', [RecruiterController::class,'recruitRecommendedRoutes'])->name('recruitRecommendedRoutes');
             Route::get('recruiterApplicantRoutes', [RecruiterController::class,'recruiterApplicantRoutes'])->name('recruiterApplicantRoutes');
+            Route::get('recruiterOnCallWorkerRoutes', [RecruiterController::class,'recruiterOnCallWorkerRoutes'])->name('recruiterOnCallWorkerRoutes');
             Route::get('recruitedApplicants', [RecruiterController::class,'recruitedApplicants'])->name('recruitedApplicants');
             Route::get('recruiterAcceptInvitationRoutes', [RecruiterController::class,'recruiterAcceptInvitationRoutes'])->name('recruiterAcceptInvitationRoutes');
             Route::get('recruiterDetailsRoutes', [RecruiterController::class,'recruiterDetailsRoutes'])->name('recruiterDetailsRoutes');
@@ -181,6 +186,7 @@ use App\Http\Controllers\homeController;
             Route::get('recruiterCompleted', [RecruiterController::class,'recruiterCompleted']);
             Route::get('getApplicants', [RecruiterController::class,'getApplicants']);
             Route::get('getAllApplicantsData', [RecruiterController::class,'getAllApplicantsData']);
+            Route::get('getAllOnCallWorkers', [RecruiterController::class,'getAllOnCallWorkers']);
             Route::get('getEmployeesData', [RecruiterController::class,'getEmployeesData']);
             Route::get('getCertainApplicants', [RecruiterController::class,'getCertainApplicants']);
             Route::get('applicantsOnOperation', [RecruiterController::class,'applicantsOnOperation']);
@@ -202,7 +208,9 @@ use App\Http\Controllers\homeController;
             Route::get('applicantBackoutContent', [RecruiterController::class,'applicantBackoutContent']);
             Route::get('applicantDeclinedContent', [RecruiterController::class,'applicantDeclinedContent']);
             Route::get('deleteBackOut', [RecruiterController::class,'deleteBackOut']);
+            Route::get('archiveBackOut', [RecruiterController::class,'archiveBackOut']);
             Route::get('deleteDeclined', [RecruiterController::class,'deleteDeclined']);
+            Route::get('archiveDeclined', [RecruiterController::class,'archiveDeclined']);
             Route::get('deleteInvitation', [RecruiterController::class,'deleteInvitation']);
             Route::get('printAttendance/{id}', [RecruiterController::class,'printAttendance']);
             Route::get('totalApplicantOfCertainOperation', [RecruiterController::class,'totalApplicantOfCertainOperation']);

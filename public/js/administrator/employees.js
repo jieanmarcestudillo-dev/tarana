@@ -35,7 +35,7 @@ $(document).ready(function(){
                 {"data":"position"},
                 {"data": "employee_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="Edit Employees?" onclick=updateEmployees('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pen-fill"></i></button> <button type="button" data-title="Deactivate This?" onclick=deactivateEmployees('+data+') class="btn rounded-0 btn-outline-danger btn-sm py-2 px-3"><i class="bi bi-archive-fill"></i></button> <button type="button" data-title="Print Employee?" onclick=blockedEmployee('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
+                    return '<button type="button" data-title="Edit Employee?" onclick=updateEmployees('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" data-title="Deactivate This?" onclick=deactivateEmployees('+data+') class="btn rounded-0 btn-outline-danger btn-sm py-2 px-3"><i class="bi bi-archive-fill"></i></button> <a href="printRecruiters/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print Recruiter?"><i class="bi bi-filetype-pdf"></i></a>'
                 }
                 }
             ],
@@ -76,7 +76,7 @@ $(document).ready(function(){
                 {"data":"position"},
                 {"data": "employee_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="Edit Employees?" onclick=updateEmployees('+data+') class="btn rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pen-fill"></i></button> <button data-title="Activate This?" type="button" onclick=activateEmployees('+data+') class="btn rounded-0 btn-outline-success btn-sm px-3 py-2"><i class="bi bi-person-check-fill"></i></button> <button type="button" data-title="Print Employee?" onclick=blockedEmployee('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button> '
+                    return '<button type="button" data-title="Edit Recruiter?" onclick=updateEmployees('+data+') class="btn rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pencil-square"></i></button> <button data-title="Activate This?" type="button" onclick=activateEmployees('+data+') class="btn rounded-0 btn-outline-success btn-sm px-3 py-2"><i class="bi bi-person-check-fill"></i></button> <a href="printRecruiters/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print Recruiter?"><i class="bi bi-filetype-pdf"></i></a>'
                 }
                 }
             ],

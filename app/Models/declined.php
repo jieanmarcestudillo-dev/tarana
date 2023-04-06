@@ -22,5 +22,6 @@ class declined extends Model
         'applicant_id',
         'reason',
         'date_time_declined',
+        'is_archived',
     ];
 }

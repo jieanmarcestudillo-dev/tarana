@@ -44,6 +44,14 @@
                 {{-- MAIN CONTENT --}}
                     <div class="container-fluid mainBar mb-3">
                             <div class=" bg-light p-5 bg-body rounded-0 shadow-lg">
+                                <ul class="nav nav-tabs mb-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/recruiterOnCallWorkerRoutes">&nbsp;&nbsp;On-Call Workers&nbsp;&nbsp;</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Applicants</a>
+                                    </li>
+                                </ul>
                                 <div class=" mt-4">
                                     <table id="applicants" class="table table-responsive table-bordered table-sm text-center align-middle">
                                         <thead>
@@ -73,80 +81,89 @@
     {{-- END JS --}}
 
     {{-- MODAL --}}
-        {{-- SHOW DETAILS OF APPLICANTS --}}
-                <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-body pb-4">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="row">
-                                        <div class="col-11">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Applicant Information</h1>
-                                        </div>
-                                        <div class="col-1">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="row my-3">
-                                        <div class="col-7">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <img src="" loading="lazy" class="img-thumbnail mx-auto" style="width:50%; height:10%; clip-path:circle();" id="applicantsPhoto">
-                                                            </div>
-                                                            <div class="row">
-                                                                <ul class="list-group list-group-flush align-middle">
-                                                                    <li class="list-group-item fw-bold">Fullname: <span id="applicantsFirstname" class="fw-normal"></span> <span  class="fw-normal" id="applicantsMiddlename"> </span> <span  class="fw-normal" id="applicantsLastname"> <span  class="fw-normal" id="applicantsExt"></span></span>
-                                                                    <br> Role: <span  class="fw-normal" id="applicantsPosition"></span>
-                                                                    </li>
-                                                                    <li class="list-group-item fw-bold">Gender: <span  class="fw-normal" id="applicantsGender"></span> <br> Birthdate: <span  class="fw-normal" id="applicantsBirthday"></span> <br>Age: <span  class="fw-normal" id="applicantsAge"> </span> years old</li>
-                                                                    <li class="list-group-item fw-bold">Phone Number: <span  class="fw-normal" id="applicantsPnumber"></span> <br> Email:
-                                                                        <span  class="fw-normal" id="applicantsEmail"></span>
-                                                                    </li>
-                                                                    <li class="list-group-item fw-bold">Address: <span  class="fw-normal" id="applicantsAddress"></span></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="row">
-                                                        <img src="" loading="lazy" style="width:100%; height:13.8rem;" id="personalId">
-                                                    </div>
-                                                    <div class="row">
-                                                        <img src="" loading="lazy" style="width:100%; height:13.8rem;" id="personalId2">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="card" style="height:442px; overflow-y:auto;">
-                                                <div class="card-header bg-white">
-                                                    <h5 class="card-title">Experience</h5>
-                                                </div>
-                                                <div class="card-body" id="showExperience">
-                                                    <ul class="list-group text-center">
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Cable Operation: <span class="fw-normal" id="cableExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Wood Operation: <span class="fw-normal" id="woodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Plywood Operation: <span class="fw-normal" id="plyWoodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Soya Operation: <span class="fw-normal"  id="soyaExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Rice Operation: <span class="fw-normal"  id="riceExp"></span></li>
-                                                      </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
+        <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body pb-4 text-center">
+                        <div class="row">
+                            <div class="col-11">
+                                <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">Applicants Information</h1>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <img src="" class="img-thumbnail mx-auto" style="width:30%; height:5%; clip-path:circle();" id="applicantsPhoto">
+                            <div class="row mt-3 g-2">
+                                <div class="col-3">
+                                    <label class="form-label">Last Name:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsLastname" name="applicantsLastname">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">First Name:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsFirstname" name="applicantsFirstname">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Middle Name:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsMiddlename" name="applicantsMiddlename">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Extention:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsExt" name="applicantsPosition">
+                                </div>
+                            </div>
+                            <div class="row mt-3 g-2">
+                                <div class="col-3">
+                                    <label class="form-label">Position:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPosition" name="applicantsPosition">
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Status:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsStatus" name="applicantsStatus">
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Sex:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsSex" name="applicantsSex">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Birthday:</label>
+                                    <input type="date" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsBirthday" name="applicantsBirthday">
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Age:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAge" name="applicantsAge">
+                                </div>
+                            </div>
+                            <div class="row mt-3 g-2">
+                                <div class="col-3">
+                                    <label class="form-label">Phone Number:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPnumber" name="applicantsPnumber">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Nationality:</label>
+                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsNationality" name="applicantsNationality">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Religion:</label>
+                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsReligion" name="applicantsReligion">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Email Address:</label>
+                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsEmail" name="applicantsEmail">
+                                </div>
+                            </div>
+                            <div class="row mt-3 g-2">
+                                <div class="col-12">
+                                    <label class="form-label">Address:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAddress" name="applicantsAddress">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {{-- SHOW DETAILS OF APPLICANTS --}}
+        </div>
     {{-- MODAL --}}
 </body>
 </html>

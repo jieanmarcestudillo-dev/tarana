@@ -82,7 +82,7 @@ $(document).ready(function(){
             }).then((result) => {
             if (result.isConfirmed) {
                     $.ajax({
-                    url: "/deleteBackOut",
+                    url: "/archiveBackOut",
                     type: 'GET',
                     dataType: 'json',
                     data: {backOutId: id},

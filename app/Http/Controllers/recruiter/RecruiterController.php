@@ -59,7 +59,7 @@ class RecruiterController extends Controller
                 // BACK OUT
                     public function recruiterBackOutInvitation(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id]])->get();
+                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -68,7 +68,7 @@ class RecruiterController extends Controller
                 // DECLINED INVITATION
                     public function recruiterDeclinedInvitaion(Request $request){
                         $data = declined ::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id]])->get();
+                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -129,7 +129,7 @@ class RecruiterController extends Controller
                     public function applicantBackoutContent(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id]])->
+                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->
                         orderBy('backout.backOut_id', 'ASC')->get();
                         if($data->isNotEmpty()){
                             echo"
@@ -180,12 +180,28 @@ class RecruiterController extends Controller
                     }
                 // DELETE BACKOUT
 
+                // ARCHIVE BACK OUT
+                    public function archiveBackOut(Request $request){
+                        $archiveBackOut = backout::where([['backOut_id', '=', $request->backOutId]])
+                        ->update(['is_archived' => '1']);
+                        return response()->json(1);
+                    }
+                // ARCHIVE BACK OUT
+
                 // DELETE DECLINED
                     public function deleteDeclined(Request $request){
                         $deleteDeclined = declined::where([['declined_id', '=', $request->declinedId]])->delete();
                         return response()->json(1);
                     }
                 // DELETE DECLINED
+
+                // ARCHIVE BACK OUT
+                    public function archiveDeclined(Request $request){
+                        $archiveBackOut = declined::where([['declined_id', '=', $request->declinedId]])
+                        ->update(['is_archived' => '1']);
+                        return response()->json(1);
+                    }
+                // ARCHIVE BACK OUT
 
                 // DELETE INVITATION
                     public function deleteInvitation(Request $request){
@@ -198,7 +214,7 @@ class RecruiterController extends Controller
                     public function applicantDeclinedContent(Request $request){
                         $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id]])->
+                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],['is_archived','!=', 1]])->
                         orderBy('declined.declined_id', 'ASC')->get();
                         if($data->isNotEmpty()){
                             echo"
@@ -817,7 +833,7 @@ class RecruiterController extends Controller
                                             ";
                                               
                                 }else{
-                                    echo "<h5 class='text-center' style='color:#800; margin-top:8rem;'>NO APPLICANT RECRUITED YET</h5>";        
+                                    echo "<h5 class='text-center' style='color:#800; margin-top:9rem;'>NO APPLICANT RECRUITED YET</h5>";        
                                 }echo "</div></div></div></div> ";
                             }
                         }else{
@@ -947,6 +963,12 @@ class RecruiterController extends Controller
 
         // RECRUITER VIEW APPLICANTS
             // ROUTES
+                public function recruiterOnCallWorkerRoutes(){
+                    return view('recruiter/onCallWorkers');
+                }
+            // ROUTES
+            
+            // ROUTES
                 public function recruiterApplicantRoutes(){
                     return view('recruiter/applicants');
                 }
@@ -955,7 +977,14 @@ class RecruiterController extends Controller
             // FETCH
                 // ALL APPLICANTS 
                     public function getAllApplicantsData(Request $request){
-                        $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', '']])->get();
+                        $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro' ,'=', 0]])->get();
+                        return response()->json($data);
+                    } 
+                // ALL APPLICANTS 
+
+                // ALL APPLICANTS 
+                    public function getAllOnCallWorkers(Request $request){
+                        $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro' ,'=', 1]])->get();
                         return response()->json($data);
                     } 
                 // ALL APPLICANTS 

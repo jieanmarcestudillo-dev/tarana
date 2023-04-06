@@ -37,7 +37,7 @@ $(document).ready(function(){
             {"data":"position"},
             {"data": "applicant_id",
                 mRender: function (data, type, row) {
-                return '<button type="button" data-title="View on-call worker?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=deactivateApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-danger btn-sm py-2 px-3" data-title="Deactivate on-call worker?"><i class="bi bi-trash3"></i></button>  <button type="button" data-title="Blocked on-call worker?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-dark btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-x-lg"></i></button> <button type="button" data-title="Print on-call worker?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
+                return '<button type="button" data-title="View on-call worker?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=deactivateApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-danger btn-sm py-2 px-3" data-title="Deactivate on-call worker?"><i class="bi bi-trash3"></i></button>  <button type="button" data-title="Blocked on-call worker?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-dark btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-x-lg"></i></button> <a href="printOldWorkers/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
             }
             }
         ],
@@ -78,7 +78,7 @@ $(document).ready(function(){
                 {"data":"phoneNumber"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate on-call worker?"><i class="bi bi-check-lg"></i></button> <button type="button" onclick=blockedApplicant('+data+') class="btn rounded-0 rounded-0 btn-outline-danger btn-sm px-3 py-2" data-title="Blocked on-call worker?"><i class="bi bi-x-lg"></i></button> <button type="button" data-title="Print on-call worker?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
+                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate on-call worker?"><i class="bi bi-check-lg"></i></button> <a href="printOldWorkers/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
                     }
                 }
             ],
@@ -127,7 +127,7 @@ $(document).ready(function(){
                 {"data":"reason"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3" data-title="Unblock?"><i class="bi bi-check-lg"></i></button> <button type="button" data-title="Print on-call worker?" onclick=blockedApplicant('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"><i class="bi bi-filetype-pdf"></i></button>'
+                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3" data-title="Unblock?"><i class="bi bi-check-lg"></i></button> <a href="printOldWorkers/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
                     }
                 }
             ],
@@ -169,7 +169,7 @@ $(document).ready(function(){
                 {"data":"position"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View on-call worker?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-person-fill"></i></button> <button type="button" onclick=unUtilizedAccount('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-title="Unutilized on-call worker?"><i class="bi bi-person-bounding-box"></i></button>'
+                    return '<button type="button" data-title="View on-call worker?" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" onclick=viewApplicants('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=unUtilizedAccount('+data+') class="btn rounded-0 ROUNDED-0 btn-outline-primary btn-sm py-2 px-3" data-title="Unutilized on-call worker?"><i class="bi bi-person-bounding-box"></i></button>'
                 }
                 }
             ],

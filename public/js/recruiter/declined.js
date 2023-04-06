@@ -82,7 +82,7 @@ $(document).ready(function(){
             }).then((result) => {
             if (result.isConfirmed) {
                     $.ajax({
-                    url: "/deleteDeclined",
+                    url: "/archiveDeclined",
                     type: 'GET',
                     dataType: 'json',
                     data: {declinedId: id},

@@ -396,6 +396,7 @@ class ApplicantsController extends Controller
                         'applicant_id' => $applicantId,
                         'reason' => $reason,
                         'date_time_declined' => now(),
+                        'is_archived' => 0,
                     ]);
                     if($addDeclined){
                         $cancelApplied = applied::where([['operation_id', '=', $operationId],['applicants_id', '=', $applicantId], 
@@ -418,6 +419,7 @@ class ApplicantsController extends Controller
                         'applicant_id' => $applicantId,
                         'reason' => $reason,
                         'date_time_backOut' => now(),
+                        'is_archived' => 0,
                     ]);
                     if($addBackout){
                         $cancelApplied = applied::where([['operation_id', '=', $operationId],['applicants_id', '=', $applicantId]])->delete();
@@ -557,6 +559,14 @@ class ApplicantsController extends Controller
                             </div>
                         ";
                     }
+                }else{
+                    echo "
+                    <div class='row applicantNoSched' style='margin-top:15rem; color: #800000;'>
+                        <div class='alert alert-light text-center fs-4' role='alert' style='color: #800000;'>
+                            NO SCHEDULED YET
+                        </div>
+                    </div>
+                    ";
                 }
             }
         // FETCH

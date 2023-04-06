@@ -25,7 +25,6 @@
                 {{-- NAV BAR --}}
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
-                            {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
                             <h4 class="ms-2">RECRUITER DASHBOARD</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -108,13 +107,13 @@
                         <div class="card rounded-0">
                             <ul class="nav nav-tabs mt-4">
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle active border-2" href="#">&nbsp;&nbsp;Pending Invitation&nbsp;&nbsp; <span class="badge rounded-circle bg-secondary align-middle" ></span></a>
+                                    <a class="nav-link align-middle text-primary active" href="#">&nbsp;&nbsp;Pending Invitation&nbsp;&nbsp; <span class="badge rounded-circle bg-secondary align-middle" ></span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle text-dark" href="/recruiterApplicantsBackoutRoutes">Applicants Backout <span class="badge rounded-circle bg-secondary align-middle" ></span></a>
+                                    <a class="nav-link align-middle text-dark active" href="/recruiterApplicantsBackoutRoutes">Back Out On Operation <span class="badge rounded-circle bg-secondary align-middle" ></span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle text-dark" href="/recruiterApplicantDeclinedRoutes">Applicants Declined <span class="badge rounded-circle bg-secondary align-middle" ></span></span></a>
+                                    <a class="nav-link align-middle text-dark active" href="/recruiterApplicantDeclinedRoutes">Declined Invitation <span class="badge rounded-circle bg-secondary align-middle" ></span></span></a>
                                 </li>
                             </ul>
                             <div class="mb-3">
