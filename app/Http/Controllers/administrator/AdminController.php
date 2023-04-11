@@ -98,7 +98,7 @@ class AdminController extends Controller
             // FETCH
                 // UPCOMING OPERATION   
                     public function getOperationData(Request $request){
-                        $data = operations::where('is_completed','=',0)->get(); 
+                        $data = operations::where('is_completed','=',0)->orderBy('operationStart')->get(); 
                         return response()->json($data);
                     } 
                 // UPCOMING OPERATION 
@@ -157,8 +157,8 @@ class AdminController extends Controller
                         'shipCarry' => $request->addShipsCarry,
                         'operationStart' => $request->addOperationStart,
                         'operationEnd' => $request->addOperationEnd,
+                        'totalWorkers' => $request->addApplicantsSlot,
                         'slot' => $request->addApplicantsSlot,
-                        'foreman' => $request->allForemanAdd,
                         'is_completed' => 0
                         ]);
                         return response()->json($addOperation ? 1 : 0);

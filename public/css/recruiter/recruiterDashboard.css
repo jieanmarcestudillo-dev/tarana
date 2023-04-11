@@ -103,7 +103,7 @@ body{
     letter-spacing: 1px;
     font-size: 12px;
     display: block !important;
-    padding: 18px 16px !important;
+    padding: 14px 16px !important;
     color: #800000 !important;
     font-weight: 400;
     text-decoration: none;
@@ -135,8 +135,6 @@ body{
 .mainBar, .form-control, .form-select, .form-label{
     font-size: 14px !important;
 }
-
-
 
 /* width */
 ::-webkit-scrollbar {

@@ -22,6 +22,7 @@ class applied extends Model
         'applicants_id',
         'is_recruited',
         'is_recommend',
+        'recruiter',
         'date_time_applied',
     ];
 

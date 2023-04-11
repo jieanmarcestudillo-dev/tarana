@@ -18,7 +18,7 @@
                             <a class='fw-normal nav-link'>Date: {{date('F d, Y | D',strtotime($item->operationEnd))}}</br></a>
                             <a class='fw-normal nav-link'>Time: {{date('h:i: A ',strtotime($item->operationEnd))}}</a>
                         </li>
-                        <li class='list-group-item fw-bold'>Available Workers: <span class='fw-normal'>{{$item->slot}} out of {{$item->totalWorkers}} </span> 
+                        <li class='list-group-item fw-bold'>Available: <span class='fw-normal'>{{$item->slot}} Slot out of {{$item->totalWorkers}} Total</span> 
                     
                             <br> <span class='fw-bold'>Applied: <span class='fw-normal'>{{count($item->applicants)}} Total</span></li>
                         <li class='list-group-item text-end'></span>

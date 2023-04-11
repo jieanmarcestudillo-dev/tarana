@@ -49,7 +49,7 @@ class RecruiterController extends Controller
                 // PENDING INVITATION
                     public function recruiterPendingOperation(Request $request){
                         $data = applied::join('operations', 'operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id],
+                        ->where([
                         ['applied.is_recruited' ,'!=', 1],['applied.is_recommend', '=', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
@@ -59,7 +59,7 @@ class RecruiterController extends Controller
                 // BACK OUT
                     public function recruiterBackOutInvitation(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->get();
+                        ->where([['is_archived','!+', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -68,7 +68,7 @@ class RecruiterController extends Controller
                 // DECLINED INVITATION
                     public function recruiterDeclinedInvitaion(Request $request){
                         $data = declined ::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['operations.foreman' , '=' , auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->get();
+                        ->where([['is_archived','!+', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -78,7 +78,7 @@ class RecruiterController extends Controller
                     public function pendingInvitationContent(Request $request){
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],
+                        ->where([
                         ['applied.is_recommend', '=', 1],['applied.is_recruited', '!=' ,1]])->orderBy('applied.applied_id', 'ASC')->get();
                         if($data->isNotEmpty()){
                             echo"
@@ -129,7 +129,7 @@ class RecruiterController extends Controller
                     public function applicantBackoutContent(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],['is_archived','!+', 1]])->
+                        ->where([['is_archived','!+', 1]])->
                         orderBy('backout.backOut_id', 'ASC')->get();
                         if($data->isNotEmpty()){
                             echo"
@@ -294,8 +294,7 @@ class RecruiterController extends Controller
             // FETCH
                 // UPCOMING OPERATION   
                     public function recruiterOperation(Request $request){
-                        $data = operations::where([['foreman' ,'=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['is_completed', '!=', 1]])->with('applicants')->get();
+                        $data = operations::where([['is_completed', '!=', 1]])->orderBy('operationStart')->with('applicants')->get();
                         return view('fetch.recruiter.recruiterOperation', compact('data'));
                     } 
                 // UPCOMING OPERATION 
@@ -317,8 +316,7 @@ class RecruiterController extends Controller
                 
                 // VIEW OPERATION APPLICANT DETAILS
                     public function showOperationDetails(Request $request){ 
-                        $data = operations::where([['foreman' ,'=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['certainOperation_id', '=', $request->operationId]])->with('applicants')->get();
+                        $data = operations::where([['certainOperation_id', '=', $request->operationId]])->with('applicants')->get();
                             $startData = date('F d, Y | D',strtotime($data[0]->operationStart));
                             $startTime = date('h:i: A ',strtotime($data[0]->operationStart));
                             $endDate = date('F d, Y | D',strtotime($data[0]->operationEnd));
@@ -365,8 +363,7 @@ class RecruiterController extends Controller
                         $request->operationId;
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['applied.is_recommend', '!=', 1],['applied.is_recruited', '!=', 1],
+                        ->where([['applied.is_recommend', '!=', 1],['applied.is_recruited', '!=', 1],
                         ['applied.operation_id', '=', $request->operationId],['operations.certainOperation_id', '=' , $request->operationId]])
                         ->orderBy('applied.is_recruited', 'DESC')->get(['applicants.applicant_id', 'applicants.lastname', 
                         'applicants.firstname','applicants.extention','applicants.position','applicants.phoneNumber']);
@@ -379,11 +376,13 @@ class RecruiterController extends Controller
                         $request->operationId;
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['applied.is_recommend', '!=', 1],['applied.is_recruited', '!=', 0],
+                        ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
+                        ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                        'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                        'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                        ->where([['applied.is_recommend', '!=', 1],['applied.is_recruited', '!=', 0],
                         ['applied.operation_id', '=', $request->operationId],['operations.certainOperation_id', '=' , $request->operationId]])
-                        ->orderBy('applied.is_recruited', 'DESC')->get(['applicants.applicant_id', 'applicants.lastname', 
-                        'applicants.firstname','applicants.extention','applicants.position','applicants.phoneNumber']);
+                        ->orderBy('applied.is_recruited', 'DESC')->get();
                         return response()->json($data);
                     }
                 // TOTAL RECRUITED APPLICANTS OF CERTAIN OPERATION
@@ -392,12 +391,14 @@ class RecruiterController extends Controller
                     public function totalRecommendedApplicantsOfCertainOperation(Request $request){
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['applied.operation_id', '=', $request->operationId],
+                        ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
+                        ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                        'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                        'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                        ->where([['applied.operation_id', '=', $request->operationId],
                         ['operations.certainOperation_id', '=' , $request->operationId],
                         ['applied.is_recommend', '=', 1],['applied.is_recruited', '!=', 1]])->orderBy('applied.applied_id', 'ASC')
-                        ->get(['applicants.applicant_id', 'applicants.lastname', 
-                        'applicants.firstname','applicants.extention','applicants.position','applicants.phoneNumber']);
+                        ->get();
                         return response()->json($data);
                     }
                 // TOTAL RECOMMEND APPLICANTS ON CERTAIN OPERATION
@@ -406,8 +407,11 @@ class RecruiterController extends Controller
                     public function totalApplicantsWhoAcceptInvitation(Request $request){
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['applied.is_recommend', '=', 1],['applied.is_recruited', '=', 1],
+                        ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
+                        ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                        'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                        'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                        ->where([['applied.is_recommend', '=', 1],['applied.is_recruited', '=', 1],
                         ['applied.operation_id', '=', $request->operationId],
                         ['operations.certainOperation_id', '=' , $request->operationId]])
                         ->orderBy('applied.is_recruited', 'DESC')
@@ -419,8 +423,7 @@ class RecruiterController extends Controller
 
                 // COMPLETED OPERATION
                     public function recruiterCompleted(Request $request){ 
-                        $data = operations::where([['foreman' ,'=', auth()->guard('employeesModel')->user()->employee_id],
-                        ['is_completed', '=', 1]])->orderBy('operationStart')->get();
+                        $data = operations::where([['is_completed', '=', 1]])->orderBy('operationStart')->get();
                         if($data->isNotEmpty()){
                             foreach($data as $certainData){
                                 $startDate = date('F d, Y | D',strtotime($certainData->operationStart));
@@ -663,6 +666,7 @@ class RecruiterController extends Controller
                                             'applicants_id' => $applicantId,
                                             'is_recruited' => 0,
                                             'is_recommend' => 1,
+                                            'recruiter' => auth()->guard('employeesModel')->user()->employee_id,
                                             'date_time_applied' => now(),
                                         ]);
                                         if($recommendApplicant){
@@ -680,6 +684,7 @@ class RecruiterController extends Controller
                                         'applicants_id' => $applicantId,
                                         'is_recruited' => 0,
                                         'is_recommend' => 1,
+                                        'recruiter' => auth()->guard('employeesModel')->user()->employee_id,
                                         'date_time_applied' => now(),
                                     ]);
                                     if($recommendApplicant){
@@ -710,7 +715,8 @@ class RecruiterController extends Controller
                 // RECRUIT APPLICANT
                     public function recruitApplicants(Request $request){
                         $recruitApplicant = applied::where([['applicants_id', '=' , $request->applicantId],
-                        ['operation_id', '=' , $request->operationId]])->update(['is_recruited' => '1']);
+                        ['operation_id', '=' , $request->operationId]])->update(['is_recruited' => '1',
+                        'recruiter' => auth()->guard('employeesModel')->user()->employee_id]);
                         if($recruitApplicant){
                             $updateSlot = operations::find($request->operationId)->decrement('slot');
                             return response()->json($updateSlot ? 1 : 0);
@@ -742,7 +748,7 @@ class RecruiterController extends Controller
 
                 // SHOW FORMED GROUP    
                     public function recruiterFormedGroup(Request $request){
-                        $data = operations::where([['foreman' ,'=', auth()->guard('employeesModel')->user()->employee_id],
+                        $data = operations::where([
                         ['is_completed', '!=', 1]])->orderBy('operationStart')->get();
                         if($data->isNotEmpty()){
                             foreach($data as $certainData){

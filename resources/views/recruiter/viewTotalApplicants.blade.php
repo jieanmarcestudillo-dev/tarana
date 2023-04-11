@@ -69,7 +69,7 @@
                                 <table class='table table-bordered text-center align-middle' id='viewApplicantTable'>
                                     <thead class='text-center'>
                                         <th class='text-center'>#</th>
-                                        <th class='text-center'>Full Name</th>
+                                        <th class='text-center'>On-Call Workers</th>
                                         <th class='text-center'>Position</th>
                                         <th class='text-center'>Phone Number</th>
                                         <th class='text-center'>Action</th>

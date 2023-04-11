@@ -237,10 +237,10 @@ class ApplicantsController extends Controller
                                             <li class='list-group-item'>
                                                 <div class='row'>
                                                     <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                                        Accepted By: <span class='fw-normal'>$recruiter</span>                                                    
+                                                        Workers In Operation: <span class='fw-normal'>$item->totalWorkers Total</span>                                                    
                                                     </div>
                                                     <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                        Available Workers:<span class='fw-normal'> $item->slot out of $item->totalWorkers</span>
+                                                        Slot:<span class='fw-normal'> $item->slot Total</span>
                                                     </div>
                                                 </div>
                                             </li>
@@ -345,9 +345,10 @@ class ApplicantsController extends Controller
                                             $applicationApply = applied::create([
                                                 'operation_id' => $operationId,
                                                 'applicants_id' => $applicantId,
-                                                'date_time_applied' => now(),
                                                 'is_recruited' => 0,
                                                 'is_recommend' => 0,
+                                                'recruiter' => 0,
+                                                'date_time_applied' => now(),
                                             ]);
                                             if($applicationApply){
                                                 echo 1; // SUCCESSFULLY APPLY
@@ -361,9 +362,10 @@ class ApplicantsController extends Controller
                                         $applicationApply = applied::create([
                                             'operation_id' => $operationId,
                                             'applicants_id' => $applicantId,
-                                            'date_time_applied' => now(),
                                             'is_recruited' => 0,
                                             'is_recommend' => 0,
+                                            'recruiter' => 0,
+                                            'date_time_applied' => now(),
                                         ]);
                                         if($applicationApply){
                                             echo 1; // SUCCESSFULLY APPLY

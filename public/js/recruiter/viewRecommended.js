@@ -74,13 +74,20 @@ $(document).ready(function(){
                 {"data":"applicant_id"},
                 { "mData": function (data, type, row) {
                     if(data.extention != null){
-                        return data.firstname+ " " +data.lastname+ " " +data.extention;
+                        return data.applicantFirstname+ " " +data.applicantLastName+ " " +data.applicantExtention;
                     }else{
-                        return data.firstname+ " " +data.lastname;
+                        return data.applicantFirstname+ " " +data.applicantLastName;
                     }
                 }},
                 {"data":"position"},
                 {"data":"phoneNumber"},
+                { "mData": function (data, type, row) {
+                    if(data.extention != null){
+                        return data.employeeFirstName+ " " +data.employeeLastName+ " " +data.employeeExtension;
+                    }else{
+                        return data.employeeFirstName+ " " +data.employeeLastName;
+                    }
+                }},
                 { "mData": function (data, type, row) {
                     return "<button data-title='Cancel Invitation?' type='button' onclick=deleteRecommendApplicants("+data.applicant_id+") class='btn btn-outline-danger btn-sm rounded-0 py-2 px-3'><i class='bi bi-x-lg'></i></button>";
 

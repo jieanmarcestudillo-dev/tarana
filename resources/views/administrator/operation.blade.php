@@ -114,20 +114,24 @@
                                 </div>
                             </div>
                             <div class="row g-1 mt-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <label class="form-label">Ship's Name:</label>
                                     <input type="text" class="form-control shadow-sm bg-body rounded" required id="addShipsName" name="addShipsName">
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <label class="form-label">Ship's Carry:</label>
                                     <select class="form-select" aria-label="Default select example" required id="addShipsCarry" name="addShipsCarry">
-                                        <option selected>Open this select menu</option>
+                                        <option selected>Select Here</option>
                                         <option value="Wood">Wood</option>
                                         <option value="Plywood">Plywood</option>
                                         <option value="Soya">Soya</option>
                                         <option value="Cable">Cable</option>
                                         <option value="Rice">Rice</option>
                                     </select>
+                                </div>
+                                <div class="col-4">
+                                    <label class="form-label">Workers Slot:</label>
+                                    <input type="number" value="0" min='0' class="form-control shadow-sm bg-body rounded text-center" id="addApplicantsSlot" name="addApplicantsSlot">
                                 </div>
                             </div>
                             <div class="row g-1 mt-3">
@@ -140,20 +144,8 @@
                                     <input type="datetime-local" class="form-control shadow-sm bg-body rounded" required id="addOperationEnd" name="addOperationEnd">
                                 </div>
                             </div>
-                            <div class="row g-1 mt-3">
-                                <div class="col-4">
-                                    <label class="form-label">Workers Slot:</label>
-                                    <input type="number" value="0" min='0' class="form-control shadow-sm bg-body rounded text-center" id="addApplicantsSlot" name="addApplicantsSlot">
-                                </div>
-                                <div class="col-8">
-                                    <label class="form-label">Recruiter:</label>
-                                    <div class="input-group">
-                                        <select class="form-select" aria-label="Default select example" id="allForemanAdd" name="allForemanAdd"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-5 ms-auto">
+                            <div class="row g-1 mt-4">
+                                <div class="col-4 ms-auto text-end">
                                     <button type="submit" id="submitOperations" name="submitOperations" class="btn btn-primary px-5 py-2">Submit</button>
                                 </div>
                             </div>
