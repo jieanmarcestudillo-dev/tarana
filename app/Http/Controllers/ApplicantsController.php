@@ -209,7 +209,9 @@ class ApplicantsController extends Controller
         // FETCH
             // FETCH APPLICANT OPERATION
                 public function applicantOperation(Request $request){
-                    $data = operations::where([['is_completed', '=', 0],['foreman' , '!=', 0]])->orderBy('operationStart')->with('employees', 'applicants')->get();
+                    $currentDateTime =  now(); 
+                    $date = date('Y-m-d H:i:s', strtotime("+1 day", strtotime($currentDateTime)));
+                    $data = operations::where([['is_completed', '=', 0],['foreman' , '!=', 0],[ 'operationEnd' , '>' ,$date]])->orderBy('operationStart')->with('employees', 'applicants')->get();
                     if($data->isNotEmpty()){
                         foreach($data as $item){
                             $operationStartDate = date('F d, Y',strtotime($item->operationStart));
