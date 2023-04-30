@@ -713,6 +713,19 @@ class AdminController extends Controller
             }
         // UPDATE PASSWORD
 
+        // PRINT OPERATION
+            public function printOperation(Request $request, $id){
+                $data = operations::where([['certainOperation_id', '=', $id]])->get();
+                foreach($data as $certainData){
+                    $operationInfo = [
+                        'data' => $data
+                    ]; 
+                }
+                $pdf = PDF::loadView('fetch.admin.printOperation', $operationInfo);
+                return $pdf->stream('operation_'.$id.'.pdf');
+            }
+        // PRINT OPERATION
+
         // PRINT COMPLETED OPERATION
             public function printCompletedOperation(Request $request, $id){
                 $operationId = $id;
@@ -736,6 +749,19 @@ class AdminController extends Controller
                 return $pdf->stream('operation'.$operations->operationId.'.pdf');
             }
         // PRINT COMPLETED OPERATION
+
+        // PRINT APPLICANT
+            public function printProjectWorker(Request $request, $id){
+                $data = applicants::where([['applicant_id', '=', $id]])->get();
+                foreach($data as $count => $certainData){
+                    $applicantInfo = [
+                        'data' => $data
+                    ]; 
+                }
+                $pdf = PDF::loadView('fetch.applicants.applicantsInfo', $applicantInfo);
+                return $pdf->stream('Project Worker_'.$id.'.pdf');
+            }
+        // PRINT APPLICANT
     
         // DOWNLOAD TEMPLATE
             public function downloadTemplate($filename){

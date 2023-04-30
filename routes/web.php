@@ -135,10 +135,13 @@ use App\Http\Controllers\homeController;
                 Route::get('getAdminAllOldApplicantsData', [AdminController::class,'getAdminAllOldApplicantsData']);
                 Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
                 Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
-                Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
                 Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
                 Route::get('getBackOutArchived', [AdminController::class,'getBackOutArchived']);
                 Route::get('getDeclinedArchived', [AdminController::class,'getDeclinedArchived']);
+                Route::get('printProjectWorker/{id}', [AdminController::class,'printProjectWorker']);
+                Route::get('printCompanyEmployee/{id}', [AdminController::class,'printCompanyEmployee']);
+                Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
+                Route::get('printOperation/{id}', [AdminController::class,'printOperation']);
         // GET
 
         // POST

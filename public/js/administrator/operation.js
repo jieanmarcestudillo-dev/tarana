@@ -48,7 +48,7 @@ $(document).ready(function(){
                 },
                 {"data": "certainOperation_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" onclick=editOperations('+data+') class="btn btn-outline-secondary btn-sm rounded-0 py-2 px-3" data-title="Edit Operation?"><i class="bi bi-pen-fill"></i></button> <button type="button" data-title="Cancel Operation?" onclick=cancelOperations('+data+') class="btn btn-outline-danger btn-sm rounded-0 py-2 px-3"><i class="bi bi-trash3-fill"></i></button> <button type="button"' 
+                    return '<button type="button" onclick=editOperations('+data+') class="btn btn-outline-secondary btn-sm rounded-0 py-2 px-3" data-title="Edit Operation?"><i class="bi bi-pen-fill"></i></button> <button type="button" data-title="Cancel Operation?" onclick=cancelOperations('+data+') class="btn btn-outline-danger btn-sm rounded-0 py-2 px-3"><i class="bi bi-trash3-fill"></i></button> <a data-title="Print Operation?" href="printOperation/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-filetype-pdf"></i></a>' 
                 }
                 }
             ],
@@ -108,7 +108,7 @@ $(document).ready(function(){
             },
             {"data": "certainOperation_id",
                 mRender: function (data, type, row) {
-                return '<button type="button" onclick=applicantsParticipated('+data+') class="btn rounded-0  btn-outline-secondary btn-sm">Applicants</button> <a href="printCompletedOperation/'+data+'" class="btn rounded-0 btn-outline-secondary btn-sm">PDF</a>' 
+                return '<button type="button" onclick=applicantsParticipated('+data+') class="btn rounded-0  btn-outline-secondary btn-sm">Project Workers</button> <a href="printCompletedOperation/'+data+'" class="btn rounded-0 btn-outline-secondary btn-sm">PDF</a>' 
             }
             }
         ],

@@ -874,6 +874,19 @@ class RecruiterController extends Controller
                     }
                 // PRINT ATTENDANCE
 
+                // PRINT APPLICANT
+                    public function printProjectWorker(Request $request, $id){
+                        $data = applicants::where([['applicant_id', '=', $id]])->get();
+                        foreach($data as $count => $certainData){
+                            $applicantInfo = [
+                                'data' => $data
+                            ]; 
+                        }
+                        $pdf = PDF::loadView('fetch.applicants.applicantsInfo', $applicantInfo);
+                        return $pdf->stream('Project Worker_'.$id.'.pdf');
+                    }
+                // PRINT APPLICANT
+
                 // BADGE FOR ALL
                     public function badgeForAll(Request $request){
                         $data = applied::where([['operation_id', '=', $request->operationId]])->get();
