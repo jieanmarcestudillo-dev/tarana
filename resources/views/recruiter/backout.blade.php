@@ -108,13 +108,13 @@
                         <div class="card rounded-0">
                             <ul class="nav nav-tabs mt-4">
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle text-dark active" href="/recruiterDashboardRoutes">Pending Invitation <span class="badge rounded-circle bg-secondary align-middle"></span></a>
+                                    <a class="nav-link align-middle text-secondary active" href="/recruiterDashboardRoutes">Pending Invitation <span class="badge rounded-circle bg-secondary align-middle"></span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle text-primary active" href="#">&nbsp;&nbsp;Back Out On Operation&nbsp;&nbsp; <span class="badge rounded-circle bg-secondary align-middle"></span></a>
+                                    <a class="nav-link align-middle text-dark active" href="#">&nbsp;&nbsp;Back Out On Operation&nbsp;&nbsp; <span class="badge rounded-circle bg-secondary align-middle"></span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link align-middle text-dark active" href="/recruiterApplicantDeclinedRoutes">Declined Invitation <span class="badge rounded-circle bg-secondary align-middle"></span></a>
+                                    <a class="nav-link align-middle text-secondary active" href="/recruiterApplicantDeclinedRoutes">Declined Invitation <span class="badge rounded-circle bg-secondary align-middle"></span></a>
                                 </li>
                             </ul>
                             <div class="mb-3">

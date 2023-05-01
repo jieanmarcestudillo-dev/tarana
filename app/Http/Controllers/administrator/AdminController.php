@@ -216,6 +216,20 @@ class AdminController extends Controller
                 }
             // UPDATE
 
+            // DONE OPERATION
+                // public function doneOperation(Request $request){
+                //     date_default_timezone_set('Asia/Manila');
+                //     $currentDate = date('Y-m-d H:i:s', strtotime("+4 hours", strtotime(now())));
+                //     $data = operations::where('certainOperation_id', '=', $request->operationId)->first();
+                //     if($currentDate < $data->operationEnd){
+                //         return response()->json(2);
+                //     }else{
+                //         $doneOperation = operations::find($request->operationId)->update(['is_completed' => 1]);
+                //         return response()->json($doneOperation ? 1 : 0);
+                //     }
+                // }
+            // DONE OPERATION
+
             // CANCEL OPERATION
                 public function cancelOperation(Request $request){
                     $cancelOperation = operations::where([['certainOperation_id', '=', $request->operationId]])->delete();

@@ -5,6 +5,7 @@ $(document).ready(function(){
         }
     });
     recruiterFormedGroup();
+    $('#applicantsAttendance').DataTable();
 });
 
 // SHOW TOTAL OPERATIONS
@@ -137,17 +138,17 @@ $(document).ready(function(){
 // FUNCTION
     // SUBMIT ATTENDANCE
         $("body").delegate("#operationCompleteBtn","click",function(e){
-            applicantId = [];
-            $(':checkbox:checked').each(function(applicant){
-                applicantId[applicant] = $(this).val();
-            });
-            if(applicantId.length === 0){
-                Swal.fire(
-                'CANNOT SUBMIT',
-                'Check the checkbox of an applicant who attend',
-                'error'
-                )
-            }else{
+            // applicantId = [];
+            // $(':checkbox:checked').each(function(applicant){
+            //     applicantId[applicant] = $(this).val();
+            // });
+            // if(applicantId.length === 0){
+            //     Swal.fire(
+            //     'CANNOT SUBMIT',
+            //     'Check the checkbox of an applicant who attend',
+            //     'error'
+            //     )
+            // }else{
                 var operationId = $('#operationId').val().trim();
                 Swal.fire({
                     icon: 'question',
@@ -218,7 +219,26 @@ $(document).ready(function(){
                         });
                     }
                 });
-            }
+            // }
         });
     // SUBMIT ATTENDANCE
+
+    
+    // REDIRECT TO SPECIFIC OPERATION
+        function recruitRecommendedRoutes(id){
+            localStorage.setItem('operationId', id);
+            window.location.href = '/recruitRecommendedRoutes';
+        }
+    // REDIRECT TO SPECIFIC OPERATION
+
+    // ENABLE BUTTON
+        $(function() {
+            $(".isAttend").click(function(){
+                $('.ratePerformance').prop('disabled',$('input.isAttend:checked').length == 0);
+            });
+        });
+    // ENABLE BUTTON
+
+
+
 // FUNCTION

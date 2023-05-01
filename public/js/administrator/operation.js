@@ -48,7 +48,7 @@ $(document).ready(function(){
                 },
                 {"data": "certainOperation_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" onclick=editOperations('+data+') class="btn btn-outline-secondary btn-sm rounded-0 py-2 px-3" data-title="Edit Operation?"><i class="bi bi-pen-fill"></i></button> <button type="button" data-title="Cancel Operation?" onclick=cancelOperations('+data+') class="btn btn-outline-danger btn-sm rounded-0 py-2 px-3"><i class="bi bi-trash3-fill"></i></button> <a data-title="Print Operation?" href="printOperation/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-filetype-pdf"></i></a>' 
+                    return '<button type="button" onclick=editOperations('+data+') class="btn btn-outline-secondary btn-sm rounded-0 py-2 px-3" data-title="Edit Operation?"><i class="bi bi-pen-fill"></i></button>  <button type="button" data-title="Cancel Operation?" onclick=cancelOperations('+data+') class="btn btn-outline-danger btn-sm rounded-0 py-2 px-3"><i class="bi bi-trash3-fill"></i></button> <a data-title="Print Operation?" href="printOperation/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-filetype-pdf"></i></a>' 
                 }
                 }
             ],
@@ -335,7 +335,7 @@ $(document).ready(function(){
     }
 // GENERATE OPERATION ID
 
-// IMPORT EMPLOYEE
+// IMPORT OPERATION
     $(document).ready(function () {
         $('#importOperationForm').on( 'submit' , function(e){
             e.preventDefault();
@@ -373,14 +373,86 @@ $(document).ready(function(){
             });
         });
     });
-// IMPORT EMPLOYEE
+// IMPORT OPERATION
+
+// DONE OPERATION
+    // function doneOperation(id){
+    //     Swal.fire({
+    //         icon: 'question',
+    //         title: 'Are you sure?',
+    //         text: "Do you want to COMPLETE this operation?",
+    //         input: 'text',
+    //         inputPlaceholder: 'Enter your password to confirm',
+    //         inputAttributes: {autocapitalize: 'off'},
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Submit',
+    //         }).then((response) => {
+    //             if(response.value === ""){
+    //                 Swal.fire(
+    //                     'Cancel Failed',
+    //                     'Please Enter Your Password',
+    //                     'error'
+    //                 )
+    //             }else{
+    //                 $.ajax({
+    //                     url: '/confirmationPassword',
+    //                     type: 'GET',
+    //                     dataType: 'text',
+    //                     data: {employeePassword: response.value},
+    //                     success:function(response2){
+    //                         if(response2 == 1){
+    //                             $.ajax({
+    //                                 url: '/doneOperation',
+    //                                 type: 'GET',
+    //                                 dataType: 'json',
+    //                                 data: {operationId: id},
+    //                                 success:function(response3){
+    //                                     if(response3 == 1){
+    //                                         Swal.fire({
+    //                                             title: 'OPERATION WAS COMPLETE SUCCESSFULLY',
+    //                                             icon: 'success',
+    //                                             showConfirmButton: false,
+    //                                             timer: 1500,
+    //                                         }).then((result) => {
+    //                                         if (result) {
+    //                                             $('#operationTable').DataTable().ajax.reload();
+    //                                         }
+    //                                         });
+    //                                     }else if(response3 == 2){
+    //                                         Swal.fire(
+    //                                             'Complete Failed',
+    //                                             'The Operation is On-Going Or Upcoming',
+    //                                             'warning'
+    //                                         )
+    //                                     }else{
+    //                                         Swal.fire(
+    //                                             'Invalid Password',
+    //                                             'Please re-type your password',
+    //                                             'error'
+    //                                         )
+    //                                     }
+    //                                 }
+    //                             });
+    //                         }else if(response2 == 0){
+    //                             Swal.fire(
+    //                             'Invalid Password',
+    //                             'Please re-type your password',
+    //                             'error'
+    //                             )
+    //                         }
+    //                     }
+    //                 });
+    //             }
+    //         });
+    // }
+// DONE OPERATION
 
 // CANCEL OPERATION
     function cancelOperations(id){
         Swal.fire({
             icon: 'question',
             title: 'Are you sure?',
-            text: "Do you want to cancel this operation?",
+            text: "Do you want to CANCEL this operation?",
             input: 'text',
             inputPlaceholder: 'Enter your password to confirm',
             inputAttributes: {autocapitalize: 'off'},

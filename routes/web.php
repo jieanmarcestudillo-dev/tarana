@@ -127,6 +127,7 @@ use App\Http\Controllers\homeController;
                 Route::get('totalApplicants', [AdminController::class,'totalApplicants']);
                 Route::get('visualization', [AdminController::class,'visualization']);
                 Route::get('cancelOperation', [AdminController::class,'cancelOperation']);
+                Route::get('doneOperation', [AdminController::class,'doneOperation']);
                 Route::get('showApplicantOnCertainOperation', [AdminController::class,'showApplicantOnCertainOperation']);
                 Route::get('unblockApplicant', [AdminController::class,'unblockApplicant']);
                 Route::get('unutilizedApplicant', [AdminController::class,'unutilizedApplicant']);
@@ -176,6 +177,7 @@ use App\Http\Controllers\homeController;
             Route::get('recruiterApplicantsBackoutRoutes', [RecruiterController::class,'recruiterApplicantsBackoutRoutes'])->name('recruiterApplicantsBackoutRoutes');
             Route::get('recruiterApplicantDeclinedRoutes', [RecruiterController::class,'recruiterApplicantDeclinedRoutes'])->name('recruiterApplicantDeclinedRoutes');
             Route::get('recruiterCredentials', [RecruiterController::class,'recruiterCredentials'])->name('recruiterCredentials');
+            Route::get('submitAttendance/{id}', [RecruiterController::class,'submitAttendance'])->name('submitAttendance');
         });
     // ROUTES
 

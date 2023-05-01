@@ -793,6 +793,7 @@ class RecruiterController extends Controller
                                             <h5 class='card-title text-start'>Workers Recruited</h5>
                                         </div>
                                         <div class='col-6 text-end align-middle'>
+                                            <a onclick='recruitRecommendedRoutes($certainData->certainOperation_id)' type='button' class='btn btn-outline-secondary text-center rounded-0 px-4 btn-sm'>Recruit</a>
                                             <a href='printAttendance/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>
                                         </div>
                                     </div>
@@ -800,46 +801,62 @@ class RecruiterController extends Controller
                                             <thead>
                                                 <tr>
                                                     <th scope='col'>#</th>
-                                                    <th scope='col'>Applicant</th>
+                                                    <th scope='col'>Project Workers</th>
                                                     <th scope='col'>Role</th>
                                                     <th scope='col'>Details</th>
-                                                    <th scope='col'>Attendance</th>
                                                 </tr>
                                             </thead>
                                             <tbody>";
                                     foreach($applicantData as $count => $certainApplicantData){
                                         $count = $count +1;
+                                        // <form id='submitFormAttendance'>
                                         echo"
                                             <tr>
-                                                <form id='submitFormAttendance'>
                                                 <td>$count
                                                     <input type='hidden' readonly value='$certainData->certainOperation_id' id='operationId' name='operationId'>
                                                 </td>
                                                 <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
                                                 <td>$certainApplicantData->position</td>
                                                 <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn rounded-0 btn-outline-secondary btn-sm'>View</button></td>
-                                                <td scope='col'>
-                                                    <div class='form-check form-check-inline'>
-                                                        <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='$certainApplicantData->applicant_id'>
-                                                        <label class='form-check-label'>Attend</label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            ";
-                                    }                   
-                                    echo "
+                                                </tr>
+                                                ";
+                                            }                   
+                                            // <td scope='col'>
+                                            //     <div class='form-check form-check-inline'>
+                                            //         <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='$certainApplicantData->applicant_id'>
+                                            //         <label class='form-check-label'>Attend</label>
+                                            //     </div>
+                                            // </td>
+                                            
+                                            echo "
                                             </tbody>
                                             </table>
-                                            <div class='row'>
-                                            <div class='col-5 ms-auto text-end'>
-                                                <button type='button' class='btn btn-outline-secondary rounded-0' id='operationCompleteBtn'>Submit Attendance</button>
-                                            </div>
-                                            </form>
-                                            </div>
                                             ";
-                                              
+                                            date_default_timezone_set('Asia/Manila'); 
+                                            $currentDate = date('Y-m-d H:i:s', strtotime("+4 hours", strtotime(now())));
+                                            $operationDate = operations::where('certainOperation_id', '=' , $certainData->certainOperation_id)->value('operationEnd');
+                                            if($currentDate > $operationDate){
+                                                echo"
+                                                <div class='row'>
+                                                    <div class='col-5 ms-auto text-end'>
+                                                        <a type='button' class='btn btn-outline-secondary rounded-0' href='/submitAttendance/$certainData->certainOperation_id'>Submit Attendance</a>
+                                                    </div>
+                                                </div>
+                                                ";
+                                            }else{
+                                                echo"
+                                                <div class='row'>
+                                                    <div class='col-5 ms-auto text-end'>
+                                                        <button disabled type='button' class='btn btn-outline-secondary rounded-0'>Submit Attendance</button>
+                                                    </div>
+                                                </div>
+                                                "; 
+                                            }
                                 }else{
-                                    echo "<h5 class='text-center' style='color:#800; margin-top:9rem;'>NO APPLICANT RECRUITED YET</h5>";        
+                                    echo "<h5 class='text-center text-dark' style='margin-top:9rem;'>NO APPLICANT RECRUITED YET <br>
+                                        <a onclick='recruitRecommendedRoutes($certainData->certainOperation_id)' type='button' class='btn btn-secondary text-center rounded-0 mt-2 px-4 btn-sm'>RECRUIT</a>
+                                    </h5>
+                                    ";        
                                 }echo "</div></div></div></div> ";
                             }
                         }else{
@@ -848,12 +865,19 @@ class RecruiterController extends Controller
                     }
                 // SHOW FORMED GROUP
 
+                // SUBMIT ATTENDANCE
+                    public function submitAttendance(Request $request, $id){
+                        $data = operations::where('certainOperation_id', '=' , $id)->with('applicants')->get();
+                        return view('fetch.recruiter.submitAttendance', compact('data'));
+                    }
+                // SUBMIT ATTENDANCE
+
                 // PRINT ATTENDANCE
                     public function printAttendance(Request $request, $id){
-                        $opertaionId = $id;
+                        $operationId = $id;
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
-                        ->where([['applied.operation_id', '=', $opertaionId],['operations.certainOperation_id', '=', $opertaionId],
+                        ->where([['applied.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId],
                         ['applied.is_recruited', '!=' , 0]])->orderBy('applicants.position')->get();
                         $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
                         foreach($data as $count => $certainData){
