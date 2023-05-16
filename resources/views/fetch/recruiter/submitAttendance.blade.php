@@ -102,7 +102,8 @@
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
                                                     <label for="points">Rates (between 0 and 100):</label>
-                                                    <input type="range" class="ratePerformance" disabled name="points" min="0" max="100">
+                                                    <input type="range" class="ratePerformance" disabled name="points" min="0" max="100" value="0" step="5">
+                                                    <p class="rateValue text-center"></p>
                                                 </div>
                                             </td>
                                             <td>
@@ -112,6 +113,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="row">
+                                    <div class="col-2 ms-auto">
+                                        <button type="button" class="btn btn-success btn-sm rounded-0 mt-4 py-2 px-5">SUBMIT</button>
+                                    </div>
+                                </div>
                             </div>
                         {{-- TABLES --}}
                     </div>

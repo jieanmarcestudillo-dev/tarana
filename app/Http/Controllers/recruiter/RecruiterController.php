@@ -835,7 +835,7 @@ class RecruiterController extends Controller
                                             date_default_timezone_set('Asia/Manila'); 
                                             $currentDate = date('Y-m-d H:i:s', strtotime("+4 hours", strtotime(now())));
                                             $operationDate = operations::where('certainOperation_id', '=' , $certainData->certainOperation_id)->value('operationEnd');
-                                            if($currentDate > $operationDate){
+                                            if($currentDate < $operationDate){
                                                 echo"
                                                 <div class='row'>
                                                     <div class='col-5 ms-auto text-end'>

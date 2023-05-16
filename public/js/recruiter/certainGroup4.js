@@ -233,12 +233,19 @@ $(document).ready(function(){
 
     // ENABLE BUTTON
         $(function() {
-            $(".isAttend").click(function(){
-                $('.ratePerformance').prop('disabled',$('input.isAttend:checked').length == 0);
-            });
+            const isAttendCheckBox = document.getElementsByClassName('isAttend');
+            const ratePerformanceRange = document.getElementsByClassName('ratePerformance');
+            const rateValue = document.getElementsByClassName("rateValue")
+            for (let i = 0; i < isAttendCheckBox.length; i++) {
+                isAttendCheckBox[i].addEventListener('change', function() {
+                    ratePerformanceRange[i].disabled = !isAttendCheckBox[i].checked;
+                    rateValue[i].textContent = ''
+                    ratePerformanceRange[i].value = 0;
+                });
+                ratePerformanceRange[i].addEventListener('input', function() {
+                  rateValue[i].textContent = 'Rating: ' + ratePerformanceRange[i].value + '%' ;
+                });
+            }
         });
     // ENABLE BUTTON
-
-
-
 // FUNCTION
