@@ -74,6 +74,7 @@
 
                         {{-- TABLES --}}
                             <div class="card p-5 mt-2 shadow rounded-0">
+                                <form name="submitAttendanceForm" id="submitAttendanceForm">
                                 <table id="applicantsAttendance" class="table table-sm table-bordered text-center align-middle text-center align-middle">
                                     <thead>
                                         <tr>
@@ -87,6 +88,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <input type="text" id="operationId" name="operationId" class="text-white" style="outline: none; cursor:default;" readonly value="{{$certainData->certainOperation_id}}">
                                         @foreach($certainData->applicants as $count => $applicantInfo)
                                         <tr>
                                             <td>{{$count = $count +1;}}</td>
@@ -95,15 +97,16 @@
                                             <td>{{$applicantInfo->position}}</td>
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
-                                                    <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='$certainApplicantData->applicant_id'>
+                                                    <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='{{$applicantInfo->applicant_id}}'>
                                                     <label class='form-check-label'>Is Attend</label>
                                                 </div>
                                             </td>
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
                                                     <label for="points">Rates (between 0 and 100):</label>
-                                                    <input type="range" class="ratePerformance" disabled name="points" min="0" max="100" value="0" step="5">
-                                                    <p class="rateValue text-center"></p>
+                                                    <input type="range" class="ratePerformance" disabled name="applicantPerformance[]" value="0" min="0" max="100" step="5">
+                                                    <input type="hidden" readonly class="rateValueSubmit">
+                                                    <p class="rateValueDisplay text-center"></p>
                                                 </div>
                                             </td>
                                             <td>
@@ -115,8 +118,9 @@
                                 </table>
                                 <div class="row">
                                     <div class="col-2 ms-auto">
-                                        <button type="button" class="btn btn-success btn-sm rounded-0 mt-4 py-2 px-5">SUBMIT</button>
+                                        <button type="button" id="operationCompleteBtn" class="btn btn-success btn-sm rounded-0 mt-4 py-2 px-5">SUBMIT</button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         {{-- TABLES --}}

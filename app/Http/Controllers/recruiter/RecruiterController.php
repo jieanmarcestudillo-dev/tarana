@@ -966,38 +966,25 @@ class RecruiterController extends Controller
                 // CONFIRMATION EMPLOYEES PASSWORD
 
                 // SUBMITTING ATTENDANCE INTO DB
-                    public function submitAppAttendance(Request $request){
-                        $randomNumber = rand(00001,99999);
-                        $year = date("Y");
-                        $certainCode = $year.''.$randomNumber;                       
-                        $data = operations::select('operationStart', 'operationEnd')->where([
-                        ['certainOperation_id', '=', $request->operationId]])->first();
-                        $currentDateTime = date('m-d-Y h:i A');
-                        $operationStart = date('m-d-Y h:i A',strtotime($data->operationStart));
-                        $operationEnd = date('m-d-Y h:i A',strtotime($data->operationEnd));
-                        if($currentDateTime > $operationEnd){
-                            foreach ($request->applicantId as $index => $applicantId) {
-                                $submitAttendance = completed::create([
-                                    'operation_id' => $request->operationId,
-                                    'applicant_id' => $applicantId,
-                                    'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
-                                    'certainCode' => $certainCode,
-                                    'date_time_complete' => now(),
-                                ]);
+                    public function submitApplicantAttendance(Request $request){
+                        $certainCode = date("Y").''.rand(00001,99999);          
+                        foreach($request->applicantPerformance as $perApplicantPerformance){}
+                        foreach ($request->applicantPresent as $index => $applicantId) {
+                            $submitAttendance = completed::create([
+                                'operation_id' => $request->operationId,
+                                'applicant_id' => $applicantId,
+                                'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
+                                'performanceRating' => $perApplicantPerformance,
+                                'certainCode' => $certainCode,
+                                'date_time_complete' => now(),
+                            ]);
+                            $deleteApplied = applied::where([['applicants_id', '=', $applicantId],
+                            ['operation_id',$request->operationId]])->delete();
 
-                                $deleteApplied = applied::where([['applicants_id', '=', $applicantId],
-                                ['operation_id',$request->operationId]])->delete();
-
-                                $completeOperation = operations::where([['certainOperation_id', '=' , $request->operationId]])
-                                ->update(['is_completed' => 1]);
-                            }
-                            return response()->json($submitAttendance ? 1 : 0);
-                            
-                        }elseif ($currentDateTime > $operationStart && $currentDateTime < $operationEnd){
-                            return response()->json(3); // STILL OPERATE
-                        }else{
-                            return response()->json(2); // NOT DONE
+                            $completeOperation = operations::where([['certainOperation_id', '=' , $request->operationId]])
+                            ->update(['is_completed' => 1]);
                         }
+                        return response()->json($submitAttendance ? 1 : 0);
                     }
                 // SUBMITTING ATTENDANCE INTO DB
 

@@ -233,7 +233,7 @@ use App\Http\Controllers\homeController;
         // GET
             
         // POST
-            Route::post('submitAppAttendance',[RecruiterController::class,'submitAppAttendance']);
+            Route::post('submitApplicantAttendance',[RecruiterController::class,'submitApplicantAttendance']);
             Route::post('editRecruiterInfo', [RecruiterController::class,'editRecruiterInfo']);
             Route::post('updateUsersPassword', [RecruiterController::class,'updateUsersPassword']);
         // POST

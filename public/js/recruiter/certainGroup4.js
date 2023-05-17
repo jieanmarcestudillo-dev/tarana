@@ -138,18 +138,20 @@ $(document).ready(function(){
 // FUNCTION
     // SUBMIT ATTENDANCE
         $("body").delegate("#operationCompleteBtn","click",function(e){
-            // applicantId = [];
-            // $(':checkbox:checked').each(function(applicant){
-            //     applicantId[applicant] = $(this).val();
-            // });
-            // if(applicantId.length === 0){
-            //     Swal.fire(
-            //     'CANNOT SUBMIT',
-            //     'Check the checkbox of an applicant who attend',
-            //     'error'
-            //     )
-            // }else{
-                var operationId = $('#operationId').val().trim();
+            applicantId = [];
+            var operationId = $('#operationId').val();
+            var currentForm = $('#submitAttendanceForm')[0];
+            var data = new FormData(currentForm);
+            $(':checkbox:checked').each(function(applicant){
+                applicantId[applicant] = $(this).val();
+            });
+            if(applicantId.length === 0){
+                Swal.fire(
+                'CANNOT SUBMIT',
+                'Check the checkbox of an applicant who attend',
+                'error'
+                )
+            }else{
                 Swal.fire({
                     icon: 'question',
                     title: 'Are you sure?',
@@ -175,10 +177,13 @@ $(document).ready(function(){
                             success:function(response2){
                                 if(response2 == 1){
                                     $.ajax({
-                                        url: '/submitAppAttendance',
+                                        url: '/submitApplicantAttendance',
                                         method: 'POST',
                                         dataType: 'text',
-                                        data:{operationId:operationId , applicantId:applicantId},
+                                        data:data,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
                                         success: function(response3) {
                                             if(response3 == 1){
                                                 Swal.fire({
@@ -209,20 +214,19 @@ $(document).ready(function(){
                                         }
                                     });                                
                                 }else if(response2 == 0){
-                                        Swal.fire(
-                                        'Wrong Password',
-                                        'Please re-type your password',
-                                        'error'
-                                        )
+                                    Swal.fire(
+                                    'Wrong Password',
+                                    'Please re-type your password',
+                                    'error'
+                                    )
                                 }
                             }
                         });
                     }
                 });
-            // }
+            }
         });
     // SUBMIT ATTENDANCE
-
     
     // REDIRECT TO SPECIFIC OPERATION
         function recruitRecommendedRoutes(id){
@@ -235,15 +239,18 @@ $(document).ready(function(){
         $(function() {
             const isAttendCheckBox = document.getElementsByClassName('isAttend');
             const ratePerformanceRange = document.getElementsByClassName('ratePerformance');
-            const rateValue = document.getElementsByClassName("rateValue")
+            const rateValueDisplay = document.getElementsByClassName("rateValueDisplay")
+            const rateValueSubmit = document.getElementsByClassName("rateValueSubmit")
             for (let i = 0; i < isAttendCheckBox.length; i++) {
                 isAttendCheckBox[i].addEventListener('change', function() {
                     ratePerformanceRange[i].disabled = !isAttendCheckBox[i].checked;
-                    rateValue[i].textContent = ''
+                    rateValueDisplay[i].textContent = ''
+                    rateValueSubmit[i].value = ''
                     ratePerformanceRange[i].value = 0;
                 });
                 ratePerformanceRange[i].addEventListener('input', function() {
-                  rateValue[i].textContent = 'Rating: ' + ratePerformanceRange[i].value + '%' ;
+                  rateValueDisplay[i].textContent = 'Rating: ' + ratePerformanceRange[i].value + '%' ; 
+                  rateValueSubmit[i].value = ratePerformanceRange[i].value;
                 });
             }
         });

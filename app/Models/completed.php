@@ -20,6 +20,7 @@ class completed extends Model
     protected $fillable = [
         'operation_id',
         'applicant_id',
+        'performanceRating',
         'recruiter_id',
         'certainCode',
         'date_time_complete',
