@@ -37,10 +37,7 @@ class RecruiterController extends Controller
             // FETCH
                 // RECRUITER OPERATION SCHEDULE
                     public function recruiterScheduleOperation(Request $request){
-                        $data = operations::where([
-                        ['foreman', '=' ,auth()->guard('employeesModel')->user()->employee_id],
-                        ['is_completed', '=', 0] 
-                        ])->get();
+                        $data = operations::where([['is_completed', '=', 0]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     }
@@ -835,7 +832,7 @@ class RecruiterController extends Controller
                                             date_default_timezone_set('Asia/Manila'); 
                                             $currentDate = date('Y-m-d H:i:s', strtotime("+4 hours", strtotime(now())));
                                             $operationDate = operations::where('certainOperation_id', '=' , $certainData->certainOperation_id)->value('operationEnd');
-                                            if($currentDate < $operationDate){
+                                            if($currentDate > $operationDate){
                                                 echo"
                                                 <div class='row'>
                                                     <div class='col-5 ms-auto text-end'>
@@ -968,21 +965,28 @@ class RecruiterController extends Controller
                 // SUBMITTING ATTENDANCE INTO DB
                     public function submitApplicantAttendance(Request $request){
                         $certainCode = date("Y").''.rand(00001,99999);          
-                        foreach($request->applicantPerformance as $perApplicantPerformance){}
-                        foreach ($request->applicantPresent as $index => $applicantId) {
+                        $applicantId = $request->applicantPresent;
+                        $perApplicantPerformance = $request->applicantPerformance;
+                        $count = count($request->applicantPresent);
+                        for ($i = 0; $i < $count; $i++) {
+                            $data1 = $applicantId[$i];
+                            $data2 = $perApplicantPerformance[$i];
                             $submitAttendance = completed::create([
                                 'operation_id' => $request->operationId,
-                                'applicant_id' => $applicantId,
+                                'applicant_id' => $data1,
                                 'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
-                                'performanceRating' => $perApplicantPerformance,
+                                'performanceRating' => $data2,
                                 'certainCode' => $certainCode,
                                 'date_time_complete' => now(),
                             ]);
-                            $deleteApplied = applied::where([['applicants_id', '=', $applicantId],
+                            $deleteApplied = applied::where([['applicants_id', '=', $data1],
                             ['operation_id',$request->operationId]])->delete();
 
                             $completeOperation = operations::where([['certainOperation_id', '=' , $request->operationId]])
                             ->update(['is_completed' => 1]);
+
+                            $proWorkers = applicants::where([['applicant_id', '=' , $data1]])
+                            ->update(['is_pro' => 1]);
                         }
                         return response()->json($submitAttendance ? 1 : 0);
                     }

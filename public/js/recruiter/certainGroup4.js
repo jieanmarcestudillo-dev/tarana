@@ -193,6 +193,7 @@ $(document).ready(function(){
                                                     timer: 1500,
                                                 }).then((result) => {
                                                 if (result) {
+                                                    window.location = "/recruiterCompletedRoutes";
                                                     recruiterFormedGroup();
                                                 }
                                                 });
