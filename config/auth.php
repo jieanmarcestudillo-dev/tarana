@@ -80,6 +80,11 @@ return [
             'driver' => 'session',
             'provider' => 'completed',
         ],
+
+        'historyModel' => [
+            'driver' => 'session',
+            'provider' => 'historyModel',
+        ],
     ],
 
     /*
@@ -143,6 +148,11 @@ return [
         'completed' => [
             'driver' => 'eloquent',
             'model' => App\Models\completed::class
+        ],
+
+        'historyModel' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\history::class
         ],
     ],
 

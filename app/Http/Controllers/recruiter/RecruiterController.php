@@ -11,6 +11,7 @@ use App\Models\applied;
 use App\Models\backout;
 use App\Models\declined;
 use App\Models\completed;
+use App\Models\history;
 use Session;
 use Hash;
 use Auth;
@@ -75,8 +76,21 @@ class RecruiterController extends Controller
                     public function pendingInvitationContent(Request $request){
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
+                        ->join('employees AS recruiter', 'applied.recruiter', '=', 'recruiter.employee_id')
                         ->where([
-                        ['applied.is_recommend', '=', 1],['applied.is_recruited', '!=' ,1]])->orderBy('applied.applied_id', 'ASC')->get();
+                        ['applied.is_recommend', '=', 1],['applied.is_recruited', '!=' ,1]])->orderBy('applied.applied_id', 'ASC')->
+                        select(
+                            'operations.*',
+                            'applied.applied_id',
+                            'applicants.firstname as applicantFname',
+                            'applicants.lastname as applicantLname',
+                            'applicants.extention as applicantExtention',
+                            'applicants.position as applicantPosition',
+                            'recruiter.firstname as recruiterFname',
+                            'recruiter.lastname as recruiterLname',
+                            'recruiter.extention as recruiterExtention',
+                        )
+                        ->get();
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
@@ -84,12 +98,12 @@ class RecruiterController extends Controller
                             <thead>
                             <tr>
                                 <th scope='col'>#</th>
-                                <th scope='col'>Applicant</th>
+                                <th scope='col'>Project Workers</th>
                                 <th scope='col'>Role</th>
-                                <th scope='col'>Ship Name</th>
-                                <th scope='col'>Ship Carry</th>
+                                <th scope='col'>Operation</th>
                                 <th scope='col'>Operation Start</th>
                                 <th scope='col'>Operation End</th>
+                                <th scope='col'>Recommend By</th>
                                 <th scope='col'>Action</th>
                             </tr>
                             </thead>
@@ -102,12 +116,12 @@ class RecruiterController extends Controller
                             echo"                       
                                     <tr>
                                         <td>$count</td>
-                                        <td>$certainData->firstname $certainData->lastname $certainData->extention</td>
-                                        <td>$certainData->position</td>
-                                        <td>$certainData->shipName</td>
-                                        <td>$certainData->shipCarry</td>
+                                        <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
+                                        <td>$certainData->applicantPosition</td>
+                                        <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
                                         <td>$newOperationStartDate</td>
                                         <td>$newOperationEndDate</td>
+                                        <td>$certainData->recruiterFname $certainData->recruiterLname $certainData->recruiterExtention</td>
                                         <td><button type='button' onclick=deleteRecommendApplicants($certainData->applied_id) class='btn btn-danger btn-sm'>Cancel</button></td>
                                     </tr>                    
                             ";
@@ -460,7 +474,7 @@ class RecruiterController extends Controller
                                     <div class='card-body' style='height:280px; overflow-y:auto;'>
                                     <div class='row'>
                                         <div class='col-9'>
-                                            <h5 class='card-title'>Workers Participated</h5>
+                                            <h5 class='card-title'>Project Workers Participated</h5>
                                         </div>
                                         <div class='col-3 text-end'>
                                             <a href='printCompletedOperation/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>
@@ -472,6 +486,7 @@ class RecruiterController extends Controller
                                                     <th scope='col'>#</th>
                                                     <th scope='col'>Applicant</th>
                                                     <th scope='col'>Role</th>
+                                                    <th scope='col'>Performance</th>
                                                     <th scope='col'>Details</th>
                                                 </tr>
                                             </thead>
@@ -483,16 +498,23 @@ class RecruiterController extends Controller
                                                 <td>$count</td>
                                                 <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
                                                 <td>$certainApplicantData->position</td>
+                                                <td>Rating: $certainApplicantData->performanceRating%</td>
                                                 <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn btn-outline-secondary btn-sm'>View</button></td>
                                             </tr>
                                             ";
-                                    }                             
+                                    }         
                                 }else{
                                     echo "<h5 class='text-center' style='color:#800; margin-top:8rem;'>NO APPLICANT RECRUITED YET</h5>";        
                                 }
                                 echo"
                                 </tbody>
                                 </table>
+                                ";
+                                $recruiter = employees::select('lastname','firstname','extention')->where('employee_id', '=' , $certainApplicantData->recruiter_id)->first();                                 
+                                $date = date_format($certainApplicantData->created_at,'F d, Y | h A');
+                                echo "<p class='text-start fw-bold'>Submitted and Rated by: $recruiter->firstname $recruiter->lastname $recruiter->extention <br> On: $date</p>";
+                                 "<p>On:</p>";
+                                echo"
                                 </div>
                                 </div>
                                 </div>

@@ -504,9 +504,9 @@ class ApplicantsController extends Controller
             public function applicantScheduled(Request $request){
                 $applicantScheduled = applied::
                  join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                ->join('employees', 'operations.foreman', '=', 'employees.employee_id')
+                ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
                 ->where([['applied.applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
-                ['is_recruited', '=', 1]])->get(['applied.*','employees.lastname','employees.firstname','employees.extention',
+                ['is_recruited', '=', 1]])->get(['applied.*','employees.employee_id','employees.lastname','employees.firstname','employees.extention',
                 'operations.*']);
                 if($applicantScheduled->isNotEmpty()){
                     foreach($applicantScheduled as $certainData){
@@ -556,7 +556,7 @@ class ApplicantsController extends Controller
                                             </div>
                                         </li>
                                         <li class='list-group-item text-center text-lg-end'>
-                                            <button onclick=backOutOperation('$certainData->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
+                                            <button onclick='backOutOperation($certainData->certainOperation_id, $certainData->recruiter)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                         </li>
                                     </ul>
                                 </div>
