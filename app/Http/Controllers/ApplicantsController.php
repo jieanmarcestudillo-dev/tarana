@@ -218,6 +218,7 @@ class ApplicantsController extends Controller
                             $operationStartTime = date('D | h:i: A ',strtotime($item->operationStart)); 
                             $operationEndDate = date('F d, Y',strtotime($item->operationEnd));
                             $operationEndTime = date('D | h:i: A ',strtotime($item->operationEnd)); 
+                            $recruiterId = $item->employees->employee_id;
                             $recruiter = $item->employees->firstname.' '.$item->employees->lastname.' '.$item->employees->extention;
                             echo"
                             <div class='col-lg-6 col-sm-12 g-0 gx-lg-5 text-center text-lg-start'>
@@ -270,15 +271,15 @@ class ApplicantsController extends Controller
                                                         if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 0){
                                                             echo"
                                                                 <button onclick=acceptInvitation('$appliedData->operation_id') class='btn btn-sm btn-success px-4 py-2'>Accept</button>
-                                                                <button onclick=declineInvitation('$item->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Decline</button>
+                                                                <button onclick='declineInvitation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Decline</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick=backOutOperation('$item->certainOperation_id') class='btn btn-sm btn-danger px-3 py-2'>Back Out</button>
+                                                                <button onclick='backOutOperation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 0 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick=backOutOperation('$item->certainOperation_id') class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
+                                                                <button onclick='backOutOperation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                                             ";
                                                         }else{
                                                             echo"
@@ -392,21 +393,19 @@ class ApplicantsController extends Controller
 
             // DECLINED INVITATION
                 public function declinedInvitation(Request $request){
-                    $reason = $request->reason;
-                    $operationId = $request->operationId;
-                    $applicantId = auth()->guard('applicantsModel')->user()->applicant_id;
                     $addDeclined = declined::create([
-                        'operation_id' => $operationId,
-                        'applicant_id' => $applicantId,
-                        'reason' => $reason,
+                        'operation_id' => $request->operationId,
+                        'applicant_id' => auth()->guard('applicantsModel')->user()->applicant_id,
+                        'recruiter_id' => $request->recruiterId,
+                        'reason' => $request->reason,
                         'date_time_declined' => now(),
                         'is_archived' => 0,
                     ]);
                     if($addDeclined){
-                        $cancelApplied = applied::where([['operation_id', '=', $operationId],['applicants_id', '=', $applicantId], 
+                        $cancelApplied = applied::where([['operation_id', '=', $request->operationId],['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id], 
                         ['is_recommend', '=', 1]])->delete();
                         if($cancelApplied){
-                            $updateSlot = operations::find($operationId)->increment('slot');
+                            $updateSlot = operations::find($request->operationId)->increment('slot');
                             return response()->json($updateSlot ? 1 : 0);
                         }
                     }
@@ -415,20 +414,18 @@ class ApplicantsController extends Controller
 
             // BACK OUT SCHEDULED OPERATION
                 public function backOutOperation(Request $request){
-                    $reason = $request->reason;
-                    $operationId = $request->operationId;
-                    $applicantId = auth()->guard('applicantsModel')->user()->applicant_id;
                     $addBackout = backout::create([
-                        'operation_id' => $operationId,
-                        'applicant_id' => $applicantId,
-                        'reason' => $reason,
+                        'operation_id' => $request->operationId,
+                        'applicant_id' => auth()->guard('applicantsModel')->user()->applicant_id,
+                        'recruiter_id' => $request->recruiterId,
+                        'reason' => $request->reason,
                         'date_time_backOut' => now(),
                         'is_archived' => 0,
                     ]);
                     if($addBackout){
-                        $cancelApplied = applied::where([['operation_id', '=', $operationId],['applicants_id', '=', $applicantId]])->delete();
+                        $cancelApplied = applied::where([['operation_id', '=', $request->operationId],['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id]])->delete();
                         if($cancelApplied){
-                            $updateSlot = operations::find($operationId)->increment('slot');
+                            $updateSlot = operations::find($request->operationId)->increment('slot');
                             return response()->json($updateSlot ? 1 : 0);
                         }
                     }

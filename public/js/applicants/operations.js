@@ -105,7 +105,7 @@ $(document).ready(function(){
 // CANCEL THE APPLY FOR SPECIFIC OPERATION
 
 // DECLINE INVITATION
-    function declineInvitation(id){
+    function declineInvitation(operationId, recruiterId){
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you want to DECLINE this invitation?",
@@ -132,7 +132,7 @@ $(document).ready(function(){
                         url: '/declinedInvitation',
                         type: 'GET',
                         dataType: 'text',
-                        data: {reason: reason, operationId: id},
+                        data: {reason: reason, operationId: operationId, recruiterId:recruiterId},
                         success: function(response) {
                             if(response == 1){
                                 showTotalOperations();
@@ -163,7 +163,7 @@ $(document).ready(function(){
 // DECLINE INVITATION
 
 // BACKOUT OPERATION
-    function backOutOperation(id){
+    function backOutOperation(operationId, recruiterId){
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you want to BACKOUT on this operation?",
@@ -190,7 +190,7 @@ $(document).ready(function(){
                         url: '/backOutOperation',
                         type: 'GET',
                         dataType: 'text',
-                        data: {reason: reason, operationId: id},
+                        data: {reason: reason, operationId: operationId, recruiterId:recruiterId},
                         success: function(response) {
                             if(response == 1){
                                 Swal.fire({

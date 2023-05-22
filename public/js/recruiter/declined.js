@@ -102,3 +102,18 @@ $(document).ready(function(){
         })
     }
 // DELETE DECLINED DETAILS
+
+// SHOW REASON OF BACKOUT
+    function declinedReason(id){
+        $('#declinedReasonModal').modal('show')
+        $.ajax({
+            url: '/declinedReason',
+            type: 'GET',
+            dataType: 'json',
+            data: {declinedId: id},
+        })
+        .done(function(response) {
+            $('#declinedReason').text(response.reason); 
+        })
+    }
+// SHOW REASON OF BACKOUT

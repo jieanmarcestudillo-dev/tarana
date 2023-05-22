@@ -609,7 +609,7 @@ class AdminController extends Controller
                 // FETCH APPLICANTS ON CERTAIN OPERATION
                     public function showApplicantOnCertainOperation(Request $request){
                         $data = completed::join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                        ->where('completed.operation_id', '=', $request->operationId)->orderBy('applicants.position')->get();
+                        ->where('completed.operation_id', '=', $request->operationId)->orderBy('completed.performanceRating' , 'desc')->get();
                         echo "
                         <table class='table table-bordered text-center align-middle'>
                             <thead> 
@@ -617,6 +617,7 @@ class AdminController extends Controller
                                     <th scope='col'>#</th>
                                     <th scope='col'>Applicant</th>
                                     <th scope='col'>Role</th>
+                                    <th scope='col'>Performance</th>
                                     <th scope='col'>Details</th>
                                 </tr>
                             </thead>
@@ -628,6 +629,7 @@ class AdminController extends Controller
                                         <td>$count</td>
                                         <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
                                         <td>$certainApplicantData->position</td>
+                                        <td>Rating: $certainApplicantData->performanceRating%</td>
                                         <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn btn-outline-secondary btn-sm'>View</button></td>
                                     </tr>
                                     ";
@@ -800,7 +802,13 @@ class AdminController extends Controller
                     // BACKOUT ARCHIVED DATA
                         public function getBackOutArchived(Request $request){
                             $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
-                            ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')->orderBy('backout.backOut_id', 'DESC')->get();
+                            ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
+                            ->join('employees', 'backout.recruiter_id', '=', 'employees.employee_id')
+                            ->select('operations.*','backout.backOut_id','backout.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                            ->orderBy('operations.operationStart', 'DESC')
+                            ->get();
                             return response()->json($data);
                         }
                     // BACKOUT ARCHIVED DATA
@@ -808,7 +816,13 @@ class AdminController extends Controller
                     // DECLINED ARCHIVED DATA
                         public function getDeclinedArchived(Request $request){
                             $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
-                            ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')->orderBy('operations.operationStart', 'DESC')->get();
+                            ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
+                            ->join('employees', 'declined.recruiter_id', '=', 'employees.employee_id')
+                            ->select('operations.*','declined.declined_id','declined.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                            ->orderBy('operations.operationStart', 'DESC')
+                            ->get();
                             return response()->json($data);
                         }
                     // DECLINED ARCHIVED DATA

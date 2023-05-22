@@ -50,25 +50,18 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">Declined</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Recruiters</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">On-Call Workers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Applicants</a>
-                                </li>
                             </ul>
                             <div class="container-fluid mt-4">
                                 <table id="declinedTable" class="table table-sm table-bordered text-center align-middle">
                                     <thead>
                                         <tr>
-                                            <th class="text-center col-1">#</th>
-                                            <th class="text-center col-2">On-Call Workers</th>
-                                            <th class="text-center col-3">Operation</th>
-                                            <th class="text-center col-5">Reason</th>
-                                            <th class="text-center col-1">Actions</th>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Project Workers</th>
+                                            <th class="text-center">Operation</th>
+                                            <th class="text-center">Operation Start</th>
+                                            <th class="text-center">Operation End</th>
+                                            <th class="text-center">Recommend By</th>
+                                            <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -85,5 +78,26 @@
         <script src="{{ asset('/js/administrator/archived.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
+
+    {{-- MODAL --}}
+        {{-- VIEW REASON --}}
+            <div class="modal fade" id="declinedReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2 ms-auto">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <p class="my-4" id="declinedReason"></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {{-- VIEW REASON --}}
+    {{-- MODAL --}}
 </body>
 </html>

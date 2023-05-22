@@ -203,12 +203,6 @@ $(document).ready(function(){
                                                     'The operation was not already done',
                                                     'error'
                                                 )
-                                            }else if(response3 == 3){
-                                                Swal.fire(
-                                                    'SUBMIT FAILED',
-                                                    'Operation still operate, please wait until done',
-                                                    'error'
-                                                )
                                             }else{
                                                 console.log(response3);
                                             }

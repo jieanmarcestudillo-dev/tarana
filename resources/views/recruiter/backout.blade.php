@@ -134,46 +134,24 @@
     {{-- END JS --}}
 
     {{-- MODAL --}}
-        {{-- UPDATE OPERATION --}}
-            <div class="modal fade" id="updateOperationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body mb-2 text-center">
-                            <div class="row">
-                                <div class="col-11">
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+        {{-- VIEW REASON --}}
+            <div class="modal fade" id="backOutReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2 ms-auto">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="row g-1 mt-3">
-                                <img src="" class="rounded mx-auto d-block" id="updateOperationPhoto" style="height: 200px; width:100%;">
-                            </div>
-                            <div class="row g-1 mt-3">
-                                <div class="col-6">
-                                    <label class="form-label">Ship's Name:</label>
-                                    <input type="text" class="form-control text-center shadow-sm bg-body rounded" readonly id="updateShipsName" name="updateShipsName">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label">Ship's Carry:</label>
-                                    <input type="text" class="form-control text-center shadow-sm bg-body rounded" readonly id="updateShipsCarry" name="updateShipsCarry">
-                                </div>
-                            </div>
-                            <div class="row g-1 mt-3">
-                                <div class="col-6">
-                                    <label class="form-label">Operation Start:</label>
-                                    <input type="datetime-local" class="form-control text-center shadow-sm bg-body rounded" readonly id="updateOperationStart" name="updateOperationStart">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label">Operation End:</label>
-                                    <input type="datetime-local" class="form-control text-center shadow-sm bg-body rounded" readonly id="updateOperationEnd" name="updateOperationEnd">
-                                </div>
-                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <p class="my-4" id="backOutReason"></p>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
-        {{-- UPDATE OPERATION --}}
+        {{-- VIEW REASON --}}
     {{-- MODAL --}}
 </body>
 </html>

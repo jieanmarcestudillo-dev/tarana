@@ -230,6 +230,8 @@ use App\Http\Controllers\homeController;
             Route::get('totalRecruitedApplicants', [RecruiterController::class,'totalRecruitedApplicants']);
             Route::get('badgeForRecruitedApplicants', [RecruiterController::class,'badgeForRecruitedApplicants']);
             Route::get('searchCompleted', [RecruiterController::class,'searchCompleted']);
+            Route::get('backOutReason', [RecruiterController::class,'backOutReason']);
+            Route::get('declinedReason', [RecruiterController::class,'declinedReason']);
         // GET
             
         // POST

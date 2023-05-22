@@ -140,8 +140,22 @@ class RecruiterController extends Controller
                     public function applicantBackoutContent(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
+                        ->join('employees AS recruiter', 'backout.recruiter_id', '=', 'recruiter.employee_id')
                         ->where([['is_archived','!+', 1]])->
-                        orderBy('backout.backOut_id', 'ASC')->get();
+                        orderBy('backout.backOut_id', 'ASC')->
+                        select(
+                            'operations.*',
+                            'backout.backOut_id',
+                            'backout.reason',
+                            'applicants.firstname as applicantFname',
+                            'applicants.lastname as applicantLname',
+                            'applicants.extention as applicantExtention',
+                            'applicants.position as applicantPosition',
+                            'recruiter.firstname as recruiterFname',
+                            'recruiter.lastname as recruiterLname',
+                            'recruiter.extention as recruiterExtention',
+                        )
+                        ->get();
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
@@ -149,9 +163,12 @@ class RecruiterController extends Controller
                             <thead>
                             <tr>
                                 <th scope='col'>#</th>
-                                <th scope='col'>Applicant</th>
+                                <th scope='col'>Project Workers</th>
                                 <th scope='col'>Role</th>
-                                <th scope='col'>Reason</th>
+                                <th scope='col'>Operation</th>
+                                <th scope='col'>Operation Start</th>
+                                <th scope='col'>Operation End</th>
+                                <th scope='col'>Recommend By</th>
                                 <th scope='col'>Action</th>
                             </tr>
                             </thead>
@@ -159,16 +176,21 @@ class RecruiterController extends Controller
                         ";
                         foreach($data as $count => $certainData){
                             $count = $count +1;
-                            $newOperationStartDate = date('F d, Y | h:i: A',strtotime($certainData->operationStart));
-                            $newOperationEndDate = date('F d, Y | h:i: A',strtotime($certainData->operationEnd));
+                            $newOperationStartDate = date('F d, Y',strtotime($certainData->operationStart));
+                            $newOperationStartTime = date('h:i A',strtotime($certainData->operationStart));
+                            $newOperationEndDate = date('F d, Y',strtotime($certainData->operationEnd));
+                            $newOperationEndTime = date('h:i A',strtotime($certainData->operationEnd));
                             echo"                       
                                     <tr>
                                         <td>$count</td>
-                                        <td class='col-2'>$certainData->firstname $certainData->lastname $certainData->extention</td>
-                                        <td class='col-2'>$certainData->position</td>
-                                        <td>$certainData->reason</td>
-                                        <td class='col-2'>
-                                            <button type='button' onclick=showCertainOperation($certainData->certainOperation_id) class='btn btn-secondary btn-sm rounded-0'>Details</button>
+                                        <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
+                                        <td>$certainData->applicantPosition</td>
+                                        <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
+                                        <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
+                                        <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
+                                        <td>$certainData->recruiterFname $certainData->recruiterLname $certainData->recruiterExtention</td>
+                                        <td>
+                                            <button type='button' onclick=backOutReason($certainData->backOut_id) class='btn btn-secondary btn-sm rounded-0'>Reason</button>
                                             <button type='button' onclick=deleteBackOutDetails($certainData->backOut_id) class='btn btn-success btn-sm rounded-0'>Noted</button>
                                         </td>
                                     </tr>                    
@@ -183,6 +205,13 @@ class RecruiterController extends Controller
                         }
                     }
                 // APPLICANT BACKOUT CONTENT
+
+                // VIEW REASON BACKOUT
+                    public function backOutReason(Request $request){
+                        $reason = backout::select('reason')->where('backOut_id', '=', $request->backOutId)->first();
+                        return response()->json($reason);
+                    }
+                // VIEW REASON BACKOUT
                     
                 // DELETE BACKOUT
                     public function deleteBackOut(Request $request){
@@ -225,38 +254,59 @@ class RecruiterController extends Controller
                     public function applicantDeclinedContent(Request $request){
                         $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
-                        ->where([['operations.foreman', '=', auth()->guard('employeesModel')->user()->employee_id],['is_archived','!=', 1]])->
-                        orderBy('declined.declined_id', 'ASC')->get();
+                        ->join('employees AS recruiter', 'declined.recruiter_id', '=', 'recruiter.employee_id')
+                        ->where([['is_archived','!=', 1]])->
+                        orderBy('declined.declined_id', 'ASC')->
+                        select(
+                            'operations.*',
+                            'declined.declined_id',
+                            'declined.reason',
+                            'applicants.firstname as applicantFname',
+                            'applicants.lastname as applicantLname',
+                            'applicants.extention as applicantExtention',
+                            'applicants.position as applicantPosition',
+                            'recruiter.firstname as recruiterFname',
+                            'recruiter.lastname as recruiterLname',
+                            'recruiter.extention as recruiterExtention',
+                        )->get();
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
                             <table class='table text-center align-middle table-striped' id='backoutTableContent'>
                             <thead>
-                            <tr>
-                                <th scope='col'>#</th>
-                                <th scope='col'>Applicant</th>
-                                <th scope='col'>Role</th>
-                                <th scope='col'>Reason</th>
-                                <th scope='col'>Action</th>
-                            </tr>
+                                <tr>
+                                    <th scope='col'>#</th>
+                                    <th scope='col'>Project Workers</th>
+                                    <th scope='col'>Role</th>
+                                    <th scope='col'>Operation</th>
+                                    <th scope='col'>Operation Start</th>
+                                    <th scope='col'>Operation End</th>
+                                    <th scope='col'>Recommend By</th>
+                                    <th scope='col'>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
                         ";
                         foreach($data as $count => $certainData){
                             $count = $count +1;
-                            $newOperationStartDate = date('F d, Y | h:i: A',strtotime($certainData->operationStart));
-                            $newOperationEndDate = date('F d, Y | h:i: A',strtotime($certainData->operationEnd));
+                            $newOperationStartDate = date('F d, Y',strtotime($certainData->operationStart));
+                            $newOperationStartTime = date('h:i A',strtotime($certainData->operationStart));
+                            $newOperationEndDate = date('F d, Y',strtotime($certainData->operationEnd));
+                            $newOperationEndTime = date('h:i A',strtotime($certainData->operationEnd)); 
                             echo"                       
-                                    <tr>
-                                        <td>$count</td>
-                                        <td class='col-2'>$certainData->firstname $certainData->lastname $certainData->extention</td>
-                                        <td class='col-2'>$certainData->position</td>
-                                        <td>$certainData->reason</td>
-                                        <td class='col-2'>
-                                            <button type='button' onclick=showCertainOperation($certainData->operation_id) class='btn btn-secondary btn-sm rounded-0'>Details</button>
-                                            <button type='button' onclick=deletedeclineDetails($certainData->declined_id) class='btn btn-success btn-sm rounded-0'>Noted</button>
-                                        </td>
-                                    </tr>                    
+                                <tr>
+                                    <td>$count</td>
+                                    <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
+                                    <td>$certainData->applicantPosition</td>
+                                    <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
+                                    <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
+                                    <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
+                                    <td>$certainData->recruiterFname $certainData->recruiterLname $certainData->recruiterExtention</td>
+                                    <td>
+                                        <button type='button' onclick=declinedReason($certainData->declined_id) class='btn btn-secondary btn-sm rounded-0'>Reason</button>
+                                        <button type='button' onclick=deletedeclineDetails($certainData->declined_id) class='btn btn-success btn-sm rounded-0'>Noted</button>
+                                    </td>
+                                </tr>                   
                             ";
                         }
                         echo "
@@ -268,6 +318,13 @@ class RecruiterController extends Controller
                         }
                     }
                 // APPLICANT DECLINED CONTENT
+
+                // VIEW REASON DECLINED
+                    public function declinedReason(Request $request){
+                        $reason = declined::select('reason')->where('declined_id', '=', $request->declinedId)->first();
+                        return response()->json($reason);
+                    }
+                // VIEW REASON DECLINED
             // FETCH
         // RECRUITER DASHBOARD
 
@@ -511,9 +568,9 @@ class RecruiterController extends Controller
                                 </table>
                                 ";
                                 $recruiter = employees::select('lastname','firstname','extention')->where('employee_id', '=' , $certainApplicantData->recruiter_id)->first();                                 
-                                $date = date_format($certainApplicantData->created_at,'F d, Y | h A');
-                                echo "<p class='text-start fw-bold'>Submitted and Rated by: $recruiter->firstname $recruiter->lastname $recruiter->extention <br> On: $date</p>";
-                                 "<p>On:</p>";
+                                $dateOfSubmission = completed::select('updated_at')->where('certainCode', '=' , $certainApplicantData->certainCode)->first();                                 
+                                $newDate = date_format($dateOfSubmission->updated_at,'F d, Y | g:i A');
+                                echo "<p class='text-start fw-bold'>Submitted and Rated by: $recruiter->firstname $recruiter->lastname $recruiter->extention <br> On: $newDate</p>";
                                 echo"
                                 </div>
                                 </div>
@@ -828,7 +885,6 @@ class RecruiterController extends Controller
                                             <tbody>";
                                     foreach($applicantData as $count => $certainApplicantData){
                                         $count = $count +1;
-                                        // <form id='submitFormAttendance'>
                                         echo"
                                             <tr>
                                                 <td>$count
@@ -840,13 +896,6 @@ class RecruiterController extends Controller
                                                 </tr>
                                                 ";
                                             }                   
-                                            // <td scope='col'>
-                                            //     <div class='form-check form-check-inline'>
-                                            //         <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='$certainApplicantData->applicant_id'>
-                                            //         <label class='form-check-label'>Attend</label>
-                                            //     </div>
-                                            // </td>
-                                            
                                             echo "
                                             </tbody>
                                             </table>
@@ -986,31 +1035,40 @@ class RecruiterController extends Controller
 
                 // SUBMITTING ATTENDANCE INTO DB
                     public function submitApplicantAttendance(Request $request){
-                        $certainCode = date("Y").''.rand(00001,99999);          
-                        $applicantId = $request->applicantPresent;
-                        $perApplicantPerformance = $request->applicantPerformance;
-                        $count = count($request->applicantPresent);
-                        for ($i = 0; $i < $count; $i++) {
-                            $data1 = $applicantId[$i];
-                            $data2 = $perApplicantPerformance[$i];
-                            $submitAttendance = completed::create([
-                                'operation_id' => $request->operationId,
-                                'applicant_id' => $data1,
-                                'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
-                                'performanceRating' => $data2,
-                                'certainCode' => $certainCode,
-                                'date_time_complete' => now(),
-                            ]);
-                            $deleteApplied = applied::where([['applicants_id', '=', $data1],
-                            ['operation_id',$request->operationId]])->delete();
+                        date_default_timezone_set('Asia/Manila'); 
+                        $checkIfValid = operations::select('operationEnd')->where('certainOperation_id','=', $request->operationId)->first(); 
+                        $operationEnd = date('F d, Y | h:i: A',strtotime($checkIfValid->operationEnd));
+                        $currentDate = date('F d, Y | h:i: A', strtotime("+4 hours", strtotime(now())));
+                        if($currentDate > $operationEnd){
+                            $certainCode = date("Y").''.rand(00001,99999);          
+                            $applicantId = $request->applicantPresent;
+                            $perApplicantPerformance = $request->applicantPerformance;
+                            $count = count($request->applicantPresent);
+                            for ($i = 0; $i < $count; $i++) {
+                                $data1 = $applicantId[$i];
+                                $data2 = $perApplicantPerformance[$i];
+                                $submitAttendance = completed::create([
+                                    'operation_id' => $request->operationId,
+                                    'applicant_id' => $data1,
+                                    'recruiter_id' => auth()->guard('employeesModel')->user()->employee_id,
+                                    'performanceRating' => $data2,
+                                    'certainCode' => $certainCode,
+                                    'date_time_complete' => now(),
+                                ]);
+                                $deleteApplied = applied::where([['applicants_id', '=', $data1],
+                                ['operation_id',$request->operationId]])->delete();
 
-                            $completeOperation = operations::where([['certainOperation_id', '=' , $request->operationId]])
-                            ->update(['is_completed' => 1]);
+                                $completeOperation = operations::where([['certainOperation_id', '=' , $request->operationId]])
+                                ->update(['is_completed' => 1]);
 
-                            $proWorkers = applicants::where([['applicant_id', '=' , $data1]])
-                            ->update(['is_pro' => 1]);
+                                $proWorkers = applicants::where([['applicant_id', '=' , $data1]])
+                                ->update(['is_pro' => 1]);
+                            }
+                            return response()->json($submitAttendance ? 1 : 0);
+                        }else{
+                            return response()->json(2);
                         }
-                        return response()->json($submitAttendance ? 1 : 0);
+                     
                     }
                 // SUBMITTING ATTENDANCE INTO DB
 

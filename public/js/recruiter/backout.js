@@ -102,3 +102,19 @@ $(document).ready(function(){
         })
     }
 // DELETE BACK OUT DETAILS
+
+
+// SHOW REASON OF BACKOUT
+    function backOutReason(id){
+        $('#backOutReasonModal').modal('show')
+        $.ajax({
+            url: '/backOutReason',
+            type: 'GET',
+            dataType: 'json',
+            data: {backOutId: id},
+        })
+        .done(function(response) {
+            $('#backOutReason').text( response.reason); 
+        })
+    }
+// SHOW REASON OF BACKOUT

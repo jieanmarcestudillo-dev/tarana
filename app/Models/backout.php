@@ -20,6 +20,7 @@ class backout extends Model
     protected $fillable = [
         'operation_id',
         'applicant_id',
+        'recruiter_id',
         'reason',
         'date_time_backOut',
         'is_archived',
