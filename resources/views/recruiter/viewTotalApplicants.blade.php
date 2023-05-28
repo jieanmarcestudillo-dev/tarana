@@ -52,22 +52,22 @@
                                             <li class='nav-item'>
                                                 <a class='nav-link text-dark active' href='#'><span class="badge text-bg-secondary rounded-circle" id="badgeForTotalApplicants" id="badgeForAll"></span> Applicants</a>
                                             </li>
-                                            <li class='nav-item'>
+                                            {{-- <li class='nav-item'>
                                                 <a class='nav-link text-secondary' href='recruitedApplicants'><span class="badge text-bg-secondary rounded-circle" id="badgeForRecruitedApplicant"></span> Recruited Applicants</a>
+                                            </li> --}}
+                                            <li class='nav-item'>
+                                                <a class='nav-link text-secondary' href='recruitRecommendedRoutes'><span class="badge text-bg-secondary rounded-circle" id="badgeForRecommendApplicants"></span> Recommended Workers</a>
                                             </li>
                                             <li class='nav-item'>
-                                                <a class='nav-link text-secondary' href='recruitRecommendedRoutes'><span class="badge text-bg-secondary rounded-circle" id="badgeForRecommendApplicants"></span> Pending Invitation</a>
-                                            </li>
-                                            <li class='nav-item'>
-                                                <a class='nav-link text-secondary' href='recruiterAcceptInvitationRoutes'><span class="badge text-bg-secondary rounded-circle" id="badgeAcceptInvitation"></span> Accept Invitation</a>
+                                                <a class='nav-link text-secondary' href='recruiterAcceptInvitationRoutes'><span class="badge text-bg-secondary rounded-circle" id="badgeAcceptInvitation"></span> Project Workers</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class='col-2 text-end'>
                                     </div>
                                 </div>   
-                                <table class='table table-bordered text-center align-middle' id='viewApplicantTable'>
-                                    <thead class='text-center'>
+                                <table class='table table-border text-center align-middle' id='viewApplicantTable'>
+                                    <thead class='text-center text-uppercase' style="font-size: 15px;">
                                         <th class='text-center'>#</th>
                                         <th class='text-center'>On-Call Workers</th>
                                         <th class='text-center'>Position</th>

@@ -79,62 +79,59 @@ $(document).ready(function () {
 // SHOW DETAILS OF OPERATION
 
 // DECLINE INVITATION
-    function declineInvitation(id){
-    Swal.fire({
-    title: 'Are you sure?',
-    text: "Do you want to DECLINE this invitation?",
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d72323',
-    confirmButtonText: 'Yes, Continue'
-    }).then((result) => {
-    if (result.isConfirmed) {
-    (async () => {
-        const { value: reason } = await Swal.fire({
-            input: 'textarea',
-            title: 'Reason of Decline?',
-            text: "once you submit, youre not allowed to participate to this operation",
-            inputPlaceholder: 'Type your reason here...',
-            inputAttributes: {
-            'aria-label': 'Type your message here'
-            },
-            showCancelButton: true
-        })
-        if(reason){
-            $.ajax({
-                url: '/declinedInvitation',
-                type: 'GET',
-                dataType: 'text',
-                data: {reason: reason, operationId: id},
-                success: function(response) {
-                    if(response == 1){
-                        totalInvitationOperation();
-                        operationInvitationContent();
-                        Swal.fire({
-                            title: 'DECLINE SUCCESSFULLY',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 1000,
-                        }).then((result) => {
-                        if (result) {
-                            totalInvitationOperation();
-                            operationInvitationContent();
+    function declineInvitation(operationId, recruiterId){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to DECLINE this invitation?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d72323',
+            confirmButtonText: 'Yes, Continue'
+            }).then((result) => {
+            if (result.isConfirmed) {
+            (async () => {
+                const { value: reason } = await Swal.fire({
+                    input: 'textarea',
+                    title: 'Reason of Decline?',
+                    text: "once you submit, you're not allowed to participate to this operation",
+                    inputPlaceholder: 'Type your reason here...',
+                    inputAttributes: {
+                    'aria-label': 'Type your message here'
+                    },
+                    showCancelButton: true
+                })
+                if(reason){
+                    $.ajax({
+                        url: '/declinedInvitation',
+                        type: 'GET',
+                        dataType: 'text',
+                        data: {reason: reason, operationId: operationId, recruiterId:recruiterId},
+                        success: function(response) {
+                            if(response == 1){
+                                Swal.fire({
+                                    title: 'DECLINE SUCCESSFULLY',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then((result) => {
+                                if (result) {
+                                    operationInvitationContent();
+                                }
+                                });
+                            }else if(response == 0){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Decline Failed',
+                                    text: 'Something wrong at the backend',
+                                })
+                            }
                         }
-                        });
-                    }else if(response == 0){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Decline Failed',
-                            text: 'Something wrong at the backend',
-                        })
-                    }
+                    });
                 }
-            });
-        }
-    })()
-    }
-    });
+            })()
+            }
+        });
     }
 // DECLINE INVITATION
 

@@ -30,11 +30,12 @@
 
 .right .logo {
     width: 30%;
+    filter: brightness(70%);
+    margin-bottom: -1.4rem !important;
 }
 
 .right .form-control {
     height: 2.9rem;
-    outline: 0;
     color: #303841 !important;
 }
 

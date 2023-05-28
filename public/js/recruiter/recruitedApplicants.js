@@ -5,7 +5,7 @@ $(document).ready(function(){
         }
     });
     showOperationDetails();
-    totalRecruitedApplicantTable();
+    // totalRecruitedApplicantTable();
     badgeAcceptInvitation();
     badgeApplicantTotal();
     badgeRecommendApplicant();

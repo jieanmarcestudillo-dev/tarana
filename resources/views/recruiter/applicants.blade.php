@@ -140,23 +140,13 @@
                                     <label class="form-label">Phone Number:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPnumber" name="applicantsPnumber">
                                 </div>
-                                <div class="col-3">
-                                    <label class="form-label">Nationality:</label>
-                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsNationality" name="applicantsNationality">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Religion:</label>
-                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsReligion" name="applicantsReligion">
+                                <div class="col-6">
+                                    <label class="form-label">Address:</label>
+                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAddress" name="applicantsAddress">
                                 </div>
                                 <div class="col-3">
                                     <label class="form-label">Email Address:</label>
                                     <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsEmail" name="applicantsEmail">
-                                </div>
-                            </div>
-                            <div class="row mt-3 g-2">
-                                <div class="col-12">
-                                    <label class="form-label">Address:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAddress" name="applicantsAddress">
                                 </div>
                             </div>
                         </div>

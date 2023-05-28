@@ -5,11 +5,9 @@ $(document).ready(function(){
         }
     });
     showOperationDetails();
-    totalApplicantsWhoAcceptInvitation();
-    badgeAcceptInvitation();
+    totalApplicantsWhoRecruited();
     badgeApplicantTotal();
     badgeRecommendApplicant();
-    badgeForAll();
     badgeForRecruitedApplicants();
 });
 
@@ -28,9 +26,9 @@ $(document).ready(function(){
 // FETCH CERTAIN OPERATION
 
 // FETCH APPLICANTS WHO ACCEPT INVITATION
-    function totalApplicantsWhoAcceptInvitation(){
+    function totalApplicantsWhoRecruited(){
         operationId = localStorage.getItem('operationId'); 
-        var table = $('#viewApplicantsAcceptInvitation').DataTable({
+        var table = $('#tableRecruitedWorkers').DataTable({
             "language": {
                 "emptyTable": "No Applicants Found"
             },
@@ -68,7 +66,7 @@ $(document).ready(function(){
                     }
                 }},
                 { "mData": function (data, type, row) {
-                    return "<button data-title='Cancel Recommendation?' type='button' onclick=cancelRecruitRecommendedApplicants("+data.applicant_id+") class='btn btn-outline-danger rounded-0 btn-sm py-2 px-3'><i class='bi bi-x-lg'></i></button>";
+                    return "<button data-title='Cancel Recruitment?' type='button' onclick=cancelRecruitRecommendedApplicants("+data.applicant_id+") class='btn btn-outline-danger rounded-0 btn-sm py-2 px-3'><i class='bi bi-x-lg'></i></button>";
                 }},
             ],
             order: [[1, 'asc']],
@@ -109,9 +107,11 @@ $(document).ready(function(){
                     timer: 1000,
                 }).then((result) => {
                 if (result) {
-                    badgeAcceptInvitation();
+                    $('#tableRecruitedWorkers').DataTable().ajax.reload();
                     showOperationDetails();
-                    $('#viewApplicantsAcceptInvitation').DataTable().ajax.reload();
+                    badgeRecommendApplicant();
+                    badgeApplicantTotal();
+                    badgeForRecruitedApplicants();
                 }
                 });
             }
@@ -216,35 +216,35 @@ $(document).ready(function(){
 // SHOW CERTAIN APPLICANTS DETAILS
 
 // BADGE FOR APPLICANT TOTAL
-function badgeApplicantTotal(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForTotalApplicants",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForTotalApplicants").html(data);
-        }
-    })
-}
+    function badgeApplicantTotal(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForTotalApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForTotalApplicants").html(data);
+            }
+        })
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR APPLICANT TOTAL
-function badgeRecommendApplicant(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForRecommendApplicants",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForRecommendApplicants").html(data);
-        }
-    })
-}
+    function badgeRecommendApplicant(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForRecommendApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForRecommendApplicants").html(data);
+            }
+        })
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR APPLICANT TOTAL
-function badgeAcceptInvitation(){
+    function badgeForRecruitedApplicants(){
     operationId = localStorage.getItem('operationId'); 
     $.ajax({
         url: "/badgeAcceptInvitation",
@@ -254,33 +254,5 @@ function badgeAcceptInvitation(){
         $("#badgeAcceptInvitation").html(data);
         }
     })
-}
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR APPLICANT TOTAL
-function badgeForAll(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForAll",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForAll").html(data);
-        }
-    })
-}
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR RECRUITED APPLICANT
-    function badgeForRecruitedApplicants(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForRecruitedApplicants",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForRecruitedApplicant").html(data);
-            }
-        })
     }
-// BADGE FOR RECRUITED APPLICANT
+// BADGE FOR APPLICANT TOTAL

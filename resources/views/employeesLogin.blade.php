@@ -22,7 +22,7 @@
                         @csrf
                         <img class="border-0 logo mt-5 pt-2" src="{{ URL('/assets/frontend/scpi.webp')}}">
                         <h5 class="welcome">Employees Portal</h5>
-                        <div class="form-floating mb-3 mt-4 textBox pt-2 text-start">
+                        <div class="form-floating mb-3 textBox pt-2 text-start">
                             <input type="email" required class="form-control" name="employeesEmail" id="employeesEmail" placeholder="Email" required>
                             <label for="floatingInput" class="text-muted">Email</label>
                         </div>

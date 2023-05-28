@@ -1,7 +1,7 @@
 <div class="border-end bg-white" id="sidebar-wrapper">
     <div class="sidebar-heading border-bottom pt-5 text-center">
         <img class="scpiLogo" src="/assets/frontend/scpi.webp">
-        <p class="portal pt-4">ON-CALL WORKERS</p>
+        <p class="portal pt-4">PROJECT WORKERS</p>
     </div>
     <div class="list-group list-group-flush recruiterLink">
         <a class="list-group-item recruiterA list-group-item-action list-group-item-light p-3" href="/applicantDashboardRoutes"><i class="fa-solid fa-chart-line pe-3"></i> Details</a>

@@ -94,7 +94,7 @@
                                             <input disabled class="form-control rounded-0 text-start shadow-sm rounded" type="text"  id="updateEmployeeLastname">
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <div class="mb-3">
                                             <label class="form-label">Extention: </label>
                                             <select class="form-select text-start shadow-sm rounded" aria-label="Default select example" id="updateEmployeeExt" name="updateEmployeeExt">
@@ -106,18 +106,6 @@
                                     </div>
                                 </div>
                                 <div class="row gap-0">
-                                    <div class="col-2">
-                                        <div class="mb-3">
-                                            <label class="form-label">Nationality:</label>
-                                            <input class="form-control rounded-0 text-start shadow-sm rounded" type="text"  id="updateEmployeeNationality" name="updateEmployeeNationality">
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="mb-3">
-                                            <label class="form-label">Religion:</label>
-                                            <input class="form-control rounded-0 text-start shadow-sm rounded" type="text"  id="updateEmployeeReligion" name="updateEmployeeReligion">
-                                        </div>
-                                    </div>
                                     <div class="col-2">
                                         <div class="mb-3">
                                             <label class="form-label">Status: </label>
@@ -132,7 +120,7 @@
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label class="form-label">Birthday: </label>
+                                            <label class="form-label">Birthday: d/m/y </label>
                                             <input disabled type="date" class="form-control rounded-0 text-start shadow-sm rounded" id="updateEmployeeBirthday">
                                         </div>
                                     </div>
@@ -142,7 +130,7 @@
                                             <input type="number" class="form-control rounded-0 text-start shadow-sm bg-body rounded" id="updateEmployeeAge" Name="updateEmployeeAge">
                                         </div>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <div class="mb-3">
                                             <label class="form-label">Sex:</label>
                                             <input type="text" disabled class="form-control rounded-0 text-start shadow-sm rounded" id="updateEmployeesSex">
@@ -154,20 +142,21 @@
                                             <input type="text" class="form-control rounded-0 text-start shadow-sm bg-body rounded" id="updateEmployeePnumber" Name="updateEmployeePnumber">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row gap-0">
-                                    <div class="col-8">
-                                        <div class="mb-3">
-                                            <label class="form-label">Address</label>
-                                            <input type="text" class="form-control rounded-0 text-start shadow-sm bg-body rounded" id="updateEmployeeAddress" name="updateEmployeeAddress">
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="mb-3">
                                             <label class="form-label">Email Address</label>
                                             <input type="text" class="form-control rounded-0 text-start shadow-sm bg-body rounded" id="updateEmployeeEmail" name="updateEmployeeEmail">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row gap-0">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" class="form-control rounded-0 text-start shadow-sm bg-body rounded" id="updateEmployeeAddress" name="updateEmployeeAddress">
+                                        </div>
+                                    </div>
+                                
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-3 d-flex ms-auto">

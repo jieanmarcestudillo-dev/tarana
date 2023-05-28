@@ -20,7 +20,7 @@
                         </li>
                         <li class='list-group-item fw-bold'>Available: <span class='fw-normal'>{{$item->slot}} Slot out of {{$item->totalWorkers}} Total</span> 
                     
-                            <br> <span class='fw-bold'>Project Workers: <span class='fw-normal'>{{count($item->applicants)}} Total</span></li>
+                            <br> <span class='fw-bold'>Applicants: <span class='fw-normal'>{{count($item->applicants)}} Total</span></li>
                         <li class='list-group-item text-end'></span>
                             <a type='button' onclick="recruitApplicantsRoutes('{{$item->certainOperation_id}}')" class='btn btn-sm text-danger btn-link text-end'>View Applicants</a>
                         </li>

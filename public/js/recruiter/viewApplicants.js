@@ -6,10 +6,10 @@ $(document).ready(function(){
     });
     showOperationDetails();
     totalApplicantTable();
-    badgeAcceptInvitation();
     badgeApplicantTotal();
     badgeRecommendApplicant();
-    badgeForRecruitedApplicants();
+    // badgeForRecruitedApplicants();
+    badgeAcceptInvitation();
     // badgeForAll();
 });
 
@@ -112,20 +112,6 @@ $(document).ready(function(){
             data: {operationId : operationId},
             success : function(data) {
             $("#badgeAcceptInvitation").html(data);
-            }
-        })
-    }
-// BADGE FOR APPLICANT TOTAL
-
-// BADGE FOR APPLICANT TOTAL
-    function badgeForAll(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForAll",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForAll").html(data);
             }
         })
     }
@@ -273,27 +259,13 @@ $(document).ready(function(){
                     timer: 1000,
                 }).then((result) => {
                 if (result) {
-                    badgeApplicantTotal();
-                    showOperationDetails();
-                    badgeForRecruitedApplicants();
                     $('#viewApplicantTable').DataTable().ajax.reload();
+                    showOperationDetails();
+                    badgeApplicantTotal();
+                    badgeAcceptInvitation();
                 }
                 });
             }
         })
     }
 // RECRUIT APPLICANTS
-
-// BADGE FOR RECRUITED APPLICANT
-    function badgeForRecruitedApplicants(){
-        operationId = localStorage.getItem('operationId'); 
-        $.ajax({
-            url: "/badgeForRecruitedApplicants",
-            method: 'GET',
-            data: {operationId : operationId},
-            success : function(data) {
-                $("#badgeForRecruitedApplicant").html(data);
-            }
-        })
-    }
-// BADGE FOR RECRUITED APPLICANT

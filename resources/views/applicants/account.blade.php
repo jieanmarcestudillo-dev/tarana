@@ -138,7 +138,7 @@
                                             </div>
                                             <div class="col-lg-2 col-sm-12">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">Birthday: </label>
+                                                    <label for="formFile" class="form-label">Birthday: d/m/y</label>
                                                     <input required type="date" class="form-control shadow-sm bg-body rounded" onchange="calculateAge()" id="appBirthday" Name="appBirthday">
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="row gap-0">
-                                            <div class="col-lg-2 col-sm-12">
+                                            {{-- <div class="col-lg-2 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Nationality</label>
                                                     <input required type="text" class="form-control shadow-sm bg-body rounded" id="appNationality" name="appNationality">
@@ -173,8 +173,8 @@
                                                     <label for="formFile" class="form-label">Religion</label>
                                                     <input required type="text" class="form-control shadow-sm bg-body rounded" id="appReligion" name="appReligion">
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-8 col-sm-12">
+                                            </div> --}}
+                                            <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Address</label>
                                                     <input required type="text" class="form-control shadow-sm bg-body rounded" id="appAddress" name="appAddress">

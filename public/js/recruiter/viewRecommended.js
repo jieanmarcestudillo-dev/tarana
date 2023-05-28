@@ -42,7 +42,7 @@ $(document).ready(function(){
                     }
                 })
             }else{
-                
+                $('#resultsOfApplicants').html('');
             }
         });
     });
@@ -103,7 +103,6 @@ $(document).ready(function(){
         }).draw();
     }
 // FETCH RECOMMENDED APPLICANTS ON CERTAIN OPERATION 
-
 
 // RECRUIT RECOMMEND APPLICANTS
     function recommendApplicantRecruit(id){
@@ -337,21 +336,21 @@ $(document).ready(function(){
 // SHOW CERTAIN APPLICANTS DETAILS
 
 // BADGE FOR APPLICANT TOTAL
-function badgeApplicantTotal(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForTotalApplicants",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForTotalApplicants").html(data);
-        }
-    })
-}
+    function badgeApplicantTotal(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForTotalApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForTotalApplicants").html(data);
+            }
+        })
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR APPLICANT TOTAL
-function badgeRecommendApplicant(){
+    function badgeRecommendApplicant(){
     operationId = localStorage.getItem('operationId'); 
     $.ajax({
         url: "/badgeForRecommendApplicants",
@@ -361,47 +360,47 @@ function badgeRecommendApplicant(){
             $("#badgeForRecommendApplicants").html(data);
         }
     })
-}
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR APPLICANT TOTAL
-function badgeAcceptInvitation(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeAcceptInvitation",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-        $("#badgeAcceptInvitation").html(data);
-        }
-    })
-}
+    function badgeAcceptInvitation(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeAcceptInvitation",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+            $("#badgeAcceptInvitation").html(data);
+            }
+        })
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR APPLICANT TOTAL
-function badgeForAll(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForAll",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForAll").html(data);
-        }
-    })
-}
+    function badgeForAll(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForAll",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForAll").html(data);
+            }
+        })
+    }
 // BADGE FOR APPLICANT TOTAL
 
 // BADGE FOR RECRUITED APPLICANT
-function badgeForRecruitedApplicants(){
-    operationId = localStorage.getItem('operationId'); 
-    $.ajax({
-        url: "/badgeForRecruitedApplicants",
-        method: 'GET',
-        data: {operationId : operationId},
-        success : function(data) {
-            $("#badgeForRecruitedApplicant").html(data);
-        }
-    })
-}
+    function badgeForRecruitedApplicants(){
+        operationId = localStorage.getItem('operationId'); 
+        $.ajax({
+            url: "/badgeForRecruitedApplicants",
+            method: 'GET',
+            data: {operationId : operationId},
+            success : function(data) {
+                $("#badgeForRecruitedApplicant").html(data);
+            }
+        })
+    }
 // BADGE FOR RECRUITED APPLICANT

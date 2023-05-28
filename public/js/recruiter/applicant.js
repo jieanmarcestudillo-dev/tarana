@@ -114,8 +114,6 @@ $(document).ready(function(){
             $('#applicantsAddress').val(response.address)           
             $('#applicantsPnumber').val(response.phoneNumber)           
             $('#applicantsEmail').val(response.emailAddress)           
-            $('#applicantsNationality').val(response.nationality)           
-            $('#applicantsReligion').val(response.religion)           
         })
     }
 // SHOW CERTAIN APPLICANTS DETAILS

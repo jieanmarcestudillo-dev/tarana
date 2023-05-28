@@ -75,7 +75,7 @@
                         {{-- TABLES --}}
                             <div class="card p-5 mt-2 shadow rounded-0">
                                 <form name="submitAttendanceForm" id="submitAttendanceForm">
-                                <table id="applicantsAttendance" class="table table-sm table-bordered text-center align-middle text-center align-middle">
+                                <table id="applicantsAttendance" class="table table-sm table-border table-striped text-center align-middle text-center align-middle">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
@@ -104,7 +104,7 @@
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
                                                     <label for="points">Rates (between 0 and 100):</label>
-                                                    <input type="range" class="ratePerformance" disabled name="applicantPerformance[]" value="0" min="0" max="100" step="5">
+                                                    <input required type="range" class="ratePerformance" disabled name="applicantPerformance[]" value="0" min="0" max="100" step="5">
                                                     <input type="hidden" readonly class="rateValueSubmit">
                                                     <p class="rateValueDisplay text-center"></p>
                                                 </div>

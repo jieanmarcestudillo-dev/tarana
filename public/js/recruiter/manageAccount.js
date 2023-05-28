@@ -72,8 +72,6 @@ $(document).ready(function(){
             $('#updateEmployeeAddress').val(response[0].address)           
             $('#updateEmployeeStatus').val(response[0].status)           
             $('#updateEmployeeBirthday').val(response[0].birthday)           
-            $('#updateEmployeeNationality').val(response[0].nationality)           
-            $('#updateEmployeeReligion').val(response[0].religion)           
             $('#updateEmployeePnumber').val(response[0].phoneNumber)           
             $('#updateEmployeeEmail').val(response[0].emailAddress)        
             $('#updateEmployeesSex').val(response[0].gender)  

@@ -58,7 +58,7 @@
                     <div class="container">
                         <a class='homeButton' href="/" data-title='Back to Home?'><i class="bi bi-house"></i></a>
                         <img class="border-0 logo" src="{{ URL('/assets/frontend/scpi.webp')}}">
-                        <p class="title mt-lg-3">WORKERS PORTAL</p>
+                        <p class="title mt-lg-3">PROJECT WORKERS PORTAL</p>
                         <form name="applicantLoginForm" id="applicantLoginForm">
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" name="applicantEmail" id="applicantEmail" placeholder="Email" required>

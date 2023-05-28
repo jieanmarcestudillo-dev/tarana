@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tara Na</title>
     <meta name="description" content="Wave is a Bootstrap 5 One Page Template.">
-    <meta name="author" content="BootstrapBrain">
     <link href="{{ asset('/css/mainHome/homePlugin.css') }}" rel="stylesheet">
     <link rel="icon" type="image/webp"  href="./assets/frontend/logo_title.webp" style="clip-path:circle();">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -524,7 +523,7 @@
                         &copy; 2023. All Rights Reserved.
                     </div>
                     <div class="credits text-secondary text-center text-md-start mt-2 fs-7">
-                        Built by <a href="#" class="link-secondary text-decoration-none">In The </a> Script Team<span class="text-primary">&#9829;</span>
+                        Built by <a href="#" class="link-secondary text-decoration-none">In The </a> Script Team<span class="text-primary"></span>
                     </div>
                     </div>
 

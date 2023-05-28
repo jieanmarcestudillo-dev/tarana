@@ -183,7 +183,7 @@ class ApplicantsController extends Controller
                                         <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (recruiter) are invites you to join in the operation as $position from
                                         <span class='fw-bold'>$newOperationStartDate until $newOperationEndDate</span> to manage the $certainData->shipCarry of the $certainData->shipName Cargo Ship. If you are available to work at Subic Consolidated Project Inc., please respond to our invitation to notify the recruiter. Thank you, and may God bless the workers.</p>
                                             <button onclick=acceptInvitation('$certainData->operation_id') class='btn btn-success btn-sm'>Accept</button>
-                                            <button onclick=declineInvitation('$certainData->certainOperation_id') class='btn btn-danger btn-sm'>Decline</button>
+                                            <button onclick='declineInvitation($certainData->certainOperation_id, $certainData->recruiter)' class='btn btn-danger btn-sm'>Decline</button>
                                     </div>
                                 </div>
                             </div>
@@ -271,15 +271,15 @@ class ApplicantsController extends Controller
                                                         if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 0){
                                                             echo"
                                                                 <button onclick=acceptInvitation('$appliedData->operation_id') class='btn btn-sm btn-success px-4 py-2'>Accept</button>
-                                                                <button onclick='declineInvitation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Decline</button>
+                                                                <button onclick='declineInvitation($item->certainOperation_id, $appliedData->recruiter)' class='btn btn-sm btn-danger px-4 py-2'>Decline</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick='backOutOperation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
+                                                                <button onclick='backOutOperation($item->certainOperation_id, $appliedData->recruiter)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                                             ";
                                                         }else if($appliedData->is_recommend == 0 && $appliedData->is_recruited == 1){
                                                             echo"
-                                                                <button onclick='backOutOperation($item->certainOperation_id, $recruiterId)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
+                                                                <button onclick='backOutOperation($item->certainOperation_id, $appliedData->recruiter)' class='btn btn-sm btn-danger px-4 py-2'>Back Out</button>
                                                             ";
                                                         }else{
                                                             echo"
@@ -636,8 +636,6 @@ class ApplicantsController extends Controller
                                     $update->position=$request->input('appPosition');
                                     $update->age=$request->input('appAge');
                                     $update->birthday=$request->input('appBirthday');
-                                    $update->nationality=$request->input('appNationality');
-                                    $update->religion=$request->input('appReligion');
                                     $update->address=$request->input('appAddress');
                                     $update->phoneNumber=$request->input('appPhoneNumber');
                                     $update->emailAddress=$request->input('appEmail');
@@ -659,8 +657,6 @@ class ApplicantsController extends Controller
                                     $update->position=$request->input('appPosition');
                                     $update->age=$request->input('appAge');
                                     $update->birthday=$request->input('appBirthday');
-                                    $update->nationality=$request->input('appNationality');
-                                    $update->religion=$request->input('appReligion');
                                     $update->address=$request->input('appAddress');
                                     $update->phoneNumber=$request->input('appPhoneNumber');
                                     $update->emailAddress=$request->input('appEmail');
