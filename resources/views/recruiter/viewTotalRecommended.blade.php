@@ -182,7 +182,7 @@
                             </div>
                             <div class="row my-4">
                                 <form class="d-flex" role="search">
-                                    <input class="form-control me-2 text-center round-pill" type="search" placeholder="Search Last Name of Applicant or Position" aria-label="Search" id="searchLastname">
+                                    <input class="form-control me-2 text-center round-pill" type="search" placeholder="Search Last Name of Project Worker" aria-label="Search" id="searchLastname">
                                 </form>
                             </div>
                             <div>

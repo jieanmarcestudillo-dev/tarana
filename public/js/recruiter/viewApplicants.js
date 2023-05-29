@@ -8,9 +8,7 @@ $(document).ready(function(){
     totalApplicantTable();
     badgeApplicantTotal();
     badgeRecommendApplicant();
-    // badgeForRecruitedApplicants();
     badgeAcceptInvitation();
-    // badgeForAll();
 });
 
 // FETCH CERTAIN OPERATION
@@ -251,19 +249,35 @@ $(document).ready(function(){
                     type: 'GET',
                     dataType: 'json',
                     data: {applicantId: applicantId, operationId: operationId},
-                });
-                Swal.fire({
-                    title: 'RECRUIT SUCCESSFULY',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000,
-                }).then((result) => {
-                if (result) {
-                    $('#viewApplicantTable').DataTable().ajax.reload();
-                    showOperationDetails();
-                    badgeApplicantTotal();
-                    badgeAcceptInvitation();
-                }
+                    success: function(response) {
+                         if(response == 1){
+                            Swal.fire({
+                                title: 'RECRUIT SUCCESSFULLY',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then((result) => {
+                            if (result) {
+                                $('#viewApplicantTable').DataTable().ajax.reload();
+                                showOperationDetails();
+                                badgeApplicantTotal();
+                                badgeAcceptInvitation();
+                            }
+                            });
+                        }else if(response == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Recruit Failed',
+                                text: 'Something wrong at the backend',
+                            })
+                        }else if(response){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: response,
+                            })
+                        }
+                    }
                 });
             }
         })

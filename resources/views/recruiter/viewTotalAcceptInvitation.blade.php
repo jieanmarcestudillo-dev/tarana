@@ -64,7 +64,7 @@
                                     </ul>
                                 </div>
                             </div>   
-                            <table class='table table-border text-center align-middle' id='tableRecruitedWorkers'>
+                            <table class='table table-bordered text-center align-middle' id='tableRecruitedWorkers'>
                                 <thead class='text-center text-uppercase' style="font-size: 15px;">
                                     <th class='text-center'>#</th>
                                     <th class='text-center'>On-Call Workers</th>

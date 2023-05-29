@@ -48,7 +48,10 @@
                                     <a class="nav-link active" href="#">Back Out</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/declinedArchiveRoutes">Declined</a>
+                                    <a class="nav-link" href="/adminDeclinedArchiveRoutes">Declined</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
                                 </li>
                             </ul>
                             <div class="container-fluid mt-4">
@@ -61,7 +64,7 @@
                                             <th class="text-center">Operation Start</th>
                                             <th class="text-center">Operation End</th>
                                             <th class="text-center">Recommend By</th>
-                                            <th class="text-center">Actions</th>
+                                            <th class="text-center">Reason</th>
                                         </tr>
                                     </thead>
                                 </table>

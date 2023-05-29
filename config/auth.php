@@ -57,6 +57,11 @@ return [
             'driver' => 'session',
             'provider' => 'historyModel',
         ],
+
+        'cancelOperation' => [
+            'driver' => 'session',
+            'provider' => 'cancelOperation',
+        ],
     ],
 
     'providers' => [
@@ -108,6 +113,10 @@ return [
         'historyModel' => [
             'driver' => 'eloquent',
             'model' => App\Models\history::class
+        ],
+        'cancelOperation' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\cancelOperation::class
         ],
     ],
 

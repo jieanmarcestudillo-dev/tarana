@@ -106,19 +106,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row gap-0">
-                                            <div class="col-2">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Nationality:</label>
-                                                    <input class="form-control shadow-sm rounded-0" type="text"  id="updateEmployeeNationality" name="updateEmployeeNationality">
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Religion:</label>
-                                                    <input class="form-control shadow-sm rounded-0" type="text"  id="updateEmployeeReligion" name="updateEmployeeReligion">
-                                                </div>
-                                            </div>
+                                        <div class="row gap-0">                                           
                                             <div class="col-2">
                                                 <div class="mb-3">
                                                     <label class="form-label">Status: </label>
@@ -152,24 +140,24 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row gap-0">
                                             <div class="col-2">
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone Number: </label>
                                                     <input type="text" class="form-control shadow-sm bg-body rounded-0" id="updateEmployeePnumber" Name="updateEmployeePnumber">
                                                 </div>
                                             </div>
-                                            <div class="col-7">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control shadow-sm bg-body rounded-0" id="updateEmployeeAddress" name="updateEmployeeAddress">
-                                                </div>
-                                            </div>
                                             <div class="col-3">
                                                 <div class="mb-3">
                                                     <label class="form-label">Email Address</label>
                                                     <input type="text" class="form-control shadow-sm bg-body rounded-0" id="updateEmployeeEmail" name="updateEmployeeEmail">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row gap-0">                              
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control shadow-sm bg-body rounded-0" id="updateEmployeeAddress" name="updateEmployeeAddress">
                                                 </div>
                                             </div>
                                         </div>

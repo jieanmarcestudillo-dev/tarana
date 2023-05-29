@@ -1,7 +1,6 @@
 $(document).ready(function(){
     backOutArchived();
     declinedArchived();
-    cancelledOperation();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -24,7 +23,7 @@ $(document).ready(function(){
             "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
             "iDisplayLength": 25,
             "ajax":{
-                "url":"/getBackOutArchivedForAdmin",
+                "url":"/getBackOutArchivedForRecruiter",
                 "dataSrc": "",
             },
             "columns":[
@@ -84,7 +83,7 @@ $(document).ready(function(){
         "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
         "iDisplayLength": 25,
         "ajax":{
-            "url":"/getDeclinedArchivedForAdmin",
+            "url":"/getDeclinedArchivedForRecruiter",
             "dataSrc": "",
         },
         "columns":[
@@ -129,52 +128,6 @@ $(document).ready(function(){
     }
 // FETCH BACKOUT ARCHIVED DATA
 
-// FETCH CANCELLED OPERATION ARCHIVED DATA
-    function cancelledOperation(){
-    var table = $('#cancelOperationTable').DataTable({
-        "language": {
-            "emptyTable": "No Data Found"
-        },
-        "lengthChange": true,
-        "scrollCollapse": true,
-        "paging": true,
-        "info": true,
-        "responsive": true,
-        "ordering": false,
-        "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
-        "iDisplayLength": 25,
-        "ajax":{
-            "url":"/getCancelOperationData",
-            "dataSrc": "",
-        },
-        "columns":[
-            {"data":"cancelOperation_id"},
-            {"data":"operationId"},
-            {"data":"shipName"},
-            {"data":"shipCarry"},
-            { "mData": function (data, type, row) {
-                return moment( data.operationStart).format('MMM DD, YYYY | hh:mm A');
-            }},            
-            { "mData": function (data, type, row) {
-                return moment( data.operationEnd).format('MMM DD, YYYY | hh:mm A')  ;
-            }},         
-            {"data": "cancelOperation_id",
-                mRender: function (data, type, row) {
-                return '<button type="button" onclick=cancelReason('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3" data-title="View Reason?"><i class="bi bi-eye"></i></button>'
-            }
-        },   
-        ],
-        order: [[1, 'asc']],
-    });
-    table.on('order.dt search.dt', function () {
-        let i = 1;
-        table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-            this.data(i++);
-        });
-    }).draw();
-    } 
-// FETCH CANCELLED OPERATION ARCHIVED DATA
-
 // SHOW REASON OF BACKOUT
     function declinedReason(id){
         $('#declinedReasonModal').modal('show')
@@ -204,18 +157,3 @@ $(document).ready(function(){
         })
     }
 // SHOW REASON OF BACKOUT
-
-// SHOW REASON OF CANCELLED OPERATION
-    function cancelReason(id){
-        $('#cancelReasonModal').modal('show')
-        $.ajax({
-            url: '/cancelOperationReason',
-            type: 'GET',
-            dataType: 'json',
-            data: {cancelOperationId: id},
-        })
-        .done(function(response) {
-            $('#cancelReason').text( response.reason); 
-        })
-    }
-// SHOW REASON OF CANCELLED OPERATION

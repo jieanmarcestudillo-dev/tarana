@@ -29,6 +29,7 @@ class operations extends Model
         'foreman',
         'status',
         'is_completed',
+        'is_archived',
     ];
 
     public function applicants(){

@@ -13,11 +13,11 @@ use App\Http\Controllers\homeController;
 // EMPLOYEES USE
 
 // ADMINISTRATOR USE
-    use App\Http\Controllers\administrator\AdminController;  
+    use App\Http\Controllers\AdminController;  
 // ADMINISTRATOR USE
 
 // RECRUITER USE
-    use App\Http\Controllers\recruiter\RecruiterController;  
+    use App\Http\Controllers\RecruiterController;  
 // RECRUITER USE
 
     
@@ -97,8 +97,9 @@ use App\Http\Controllers\homeController;
             Route::get('adminOldApplicantsRoutes', [AdminController::class,'adminOldApplicantsRoutes']);
             Route::get('inactiveOldApplicantsRoutes', [AdminController::class,'inactiveOldApplicantsRoutes']);
             Route::get('blockedOldApplicantsRoutes', [AdminController::class,'blockedOldApplicantsRoutes']);
-            Route::get('backOutArchiveRoutes', [AdminController::class,'backOutArchiveRoutes']);
-            Route::get('declinedArchiveRoutes', [AdminController::class,'declinedArchiveRoutes']);
+            Route::get('adminBackOutArchiveRoutes', [AdminController::class,'adminBackOutArchiveRoutes']);
+            Route::get('adminDeclinedArchiveRoutes', [AdminController::class,'adminDeclinedArchiveRoutes']);
+            Route::get('adminCancelOperationArchiveRoutes', [AdminController::class,'adminCancelOperationArchiveRoutes']);
         });
     // ROUTES
 
@@ -137,11 +138,13 @@ use App\Http\Controllers\homeController;
                 Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
                 Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
                 Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
-                Route::get('getBackOutArchived', [AdminController::class,'getBackOutArchived']);
-                Route::get('getDeclinedArchived', [AdminController::class,'getDeclinedArchived']);
+                Route::get('getBackOutArchivedForAdmin', [AdminController::class,'getBackOutArchivedForAdmin']);
+                Route::get('getDeclinedArchivedForAdmin', [AdminController::class,'getDeclinedArchivedForAdmin']);
+                Route::get('getCancelOperationData', [AdminController::class,'getCancelOperationData']);
                 Route::get('printProjectWorker/{id}', [AdminController::class,'printProjectWorker']);
                 Route::get('printCompanyEmployee/{id}', [AdminController::class,'printCompanyEmployee']);
                 Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
+                Route::get('cancelOperationReason', [AdminController::class,'cancelOperationReason']);
                 Route::get('printOperation/{id}', [AdminController::class,'printOperation']);
         // GET
 
@@ -177,6 +180,8 @@ use App\Http\Controllers\homeController;
             Route::get('recruiterApplicantsBackoutRoutes', [RecruiterController::class,'recruiterApplicantsBackoutRoutes'])->name('recruiterApplicantsBackoutRoutes');
             Route::get('recruiterApplicantDeclinedRoutes', [RecruiterController::class,'recruiterApplicantDeclinedRoutes'])->name('recruiterApplicantDeclinedRoutes');
             Route::get('recruiterCredentials', [RecruiterController::class,'recruiterCredentials'])->name('recruiterCredentials');
+            Route::get('recruiterBackOutArchiveRoutes', [RecruiterController::class,'recruiterBackOutArchiveRoutes'])->name('recruiterBackOutArchiveRoutes');
+            Route::get('recruiterDeclinedArchiveRoutes', [RecruiterController::class,'recruiterDeclinedArchiveRoutes'])->name('recruiterDeclinedArchiveRoutes');
             Route::get('submitAttendance/{id}', [RecruiterController::class,'submitAttendance'])->name('submitAttendance');
         });
     // ROUTES
@@ -232,6 +237,8 @@ use App\Http\Controllers\homeController;
             Route::get('searchCompleted', [RecruiterController::class,'searchCompleted']);
             Route::get('backOutReason', [RecruiterController::class,'backOutReason']);
             Route::get('declinedReason', [RecruiterController::class,'declinedReason']);
+            Route::get('getBackOutArchivedForRecruiter', [RecruiterController::class,'getBackOutArchivedForRecruiter']);
+            Route::get('getDeclinedArchivedForRecruiter', [RecruiterController::class,'getDeclinedArchivedForRecruiter']);
         // GET
             
         // POST

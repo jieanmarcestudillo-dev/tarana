@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\recruiter;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class RecruiterController extends Controller
                 // BACK OUT
                     public function recruiterBackOutInvitation(Request $request){
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['is_archived','!+', 1]])->get();
+                        ->where([['backout.is_archived','!=', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -66,7 +66,7 @@ class RecruiterController extends Controller
                 // DECLINED INVITATION
                     public function recruiterDeclinedInvitaion(Request $request){
                         $data = declined ::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['is_archived','!+', 1]])->get();
+                        ->where([['declined.is_archived','!=', 1]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     } 
@@ -143,7 +143,7 @@ class RecruiterController extends Controller
                         $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
                         ->join('employees AS recruiter', 'backout.recruiter_id', '=', 'recruiter.employee_id')
-                        ->where([['is_archived','!+', 1]])->
+                        ->where([['backout.is_archived','!+', 1]])->
                         orderBy('backout.backOut_id', 'ASC')->
                         select(
                             'operations.shipName',
@@ -260,7 +260,7 @@ class RecruiterController extends Controller
                         $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
                         ->join('employees AS recruiter', 'declined.recruiter_id', '=', 'recruiter.employee_id')
-                        ->where([['is_archived','!=', 1]])->
+                        ->where([['declined.is_archived','!=', 1]])->
                         orderBy('declined.declined_id', 'ASC')->
                         select(
                             'operations.*',
@@ -719,8 +719,7 @@ class RecruiterController extends Controller
                         if($operations->slot == 0){
                             return response()->json(4);
                         }else{
-                            $data = applied::where([['operation_id','=', $operationId],
-                            ['applicants_id', '=', $applicantId]])->get();
+                            $data = applied::where([['operation_id','=', $operationId],['applicants_id', '=', $applicantId]])->get();
                             if($data->isNotEmpty()){
                                 // ALREADY APPLIED
                                 return response()->json('2');
@@ -794,12 +793,44 @@ class RecruiterController extends Controller
 
                 // RECRUIT APPLICANT
                     public function recruitApplicants(Request $request){
-                        $recruitApplicant = applied::where([['applicants_id', '=' , $request->applicantId],
-                        ['operation_id', '=' , $request->operationId]])->update(['is_recruited' => '1',
-                        'recruiter' => auth()->guard('employeesModel')->user()->employee_id]);
-                        if($recruitApplicant){
-                            $updateSlot = operations::find($request->operationId)->decrement('slot');
-                            return response()->json($updateSlot ? 1 : 0);
+                        $applying = operations::where([['certainOperation_id','=', $request->operationId]])->get();
+                        foreach($applying as $applyingOperationInfo){
+                            $applyingOperationStart = date('F d, Y | g:i:A',strtotime($applyingOperationInfo->operationStart));
+                            $applyingOperationEnd = date('F d, Y | g:i:A',strtotime($applyingOperationInfo->operationEnd));
+                        }
+                        $scheduled = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['applied.applicants_id' , '=' , $request->applicantId],['applied.is_recruited' ,'=', 1]])->get();
+                        if($scheduled->isNotEmpty()){
+                            foreach($scheduled as $scheduledAppliedInfo){
+                                $scheduledOperationStart = date('F d, Y | g:i:A',strtotime($scheduledAppliedInfo->operationStart));
+                                $scheduledOperationEnd = date('F d, Y | g:i:A',strtotime($scheduledAppliedInfo->operationEnd));
+                            }
+                            if($applyingOperationStart == $scheduledOperationStart){
+                                // NOT AVAILABLE IN THAT DAY
+                                $applying = employees::where([['employee_id','=', $scheduledAppliedInfo->recruiter]])
+                                ->select('lastname','firstname','extention')->first();
+                                $notAvailable = 'The project worker was already scheduled for the operation of '.$scheduledOperationStart.' until '.$scheduledOperationEnd.' because he/she already recruit by Mr '.$applying->firstname.' '.$applying->lastname.' '.$applying->extention;
+                                return response()->json($notAvailable);
+                                exit();
+                            }else{
+                                // VALID TO RECRUIT
+                                $recruitApplicant = applied::where([['applicants_id', '=' , $request->applicantId],
+                                ['operation_id', '=' , $request->operationId]])->update(['is_recruited' => '1',
+                                'recruiter' => auth()->guard('employeesModel')->user()->employee_id]);
+                                if($recruitApplicant){
+                                    $updateSlot = operations::find($request->operationId)->decrement('slot');
+                                    return response()->json($updateSlot ? 1 : 0);
+                                }
+                            }
+                        }else{
+                            // VALID TO RECRUIT
+                            $recruitApplicant = applied::where([['applicants_id', '=' , $request->applicantId],
+                            ['operation_id', '=' , $request->operationId]])->update(['is_recruited' => '1',
+                            'recruiter' => auth()->guard('employeesModel')->user()->employee_id]);
+                            if($recruitApplicant){
+                                $updateSlot = operations::find($request->operationId)->decrement('slot');
+                                return response()->json($updateSlot ? 1 : 0);
+                            }
                         }
                     }
                 // RECRUIT APPLICANT
@@ -1201,8 +1232,6 @@ class RecruiterController extends Controller
                                 $update->extention=$request->input('updateEmployeeExt');
                                 $update->status=$request->input('updateEmployeeStatus');
                                 $update->age=$request->input('updateEmployeeAge');
-                                $update->nationality=$request->input('updateEmployeeNationality');
-                                $update->religion=$request->input('updateEmployeeReligion');
                                 $update->address=$request->input('updateEmployeeAddress');
                                 $update->phoneNumber=$request->input('updateEmployeePnumber');
                                 $update->emailAddress=$request->input('updateEmployeeEmail');
@@ -1215,8 +1244,6 @@ class RecruiterController extends Controller
                                 $update->extention=$request->input('updateEmployeeExt');
                                 $update->status=$request->input('updateEmployeeStatus');
                                 $update->age=$request->input('updateEmployeeAge');
-                                $update->nationality=$request->input('updateEmployeeNationality');
-                                $update->religion=$request->input('updateEmployeeReligion');
                                 $update->address=$request->input('updateEmployeeAddress');
                                 $update->phoneNumber=$request->input('updateEmployeePnumber');
                                 $update->emailAddress=$request->input('updateEmployeeEmail');
@@ -1252,5 +1279,51 @@ class RecruiterController extends Controller
                     // FETCH PERSONAL DATA
                     // FETCH PERSONAL DATA
         // RECRUITER COMPLETED OPERATION
+
+        // ARCHIVED
+                // BACKOUT ARCHIVED ROUTES
+                      public function recruiterBackOutArchiveRoutes(){
+                        return view('recruiter/backOutArchive');
+                    }
+                // BACKOUT ARCHIVED ROUTES
+                
+                // DECLINED ARCHIVED ROUTES
+                    public function recruiterDeclinedArchiveRoutes(){
+                        return view('recruiter/declinedArchive');
+                    }
+                // DECLINED ARCHIVED ROUTES
+
+                // FETCH
+                    // BACKOUT ARCHIVED DATA
+                        public function getBackOutArchivedForRecruiter(Request $request){
+                            $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
+                            ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
+                            ->join('employees', 'backout.recruiter_id', '=', 'employees.employee_id')
+                            ->where('backout.is_archived', '=' , 1)
+                            ->select('operations.*','backout.backOut_id','backout.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                            ->orderBy('operations.operationStart', 'DESC')
+                            ->get();
+                            return response()->json($data);
+                        }
+                    // BACKOUT ARCHIVED DATA
+
+                    // DECLINED ARCHIVED DATA
+                        public function getDeclinedArchivedForRecruiter(Request $request){
+                            $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
+                            ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
+                            ->join('employees', 'declined.recruiter_id', '=', 'employees.employee_id')
+                            ->where('declined.is_archived', '=' , 1)
+                            ->select('operations.*','declined.declined_id','declined.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                            ->orderBy('operations.operationStart', 'DESC')
+                            ->get();
+                            return response()->json($data);
+                        }
+                    // DECLINED ARCHIVED DATA
+                // FETCH
+        // ARCHIVED
     // RECRUITER PORTAL 
 }

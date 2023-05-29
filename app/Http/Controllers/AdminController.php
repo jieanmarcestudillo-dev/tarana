@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\administrator;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -9,9 +9,11 @@ use App\Models\employees;
 use App\Models\applicants;
 use App\Models\operations;
 use App\Models\backout;
+use App\Models\applied;
 use App\Models\declined;
 use App\Models\blockedApplicants;
 use App\Models\completed;
+use App\Models\cancelOperation;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\employeesImport;
 use App\Imports\operationImport;
@@ -93,12 +95,18 @@ class AdminController extends Controller
                         return view('administrator/completedOperation');
                     }
                 // COMPLETED ROUTES
+
+                // CANCELLED OPERATION ROUTES
+                    public function adminCancelledOperation(){
+                        return view('administrator/cancelledOperation');
+                    }
+                // CANCELLED OPERATION ROUTES
             // ROUTES
 
             // FETCH
                 // UPCOMING OPERATION   
                     public function getOperationData(Request $request){
-                        $data = operations::where('is_completed','=',0)->orderBy('operationStart')->get(); 
+                        $data = operations::where([['is_completed','=',0],['is_archived','=',0]])->orderBy('operationStart')->get(); 
                         return response()->json($data);
                     } 
                 // UPCOMING OPERATION 
@@ -159,7 +167,8 @@ class AdminController extends Controller
                         'operationEnd' => $request->addOperationEnd,
                         'totalWorkers' => $request->addApplicantsSlot,
                         'slot' => $request->addApplicantsSlot,
-                        'is_completed' => 0
+                        'is_completed' => 0,
+                        'is_archived' => 0
                         ]);
                         return response()->json($addOperation ? 1 : 0);
                         exit();
@@ -216,28 +225,22 @@ class AdminController extends Controller
                 }
             // UPDATE
 
-            // DONE OPERATION
-                // public function doneOperation(Request $request){
-                //     date_default_timezone_set('Asia/Manila');
-                //     $currentDate = date('Y-m-d H:i:s', strtotime("+4 hours", strtotime(now())));
-                //     $data = operations::where('certainOperation_id', '=', $request->operationId)->first();
-                //     if($currentDate < $data->operationEnd){
-                //         return response()->json(2);
-                //     }else{
-                //         $doneOperation = operations::find($request->operationId)->update(['is_completed' => 1]);
-                //         return response()->json($doneOperation ? 1 : 0);
-                //     }
-                // }
-            // DONE OPERATION
-
             // CANCEL OPERATION
                 public function cancelOperation(Request $request){
-                    $cancelOperation = operations::where([['certainOperation_id', '=', $request->operationId]])->delete();
+                    $cancelOperation = operations::where([['certainOperation_id', '=', $request->operationId]])->update(['is_archived' => 1]);
                     if($cancelOperation){
-                        $applied = applied::where([['operation_id', '=', $request->operationId]])->delete();
-                        $backout = backout::where([['operation_id', '=', $request->operationId]])->delete();
-                        $declined = declined::where([['operation_id', '=', $request->operationId]])->delete();
-                        return response()->json($applied && $backout && $declined ? 1 : 0);
+                        $reasonOfCancel = cancelOperation::create([
+                            'operation_id' => $request->operationId,
+                            'reason' => $request->reason
+                        ]);
+                        if($reasonOfCancel){
+                            $applied = applied::where([['operation_id', '=', $request->operationId]])->delete();
+                            $backout = backout::where([['operation_id', '=', $request->operationId]])->update(['is_archived' => 1]);
+                            $declined = declined::where([['operation_id', '=', $request->operationId]])->update(['is_archived' => 1]);
+                            return response()->json($applied && $backout && $declined ? 1 : 0);
+                        }else{
+                            dd(0);
+                        }
                     }
                 }
             // CANCEL OPERATION
@@ -677,8 +680,6 @@ class AdminController extends Controller
                         $update->status=$request->input('updateEmployeeStatus');
                         $update->birthday=$request->input('updateEmployeeBirthday');
                         $update->age=$request->input('updateEmployeeAge');
-                        $update->nationality=$request->input('updateEmployeeNationality');
-                        $update->religion=$request->input('updateEmployeeReligion');
                         $update->address=$request->input('updateEmployeeAddress');
                         $update->phoneNumber=$request->input('updateEmployeePnumber');
                         $update->emailAddress=$request->input('updateEmployeeEmail');
@@ -697,8 +698,6 @@ class AdminController extends Controller
                         $update->status=$request->input('updateEmployeeStatus');
                         $update->birthday=$request->input('updateEmployeeBirthday');
                         $update->age=$request->input('updateEmployeeAge');
-                        $update->nationality=$request->input('updateEmployeeNationality');
-                        $update->religion=$request->input('updateEmployeeReligion');
                         $update->address=$request->input('updateEmployeeAddress');
                         $update->phoneNumber=$request->input('updateEmployeePnumber');
                         $update->emailAddress=$request->input('updateEmployeeEmail');
@@ -787,20 +786,26 @@ class AdminController extends Controller
 
         // ARCHIVE
                 // BACKOUT ARCHIVED ROUTES
-                    public function backOutArchiveRoutes(){
+                    public function adminBackOutArchiveRoutes(){
                         return view('administrator/backOutArchive');
                     }
                 // BACKOUT ARCHIVED ROUTES
                 
                 // DECLINED ARCHIVED ROUTES
-                    public function declinedArchiveRoutes(){
+                    public function adminDeclinedArchiveRoutes(){
                         return view('administrator/declinedArchive');
                     }
                 // DECLINED ARCHIVED ROUTES
 
+                // CANCELLED OPERATION
+                    public function adminCancelOperationArchiveRoutes(){
+                        return view('administrator/cancelledOperation');
+                    }
+                // CANCELLED OPERATION
+
                 // FETCH
                     // BACKOUT ARCHIVED DATA
-                        public function getBackOutArchived(Request $request){
+                        public function getBackOutArchivedForAdmin(Request $request){
                             $data = backout::join('operations', 'backout.operation_id', '=', 'operations.certainOperation_id')
                             ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
                             ->join('employees', 'backout.recruiter_id', '=', 'employees.employee_id')
@@ -814,7 +819,7 @@ class AdminController extends Controller
                     // BACKOUT ARCHIVED DATA
 
                     // DECLINED ARCHIVED DATA
-                        public function getDeclinedArchived(Request $request){
+                        public function getDeclinedArchivedForAdmin(Request $request){
                             $data = declined::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
                             ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
                             ->join('employees', 'declined.recruiter_id', '=', 'employees.employee_id')
@@ -826,7 +831,26 @@ class AdminController extends Controller
                             return response()->json($data);
                         }
                     // DECLINED ARCHIVED DATA
+
+                    // CANCELLED OPERATION DATA
+                        public function getCancelOperationData(Request $request){
+                            $data = operations::join('cancelOperation', 'cancelOperation.operation_id', '=', 'operations.certainOperation_id')
+                            ->select('operations.operationId','operations.shipName','operations.shipCarry','operations.operationStart', 
+                            'operations.operationEnd', 'cancelOperation.cancelOperation_id', 'cancelOperation.reason')
+                            ->where([['is_completed','=',0],['is_archived','=',1]])
+                            ->get(); 
+                            return response()->json($data);
+                        } 
+                    // CANCELLED OPERATION DATA
+                    
+                    // VIEW REASON CANCELLED OPERATION
+                        public function cancelOperationReason(Request $request){
+                            $reason = cancelOperation::select('reason')->where('cancelOperation_id', '=', $request->cancelOperationId)->first();
+                            return response()->json($reason);
+                        }
+                    // VIEW REASON CANCELLED OPERATION
                 // FETCH
+
         // ARCHIVE
     }
     // ADMIN OPERATION FUNCTION

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     {{-- CSS --}}
         <link href="{{ asset('/css/admin/adminDashboard.css') }}" rel="stylesheet">
         <link rel="shortcut icon" href="{{ URL('/assets/frontend/logoo.webp')}}" type="image/x-icon">
@@ -27,7 +28,7 @@
                         <div class="container-fluid">
                             <h4 class="ms-2">ARCHIVED</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <ul class="navbar-nav ms-auto">
                                     <li>
                                         <a class="nav-link me-3">
                                             <span>{{ auth()->guard('employeesModel')->user()->firstname}}</span>
@@ -42,33 +43,31 @@
 
                 {{-- MAIN CONTENT --}}
                     <div class="container-fluid mainBar">
-                        <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
+                        <div class="p-5 shadow">
                             <ul class="nav nav-tabs mb-4">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/adminBackOutArchiveRoutes">Back Out</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Declined</a>
+                                    <a class="nav-link" href="/adminDeclinedArchiveRoutes">Declined</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
+                                    <a class="nav-link active" href="#">Cancel Operation</a>
                                 </li>
                             </ul>
-                            <div class="container-fluid mt-4">
-                                <table id="declinedTable" class="table table-sm table-bordered text-center align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Project Workers</th>
-                                            <th class="text-center">Operation</th>
-                                            <th class="text-center">Operation Start</th>
-                                            <th class="text-center">Operation End</th>
-                                            <th class="text-center">Recommend By</th>
-                                            <th class="text-center">Reason</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                            <table id="cancelOperationTable" class="table table-sm table-bordered text-center mt-2 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Operation ID</th>
+                                        <th class="text-center">Ship's Name</th>
+                                        <th class="text-center">Ship's Carry</th>
+                                        <th class="text-center">Operation Start</th>
+                                        <th class="text-center">Operation End</th>
+                                        <th class="text-center">Reason</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 {{-- MAIN CONTENT --}}
@@ -77,14 +76,14 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/administrator/archived.js') }}"></script>
+        <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 
     {{-- MODAL --}}
         {{-- VIEW REASON --}}
-            <div class="modal fade" id="declinedReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="cancelReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -94,7 +93,7 @@
                             </div>
                         </div>
                         <div class="row text-center">
-                            <p class="my-4" id="declinedReason"></p>
+                            <p class="my-4" id="cancelReason"></p>
                         </div>
                     </div>
                 </div>

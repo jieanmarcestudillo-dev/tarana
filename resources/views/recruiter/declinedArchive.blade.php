@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     {{-- CSS --}}
-        <link href="{{ asset('/css/admin/adminDashboard.css') }}" rel="stylesheet">
-        <link rel="shortcut icon" href="{{ URL('/assets/frontend/logoo.webp')}}" type="image/x-icon">
+    <link href="{{ asset('/css/recruiter/recruiterDashboard.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ URL('/assets/frontend/logoo.webp')}}" type="image/x-icon">
         @include('cdn')
     {{-- CSS --}}
     <title>TARA NA</title>
@@ -16,7 +16,7 @@
 
     <div class="d-flex" id="wrapper">
         {{-- SIDE NAV --}}
-            @include('layouts.adminSidebar')
+            @include('layouts.recruiterSidebar')
         {{-- SIDE NAV --}}
 
         {{-- MAIN CONTENT --}}
@@ -45,13 +45,10 @@
                         <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
                             <ul class="nav nav-tabs mb-4">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/adminBackOutArchiveRoutes">Back Out</a>
+                                    <a class="nav-link" href="/recruiterBackOutArchiveRoutes">Back Out</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">Declined</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
                                 </li>
                             </ul>
                             <div class="container-fluid mt-4">
@@ -78,7 +75,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/administrator/archived.js') }}"></script>
+        <script src="{{ asset('/js/recruiter/archived.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 

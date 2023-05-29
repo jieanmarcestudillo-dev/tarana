@@ -21,7 +21,7 @@ function renderTime(){
     
     var myDate =document.getElementById("dateDisplay");
     myDate.textContent = ""+dayArray[day]+ " , " +monthArray[month]+ "  " +dayM+ " , " +myYear+ " , " +hours+ " | " +minutes+ " | " +seconds+ " | " +amPm;
-    myDate.innerText =  monthArray[month]+ " | " +dayM+ " | " +myYear;
+    myDate.innerText =  monthArray[month]+ " " +dayM+ ", " +myYear;
 }
 renderTime();
 

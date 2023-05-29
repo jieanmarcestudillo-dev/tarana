@@ -375,78 +375,6 @@ $(document).ready(function(){
     });
 // IMPORT OPERATION
 
-// DONE OPERATION
-    // function doneOperation(id){
-    //     Swal.fire({
-    //         icon: 'question',
-    //         title: 'Are you sure?',
-    //         text: "Do you want to COMPLETE this operation?",
-    //         input: 'text',
-    //         inputPlaceholder: 'Enter your password to confirm',
-    //         inputAttributes: {autocapitalize: 'off'},
-    //         showCancelButton: true,
-    //         confirmButtonText: 'Submit',
-    //         }).then((response) => {
-    //             if(response.value === ""){
-    //                 Swal.fire(
-    //                     'Cancel Failed',
-    //                     'Please Enter Your Password',
-    //                     'error'
-    //                 )
-    //             }else{
-    //                 $.ajax({
-    //                     url: '/confirmationPassword',
-    //                     type: 'GET',
-    //                     dataType: 'text',
-    //                     data: {employeePassword: response.value},
-    //                     success:function(response2){
-    //                         if(response2 == 1){
-    //                             $.ajax({
-    //                                 url: '/doneOperation',
-    //                                 type: 'GET',
-    //                                 dataType: 'json',
-    //                                 data: {operationId: id},
-    //                                 success:function(response3){
-    //                                     if(response3 == 1){
-    //                                         Swal.fire({
-    //                                             title: 'OPERATION WAS COMPLETE SUCCESSFULLY',
-    //                                             icon: 'success',
-    //                                             showConfirmButton: false,
-    //                                             timer: 1500,
-    //                                         }).then((result) => {
-    //                                         if (result) {
-    //                                             $('#operationTable').DataTable().ajax.reload();
-    //                                         }
-    //                                         });
-    //                                     }else if(response3 == 2){
-    //                                         Swal.fire(
-    //                                             'Complete Failed',
-    //                                             'The Operation is On-Going Or Upcoming',
-    //                                             'warning'
-    //                                         )
-    //                                     }else{
-    //                                         Swal.fire(
-    //                                             'Invalid Password',
-    //                                             'Please re-type your password',
-    //                                             'error'
-    //                                         )
-    //                                     }
-    //                                 }
-    //                             });
-    //                         }else if(response2 == 0){
-    //                             Swal.fire(
-    //                             'Invalid Password',
-    //                             'Please re-type your password',
-    //                             'error'
-    //                             )
-    //                         }
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // }
-// DONE OPERATION
-
 // CANCEL OPERATION
     function cancelOperations(id){
         Swal.fire({
@@ -473,22 +401,36 @@ $(document).ready(function(){
                         data: {employeePassword: response.value},
                         success:function(response2){
                             if(response2 == 1){
-                                $.ajax({
-                                    url: '/cancelOperation',
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    data: {operationId: id},
-                                });
-                                Swal.fire({
-                                    title: 'OPERATION WAS CANCEL SUCCESSFULLY',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                }).then((result) => {
-                                if (result) {
-                                    $('#operationTable').DataTable().ajax.reload();
-                                }
-                                });
+                                (async () => {
+                                    const { value: reason } = await Swal.fire({
+                                        input: 'textarea',
+                                        title: 'Reason of Cancelled Operation',
+                                        inputPlaceholder: 'Type your reason here...',
+                                        inputAttributes: {
+                                        'aria-label': 'Type your reason here'
+                                        },
+                                        showCancelButton: true
+                                    })
+                                    if (reason) {
+                                        $.ajax({
+                                            url: '/cancelOperation',
+                                            type: 'GET',
+                                            dataType: 'json',
+                                            data: {operationId: id, reason:reason},
+                                        });
+                                        Swal.fire({
+                                            title: 'OPERATION WAS CANCEL SUCCESSFULLY',
+                                            icon: 'success',
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                        }).then((result) => {
+                                        if (result) {
+                                            $('#operationTable').DataTable().ajax.reload();
+                                        }
+                                        });
+                                    }
+                                })()
+                         
                             }else if(response2 == 0){
                                     Swal.fire(
                                     'Wrong Password',

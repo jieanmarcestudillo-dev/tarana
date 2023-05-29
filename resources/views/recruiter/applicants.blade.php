@@ -62,7 +62,7 @@
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Phone Number</th>
                                                 <th class="text-center">Phone Number</th>
-                                                <th class="text-center">Actions</th>
+                                                <th class="text-center">Details</th>
                                             </tr>
                                         </thead>
                                     </table>

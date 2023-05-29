@@ -38,8 +38,7 @@ $(document).ready(function(){
                         title: 'Signed in successfully',
                         text: 'Welcome Workers',
                       })
-            }
-            else if(response == 0){
+            }else if(response == 0){
             Swal.fire(
             'Sorry Login Failed',
             'Wrong Username/Password',
