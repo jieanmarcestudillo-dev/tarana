@@ -746,14 +746,12 @@ class AdminController extends Controller
 
         // PRINT COMPLETED OPERATION
             public function printCompletedOperation(Request $request, $id){
-                $operationId = $id;
                 $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                 ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                ->where([['completed.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId]])->orderBy('applicants.position')->get();
-                $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
+                ->where([['completed.operation_id', '=', $id],['operations.certainOperation_id', '=', $id]])->orderBy('applicants.position')
+                ->get();
                 foreach($data as $operations){
                     $operationCompleted = [
-                        'foreman' => $foreman,
                         'operationId' => $operations->operationId,
                         'shipName' => $operations->shipName,
                         'shipCarry' => $operations->shipCarry,
