@@ -78,7 +78,7 @@ $(document).ready(function(){
                 {"data":"phoneNumber"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate on-call worker?"><i class="bi bi-check-lg"></i></button> <a href="printOldWorkers/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
+                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=activateApplicants('+data+') class="btn rounded-0 rounded-0 btn-outline-success btn-sm px-3 py-2" data-title="Activate on-call worker?"><i class="bi bi-check-lg"></i></button> <a href="printProjectWorker/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
                     }
                 }
             ],
@@ -127,7 +127,7 @@ $(document).ready(function(){
                 {"data":"reason"},
                 {"data": "applicant_id",
                     mRender: function (data, type, row) {
-                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3" data-title="Unblock?"><i class="bi bi-check-lg"></i></button> <a href="printOldWorkers/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
+                    return '<button type="button" data-title="View on-call worker?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" onclick=unblockApplicant('+data+') class="btn rounded-0 btn-outline-success btn-sm py-2 px-3" data-title="Unblock?"><i class="bi bi-check-lg"></i></button> <a href="printProjectWorker/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
                     }
                 }
             ],
@@ -237,7 +237,7 @@ $(document).ready(function(){
         });
         Swal.fire({
             title: 'Change Status',
-            text: "Applicants was DEACTIVATE successfully",
+            text: "Project Worker was DEACTIVATE successfully",
             icon: 'success',
             showConfirmButton: false,
             timer: 1500,
@@ -271,7 +271,7 @@ $(document).ready(function(){
         });
         Swal.fire({
             title: 'Change Status',
-            text: "Applicants was deactivate successfully",
+            text: "Project Worker was deactivate successfully",
             icon: 'success',
             showConfirmButton: false,
             timer: 1500,
@@ -362,7 +362,7 @@ $(document).ready(function(){
         });
         Swal.fire({
             title: 'Change Status',
-            text: "Applicant was UNBLOCKED successfully",
+            text: "Project Worker was UNBLOCKED successfully",
             icon: 'success',
             showConfirmButton: false,
             timer: 1500,
@@ -396,7 +396,7 @@ $(document).ready(function(){
         });
         Swal.fire({
             title: 'Change Status',
-            text: "Applicant was UNUTILIZED successfully",
+            text: "Project Worker was UNUTILIZED successfully",
             icon: 'success',
             showConfirmButton: false,
             timer: 1500,

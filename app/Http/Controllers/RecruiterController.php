@@ -38,7 +38,8 @@ class RecruiterController extends Controller
             // FETCH
                 // RECRUITER OPERATION SCHEDULE
                     public function recruiterScheduleOperation(Request $request){
-                        $data = operations::where([['is_completed', '=', 0]])->get();
+                        $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
+                        $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>',$date]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     }
@@ -367,7 +368,9 @@ class RecruiterController extends Controller
             // FETCH
                 // UPCOMING OPERATION   
                     public function recruiterOperation(Request $request){
-                        $data = operations::where([['is_completed', '!=', 1]])->orderBy('operationStart')->with('applicants')->get();
+                        $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
+                        $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>',$date]])
+                        ->orderBy('operationStart')->with('applicants')->get();
                         return view('fetch.recruiter.recruiterOperation', compact('data'));
                     } 
                 // UPCOMING OPERATION 
@@ -864,8 +867,7 @@ class RecruiterController extends Controller
 
                 // SHOW FORMED GROUP    
                     public function recruiterFormedGroup(Request $request){
-                        $data = operations::where([
-                        ['is_completed', '!=', 1]])->orderBy('operationStart')->get();
+                        $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0]])->orderBy('operationStart')->get();
                         if($data->isNotEmpty()){
                             foreach($data as $certainData){
                                 $startDate = date('F d, Y | D',strtotime($certainData->operationStart));
@@ -1184,14 +1186,13 @@ class RecruiterController extends Controller
                         ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Rice']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }  
-
-                    
+                
                     public function applicantExperienceWood(Request $request){ 
                         $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                         ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Wood']])->get();
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }
-                    
+
                     public function applicantExperiencePlyWood(Request $request){ 
                         $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                         ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Plywood']])->get();

@@ -203,6 +203,17 @@ $(document).ready(function(){
         applicantExperienceRice();
         applicantExperienceSoya();
         applicantExperienceCable();
+        // function latestTara(){
+        //     $.ajax({
+        //         url: "/projectExperience",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             $("#showExperience").html(data);
+        //         }
+        //     })
+        // }
+        // latestTara();
         $('#applicantsPhoto').attr("src", response.photos)
         $('#applicantsLastname').html(response.lastname)           
         $('#applicantsFirstname').html(response.firstname)           

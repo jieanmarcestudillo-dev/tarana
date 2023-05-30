@@ -8,7 +8,7 @@
             <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterOperationRoutes"><i class="fa-solid fa-ship pe-3"></i> Upcoming Operation</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterFormedGroupRoutes"><i class="fa-regular fa-calendar pe-3"></i> Formed Group</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterCompletedRoutes"><i class="fa-solid fa-circle-check pe-3"></i> Completed Operation</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterOnCallWorkerRoutes"><i class="fa-solid fa-user pe-3"></i>  On-Call Workers</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterOnCallWorkerRoutes"><i class="fa-solid fa-user pe-3"></i>  Project Workers</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterDetailsRoutes"><i class="fa-solid fa-user-pen pe-3"></i> Manage Account</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3 border-end" href="/recruiterBackOutArchiveRoutes"> <i class="bi bi-clock-history pe-3"></i> Archived</a>
         </div>

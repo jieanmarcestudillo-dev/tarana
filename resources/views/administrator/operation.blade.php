@@ -185,11 +185,11 @@
                                     </div>
                                 </div>
                                 <div class="row g-1 mt-3">
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <label class="form-label">Ship's Name:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="shipName" name="shipName">
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <label class="form-label">Ship's Carry:</label>
                                         <select class="form-select" aria-label="Default select example" required id="shipCarry" name="shipCarry">
                                             <option selected>Open this select menu</option>
@@ -200,6 +200,10 @@
                                             <option value="Rice">Rice</option>
                                         </select>
                                     </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Applicants Slot:</label>
+                                        <input type="number" value="0" class="form-control shadow-sm bg-body rounded text-center" id="slot" name="slot">
+                                    </div>
                                 </div>
                                 <div class="row g-1 mt-3">
                                     <div class="col-6">
@@ -209,18 +213,6 @@
                                     <div class="col-6">
                                         <label class="form-label">Operation End:</label>
                                         <input type="datetime-local" class="form-control shadow-sm bg-body rounded" required id="operationEnd" name="operationEnd">
-                                    </div>
-                                </div>
-                                <div class="row g-1 mt-3">
-                                    <div class="col-4">
-                                        <label class="form-label">Applicants Slot:</label>
-                                        <input type="number" value="0" class="form-control shadow-sm bg-body rounded text-center" id="slot" name="slot">
-                                    </div>
-                                    <div class="col-8">
-                                        <label class="form-label">Recruiter:</label>
-                                        <div class="input-group">
-                                            <select class="form-select" aria-label="Default select example" id="foreman" name="foreman"></select>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">

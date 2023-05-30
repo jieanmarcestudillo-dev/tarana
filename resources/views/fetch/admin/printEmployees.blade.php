@@ -60,7 +60,7 @@
 </head>
 <body>
     <div class="header">
-      <div class="name">Project Workers Information</div>
+      <div class="name">Personal Information</div>
         <div class="contact-info">Subic Consolidated Projects, Inc.</div>
       </div>
       </div>
@@ -84,7 +84,7 @@
           </div>
           <div class="item">
             <span class="item-title">Gender:</span>
-            <span class="item-content">{{$item->Gender}}</span>
+            <span class="item-content">{{$item->gender}}</span>
           </div>
         <div class="item">
           <span class="item-title">Status:</span>
@@ -98,10 +98,17 @@
           <span class="item-title">Age:</span>
           <span class="item-content">{{$item->age}} years old</span>
         </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Job Summary</div>
         <div class="item">
           <span class="item-title">Position:</span>
-          <span class="item-content">{{$item->position}} </span>
+          <span class="item-content">{{$item->position}} / Manpower Pooling</span>
         </div>
+        <div class="item">
+            <span class="item-title">Company Id:</span>
+            <span class="item-content">{{$item->companyId}}</span>
+          </div>
       </div>
       <div class="section">
         <div class="section-title">Contact Information</div>
@@ -117,11 +124,6 @@
           <span class="item-title">Address:</span>
           <span class="item-content">{{$item->address}}</span>
         </div>
-      </div>
-      <div class="section">
-        <div class="section-title">Personal Id</div>
-        <img src="{{ public_path($item->personal_id) }}" alt="Image" class="img-thumbnail" style="width:35%; margin-top:2rem;">
-        <img src="{{ public_path($item->personal_id2) }}" alt="Image" class="img-thumbnail" style="width:35%; margin-top:2rem;">
       </div>
 </body>
 </html>

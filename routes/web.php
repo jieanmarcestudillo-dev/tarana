@@ -47,9 +47,10 @@ use App\Http\Controllers\homeController;
         // FETCH
             // GET
                 Route::get('applicantOperation', [ApplicantsController::class,'applicantOperation']);
-                Route::get('totalUpcomingOperation', [ApplicantsController::class,'totalUpcomingOperation']);
-                Route::get('totalInvitationOperation', [ApplicantsController::class,'totalInvitationOperation']);
-                Route::get('totalScheduledOperation', [ApplicantsController::class,'totalScheduledOperation']);
+                Route::get('totalUpcomingOperationForApp', [ApplicantsController::class,'totalUpcomingOperationForApp']);
+                Route::get('totalInvitationOperationForApp', [ApplicantsController::class,'totalInvitationOperationForApp']);
+                Route::get('totalScheduledOperationForApp', [ApplicantsController::class,'totalScheduledOperationForApp']);
+                Route::get('applicantInvitationForApp', [ApplicantsController::class,'applicantInvitationForApp']);
                 Route::get('applicantApply', [ApplicantsController::class,'applicantApply']);
                 Route::get('cancelApply', [ApplicantsController::class,'cancelApply']);
                 Route::get('applicantScheduled', [ApplicantsController::class,'applicantScheduled']);
@@ -58,7 +59,6 @@ use App\Http\Controllers\homeController;
                 Route::get('backOutOperation', [ApplicantsController::class,'backOutOperation']);
                 Route::get('acceptInvitation', [ApplicantsController::class,'acceptInvitation']);
                 Route::get('coWorkers', [ApplicantsController::class,'coWorkers']);
-                Route::get('applicantInvitation', [ApplicantsController::class,'applicantInvitation']);
                 Route::get('applicantCompletedOperation', [ApplicantsController::class,'applicantCompletedOperation']);
             // GET
 

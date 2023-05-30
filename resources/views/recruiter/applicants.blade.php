@@ -46,7 +46,7 @@
                             <div class=" bg-light p-5 bg-body rounded-0 shadow-lg">
                                 <ul class="nav nav-tabs mb-4">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/recruiterOnCallWorkerRoutes">&nbsp;&nbsp;On-Call Workers&nbsp;&nbsp;</a>
+                                        <a class="nav-link" href="/recruiterOnCallWorkerRoutes">&nbsp;&nbsp;Project Workers&nbsp;&nbsp;</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#">Applicants</a>

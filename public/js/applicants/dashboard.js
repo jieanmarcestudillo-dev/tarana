@@ -8,7 +8,7 @@ $(document).ready(function () {
 // SHOW OPERATION INVITATION
     function operationInvitationContent() {
         $.ajax({
-            url: "/applicantInvitation",
+            url: "/applicantInvitationForApp",
             method: "GET",
             success: function (data) {
                 $("#fetchAllInvitation").html(data);
@@ -138,7 +138,7 @@ $(document).ready(function () {
 // FUNCTION FOR SHOW TOTAL UPCOMING OPERATION
     function totalUpcomingOperation() {
         $.ajax({
-            url: "/totalUpcomingOperation",
+            url: "/totalUpcomingOperationForApp",
             method: "GET",
             success: function (data) {
                 $("#totalUpcomingOperation").html(data);
@@ -150,7 +150,7 @@ $(document).ready(function () {
 // FUNCTION FOR SHOW TOTAL SCHEDULED OPERATION
     function totalScheduledOperation() {
         $.ajax({
-            url: "/totalScheduledOperation",
+            url: "/totalScheduledOperationForApp",
             method: "GET",
             data: { getTotalScheduledOperation: 1 },
             success: function (data) {
@@ -163,7 +163,7 @@ $(document).ready(function () {
 // FUNCTION FOR SHOW TOTAL SCHEDULED OPERATION
     function totalInvitationOperation() {
         $.ajax({
-            url: "/totalInvitationOperation",
+            url: "/totalInvitationOperationForApp",
             method: "GET",
             success: function (data) {
                 $("#totalInvitation").html(data);
@@ -171,17 +171,3 @@ $(document).ready(function () {
         });
     }
 // FUNCTION FOR SHOW TOTAL SCHEDULED OPERATION
-
-// SHOW DETAILS OF OPERATION
-    function coWorkersDetails(id){     
-        $.ajax({
-            url: "/coWorkers",
-            method: 'GET',
-            data:{operationId:id},
-            success : function(data) {
-                $("#showScheduledDetails").html(data);
-                $('#viewOperationDetails').modal('show')
-            }
-        })
-    }
-// SHOW DETAILS OF OPERATION

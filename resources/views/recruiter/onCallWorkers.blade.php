@@ -46,7 +46,7 @@
                             <div class=" bg-light p-5 bg-body rounded-0 shadow-lg">
                                 <ul class="nav nav-tabs mb-4">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">&nbsp;&nbsp;On-Call Workers&nbsp;&nbsp;</a>
+                                        <a class="nav-link active" href="#">&nbsp;&nbsp;Project Workers&nbsp;&nbsp;</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/recruiterApplicantRoutes">Applicants</a>
@@ -90,7 +90,7 @@
                                 <div class="row">
                                     <div class="row">
                                         <div class="col-11">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Applicant Information</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Project Workers Information</h1>
                                         </div>
                                         <div class="col-1">
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +133,7 @@
                                         <div class="col-5">
                                             <div class="card" style="height:442px; overflow-y:auto;">
                                                 <div class="card-header bg-white">
-                                                    <h5 class="card-title">Experience</h5>
+                                                    <h5 class="card-title">Latest Works</h5>
                                                 </div>
                                                 <div class="card-body" id="showExperience">
                                                     <ul class="list-group text-center">
@@ -142,7 +142,7 @@
                                                         <li class="list-group-item py-4 text-uppercase fw-normal">Plywood Operation: <span class="fw-normal" id="plyWoodExp"></span></li>
                                                         <li class="list-group-item py-4 text-uppercase fw-normal">Soya Operation: <span class="fw-normal"  id="soyaExp"></span></li>
                                                         <li class="list-group-item py-4 text-uppercase fw-normal">Rice Operation: <span class="fw-normal"  id="riceExp"></span></li>
-                                                      </ul>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>

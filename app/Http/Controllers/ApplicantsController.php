@@ -134,15 +134,16 @@ class ApplicantsController extends Controller
 
         // FETCH
             // UPCOMING OPERATION
-                public function totalUpcomingOperation(Request $request){
-                    $data = operations::where('is_completed', '=', 0)->get();
+                public function totalUpcomingOperationForApp(Request $request){
+                    $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
+                    $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>',$date]])->get();
                     $countData = $data->count();
                     return response()->json($countData != '' ? $countData : '0');
                 }
             // UPCOMING OPERATION
 
             // TOTAL INVITATION
-                public function totalInvitationOperation(Request $request){
+                public function totalInvitationOperationForApp(Request $request){
                     $data = applied::where([
                     ['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
                     ['is_recommend', '=' ,1],['is_recruited', '!=', 1]])->get();
@@ -152,7 +153,7 @@ class ApplicantsController extends Controller
             // TOTAL INVITATION
 
             // TOTAL SCHEDULED
-               public function totalScheduledOperation(Request $request){
+               public function totalScheduledOperationForApp(Request $request){
                     $data = applied::where([
                     ['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
                     ['is_recruited', '=', 1]])->get();
@@ -162,7 +163,7 @@ class ApplicantsController extends Controller
             // TOTAL SCHEDULED
 
             // APPLICANT INVITATION
-                public function applicantInvitation(Request $request){
+                public function applicantInvitationForApp(Request $request){
                     $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                     ->join('employees', 'operations.foreman', '=', 'employees.employee_id')
                     ->where([['applied.applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
@@ -209,9 +210,9 @@ class ApplicantsController extends Controller
         // FETCH
             // FETCH APPLICANT OPERATION
                 public function applicantOperation(Request $request){
-                    $currentDateTime =  now(); 
-                    $date = date('Y-m-d H:i:s', strtotime("+1 day", strtotime($currentDateTime)));
-                    $data = operations::where([['is_completed', '=', 0],['foreman' , '!=', 0],[ 'operationEnd' , '>' ,$date]])->orderBy('operationStart')->with('employees', 'applicants')->get();
+                    $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
+                    $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>=',$date]
+                    ])->orderBy('operationStart')->with('employees', 'applicants')->get();
                     if($data->isNotEmpty()){
                         foreach($data as $item){
                             $operationStartDate = date('F d, Y',strtotime($item->operationStart));

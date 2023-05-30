@@ -45,16 +45,16 @@
                             <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
                                     <ul class="nav nav-tabs mb-4">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">&nbsp;&nbsp;Applicants&nbsp;&nbsp;</a>
+                                        <a class="nav-link active" href="#">&nbsp;&nbsp;Available Applicants&nbsp;&nbsp;</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/inactiveApplicants">Inactive Applicants</a>
+                                        <a class="nav-link" href="/inactiveApplicants">Not Available Applicants</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/blockedApplicants">Blocked Applicants</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/utilizedApplication">Currently Utilizing</a>
+                                        <a class="nav-link" href="/utilizedApplication">Currently Active</a>
                                     </li>
                                 </ul>
                                     <table id="applicants" class="table table-sm table-bordered text-center align-middle">

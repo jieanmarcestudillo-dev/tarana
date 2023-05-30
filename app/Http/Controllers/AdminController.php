@@ -38,7 +38,8 @@ class AdminController extends Controller
             // FETCH
                 // TOTAL OPERATION
                     public function totalUpcomingOperation(Request $request){
-                        $data = operations::where('is_completed', '=', 0)->get();
+                        $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
+                        $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>',$date]])->get();
                         $countData = $data->count();
                         return response()->json($countData != '' ? $countData : '0');
                     }
@@ -106,6 +107,7 @@ class AdminController extends Controller
             // FETCH
                 // UPCOMING OPERATION   
                     public function getOperationData(Request $request){
+                        
                         $data = operations::where([['is_completed','=',0],['is_archived','=',0]])->orderBy('operationStart')->get(); 
                         return response()->json($data);
                     } 
@@ -736,8 +738,9 @@ class AdminController extends Controller
                         'data' => $data
                     ]; 
                 }
-                $pdf = PDF::loadView('fetch.admin.printOperation', $operationInfo);
+                $pdf = PDF::loadView('fetch.admin.printOperation', $operationInfo)->setPaper('A4', 'portrait');
                 return $pdf->stream('operation_'.$id.'.pdf');
+
             }
         // PRINT OPERATION
 
@@ -756,6 +759,7 @@ class AdminController extends Controller
                         'shipCarry' => $operations->shipCarry,
                         'operationStart' => $operations->operationStart,
                         'operationEnd' => $operations->operationEnd,
+                        'totalWorkers' => $operations->totalWorkers,
                         'slot' => $operations->slot,
                         'data' => $data,
                     ]; 
@@ -777,6 +781,19 @@ class AdminController extends Controller
                 return $pdf->stream('Project Worker_'.$id.'.pdf');
             }
         // PRINT APPLICANT
+
+        // PRINT COMPANY EMPLOYEE
+            public function printCompanyEmployee(Request $request, $id){
+                $data = employees::where([['employee_id', '=', $id]])->get();
+                foreach($data as $count => $certainData){
+                    $employeeInfo = [
+                        'data' => $data 
+                    ]; 
+                }
+                $pdf = PDF::loadView('fetch.admin.printEmployees', $employeeInfo);
+                return $pdf->stream('Company Employee'.$id.'.pdf');
+            }
+        // PRINT COMPANY EMPLOYEE
     
         // DOWNLOAD TEMPLATE
             public function downloadTemplate($filename){
