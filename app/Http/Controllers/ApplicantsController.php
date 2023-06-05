@@ -165,7 +165,7 @@ class ApplicantsController extends Controller
             // APPLICANT INVITATION
                 public function applicantInvitationForApp(Request $request){
                     $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                    ->join('employees', 'operations.foreman', '=', 'employees.employee_id')
+                    ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
                     ->where([['applied.applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
                     ['applied.is_recommend', '=', 1],['applied.is_recruited', '!=' ,1],['applied.is_recommend', '=', 1],
                     ['applied.is_recruited', '!=', 1]])->get();
@@ -173,7 +173,6 @@ class ApplicantsController extends Controller
                         foreach($data as $certainData){
                             $applicant = auth()->guard('applicantsModel')->user()->firstname.' '.
                             auth()->guard('applicantsModel')->user()->lastname.' '.auth()->guard('applicantsModel')->user()->extention;
-                            $position = auth()->guard('applicantsModel')->user()->position;
                             $newOperationStartDate = date('F d, Y | h:i: A',strtotime($certainData->operationStart));
                             $newOperationEndDate = date('F d, Y | h:i: A',strtotime($certainData->operationEnd));
                             echo "
@@ -181,7 +180,7 @@ class ApplicantsController extends Controller
                                 <div class='card mb-2 shadow'>
                                     <div class='card-body'>
                                         <h5 class='card-title'>Dear $applicant,</h5>
-                                        <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (recruiter) are invites you to join in the operation as $position from
+                                        <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (recruiter) are invites you to join in the operation from
                                         <span class='fw-bold'>$newOperationStartDate until $newOperationEndDate</span> to manage the $certainData->shipCarry of the $certainData->shipName Cargo Ship. If you are available to work at Subic Consolidated Project Inc., please respond to our invitation to notify the recruiter. Thank you, and may God bless the workers.</p>
                                             <button onclick=acceptInvitation('$certainData->operation_id') class='btn btn-success btn-sm'>Accept</button>
                                             <button onclick='declineInvitation($certainData->certainOperation_id, $certainData->recruiter)' class='btn btn-danger btn-sm'>Decline</button>
@@ -192,7 +191,7 @@ class ApplicantsController extends Controller
                         }
                     }else{
                         echo "
-                            <H5 class='mx-auto text-danger my-5 py-5'>NO INVITATION FOUND</H5>
+                            <H5 class='mx-auto my-5 py-5' style='color:#800000;'>NO INVITATION FOUND</H5>
                         ";
                     }
                 }
@@ -212,15 +211,13 @@ class ApplicantsController extends Controller
                 public function applicantOperation(Request $request){
                     $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
                     $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>=',$date]
-                    ])->orderBy('operationStart')->with('employees', 'applicants')->get();
+                    ])->orderBy('operationStart')->with('applicants')->get();
                     if($data->isNotEmpty()){
                         foreach($data as $item){
                             $operationStartDate = date('F d, Y',strtotime($item->operationStart));
                             $operationStartTime = date('D | h:i: A ',strtotime($item->operationStart)); 
                             $operationEndDate = date('F d, Y',strtotime($item->operationEnd));
                             $operationEndTime = date('D | h:i: A ',strtotime($item->operationEnd)); 
-                            $recruiterId = $item->employees->employee_id;
-                            $recruiter = $item->employees->firstname.' '.$item->employees->lastname.' '.$item->employees->extention;
                             echo"
                             <div class='col-lg-6 col-sm-12 g-0 gx-lg-5 text-center text-lg-start'>
                             <div class='card mb-3 shadow border-2 border rounded' style='width:100%'>
@@ -327,20 +324,19 @@ class ApplicantsController extends Controller
                                 echo 2; // Please complete all of your information.
                                 exit();
                             }else{
-                                $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->get();
+                                $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->select('operationStart')->get();
                                 if($operationsData->isNotEmpty()){
                                     foreach($operationsData as $certainOperationsData){
                                         // APPLYING OPERATION
-                                        $applyingOperationStart = date('m-d-Y h:i A',strtotime($certainOperationsData->operationStart));
-                                        $applyingOperationEnd  = date('m-d-Y h:i A',strtotime($certainOperationsData->operationEnd));
+                                        $applyingOperationStart = date('m-d-Y g:i A',strtotime($certainOperationsData->operationStart));
                                     }
                                     $applyingData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                                    ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1]])->get();
+                                    ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1]])
+                                    ->select('operationStart')->orderBy('applied.applied_id', 'desc')->get();
                                     if($applyingData->isNotEmpty()){
                                         foreach($applyingData as $certainApplyingData){
-                                            // CHECK IF THEY ARE ALREADY SCHED ON SAME DATE/TIME
-                                            $scheduledOperationStart = date('m-d-Y h:i A',strtotime($certainApplyingData->operationStart));
-                                            $scheduledOperationEnd = date('m-d-Y h:i A',strtotime($certainApplyingData->operationEnd));
+                                            // CHECK IF THEY ARE ALREADY SCHEDULED ON SAME DATE/TIME
+                                            $scheduledOperationStart = date('m-d-Y g:i A',strtotime($certainApplyingData->operationStart));
                                         }   
                                         if($applyingOperationStart == $scheduledOperationStart){
                                             echo 3; // NOT AVAILABLE ON THAT DAY
@@ -362,7 +358,8 @@ class ApplicantsController extends Controller
                                                 exit();
                                             }
                                         }
-                                    }else{
+                                    }
+                                    else{
                                         $applicationApply = applied::create([
                                             'operation_id' => $operationId,
                                             'applicants_id' => $applicantId,
@@ -455,7 +452,7 @@ class ApplicantsController extends Controller
                    ->where([['applied.operation_id', '=' ,$request->operationId],['operations.certainOperation_id','=',
                    $request->operationId],['applied.applicants_id', '!=' ,$applicantId], 
                    ['applicants.applicant_id', '!=', $applicantId],['applied.is_recruited', '=', 1]])
-                   ->get(['applicants.lastname','applicants.firstname','applicants.extention','applicants.position',
+                   ->get(['applicants.lastname','applicants.firstname','applicants.extention','applicants.phoneNumber',
                    'applicants.age']);
                    if($coWorkersDetails->isNotEmpty()){
                             echo"<table class='table text-center align-middle table-bordered'>
@@ -464,7 +461,7 @@ class ApplicantsController extends Controller
                                 <th class='col-1'>#</th>
                                 <th class='col-5'>Applicant</th>
                                 <th class='col-2'>Age</th>
-                                <th class='col-4'>Position</th>
+                                <th class='col-4'>Phone Number</th>
                               </tr>
                             </thead><tbody>";
                        foreach($coWorkersDetails as $count => $applicantInfo){
@@ -474,7 +471,7 @@ class ApplicantsController extends Controller
                         <td>$perWorkers</td>
                             <td>$applicantInfo->firstname $applicantInfo->lastname $applicantInfo->extention</td>
                             <td>$applicantInfo->age</td>
-                            <td>$applicantInfo->position</td>
+                            <td>$applicantInfo->phoneNumber</td>
                         </tr>
                         ";}
                             echo"
@@ -634,7 +631,6 @@ class ApplicantsController extends Controller
                                     $update->extention = $request->input('appExtention');
                                     $update->Gender=$request->input('appGender');
                                     $update->status=$request->input('appStatus');
-                                    $update->position=$request->input('appPosition');
                                     $update->age=$request->input('appAge');
                                     $update->birthday=$request->input('appBirthday');
                                     $update->address=$request->input('appAddress');
@@ -655,7 +651,6 @@ class ApplicantsController extends Controller
                                     $update->extention = $request->input('appExtention');
                                     $update->Gender=$request->input('appGender');
                                     $update->status=$request->input('appStatus');
-                                    $update->position=$request->input('appPosition');
                                     $update->age=$request->input('appAge');
                                     $update->birthday=$request->input('appBirthday');
                                     $update->address=$request->input('appAddress');

@@ -55,7 +55,7 @@
                 </div>
                 </div>
                 <div class="col-12 col-lg-5 text-center">
-                <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto rounded-pill" loading="lazy" src="./assets/frontend/cargoWorker.webp">
+                    <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto rounded-pill" loading="lazy" src="./assets/frontend/scpi_logo.png" style="height:100px; filter: brightness(60%);">
                 </div>
             </div>
             </div>

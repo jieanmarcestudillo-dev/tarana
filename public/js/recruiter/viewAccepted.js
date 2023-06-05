@@ -56,8 +56,9 @@ $(document).ready(function(){
                         return data.applicantFirstname+ " " +data.applicantLastName;
                     }
                 }},
-                {"data":"position"},
-                {"data":"phoneNumber"},
+                { "mData": function (data, type, row) {
+                    return data.age+ " years old";
+                }},  
                 { "mData": function (data, type, row) {
                     if(data.extention != null){
                         return data.employeeFirstName+ " " +data.employeeLastName+ " " +data.employeeExtension;
@@ -66,7 +67,7 @@ $(document).ready(function(){
                     }
                 }},
                 { "mData": function (data, type, row) {
-                    return "<button data-title='Cancel Recruitment?' type='button' onclick=cancelRecruitRecommendedApplicants("+data.applicant_id+") class='btn btn-outline-danger rounded-0 btn-sm py-2 px-3'><i class='bi bi-x-lg'></i></button>";
+                    return "<button data-title='Project Workers Information' type='button' onclick=viewOnCallWorkers("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button>  <button data-title='Cancel Recruitment?' type='button' onclick=cancelRecruitRecommendedApplicants("+data.applicant_id+") class='btn btn-outline-danger rounded-0 btn-sm py-2 px-3'><i class='bi bi-x-lg'></i></button>";
                 }},
             ],
             order: [[1, 'asc']],
@@ -120,8 +121,8 @@ $(document).ready(function(){
 // CAMCEL RECRUIT APPLICANTS
 
 // SHOW CERTAIN APPLICANTS DETAILS
-    function viewApplicants(id){
-    $('#viewApplicantsDetails').modal('show')
+    function viewOnCallWorkers(id){
+    $('#viewWorkerDetails').modal('show')
     $.ajax({
         url: '/getCertainApplicants',
         type: 'GET',
@@ -129,62 +130,50 @@ $(document).ready(function(){
         data: {applicantId: id},
     })
     .done(function(response) {
-        function applicantExperienceSoya(){
+        function applicantExperience(){
             $.ajax({
-                url: "/applicantExperienceSoya",
+                url: "/applicantExperience",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    $("#soyaExp").html(data);
+                    $("#showExperience").html(data);
                 }
             })
         }
-        function applicantExperienceCable(){
+        function overallRatingPerWorker(){
             $.ajax({
-                url: "/applicantExperienceCable",
+                url: "/overallRatingPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    $("#cableExp").html(data);
+                    $("#overallRatingPerWorker").html(data);
                 }
             })
         }
-        function applicantExperienceRice(){
+        function totalBackOutPerWorker(){
             $.ajax({
-                url: "/applicantExperienceRice",
+                url: "/totalBackOutPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    $("#riceExp").html(data);
+                    $("#totalBackOutPerWorker").html(data);
                 }
             })
         }
-        function applicantExperienceWood(){
+        function totalDeclinedPerWorker(){
             $.ajax({
-                url: "/applicantExperienceWood",
+                url: "/totalDeclinedPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    $("#woodExp").html(data);
+                    $("#totalDeclinedPerWorker").html(data);
                 }
             })
         }
-
-        function applicantExperiencePlyWood(){
-            $.ajax({
-                url: "/applicantExperiencePlyWood",
-                method: 'GET',
-                data: {applicantId:response.applicant_id},
-                success : function(data) {
-                    $("#plyWoodExp").html(data);
-                }
-            })
-        }
-        applicantExperiencePlyWood();
-        applicantExperienceWood();
-        applicantExperienceRice();
-        applicantExperienceSoya();
-        applicantExperienceCable();
+        applicantExperience();
+        overallRatingPerWorker();
+        totalBackOutPerWorker();
+        totalDeclinedPerWorker();
         $('#applicantsPhoto').attr("src", response.photos)
         $('#applicantsLastname').html(response.lastname)           
         $('#applicantsFirstname').html(response.firstname)           
@@ -199,10 +188,8 @@ $(document).ready(function(){
         $('#applicantsEmail').html(response.emailAddress)   
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId').attr("src", response.personal_id)
-            $('#personalId2').attr("src", response.personal_id2)
         }else{
-            $('#personalId').attr("src","/storage/applicant_id/noId.jpg")
-            $('#personalId2').attr("src","/storage/applicant_id/noId.jpg")
+            $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
         }        
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',

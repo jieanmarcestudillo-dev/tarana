@@ -25,6 +25,7 @@
                 {{-- NAV BAR --}}
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
+                            {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
                             <h4 class="ms-2">ARCHIVED</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -42,35 +43,33 @@
 
                 {{-- MAIN CONTENT --}}
                     <div class="container-fluid mainBar">
-                        <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
-                            <ul class="nav nav-tabs mb-4">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/adminBackOutArchiveRoutes">Back Out</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">Declined</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/adminBlockedArchiveRoutes">Blocked Project Workers</a>
-                                </li>
-                            </ul>
-                            <div class="container-fluid mt-4">
-                                <table id="declinedTable" class="table table-sm table-bordered text-center align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">No.</th>
-                                            <th class="text-center">Project Workers</th>
-                                            <th class="text-center">Operation</th>
-                                            <th class="text-center">Operation Start</th>
-                                            <th class="text-center">Operation End</th>
-                                            <th class="text-center">Recommend By</th>
-                                            <th class="text-center">Reason</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                        <div class="container-fluid">
+                            <div class="container-fluid bg-light px-5 py-4 bg-body rounded shadow-lg">
+                                <ul class="nav nav-tabs mb-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/adminBackOutArchiveRoutes">Back Out</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/adminDeclinedArchiveRoutes">Declined</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Blocked Project Workers</a>
+                                    </li>
+                                </ul>
+                                    <table id="blockApplicantsArchived" class="table table-sm table-bordered text-center align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">No.</th>
+                                                <th class="text-center">Full Name</th>
+                                                <th class="text-center">Age</th>
+                                                <th class="text-center">Date Time Block</th>
+                                                <th class="text-center col-2">Reasons</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
                             </div>
                         </div>
                     </div>
@@ -80,14 +79,14 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/administrator/archived.js') }}"></script>
+        <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 
     {{-- MODAL --}}
         {{-- VIEW REASON --}}
-            <div class="modal fade" id="declinedReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="blockedReasonModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -97,7 +96,7 @@
                             </div>
                         </div>
                         <div class="row text-center">
-                            <p class="my-4" id="declinedReason"></p>
+                            <p class="my-4" id="blockedReason"></p>
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
                             {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
-                            <h4 class="ms-2">SCPI WORKERS DETAILS</h4>
+                            <h4 class="ms-2">MANPOWER POOLING</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
@@ -47,13 +47,13 @@
                             <div class=" bg-light py-4 px-5 bg-body rounded shadow-lg">
                                 <ul class="nav nav-tabs mb-4">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                                        <a class="nav-link active" href="#">&nbsp;&nbsp;Available&nbsp;&nbsp;</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/inactiveEmployees">Inactive</a>
+                                        <a class="nav-link" href="/inactiveEmployees">Not Available</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/utilizedAppRecruiter">Currently Utilizing</a>
+                                        <a class="nav-link" href="/utilizedAppRecruiter">Currently Active</a>
                                     </li>
                                     <li class="nav-item ms-auto">
                                         <a href="{{ url('downloadTemplate/employeesImport.xlsx') }}" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
@@ -64,7 +64,7 @@
                                     <table id="activeEmployees" class="table table-sm table-bordered text-center align-middle">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No.</th>
                                                 <th class="text-center">First Name</th>
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
@@ -301,27 +301,19 @@
                                     </div>                               
                                 </div>
                                 <div class="row mt-3 g-2">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <label class="form-label">Phone Number:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" id="employeePnumber" name="employeePnumber">
                                     </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Nationality:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" id="employeeNationality" name="employeeNationality">
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Religion:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" id="employeeReligion" name="employeeReligion">
+                                    <div class="col-6">
+                                        <label class="form-label">Email Address:</label>
+                                        <input type="email" class="form-control shadow-sm bg-body rounded" id="employeeEmail" name="employeeEmail">
                                     </div>
                                 </div>
                                 <div class="row mt-3 g-2">
-                                    <div class="col-8">
+                                    <div class="col-12">
                                         <label class="form-label">Address:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" id="employeeAddress" name="employeeAddress">
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Email Address:</label>
-                                        <input type="email" class="form-control shadow-sm bg-body rounded" id="employeeEmail" name="employeeEmail">
                                     </div>
                                 </div>
                                 <div class="row mt-3 g-2">

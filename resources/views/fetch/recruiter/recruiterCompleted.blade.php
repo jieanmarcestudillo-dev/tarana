@@ -19,11 +19,13 @@
        .name {
          font-size: 24px;
          font-weight: bold;
+         text-transform: uppercase;
        }
    
        .contact-info {
          font-size: 14px;
          margin-bottom: 10px;
+         text-transform: uppercase;
        }
    
        .section {
@@ -34,6 +36,7 @@
          font-size: 18px;
          font-weight: bold;
          margin-bottom: 10px;
+         text-transform: uppercase;
        }
    
        .subsection-title {
@@ -59,7 +62,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="name">Operation Details</div>
+        <div class="name">Completed Operation Details</div>
       <div class="contact-info">Subic Consolidated Projects, Inc.</div>
     </div>
     </div>
@@ -95,14 +98,14 @@
         </div>
     </div>
     <div class="section">
-        <div class="section-title">Project Workers Participate</div>
+        <div class="section-title">Project Workers Joined</div>
     </div>
     <table class='table table-bordered text-center align-middle'>
         <thead>
             <tr>
                 <th scope='col'>No.</th>
                 <th scope='col'>Project Workers</th>
-                <th scope='col'>Role</th>
+                <th scope='col'>Age</th>
                 <th scope='col'>Performance</th>
             </tr>
         </thead>
@@ -112,7 +115,7 @@
             <tr>
                 <td>{{$count}}.</td>
                 <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>
-                <td>{{$certainData->position}} </td>
+                <td>{{$certainData->age}} years old</td>
                 <td>Rating: {{$certainData->performanceRating}}%</td>
             </tr>
             @endforeach

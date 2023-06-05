@@ -60,7 +60,7 @@
                             <table id="operationTable" class="table table-sm table-bordered text-center mt-2 align-middle">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
+                                        <th class="text-center">No.</th>
                                         <th class="text-center">Operation ID</th>
                                         <th class="text-center">Ship's Name</th>
                                         <th class="text-center">Ship's Carry</th>

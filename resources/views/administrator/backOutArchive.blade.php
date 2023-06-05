@@ -53,12 +53,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/adminCancelOperationArchiveRoutes">Cancel Operation</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/adminBlockedArchiveRoutes">Blocked Project Workers</a>
+                                </li>
                             </ul>
                             <div class="container-fluid mt-4">
                                 <table id="backOutTable" class="table table-sm table-bordered text-center align-middle">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">#</th>
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">Project Workers</th>
                                             <th class="text-center">Operation</th>
                                             <th class="text-center">Operation Start</th>

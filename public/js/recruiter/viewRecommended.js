@@ -79,8 +79,9 @@ $(document).ready(function(){
                         return data.applicantFirstname+ " " +data.applicantLastName;
                     }
                 }},
-                {"data":"position"},
-                {"data":"phoneNumber"},
+                { "mData": function (data, type, row) {
+                    return data.age+ " years old";
+                }},         
                 { "mData": function (data, type, row) {
                     if(data.extention != null){
                         return data.employeeFirstName+ " " +data.employeeLastName+ " " +data.employeeExtension;
@@ -89,8 +90,7 @@ $(document).ready(function(){
                     }
                 }},
                 { "mData": function (data, type, row) {
-                    return "<button data-title='Cancel Invitation?' type='button' onclick=deleteRecommendApplicants("+data.applicant_id+") class='btn btn-outline-danger btn-sm rounded-0 py-2 px-3'><i class='bi bi-x-lg'></i></button>";
-
+                    return "<button data-title='Project Workers Information' type='button' onclick=viewOnCallWorkers("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button> <button data-title='Cancel Invitation?' type='button' onclick=deleteRecommendApplicants("+data.applicant_id+") class='btn btn-outline-danger btn-sm rounded-0 py-2 px-3'><i class='bi bi-x-lg'></i></button>";
                 }},
             ],
             order: [[1, 'asc']],
@@ -230,81 +230,208 @@ $(document).ready(function(){
         data: {applicantId: id},
     })
     .done(function(response) {
-        function applicantExperienceSoya(){
+        // function applicantExperienceSoya(){
+        //     $.ajax({
+        //         url: "/applicantExperienceSoya",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             if(data != ''){
+        //                 $("#soyaExp").html("<span class='text-success'>"+data+" Total</span>");
+        //             }else{
+        //                 $("#soyaExp").html("<span class='text-danger'>No Experience</span>");
+        //             }
+        //         }
+        //     })
+        // }
+        // function applicantExperienceCable(){
+        //     $.ajax({
+        //         url: "/applicantExperienceCable",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             if(data != ''){
+        //                 $("#cableExp").html("<span class='text-success'>"+data+" Total</span>");
+        //             }else{
+        //                 $("#cableExp").html("<span class='text-danger'>No Experience</span>");
+        //             }
+        //         }
+        //     })
+        // }
+        // function applicantExperienceRice(){
+        //     $.ajax({
+        //         url: "/applicantExperienceRice",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             if(data != ''){
+        //                 $("#riceExp").html("<span class='text-success'>"+data+" Total</span>");
+        //             }else{
+        //                 $("#riceExp").html("<span class='text-danger'>No Experience</span>");
+        //             }
+        //         }
+        //     })
+        // }
+        // function applicantExperienceWood(){
+        //     $.ajax({
+        //         url: "/applicantExperienceWood",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             if(data != ''){
+        //                 $("#woodExp").html("<span class='text-success'>"+data+" Total</span>");
+        //             }else{
+        //                 $("#woodExp").html("<span class='text-danger'>No Experience</span>");
+        //             }
+        //         }
+        //     })
+        // }
+        // function applicantExperiencePlyWood(){
+        //     $.ajax({
+        //         url: "/applicantExperiencePlyWood",
+        //         method: 'GET',
+        //         data: {applicantId:response.applicant_id},
+        //         success : function(data) {
+        //             if(data != ''){
+        //                 $("#plyWoodExp").html("<span class='text-success'>"+data+" Total</span>");
+        //             }else{
+        //                 $("#plyWoodExp").html("<span class='text-danger'>No Experience</span>");
+        //             }
+        //         }
+        //     })
+        // }
+        // applicantExperiencePlyWood();
+        // applicantExperienceWood();
+        // applicantExperienceRice();
+        // applicantExperienceSoya();
+        // applicantExperienceCable();
+        
+        function applicantExperience(){
             $.ajax({
-                url: "/applicantExperienceSoya",
+                url: "/applicantExperience",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    if(data != ''){
-                        $("#soyaExp").html("<span class='text-success'>"+data+" Total</span>");
-                    }else{
-                        $("#soyaExp").html("<span class='text-danger'>No Experience</span>");
-                    }
+                    $("#showExperience1").html(data);
                 }
             })
         }
-        function applicantExperienceCable(){
+        function overallRatingPerWorker(){
             $.ajax({
-                url: "/applicantExperienceCable",
+                url: "/overallRatingPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    if(data != ''){
-                        $("#cableExp").html("<span class='text-success'>"+data+" Total</span>");
-                    }else{
-                        $("#cableExp").html("<span class='text-danger'>No Experience</span>");
-                    }
+                    $("#overallRatingPerWorker1").html(data);
                 }
             })
         }
-        function applicantExperienceRice(){
+        function totalBackOutPerWorker(){
             $.ajax({
-                url: "/applicantExperienceRice",
+                url: "/totalBackOutPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    if(data != ''){
-                        $("#riceExp").html("<span class='text-success'>"+data+" Total</span>");
-                    }else{
-                        $("#riceExp").html("<span class='text-danger'>No Experience</span>");
-                    }
+                    $("#totalBackOutPerWorker1").html(data);
                 }
             })
         }
-        function applicantExperienceWood(){
+        function totalDeclinedPerWorker(){
             $.ajax({
-                url: "/applicantExperienceWood",
+                url: "/totalDeclinedPerWorker",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    if(data != ''){
-                        $("#woodExp").html("<span class='text-success'>"+data+" Total</span>");
-                    }else{
-                        $("#woodExp").html("<span class='text-danger'>No Experience</span>");
-                    }
+                    $("#totalDeclinedPerWorker1").html(data);
                 }
             })
         }
-        function applicantExperiencePlyWood(){
+        applicantExperience();
+        overallRatingPerWorker();
+        totalBackOutPerWorker();
+        totalDeclinedPerWorker();
+        $('#applicantsPhoto1').attr("src", response.photos)
+        $('#applicantsLastname1').html(response.lastname)           
+        $('#applicantsFirstname1').html(response.firstname)           
+        $('#applicantsMiddlename1').html(response.middlename)           
+        $('#applicantsExt1').html(response.extention)           
+        $('#applicantsStatus1').html(response.status)           
+        $('#applicantsPosition1').html(response.position)
+        $('#applicantsGender1').html(response.Gender)
+        $('#applicantsAge1').html(response.age)           
+        $('#applicantsAddress1').html(response.address)           
+        $('#applicantsPnumber1').html(response.phoneNumber)           
+        $('#applicantsEmail1').html(response.emailAddress)   
+        if(response.personal_id != '' && response.personal_id2 != ''){
+            $('#personalId1').attr("src", response.personal_id)
+        }else{
+            $('#personalId1').attr("src","/storage/applicant_id/noId.jpg")
+        }        
+        let dtFormat = new Intl.DateTimeFormat('en-Us',{
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+        var newDate = new Date(response[0].birthday);
+        $('#applicantsBirthday1').html(dtFormat.format(newDate));    
+    })    
+    }
+// SHOW CERTAIN APPLICANTS DETAILS
+
+// SHOW CERTAIN APPLICANTS DETAILS
+    function viewOnCallWorkers(id){
+    $('#viewWorkerDetails').modal('show')
+    $.ajax({
+        url: '/getCertainApplicants',
+        type: 'GET',
+        dataType: 'json',
+        data: {applicantId: id},
+    })
+    .done(function(response) {
+        function applicantExperience(){
             $.ajax({
-                url: "/applicantExperiencePlyWood",
+                url: "/applicantExperience",
                 method: 'GET',
                 data: {applicantId:response.applicant_id},
                 success : function(data) {
-                    if(data != ''){
-                        $("#plyWoodExp").html("<span class='text-success'>"+data+" Total</span>");
-                    }else{
-                        $("#plyWoodExp").html("<span class='text-danger'>No Experience</span>");
-                    }
+                    $("#showExperience").html(data);
                 }
             })
         }
-        applicantExperiencePlyWood();
-        applicantExperienceWood();
-        applicantExperienceRice();
-        applicantExperienceSoya();
-        applicantExperienceCable();
+        function overallRatingPerWorker(){
+            $.ajax({
+                url: "/overallRatingPerWorker",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#overallRatingPerWorker").html(data);
+                }
+            })
+        }
+        function totalBackOutPerWorker(){
+            $.ajax({
+                url: "/totalBackOutPerWorker",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalBackOutPerWorker").html(data);
+                }
+            })
+        }
+        function totalDeclinedPerWorker(){
+            $.ajax({
+                url: "/totalDeclinedPerWorker",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalDeclinedPerWorker").html(data);
+                }
+            })
+        }
+        applicantExperience();
+        overallRatingPerWorker();
+        totalBackOutPerWorker();
+        totalDeclinedPerWorker();
         $('#applicantsPhoto').attr("src", response.photos)
         $('#applicantsLastname').html(response.lastname)           
         $('#applicantsFirstname').html(response.firstname)           
@@ -319,17 +446,15 @@ $(document).ready(function(){
         $('#applicantsEmail').html(response.emailAddress)   
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId').attr("src", response.personal_id)
-            $('#personalId2').attr("src", response.personal_id2)
         }else{
-            $('#personalId').attr("src","/storage/applicant_id/noId.jpg")
-            $('#personalId2').attr("src","/storage/applicant_id/noId.jpg")
+            $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
         }        
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',
             month: 'long',
             year: 'numeric'
         });
-        var newDate = new Date(response[0].birthday);
+        var newDate = new Date(response.birthday);
         $('#applicantsBirthday').html(dtFormat.format(newDate));    
     })    
     }

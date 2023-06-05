@@ -21,6 +21,7 @@ class blockedApplicants extends Model
         'applicant_id',
         'reason',
         'date_time_blocked',
+        'is_archived',
         'updated_at',
         'created_at',
     ];

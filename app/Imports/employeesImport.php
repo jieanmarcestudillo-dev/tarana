@@ -29,8 +29,6 @@ class employeesImport implements ToModel, WithHeadingRow
             'status' => $row['status'], 
             'age'  => $row['age'], 
             'birthday'  => $row['birthday'] = date('Y-m-d', strtotime($row['birthday'])),
-            'nationality'  => $row['nationality'], 
-            'religion' => $row['religion'], 
             'address' => $row['address'], 
             'phoneNumber' => $row['phonenumber'], 
             'emailAddress' => $row['email_address'], 

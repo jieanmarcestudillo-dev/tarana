@@ -61,9 +61,8 @@
                                     <table id="blockApplicants" class="table table-sm table-bordered text-center align-middle">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No.</th>
                                                 <th class="text-center">Full Name</th>
-                                                <th class="text-center">Position</th>
                                                 <th class="text-center">Reason</th>
                                                 <th class="text-center col-2">Actions</th>
                                             </tr>

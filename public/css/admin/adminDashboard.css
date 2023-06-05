@@ -86,7 +86,7 @@ body{
     width: 10px !important;
     background-color: none !important;
     width: 100px !important;
-    filter: brightness(70%);
+    filter: brightness(60%);
 }
 .portal {
     background: transparent;

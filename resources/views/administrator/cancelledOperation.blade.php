@@ -54,11 +54,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">Cancel Operation</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/adminBlockedArchiveRoutes">Blocked Project Workers</a>
+                                </li>
                             </ul>
                             <table id="cancelOperationTable" class="table table-sm table-bordered text-center mt-2 align-middle">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
+                                        <th class="text-center">No.</th>
                                         <th class="text-center">Operation ID</th>
                                         <th class="text-center">Ship's Name</th>
                                         <th class="text-center">Ship's Carry</th>

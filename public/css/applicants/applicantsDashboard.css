@@ -64,7 +64,7 @@
     background-color: none !important;
     width: 100px !important;
     margin-top: -55px !important;
-    filter: brightness(70%);
+    filter: brightness(60%);
 }
 .portal {
     background: transparent;
@@ -135,9 +135,9 @@
 
     .mainBar .icons{
         font-size:1rem; 
-        background-color:#D72323; 
+        background-color:#800000; 
         padding:10px; 
-        border:1px solid #D72323; 
+        border:1px solid #800000; 
         border-radius:50%;
         color: #ffffff !important;
     }
@@ -241,7 +241,7 @@
     .mainBar .icons{
         font-size:4rem !important; 
         padding-top:0.8rem !important; 
-        color:#D72323 !important;
+        color:#800000 !important;
         border:0 !important; 
         border-radius:0 !important;
         background-color: #ffffff; 

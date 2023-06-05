@@ -22,7 +22,6 @@ return new class extends Migration
             $table->text('extention')->nullable();
             $table->text('gender');
             $table->text('status');
-            $table->text('position');
             $table->integer('age');
             $table->date('birthday');
             $table->text('nationality');

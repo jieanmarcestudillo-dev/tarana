@@ -53,8 +53,8 @@
                                                 <i class="fa-solid fa-ship icons"></i>
                                             </div>
                                             <div class="col-9 text-center" style="line-height:19px; padding-top:1.5rem">
-                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalUpcomingOperation"></p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">UPCOMING OPERATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#800000;" id="totalUpcomingOperation"></p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">UPCOMING OPERATION</p>
                                             </div>
                                         </div>
                                     </div>
@@ -68,8 +68,8 @@
                                                 <i class="fa-solid fa-inbox icons"></i>
                                             </div>
                                             <div class="col-9 text-center" style="line-height:19px; padding-top:1.4rem">
-                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalInvitation"></p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">TOTAL INVITATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#800000;" id="totalInvitation"></p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">TOTAL INVITATION</p>
                                             </div>
                                         </div>
                                     </div>
@@ -83,8 +83,8 @@
                                                 <i class="fa-solid fa-calendar-days icons"></i>
                                             </div>
                                             <div class="col-9 text-center" style="line-height:19px; padding-top:1.4rem">
-                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalScheduledOperation"></p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">SCHEDULED OPERATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#800000;" id="totalScheduledOperation"></p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">SCHEDULED OPERATION</p>
                                             </div>
                                         </div>
                                     </div>
@@ -98,8 +98,8 @@
                                                 <i class="fa-regular fa-square-check icons"></i>
                                             </div>
                                             <div class="col-9 text-center" style="line-height:19px; padding-top:1.4rem">
-                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalCompletedOperation">0</p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">COMPLETED OPERATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 2rem; color:#800000;" id="totalCompletedOperation">0</p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">COMPLETED OPERATION</p>
                                             </div>
                                         </div>
                                     </div>

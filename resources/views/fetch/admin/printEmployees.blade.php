@@ -20,11 +20,13 @@
         .name {
           font-size: 24px;
           font-weight: bold;
+          text-transform: uppercase;
         }
     
         .contact-info {
           font-size: 14px;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
     
         .section {
@@ -35,6 +37,7 @@
           font-size: 18px;
           font-weight: bold;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
     
         .subsection-title {
@@ -60,11 +63,15 @@
 </head>
 <body>
     <div class="header">
-      <div class="name">Personal Information</div>
+      <div class="name">Manpower Pooling Information</div>
         <div class="contact-info">Subic Consolidated Projects, Inc.</div>
       </div>
       </div>
       <div class="section">
+        <div class="section-title">Profile Picture</div>
+        <div class="item">
+          <img src="{{ public_path($item->photos) }}" alt="Image" class="img-thumbnail mt-1" style="width:15%;">
+        </div>
         <div class="section-title">Profile Summary</div>
         <div class="item">
           <span class="item-title">Lastname:</span>
@@ -102,13 +109,13 @@
       <div class="section">
         <div class="section-title">Job Summary</div>
         <div class="item">
+          <span class="item-title">Company Id:</span>
+          <span class="item-content">{{$item->companyId}}</span>
+        </div>
+        <div class="item">
           <span class="item-title">Position:</span>
           <span class="item-content">{{$item->position}} / Manpower Pooling</span>
         </div>
-        <div class="item">
-            <span class="item-title">Company Id:</span>
-            <span class="item-content">{{$item->companyId}}</span>
-          </div>
       </div>
       <div class="section">
         <div class="section-title">Contact Information</div>

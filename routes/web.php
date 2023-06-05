@@ -99,6 +99,7 @@ use App\Http\Controllers\homeController;
             Route::get('blockedOldApplicantsRoutes', [AdminController::class,'blockedOldApplicantsRoutes']);
             Route::get('adminBackOutArchiveRoutes', [AdminController::class,'adminBackOutArchiveRoutes']);
             Route::get('adminDeclinedArchiveRoutes', [AdminController::class,'adminDeclinedArchiveRoutes']);
+            Route::get('adminBlockedArchiveRoutes', [AdminController::class,'adminBlockedArchiveRoutes']);
             Route::get('adminCancelOperationArchiveRoutes', [AdminController::class,'adminCancelOperationArchiveRoutes']);
         });
     // ROUTES
@@ -140,11 +141,13 @@ use App\Http\Controllers\homeController;
                 Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
                 Route::get('getBackOutArchivedForAdmin', [AdminController::class,'getBackOutArchivedForAdmin']);
                 Route::get('getDeclinedArchivedForAdmin', [AdminController::class,'getDeclinedArchivedForAdmin']);
+                Route::get('getArchivedBlockedApplicantsForAdmin', [AdminController::class,'getArchivedBlockedApplicantsForAdmin']);
                 Route::get('getCancelOperationData', [AdminController::class,'getCancelOperationData']);
                 Route::get('printProjectWorker/{id}', [AdminController::class,'printProjectWorker']);
                 Route::get('printCompanyEmployee/{id}', [AdminController::class,'printCompanyEmployee']);
                 Route::get('printCompletedOperation/{id}', [AdminController::class,'printCompletedOperation']);
                 Route::get('cancelOperationReason', [AdminController::class,'cancelOperationReason']);
+                Route::get('blockedReason', [AdminController::class,'blockedReason']);
                 Route::get('printOperation/{id}', [AdminController::class,'printOperation']);
         // GET
 
@@ -208,11 +211,10 @@ use App\Http\Controllers\homeController;
             Route::get('recruitRecommendedApplicant', [RecruiterController::class,'recruitRecommendedApplicant']);
             Route::get('recruitApplicants', [RecruiterController::class,'recruitApplicants']);
             Route::get('cancelRecruitment', [RecruiterController::class,'cancelRecruitment']);
-            Route::get('applicantExperienceSoya', [RecruiterController::class,'applicantExperienceSoya']);
-            Route::get('applicantExperienceCable', [RecruiterController::class,'applicantExperienceCable']);
-            Route::get('applicantExperienceRice', [RecruiterController::class,'applicantExperienceRice']);
-            Route::get('applicantExperienceWood', [RecruiterController::class,'applicantExperienceWood']);
-            Route::get('applicantExperiencePlyWood', [RecruiterController::class,'applicantExperiencePlyWood']);
+            Route::get('applicantExperience', [RecruiterController::class,'applicantExperience']);
+            Route::get('overallRatingPerWorker', [RecruiterController::class,'overallRatingPerWorker']);
+            Route::get('totalBackOutPerWorker', [RecruiterController::class,'totalBackOutPerWorker']);
+            Route::get('totalDeclinedPerWorker', [RecruiterController::class,'totalDeclinedPerWorker']);
             Route::get('recruiterFormedGroup', [RecruiterController::class,'recruiterFormedGroup']);
             Route::get('pendingInvitationContent', [RecruiterController::class,'pendingInvitationContent']);
             Route::get('applicantBackoutContent', [RecruiterController::class,'applicantBackoutContent']);

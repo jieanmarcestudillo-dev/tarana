@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SCPI Operation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <title>Operation {{$item->operationId}}</title>
     <style>
          body {
@@ -19,11 +20,13 @@
         .name {
           font-size: 24px;
           font-weight: bold;
+          text-transform: uppercase;
         }
     
         .contact-info {
           font-size: 14px;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
     
         .section {
@@ -34,6 +37,7 @@
           font-size: 18px;
           font-weight: bold;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
     
         .subsection-title {

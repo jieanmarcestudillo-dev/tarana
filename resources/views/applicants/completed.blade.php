@@ -48,7 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Recruiter</th>
+                                        <th class="text-center">Accept By</th>
                                         <th class="text-center">Operation</th>
                                         <th class="text-center">Operation Start</th>
                                         <th class="text-center">Operation End</th>

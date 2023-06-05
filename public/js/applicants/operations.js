@@ -42,7 +42,7 @@ $(document).ready(function(){
                     }else if(response == 1){
                         Swal.fire({
                             title: 'APPLY SUCCESSFULLY',
-                            text: "Please wait the Recruiter to recruit you",
+                            text: "Please wait to accept you",
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 1500,

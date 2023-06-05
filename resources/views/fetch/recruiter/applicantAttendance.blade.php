@@ -1,4 +1,3 @@
-@foreach($data as $count => $certainData)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,34 +67,34 @@
       <div class="section-title">Operation Summary</div>
         <div class="item">
             <span class="item-title">Operation Id:</span>
-            <span class="item-content">{{$certainData->operationId}}</span>
+            <span class="item-content">{{$operationId}}</span>
         </div>
         <div class="item">
             <span class="item-title">Ship Name:</span>
-            <span class="item-content">{{$certainData->shipName}}</span>
+            <span class="item-content">{{$shipName}}</span>
         </div>
         <div class="item">
             <span class="item-title">Ship Carry:</span>
-            <span class="item-content">{{$certainData->shipCarry}}</span>
+            <span class="item-content">{{$shipCarry}}</span>
         </div>
         <div class="item">
             <span class="item-title">Workers Needed:</span>
-            <span class="item-content">{{$certainData->totalWorkers}} Total</span>
+            <span class="item-content">{{$totalWorkers}} Total</span>
         </div>
         <div class="item">
             <span class="item-title">Workers Participate:</span>
-            <span class="item-content">{{$certainData->totalWorkers - $certainData->slot}} Total</span>
+            <span class="item-content">{{$totalWorkers - $slot}} Total</span>
         </div>
     </div>
     <div class="section">
       <div class="section-title">Date of Operation</div>
       <div class="item">
         <span class="item-title">Operation Start:</span>
-        <span class="item-content">{{date('F j, Y | g:i a',strtotime($certainData->operationStart))}}</span>
+        <span class="item-content">{{date('F j, Y | g:i a',strtotime($operationStart))}}</span>
       </div>
       <div class="item">
           <span class="item-title">Operation End:</span>
-          <span class="item-content">{{date('F j, Y | g:i a',strtotime($certainData->operationEnd))}}</span>
+          <span class="item-content">{{date('F j, Y | g:i a',strtotime($operationEnd))}}</span>
         </div>
     </div>
     <div class="section">
@@ -111,16 +110,17 @@
             </tr>
         </thead>
         <tbody>
-            {{$count = $count + 1;}}
+          @foreach($data as $count => $certainData)
+          {{$count = $count + 1;}}
             <tr>
                 <td>{{$count}}.</td>
                 <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>
                 <td>{{$certainData->position}} </td>
                 <td></td>
             </tr>
+            @endforeach
         </tbody>
     </table>
     
 </body>
 </html>
-@endforeach

@@ -2,6 +2,7 @@ $(document).ready(function(){
     backOutArchived();
     declinedArchived();
     cancelledOperation();
+    blockApplicants();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -175,6 +176,62 @@ $(document).ready(function(){
     } 
 // FETCH CANCELLED OPERATION ARCHIVED DATA
 
+// FETCH BLOCKED APPLICANT ARCHIVED DATA
+    function blockApplicants(){
+        var table = $('#blockApplicantsArchived').DataTable({
+            "language": {
+                "emptyTable": "No Blocked Applicants Found"
+            },
+            "lengthChange": true,
+            "scrollCollapse": true,
+            "paging": true,
+            "info": true,
+            "responsive": true,
+            "ordering": false,
+            "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+            "iDisplayLength": 25,
+            "ajax":{
+                "url":"/getArchivedBlockedApplicantsForAdmin",
+                "dataSrc": "",
+            },
+            "columns":[
+                {"data":"applicant_id"},
+                { 
+                    data: {firstname : "firstname", lastname : "lastname", extention : "extention"},
+                    mRender : function(data, type, full) {
+                        if(data.extention == null){
+                            return data.firstname+' '+data.lastname+' '; 
+                        }else{
+                            return data.firstname+' '+data.lastname+' '+data.extention; 
+                        }
+                    } 
+                },
+                { "mData": function (data, type, row) {
+                    return data.age+ " years old";
+                }},                
+                {"data": "date_time_block",
+                "render": function(data) {
+                return moment(data).format('MMM DD, YYYY | hh:mm A');
+                },
+                "targets": 1
+                },
+                {"data": "blockId",
+                    mRender: function (data, type, row) {
+                        return '<button type="button" onclick=blockedReason('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3" data-title="View Reason?"><i class="bi bi-eye"></i></button>'
+                    }
+                }
+            ],
+            order: [[1, 'asc']],
+        });
+        table.on('order.dt search.dt', function () {
+            let i = 1;
+            table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+    }
+// FETCH BLOCKED APPLICANT ARCHIVED DATA
+
 // SHOW REASON OF BACKOUT
     function declinedReason(id){
         $('#declinedReasonModal').modal('show')
@@ -219,3 +276,18 @@ $(document).ready(function(){
         })
     }
 // SHOW REASON OF CANCELLED OPERATION
+
+// SHOW REASON OF BLOCKED WORKERS
+    function blockedReason(id){
+        $('#blockedReasonModal').modal('show')
+        $.ajax({
+            url: '/blockedReason',
+            type: 'GET',
+            dataType: 'json',
+            data: {blockedReasonId: id},
+        })
+        .done(function(response) {
+            $('#blockedReason').text( response.reason); 
+        })
+    }
+// SHOW REASON OF BLOCKED WORKERS

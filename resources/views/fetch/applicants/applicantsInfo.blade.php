@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SCPI Employees</title>
+    <title>Project Workers</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <title>Operation {{$item->operationId}}</title>
     <style>
         body {
@@ -20,12 +20,14 @@
         .name {
           font-size: 24px;
           font-weight: bold;
+          text-transform: uppercase;
         }
     
         .contact-info {
           font-size: 14px;
           margin-bottom: 10px;
-        }
+          text-transform: uppercase;
+          }
     
         .section {
           margin-bottom: 20px;
@@ -35,6 +37,7 @@
           font-size: 18px;
           font-weight: bold;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
     
         .subsection-title {
@@ -65,6 +68,10 @@
       </div>
       </div>
       <div class="section">
+        <div class="section-title">Profile Picture</div>
+        <div class="item">
+          <img src="{{ public_path($item->photos) }}" alt="Image" class="img-thumbnail mt-1" style="width:15%;">
+        </div>
         <div class="section-title">Profile Summary</div>
         <div class="item">
           <span class="item-title">Lastname:</span>
@@ -98,10 +105,6 @@
           <span class="item-title">Age:</span>
           <span class="item-content">{{$item->age}} years old</span>
         </div>
-        <div class="item">
-          <span class="item-title">Position:</span>
-          <span class="item-content">{{$item->position}} </span>
-        </div>
       </div>
       <div class="section">
         <div class="section-title">Contact Information</div>
@@ -119,9 +122,8 @@
         </div>
       </div>
       <div class="section">
-        <div class="section-title">Personal Id</div>
-        <img src="{{ public_path($item->personal_id) }}" alt="Image" class="img-thumbnail" style="width:35%; margin-top:2rem;">
-        <img src="{{ public_path($item->personal_id2) }}" alt="Image" class="img-thumbnail" style="width:35%; margin-top:2rem;">
+        <div class="section-title">Identity</div>
+        <img src="{{ public_path($item->personal_id) }}" alt="Image" class="img-thumbnail" style="width:25%;">
       </div>
 </body>
 </html>

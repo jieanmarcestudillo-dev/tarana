@@ -56,11 +56,10 @@
                                 <table id="completedOperationTable" class="table table-sm table-bordered text-center mt-2 align-middle">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">#</th>
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">Operation ID</th>
                                             <th class="text-center">Ship's Name</th>
                                             <th class="text-center">Ship's Carry</th>
-                                            <th class="text-center">Recruiter</th>
                                             <th class="text-center">Operation Start</th>
                                             <th class="text-center">Operation End</th>
                                             <th class="text-center">Actions</th>

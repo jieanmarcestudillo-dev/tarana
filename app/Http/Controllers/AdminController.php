@@ -115,7 +115,7 @@ class AdminController extends Controller
 
                 // COMPLETED OPERATION
                     public function getCompletedOperationData(Request $request){
-                        $data = operations::join('employees', 'operations.foreman', '=', 'employees.employee_id')->where('is_completed' ,'=', 1)->get();
+                        $data = operations::where('is_completed' ,'=', 1)->get();
                         return response()->json($data);
                     } 
                 // COMPLETED OPERATION
@@ -209,7 +209,6 @@ class AdminController extends Controller
                                 'operationStart' => $request->operationStart,
                                 'operationEnd' => $request->operationEnd,
                                 'slot' => $request->slot,
-                                'foreman' => $request->foreman,
                             ]);
                             return response()->json($updateOperation ? 1 : 0);
                         }else{
@@ -219,7 +218,6 @@ class AdminController extends Controller
                                 'operationStart' => $request->operationStart,
                                 'operationEnd' => $request->operationEnd,
                                 'slot' => $request->slot,
-                                'foreman' => $request->foreman,
                             ]);
                             return response()->json($updateOperation ? 1 : 0);
                         }
@@ -342,8 +340,6 @@ class AdminController extends Controller
                                 'status' => $request->employeeStatus,
                                 'age' => $request->employeeAge,
                                 'birthday' => $request->employeeBirthday,
-                                'nationality' => $request->employeeNationality,
-                                'religion' => $request->employeeReligion,
                                 'address' => $request->employeeAddress,
                                 'phoneNumber' => $request->employeePnumber,
                                 'emailAddress' => $request->employeeEmail,
@@ -361,7 +357,6 @@ class AdminController extends Controller
                                 'status' => $request->employeeStatus,
                                 'age' => $request->employeeAge,
                                 'birthday' => $request->employeeBirthday,
-                                'nationality' => $request->employeeNationality,
                                 'religion' => $request->employeeReligion,
                                 'address' => $request->employeeAddress,
                                 'phoneNumber' => $request->employeePnumber,
@@ -536,14 +531,14 @@ class AdminController extends Controller
                         }  
                 // ALL INACTIVE APPLICANTS DATA
 
-                // ALL INACTIVE OLD APPLICANTS DATA
+                // ALL BLOCKED APPLICANTS DATA
                         public function getBlockedOldApplicantsData(Request $request){
                             $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
-                            ->where('applicants.is_pro', '=' , 1)->get(['applicants.*', 'blockedapplicants.blockId', 
+                            ->where([['applicants.is_pro', '=' , 1],['blockedapplicants.is_archived', '=' , 0]])->get(['applicants.*', 'blockedapplicants.blockId', 
                             'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
                         }  
-                // ALL INACTIVE OLD APPLICANTS DATA
+                // ALL BLOCKED APPLICANTS DATA
 
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
                         public function getCurrentlyUtilizing(Request $request){
@@ -555,6 +550,7 @@ class AdminController extends Controller
                 // ALL BLOCKED APPLICANTS DATA
                         public function getBlockedApplicants(Request $request){
                             $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
+                            ->where([['applicants.is_pro', '=' , 0],['blockedapplicants.is_archived', '=' , 0]])
                             ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
                         }  
@@ -596,7 +592,12 @@ class AdminController extends Controller
                         // UPDATE DATA
                         $applicantUpdated = applicants::find($request->applicantId)->update(['is_active' => 0 , 'is_blocked' => 1]);
                         // INSERT DATA
-                        $blockedApplicants = ['applicantId' => $request->applicantId, 'reason' => $request->reason,'date_time_block' => now()];
+                        $blockedApplicants = [
+                            'applicantId' => $request->applicantId, 
+                            'reason' => $request->reason,
+                            'date_time_block' => now(),
+                            'is_archived' => 0
+                        ];
                         return response()->json(blockedApplicants::insert($blockedApplicants) ? 1 : 0);
                     }  
                 // BLOCKED APPLICANT
@@ -607,23 +608,27 @@ class AdminController extends Controller
                         $applicant->is_active = 1;
                         $applicant->is_blocked = 0;
                         $applicant->save();
-                        blockedapplicants::where([['applicantId', '=', $request->applicantId]])->delete();
+                        blockedapplicants::where([['applicantId', '=', $request->applicantId]])->update(['is_archived' =>  1]);
                     }
                 // UNBLOCK APPLICANT
 
                 // FETCH APPLICANTS ON CERTAIN OPERATION
                     public function showApplicantOnCertainOperation(Request $request){
                         $data = completed::join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                        ->where('completed.operation_id', '=', $request->operationId)->orderBy('completed.performanceRating' , 'desc')->get();
+                        ->join('employees', 'completed.recruiter_id', '=', 'employees.employee_id')
+                        ->where('completed.operation_id', '=', $request->operationId)->orderBy('completed.performanceRating' , 'desc')
+                        ->select('completed.performanceRating','applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                        'applicants.extention AS applicantExtention', 'applicants.age','employees.lastname AS employeeLastName', 
+                        'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension')
+                        ->get();
                         echo "
                         <table class='table table-bordered text-center align-middle'>
                             <thead> 
                                 <tr>
                                     <th scope='col'>#</th>
                                     <th scope='col'>Applicant</th>
-                                    <th scope='col'>Role</th>
+                                    <th scope='col'>Age</th>
                                     <th scope='col'>Performance</th>
-                                    <th scope='col'>Details</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -632,10 +637,9 @@ class AdminController extends Controller
                                 echo"
                                     <tr>
                                         <td>$count</td>
-                                        <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
-                                        <td>$certainApplicantData->position</td>
+                                        <td>$certainApplicantData->applicantFirstname $certainApplicantData->applicantLastName $certainApplicantData->applicantExtention</td>
+                                        <td>$certainApplicantData->age years old</td>
                                         <td>Rating: $certainApplicantData->performanceRating%</td>
-                                        <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn btn-outline-secondary btn-sm'>View</button></td>
                                     </tr>
                                     ";
                                 }   
@@ -739,7 +743,7 @@ class AdminController extends Controller
                     ]; 
                 }
                 $pdf = PDF::loadView('fetch.admin.printOperation', $operationInfo)->setPaper('A4', 'portrait');
-                return $pdf->stream('operation_'.$id.'.pdf');
+                return $pdf->stream('operation_'.$certainData->operationId.'.pdf');
 
             }
         // PRINT OPERATION
@@ -748,8 +752,7 @@ class AdminController extends Controller
             public function printCompletedOperation(Request $request, $id){
                 $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                 ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                ->where([['completed.operation_id', '=', $id],['operations.certainOperation_id', '=', $id]])->orderBy('applicants.position')
-                ->get();
+                ->where([['completed.operation_id', '=', $id],['operations.certainOperation_id', '=', $id]])->get();
                 foreach($data as $operations){
                     $operationCompleted = [
                         'operationId' => $operations->operationId,
@@ -776,7 +779,7 @@ class AdminController extends Controller
                     ]; 
                 }
                 $pdf = PDF::loadView('fetch.applicants.applicantsInfo', $applicantInfo);
-                return $pdf->stream('Project Worker_'.$id.'.pdf');
+                return $pdf->stream('Project_Worker_'.$certainData->lastname.','.$certainData->firstname.' '.$certainData->extention.'.pdf');
             }
         // PRINT APPLICANT
 
@@ -789,7 +792,7 @@ class AdminController extends Controller
                     ]; 
                 }
                 $pdf = PDF::loadView('fetch.admin.printEmployees', $employeeInfo);
-                return $pdf->stream('Company Employee'.$id.'.pdf');
+                return $pdf->stream('Manpower_Pooling_'.$certainData->lastname.','.$certainData->firstname.' '.$certainData->extention.'.pdf');
             }
         // PRINT COMPANY EMPLOYEE
     
@@ -812,11 +815,17 @@ class AdminController extends Controller
                     }
                 // DECLINED ARCHIVED ROUTES
 
-                // CANCELLED OPERATION
+                // BLOCKED APPLICANTS ARCHIVED ROUTES
+                    public function adminBlockedArchiveRoutes(){
+                        return view('administrator/blockApplicantArchive');
+                    }
+                // BLOCKED APPLICANTS ARCHIVED ROUTES
+
+                // CANCELLED OPERATION ROUTES
                     public function adminCancelOperationArchiveRoutes(){
                         return view('administrator/cancelledOperation');
                     }
-                // CANCELLED OPERATION
+                // CANCELLED OPERATION ROUTES
 
                 // FETCH
                     // BACKOUT ARCHIVED DATA
@@ -825,7 +834,7 @@ class AdminController extends Controller
                             ->join('applicants', 'backout.applicant_id', '=', 'applicants.applicant_id')
                             ->join('employees', 'backout.recruiter_id', '=', 'employees.employee_id')
                             ->select('operations.*','backout.backOut_id','backout.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'applicants.extention AS applicantExtention','applicants.phoneNumber',
                             'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                             ->orderBy('operations.operationStart', 'DESC')
                             ->get();
@@ -839,7 +848,7 @@ class AdminController extends Controller
                             ->join('applicants', 'declined.applicant_id', '=', 'applicants.applicant_id')
                             ->join('employees', 'declined.recruiter_id', '=', 'employees.employee_id')
                             ->select('operations.*','declined.declined_id','declined.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'applicants.extention AS applicantExtention', 'applicants.phoneNumber',
                             'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                             ->orderBy('operations.operationStart', 'DESC')
                             ->get();
@@ -857,6 +866,14 @@ class AdminController extends Controller
                             return response()->json($data);
                         } 
                     // CANCELLED OPERATION DATA
+
+                    // ALL BLOCKED APPLICANTS DATA
+                        public function getArchivedBlockedApplicantsForAdmin(Request $request){
+                            $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
+                            ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
+                            return response()->json($data);
+                        }  
+                    // ALL BLOCKED APPLICANTS DATA
                     
                     // VIEW REASON CANCELLED OPERATION
                         public function cancelOperationReason(Request $request){
@@ -864,6 +881,13 @@ class AdminController extends Controller
                             return response()->json($reason);
                         }
                     // VIEW REASON CANCELLED OPERATION
+
+                    // VIEW REASON BLOCKED WORKERS
+                        public function blockedReason(Request $request){
+                            $reason = blockedApplicants::select('reason')->where('blockId', '=', $request->blockedReasonId)->first();
+                            return response()->json($reason);
+                        }
+                    // VIEW REASON BLOCKED WORKERS
                 // FETCH
 
         // ARCHIVE

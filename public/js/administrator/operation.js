@@ -87,13 +87,6 @@ $(document).ready(function(){
             {"data":"operationId"},
             {"data":"shipName"},
             {"data":"shipCarry"},
-            { "mData": function (data, type, row) {
-                if(data.extention != null){
-                    return data.firstname+ " " +data.lastname+ " " +data.extention;
-                }else{
-                    return data.firstname+ " " +data.lastname;
-                }
-            }},
             {"data": "operationStart",
                 "render": function(data) {
                 return moment(data).format('MMM DD, YYYY | hh:mm A');

@@ -25,7 +25,7 @@
                 {{-- NAV BAR --}}
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
-                            <h4 class="ms-2">RECRUITER DASHBOARD</h4>
+                            <h4 class="ms-2">MANPOWER POOLING DASHBOARD</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>

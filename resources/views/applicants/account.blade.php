@@ -73,32 +73,20 @@
                                             </div>                                                                                   
                                         </div>
                                         <div class="row gap-0">
-                                            <div class="col-lg-2 col-sm-12">
-                                                <div class="mb-3">
-                                                <label for="formFile" class="form-label">Position</label>
-                                                <select required class="form-select  shadow-sm bg-body rounded" aria-label="Default select example" id="appPosition" Name="appPosition">
-                                                    <option value="" selected>Choose Here</option>
-                                                    <option value="Cargo Handler" >Cargo Handler</option>
-                                                    <option value="Sweeper">Sweeper</option>
-                                                    <option value="Checker">Checker</option>
-                                                    <option value="Radio Man">Radio Man</option>
-                                                </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-sm-12">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">First Name</label>
                                                     <input required class="form-control shadow-sm bg-body rounded" type="text"  id="appFirstName" name="appFirstName">
                                                     <input required class="form-control shadow-sm bg-body rounded" type="hidden"  id="appId" name="appId">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2 col-sm-12">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Middle Name</label>
                                                     <input class="form-control shadow-sm bg-body rounded" type="text"  id="appMiddleName" name="appMiddleName">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2 col-sm-12">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Last Name</label>
                                                     <input required class="form-control shadow-sm bg-body rounded" type="text"  id="appLastName" name="appLastName">
@@ -114,6 +102,9 @@
                                                     </select>
                                                 </div>
                                             </div>
+ 
+                                        </div>
+                                        <div class="row gap-0">
                                             <div class="col-lg-2 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Sex:</label>
@@ -123,8 +114,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row gap-0">
                                             <div class="col-lg-2 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Status</label>

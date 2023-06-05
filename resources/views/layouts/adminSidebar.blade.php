@@ -6,7 +6,7 @@
     <div class="list-group list-group-flush recruiterLink">
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminDashboardRoutes"><i class="bi bi-bar-chart-line-fill pe-3"></i> Dashboard</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminOperationRoutes"><i class="bi bi-box pe-3"></i> Operation</a>
-        <a class="list-group-item list-group-item-action list-group-item-light" href="/adminEmployeesRoutes"><i class="bi bi-person-workspace pe-3"></i> SCPI Employees</a>
+        <a class="list-group-item list-group-item-action list-group-item-light" href="/adminEmployeesRoutes"><i class="bi bi-person-workspace pe-3"></i> Manpower Pooling</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminOldApplicantsRoutes"><i class="bi bi-people-fill pe-3"></i> Project Workers</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminApplicantsRoutes"><i class="bi bi-people-fill pe-3"></i> Applicants</a>
         <a class="list-group-item list-group-item-action list-group-item-light" href="/adminBackOutArchiveRoutes"><i class="bi bi-archive pe-3"></i> Archive</a>

@@ -59,12 +59,11 @@
                                     <table id="utilizing" class="table table-sm table-bordered text-center align-middle">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No.</th>
                                                 <th class="text-center">First Name</th>
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Phone Number</th>
-                                                <th class="text-center">Position</th>
                                                 <th class="text-center">Actions</th>
                                             </tr>
                                         </thead>

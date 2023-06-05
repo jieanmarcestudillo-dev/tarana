@@ -64,6 +64,8 @@ class RecruiterController extends Controller
                     } 
                 // BACK OUT
 
+                
+
                 // DECLINED INVITATION
                     public function recruiterDeclinedInvitaion(Request $request){
                         $data = declined ::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
@@ -86,7 +88,7 @@ class RecruiterController extends Controller
                             'applicants.firstname as applicantFname',
                             'applicants.lastname as applicantLname',
                             'applicants.extention as applicantExtention',
-                            'applicants.position as applicantPosition',
+                            'applicants.phoneNumber as applicantPhoneNumber',
                             'recruiter.firstname as recruiterFname',
                             'recruiter.lastname as recruiterLname',
                             'recruiter.extention as recruiterExtention',
@@ -120,7 +122,7 @@ class RecruiterController extends Controller
                                     <tr>
                                         <td>$count</td>
                                         <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
-                                        <td>$certainData->applicantPosition</td>
+                                        <td>$certainData->applicantPhoneNumber</td>
                                         <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
                                         <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
                                         <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
@@ -156,7 +158,7 @@ class RecruiterController extends Controller
                             'applicants.firstname as applicantFname',
                             'applicants.lastname as applicantLname',
                             'applicants.extention as applicantExtention',
-                            'applicants.position as applicantPosition',
+                            'applicants.phoneNumber as applicantPhoneNumber',
                             'recruiter.firstname as recruiterFname',
                             'recruiter.lastname as recruiterLname',
                             'recruiter.extention as recruiterExtention',
@@ -170,7 +172,7 @@ class RecruiterController extends Controller
                             <tr>
                                 <th scope='col'>#</th>
                                 <th scope='col'>Project Workers</th>
-                                <th scope='col'>Role</th>
+                                <th scope='col'>Phone Number</th>
                                 <th scope='col'>Operation</th>
                                 <th scope='col'>Operation Start</th>
                                 <th scope='col'>Operation End</th>
@@ -190,7 +192,7 @@ class RecruiterController extends Controller
                                     <tr>
                                         <td>$count</td>
                                         <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
-                                        <td>$certainData->applicantPosition</td>
+                                        <td>$certainData->applicantPhoneNumber</td>
                                         <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
                                         <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
                                         <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
@@ -270,7 +272,7 @@ class RecruiterController extends Controller
                             'applicants.firstname as applicantFname',
                             'applicants.lastname as applicantLname',
                             'applicants.extention as applicantExtention',
-                            'applicants.position as applicantPosition',
+                            'applicants.phoneNumber as applicantphoneNumber',
                             'recruiter.firstname as recruiterFname',
                             'recruiter.lastname as recruiterLname',
                             'recruiter.extention as recruiterExtention',
@@ -303,7 +305,7 @@ class RecruiterController extends Controller
                                 <tr>
                                     <td>$count</td>
                                     <td>$certainData->applicantFname $certainData->applicantLname $certainData->applicantExtention</td>
-                                    <td>$certainData->applicantPosition</td>
+                                    <td>$certainData->applicantphoneNumber</td>
                                     <td>Name: $certainData->shipName <br> Carry: $certainData->shipCarry</td>
                                     <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
                                     <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
@@ -442,7 +444,7 @@ class RecruiterController extends Controller
                         ->where([['applied.is_recommend', '!=', 1],['applied.is_recruited', '!=', 1],
                         ['applied.operation_id', '=', $request->operationId],['operations.certainOperation_id', '=' , $request->operationId]])
                         ->orderBy('applied.is_recruited', 'DESC')->get(['applicants.applicant_id', 'applicants.lastname', 
-                        'applicants.firstname','applicants.extention','applicants.position','applicants.phoneNumber']);
+                        'applicants.firstname','applicants.extention','applicants.age','applicants.phoneNumber']);
                         return response()->json($data);
                     }
                 // TOTAL APPLICANTS OF CERTAIN APPLICATION
@@ -469,7 +471,7 @@ class RecruiterController extends Controller
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
                         ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
                         ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                        'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                        'applicants.extention AS applicantExtention', 'applicants.age', 'applicants.phoneNumber',
                         'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                         ->where([['applied.operation_id', '=', $request->operationId],
                         ['operations.certainOperation_id', '=' , $request->operationId],
@@ -485,14 +487,14 @@ class RecruiterController extends Controller
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
                         ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
                         ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                        'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                        'applicants.extention AS applicantExtention', 'applicants.age', 'applicants.phoneNumber',
                         'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                         ->where([['applied.is_recruited', '=', 1],
                         ['applied.operation_id', '=', $request->operationId],
                         ['operations.certainOperation_id', '=' , $request->operationId]])
                         ->orderBy('applied.is_recruited', 'DESC')
                         ->get(['applicants.applicant_id', 'applicants.lastname', 
-                        'applicants.firstname','applicants.extention','applicants.position','applicants.phoneNumber']);
+                        'applicants.firstname','applicants.extention','applicants.phoneNumber']);
                         return response()->json($data);
                     }
                 // TOTAL APPLICANTS WHO ACCEPT INVITATION
@@ -533,13 +535,13 @@ class RecruiterController extends Controller
                                 $applicantData = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                                 ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
                                 ->where([['completed.operation_id', '=', $certainData->certainOperation_id],
-                                ['operations.certainOperation_id', '=', $certainData->certainOperation_id]])->orderBy('applicants.position')->get();
+                                ['operations.certainOperation_id', '=', $certainData->certainOperation_id]])->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
                                     <div class='card-body' style='height:280px; overflow-y:auto;'>
                                     <div class='row'>
                                         <div class='col-9'>
-                                            <h5 class='card-title'>Project Workers Participated</h5>
+                                            <h5 class='card-title'>Project Workers Joined</h5>
                                         </div>
                                         <div class='col-3 text-end'>
                                             <a href='printCompletedOperation/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>
@@ -548,9 +550,9 @@ class RecruiterController extends Controller
                                         <table class='table table-bordered text-center align-middle'>
                                             <thead> 
                                                 <tr>
-                                                    <th scope='col'>#</th>
+                                                    <th scope='col'>No.</th>
                                                     <th scope='col'>Applicant</th>
-                                                    <th scope='col'>Role</th>
+                                                    <th scope='col'>Age</th>
                                                     <th scope='col'>Performance</th>
                                                     <th scope='col'>Details</th>
                                                 </tr>
@@ -562,7 +564,7 @@ class RecruiterController extends Controller
                                             <tr>
                                                 <td>$count</td>
                                                 <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
-                                                <td>$certainApplicantData->position</td>
+                                                <td>$certainApplicantData->age years old</td>
                                                 <td>Rating: $certainApplicantData->performanceRating%</td>
                                                 <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn btn-outline-secondary btn-sm'>View</button></td>
                                             </tr>
@@ -628,7 +630,7 @@ class RecruiterController extends Controller
                                 $applicantData = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                                 ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
                                 ->where([['completed.operation_id', '=', $operations->certainOperation_id],
-                                ['operations.certainOperation_id', '=', $operations->certainOperation_id]])->orderBy('applicants.position')->get();
+                                ['operations.certainOperation_id', '=', $operations->certainOperation_id]])->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
                                     <div class='card-body' style='height:280px; overflow-y:auto;'>
@@ -645,7 +647,7 @@ class RecruiterController extends Controller
                                                 <tr>
                                                     <th scope='col'>#</th>
                                                     <th scope='col'>Applicant</th>
-                                                    <th scope='col'>Role</th>
+                                                    <th scope='col'>Phone Number</th>
                                                     <th scope='col'>Details</th>
                                                 </tr>
                                             </thead>
@@ -656,7 +658,7 @@ class RecruiterController extends Controller
                                             <tr>
                                                 <td>$count</td>
                                                 <td>$certainApplicantData->firstname $certainApplicantData->lastname $certainApplicantData->extention</td>
-                                                <td>$certainApplicantData->position</td>
+                                                <td>$certainApplicantData->phoneNumber</td>
                                                 <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn btn-outline-secondary btn-sm'>View</button></td>
                                             </tr>
                                             ";
@@ -695,7 +697,7 @@ class RecruiterController extends Controller
                                 echo"
                                 <tr>
                                     <td class='col-1'>$count</td>
-                                    <td class='col'>$certainData->firstname  $certainData->lastname  $certainData->extention</td>
+                                    <td>$certainData->firstname  $certainData->lastname  $certainData->extention</td>
                                     <td class='col-4'><button type='button' onclick=viewApplicants('$certainData->applicant_id') class='btn btn-secondary btn-sm rounded-0'>Details</button>
                                     <button type='button' onclick=recommendApplicantRecruit('$certainData->applicant_id') class='btn btn-success btn-sm rounded-0'>Recruit</button></td>
                                 </tr>
@@ -727,17 +729,16 @@ class RecruiterController extends Controller
                                 // ALREADY APPLIED
                                 return response()->json('2');
                             }else{
-                                $data2 = operations::where([['certainOperation_id','=', $operationId]])->get();
+                                $data2 = operations::where([['certainOperation_id','=', $operationId]])->select('operationStart')->get();
                                 foreach($data2 as $certainOperationInfo){
                                     $applyingOperationStart = date('F d, Y | h:i:a',strtotime($certainOperationInfo->operationStart));
-                                    $applyingOperationEnd = date('F d, Y | h:i:a',strtotime($certainOperationInfo->operationEnd));
                                 }
                                 $data3 = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                                ->where([['applied.applicants_id' , '=' , $applicantId],['applied.is_recruited' ,'=', 1]])->get();
+                                ->where([['applied.applicants_id' , '=' , $applicantId],['applied.is_recruited' ,'=', 1]])
+                                ->select('operationStart')->orderBy('applied.applied_id', 'desc')->get();
                                 if($data3->isNotEmpty()){
                                     foreach($data3 as $certainAppliedInfo){
                                         $scheduledOperationStart = date('F d, Y | h:i:a',strtotime($certainAppliedInfo->operationStart));
-                                        $scheduledOperationEnd = date('F d, Y | h:i:a',strtotime($certainAppliedInfo->operationEnd));
                                     }
                                     if($applyingOperationStart == $scheduledOperationStart){
                                         return response()->json('3'); // NOT AVAILABLE ON THAT DAY
@@ -905,15 +906,15 @@ class RecruiterController extends Controller
                                 ->where([['applied.operation_id', '=', $certainData->certainOperation_id],['operations.certainOperation_id', '=', $certainData->certainOperation_id],
                                 ['applied.is_recruited', '!=' , 0]])
                                 ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                                'applicants.extention AS applicantExtention', 'applicants.position','employees.lastname AS employeeLastName', 
+                                'applicants.extention AS applicantExtention', 'applicants.phoneNumber','employees.lastname AS employeeLastName', 
                                 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
-                                ->orderBy('applicants.position')->get();
+                                ->get();
                                 if($applicantData->isNotEmpty()){
                                     echo"
                                     <div class='card-body' style='height:300px; overflow-y:auto;'>
                                     <div class='row'>
                                         <div class='col-6'>
-                                            <h5 class='card-title text-start'>Workers Recruited</h5>
+                                            <h5 class='card-title text-start'>Project Workers Recruited</h5>
                                         </div>
                                         <div class='col-6 text-end align-middle'>
                                             <a onclick='recruitRecommendedRoutes($certainData->certainOperation_id)' type='button' class='btn btn-outline-secondary text-center rounded-0 px-4 btn-sm'>Recruit</a>
@@ -925,7 +926,7 @@ class RecruiterController extends Controller
                                                 <tr>
                                                     <th scope='col'>#</th>
                                                     <th scope='col'>Project Workers</th>
-                                                    <th scope='col'>Role</th>
+                                                    <th scope='col'>Phone Number</th>
                                                     <th scope='col'>Recruit By</th>
                                                     <th scope='col'>Details</th>
                                                 </tr>
@@ -939,7 +940,7 @@ class RecruiterController extends Controller
                                                     <input type='hidden' readonly value='$certainData->certainOperation_id' id='operationId' name='operationId'>
                                                 </td>
                                                 <td>$certainApplicantData->applicantFirstname $certainApplicantData->applicantLastName $certainApplicantData->applicantExtention</td>
-                                                <td>$certainApplicantData->position</td>
+                                                <td>$certainApplicantData->phoneNumber</td>
                                                 <td>$certainApplicantData->employeeFirstName $certainApplicantData->employeeLastName $certainApplicantData->employeeExtension</td>
                                                 <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn rounded-0 btn-outline-secondary btn-sm'>View</button></td>
                                                 </tr>
@@ -995,7 +996,7 @@ class RecruiterController extends Controller
                         $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                         ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
                         ->where([['applied.operation_id', '=', $operationId],['operations.certainOperation_id', '=', $operationId],
-                        ['applied.is_recruited', '!=' , 0]])->orderBy('applicants.position')->get();
+                        ['applied.is_recruited', '!=' , 0]])->get();
                         $foreman = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention; 
                         foreach($data as $count => $certainData){
                             $count = $count +1;
@@ -1006,6 +1007,7 @@ class RecruiterController extends Controller
                                 'shipCarry' => $certainData->shipCarry,
                                 'operationStart' => $certainData->operationStart,
                                 'operationEnd' => $certainData->operationEnd,
+                                'totalWorkers' => $certainData->totalWorkers,
                                 'slot' => $count,
                                 'data' => $data
                             ]; 
@@ -1085,8 +1087,8 @@ class RecruiterController extends Controller
                     public function submitApplicantAttendance(Request $request){
                         date_default_timezone_set('Asia/Manila'); 
                         $checkIfValid = operations::select('operationEnd')->where('certainOperation_id','=', $request->operationId)->first(); 
-                        $operationEnd = date('F d, Y | h:i: A',strtotime($checkIfValid->operationEnd));
-                        $currentDate = date('F d, Y | h:i: A', strtotime("+4 hours", strtotime(now())));
+                        $operationEnd = date('m-d-Y | g:i: A',strtotime($checkIfValid->operationEnd));
+                        $currentDate = date('m-d-Y | g:i: A', strtotime("+4 hours", strtotime(now())));
                         if($currentDate > $operationEnd){
                             $certainCode = date("Y").''.rand(00001,99999);          
                             $applicantId = $request->applicantPresent;
@@ -1111,21 +1113,11 @@ class RecruiterController extends Controller
 
                                 $proWorkers = applicants::where([['applicant_id', '=' , $data1]])
                                 ->update(['is_pro' => 1]);        
-                                
-                                // $operationData = operations::where([['certainOperation_id', '=' , $request->operationId]])
-                                // ->first();
                             }
-                            // $recruiter = auth()->guard('employeesModel')->user()->firstname.' '.auth()->guard('employeesModel')->user()->lastname.' '.auth()->guard('employeesModel')->user()->extention;
-                            // $newOperationStart = date('F d, Y | h:i: A',strtotime($operationData->operationStart));
-                            // $newOperationEnd = date('F d, Y | h:i: A',strtotime($operationData->operationEnd));
-                            // $savehistory = history::create([
-                            //     'content' => 'Mr. '.$recruiter.' has completed the status and passed the attendance of project workers who attend to operation '.$operationData->operationId.' | The ship name is '.$operationData->shipName.', and it carries '.$operationData->shipCarry.'. The operation start on '.$newOperationStart.' until '.$newOperationEnd.''
-                            // ]);
                             return response()->json($submitAttendance ? 1 : 0);
                         }else{
                             return response()->json(2);
                         }
-                     
                     }
                 // SUBMITTING ATTENDANCE INTO DB
 
@@ -1163,16 +1155,38 @@ class RecruiterController extends Controller
                 // FETCH SPECIFIC APPLICANTS
                     public function getCertainApplicants(Request $request){ 
                         $data = applicants::where('applicant_id', '=', $request->applicantId)->first(['applicant_id', 'photos', 'lastname' ,'firstname',
-                        'extention', 'Gender', 'position', 'birthday', 'age', 'phoneNumber', 'emailAddress' ,'address' , 'personal_id' , 'personal_id2']);
+                        'extention', 'Gender', 'birthday', 'age', 'phoneNumber', 'emailAddress' ,'address' , 'personal_id' , 'personal_id2']);
                         return response()->json($data);
                     }  
                 // FETCH SPECIFIC APPLICANTS
 
                 // APPLICANT EXPERIENCE
-                    public function applicantExperienceSoya(Request $request){ 
+                    public function applicantExperience(Request $request){ 
                         $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completed.applicant_id', '=' ,$request->applicantId],['operations.shipCarry' ,'=', 'Soya']])->get();
-                        return response()->json($data->isNotEmpty() ? count($data) : '');
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId]])->get();
+                        if($data->isNotEmpty()){
+                            foreach($data as $certainData){
+                                $startDate = date('F d, Y',strtotime($certainData->operationStart));
+                                $startTime = date('g:i: A ',strtotime($certainData->operationStart));
+                                $endDate = date('F d, Y',strtotime($certainData->operationEnd));
+                                $endTime = date('g:i: A ',strtotime($certainData->operationEnd));
+                                echo"
+                                <div class='card mb-3'>
+                                    <img src='$certainData->photos' class='card-img-top' style'height:50% !important;'>
+                                    <div class='card-body text-center'>
+                                        <ul class='list-group list-group-flush'>  
+                                            <li class='list-group-item' style=' height:60px !important; margin-top:-16px !important;'>$certainData->shipName - $certainData->shipCarry <br>Operation</li>
+                                            <li class='list-group-item' style=' height:60px !important;'>$startDate - $startTime <br>Operation Start</li>
+                                            <li class='list-group-item' style=' height:60px !important;'>$endDate - $endTime <br>Operation End</li>
+                                            <li class='list-group-item' style=' height:45px !important;'>Rating: $certainData->performanceRating% <br>Performance</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                ";
+                            }
+                        }else{
+                            echo"<h5 class='text-center' style='margin:10.5rem 0 0 1.1rem; color:#800000;'>NO OPERATION FOUND</h5>";
+                        }
                     }
 
                     public function applicantExperienceCable(Request $request){ 
@@ -1199,6 +1213,33 @@ class RecruiterController extends Controller
                         return response()->json($data->isNotEmpty() ? count($data) : '');
                     }
                 // APPLICANT EXPERIENCE
+
+                // APPLICANT OVERALL RATING
+                    public function overallRatingPerWorker(Request $request){
+                        $ratings = completed::select('performanceRating')->where('applicant_id', '=', $request->applicantId)->get();
+                        $allRatings = $ratings->pluck('performanceRating')->toArray();
+                        $totalRatings = count($allRatings);
+                        $totalScore = array_sum($allRatings);
+                        $averageRating = ($totalRatings > 0) ? ($totalScore / $totalRatings) : 0;
+                        return response()->json($averageRating);
+                    } 
+                // APPLICANT OVERALL RATING
+
+                // TOTAL BACKOUT PER WORKER
+                        public function totalBackOutPerWorker(Request $request){
+                            $data = backout::where('applicant_id', '=', $request->applicantId)->get();
+                            $countData = $data->count();
+                            return response()->json($countData != '' ? $countData : '0');
+                        } 
+                // TOTAL BACKOUT PER WORKER
+
+                // TOTAL BACKOUT PER WORKER
+                        public function totalDeclinedPerWorker(Request $request){
+                            $data = declined::where('applicant_id', '=', $request->applicantId)->get();
+                            $countData = $data->count();
+                            return response()->json($countData != '' ? $countData : '0');
+                        } 
+                // TOTAL BACKOUT PER WORKER
             // FETCH
         // RECRUITER VIEW APPLICANTS
 
@@ -1302,7 +1343,7 @@ class RecruiterController extends Controller
                             ->join('employees', 'backout.recruiter_id', '=', 'employees.employee_id')
                             ->where('backout.is_archived', '=' , 1)
                             ->select('operations.*','backout.backOut_id','backout.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'applicants.extention AS applicantExtention','applicants.phoneNumber',
                             'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                             ->orderBy('operations.operationStart', 'DESC')
                             ->get();
@@ -1317,7 +1358,7 @@ class RecruiterController extends Controller
                             ->join('employees', 'declined.recruiter_id', '=', 'employees.employee_id')
                             ->where('declined.is_archived', '=' , 1)
                             ->select('operations.*','declined.declined_id','declined.reason','applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                            'applicants.extention AS applicantExtention', 'applicants.position','applicants.phoneNumber',
+                            'applicants.extention AS applicantExtention','applicants.phoneNumber',
                             'employees.lastname AS employeeLastName', 'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
                             ->orderBy('operations.operationStart', 'DESC')
                             ->get();

@@ -81,7 +81,7 @@
                                             <th class="text-center">#</th>
                                             <th class="text-center">Applicants</th>
                                             <th class="text-center">Phone Number</th>
-                                            <th class="text-center">Position</th>
+                                            <th class="text-center">Age</th>
                                             <th class="text-center col-2">Attendance</th>
                                             <th class="text-center col-3">Performance Rating</th>
                                             <th class="text-center col-1">Action</th>
@@ -94,7 +94,7 @@
                                             <td>{{$count = $count +1;}}</td>
                                             <td>{{$applicantInfo->firstname.' '.$applicantInfo->lastname.' '.$applicantInfo->extention}}</td>
                                             <td>{{$applicantInfo->phoneNumber}}</td>
-                                            <td>{{$applicantInfo->position}}</td>
+                                            <td>{{$applicantInfo->age}} years old</td>
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
                                                     <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='{{$applicantInfo->applicant_id}}'>
@@ -139,78 +139,88 @@
 
     {{-- MODAL --}}
         {{-- SHOW DETAILS OF APPLICANTS --}}
-            <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-body pb-4">
-                            <div class="container-fluid">
-                                <div class="row">
+        <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body pb-4">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Project Workers Information</h1>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-7">
                                     <div class="row">
-                                        <div class="col-11">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Applicant Information</h1>
-                                        </div>
-                                        <div class="col-1">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="row my-3">
-                                        <div class="col-7">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <img src="" class="img-thumbnail mx-auto" style="width:50%; height:10%; clip-path:circle();" id="applicantsPhoto">
-                                                            </div>
-                                                            <div class="row">
-                                                                <ul class="list-group list-group-flush align-middle">
-                                                                    <li class="list-group-item fw-bold">Name: <span id="applicantsFirstname" class="fw-normal"></span> <span  class="fw-normal" id="applicantsMiddlename"> </span> <span  class="fw-normal" id="applicantsLastname"> <span  class="fw-normal" id="applicantsExt"></span></span>
-                                                                    <br> Preferred Role: <span  class="fw-normal" id="applicantsPosition"></span>
-                                                                    </li>
-                                                                    <li class="list-group-item fw-bold">Gender: <span  class="fw-normal" id="applicantsGender"></span> <br> Birthdate: <span  class="fw-normal" id="applicantsBirthday"></span> <br>Age: <span  class="fw-normal" id="applicantsAge"> </span> years old</li>
-                                                                    <li class="list-group-item fw-bold">Phone Number: <span  class="fw-normal" id="applicantsPnumber"></span> <br> Email:
-                                                                        <span  class="fw-normal" id="applicantsEmail"></span>
-                                                                    </li>
-                                                                    <li class="list-group-item fw-bold">Address: <span  class="fw-normal" id="applicantsAddress"></span></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
+                                        <div class="col-6">
+                                            <div class="card">
+                                                <div class="card-body">
                                                     <div class="row">
-                                                        <img src="" style="width:100%; height:13.8rem;" id="personalId">
+                                                        <img src="" loading="lazy" class="img-thumbnail mx-auto" style="width:50%; height:125px; clip-path:circle();" id="applicantsPhoto">
                                                     </div>
                                                     <div class="row">
-                                                        <img src="" style="width:100%; height:13.8rem;" id="personalId2">
+                                                        <ul class="list-group list-group-flush align-middle">
+                                                            <li class="list-group-item fw-bold">Fullname: <span id="applicantsFirstname" class="fw-normal"></span> <span  class="fw-normal" id="applicantsMiddlename"> </span> <span  class="fw-normal" id="applicantsLastname"> <span  class="fw-normal" id="applicantsExt"></span></span>
+                                                            <br> Role: <span  class="fw-normal">Cargo Handler</span>
+                                                            </li>
+                                                            <li class="list-group-item fw-bold">Gender: <span  class="fw-normal" id="applicantsGender"></span> <br> Birthdate: <span  class="fw-normal" id="applicantsBirthday"></span> <br>Age: <span  class="fw-normal" id="applicantsAge"> </span> <span class='fw-normal'>years old</span></li>
+                                                            <li class="list-group-item fw-bold">Phone Number: <span  class="fw-normal" id="applicantsPnumber"></span> <br> Email:
+                                                                <span  class="fw-normal" id="applicantsEmail"></span>
+                                                            </li>
+                                                            <li class="list-group-item fw-bold">Address: <span  class="fw-normal" id="applicantsAddress"></span></li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-5">
-                                            <div class="card" style="height:442px; overflow-y:auto;">
+                                        <div class="col-6">
+                                            <div class="card p-1">
                                                 <div class="card-header bg-white">
-                                                    <h5 class="card-title">Experience</h5>
+                                                    <h5 class="card-title pt-1" style="font-size:16px;">Identity</h5>
                                                 </div>
-                                                <div class="card-body" id="showExperience">
-                                                    <ul class="list-group text-center">
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Cable Operation: <span class="fw-normal" id="cableExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Wood Operation: <span class="fw-normal" id="woodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Plywood Operation: <span class="fw-normal" id="plyWoodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Soya Operation: <span class="fw-normal"  id="soyaExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Rice Operation: <span class="fw-normal"  id="riceExp"></span></li>
-                                                    </ul>
+                                                <img src="" loading="lazy" style="width:100%; height:13rem;" id="personalId">
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title pt-2" style="font-size:16px;">Other Details</h5>
                                                 </div>
+                                                <ul class="list-group list-group-flush align-middle">
+                                                    <li class="list-group-item">Performance Rating: <span id='overallRatingPerWorker'></span>%</li>
+                                                    <li class="list-group-item">Back Out In Operation: <span id='totalBackOutPerWorker'></span> Total</li>
+                                                    <li class="list-group-item">Declined Invitation: <span id='totalDeclinedPerWorker'></span> Total</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
+                                <div class="col-5">
+                                    <div class="card" style="height:442px; overflow-y:auto;">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title">Latest Works</h5>
+                                        </div>
+                                        <div class="card-body" id="showExperience">
+                                            {{-- <ul class="list-group text-center">
+                                                <li class="list-group-item py-4 text-uppercase fw-normal">Cable Operation: <span class="fw-normal" id="cableExp"></span></li>
+                                                <li class="list-group-item py-4 text-uppercase fw-normal">Wood Operation: <span class="fw-normal" id="woodExp"></span></li>
+                                                <li class="list-group-item py-4 text-uppercase fw-normal">Plywood Operation: <span class="fw-normal" id="plyWoodExp"></span></li>
+                                                <li class="list-group-item py-4 text-uppercase fw-normal">Soya Operation: <span class="fw-normal"  id="soyaExp"></span></li>
+                                                <li class="list-group-item py-4 text-uppercase fw-normal">Rice Operation: <span class="fw-normal"  id="riceExp"></span></li>
+                                            </ul> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         {{-- SHOW DETAILS OF APPLICANTS --}}
     {{-- MODAL --}}
 

@@ -229,8 +229,6 @@ $(document).ready(function(){
                 success:function(response){
                     if(response == 1){
                         // OPERATION SUBMIT SUCCESSFULY
-                        const input = document.getElementById("clearPhoto");
-                        input.value = ""; 
                         $('#activeEmployees').DataTable().ajax.reload();
                         Swal.fire({
                             position: 'center',

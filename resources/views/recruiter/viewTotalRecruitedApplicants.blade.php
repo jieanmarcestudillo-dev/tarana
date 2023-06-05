@@ -73,7 +73,7 @@
                                         <th class='text-center'>Position</th>
                                         <th class='text-center'>Phone Number</th>
                                         <th class='text-center'>Accept By</th>
-                                        <th class='text-center col-2'>Action</th>
+                                        <th class='text-center col-2'>Cancel</th>
                                     </thead>
                                     <tbody class='text-center'></tbody>
                                 </table>

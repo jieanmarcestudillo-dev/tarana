@@ -26,7 +26,7 @@
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
                             {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
-                            <h4 class="ms-2">ON-CALL EMPLOYEES</h4>
+                            <h4 class="ms-2">PROJECT WORKERS</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
@@ -60,9 +60,9 @@
                                                 <th class="text-center">First Name</th>
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
+                                                <th class="text-center">Age</th>
                                                 <th class="text-center">Phone Number</th>
-                                                <th class="text-center">Phone Number</th>
-                                                <th class="text-center">Details</th>
+                                                <th class="text-center">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -115,14 +115,10 @@
                             </div>
                             <div class="row mt-3 g-2">
                                 <div class="col-3">
-                                    <label class="form-label">Position:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPosition" name="applicantsPosition">
-                                </div>
-                                <div class="col-2">
                                     <label class="form-label">Status:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsStatus" name="applicantsStatus">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label class="form-label">Sex:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsSex" name="applicantsSex">
                                 </div>
@@ -130,7 +126,7 @@
                                     <label class="form-label">Birthday:</label>
                                     <input type="date" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsBirthday" name="applicantsBirthday">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label class="form-label">Age:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAge" name="applicantsAge">
                                 </div>

@@ -26,7 +26,6 @@ class applicants extends Authenticatable
         'extention',
         'Gender',
         'status',
-        'position',
         'age',
         'birthday',
         'nationality',

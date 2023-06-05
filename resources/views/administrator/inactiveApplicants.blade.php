@@ -61,7 +61,7 @@
                                 <table id="inactiveApplicants" class="table table-sm table-bordered text-center align-middle">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">#</th>
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">First Name</th>
                                             <th class="text-center">Middle Name</th>
                                             <th class="text-center">Last Name</th>
@@ -119,14 +119,10 @@
                             </div>
                             <div class="row mt-3 g-2">
                                 <div class="col-3">
-                                    <label class="form-label">Position:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPosition" name="applicantsPosition">
-                                </div>
-                                <div class="col-2">
                                     <label class="form-label">Status:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsStatus" name="applicantsStatus">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label class="form-label">Sex:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsSex" name="applicantsSex">
                                 </div>
@@ -134,25 +130,17 @@
                                     <label class="form-label">Birthday:</label>
                                     <input type="date" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsBirthday" name="applicantsBirthday">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label class="form-label">Age:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAge" name="applicantsAge">
                                 </div>
                             </div>
                             <div class="row mt-3 g-2">
-                                <div class="col-3">
+                                <div class="col-6">
                                     <label class="form-label">Phone Number:</label>
                                     <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPnumber" name="applicantsPnumber">
                                 </div>
-                                <div class="col-3">
-                                    <label class="form-label">Nationality:</label>
-                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsNationality" name="applicantsNationality">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Religion:</label>
-                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsReligion" name="applicantsReligion">
-                                </div>
-                                <div class="col-3">
+                                <div class="col-6">
                                     <label class="form-label">Email Address:</label>
                                     <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsEmail" name="applicantsEmail">
                                 </div>
