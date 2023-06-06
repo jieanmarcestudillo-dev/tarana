@@ -64,8 +64,6 @@ class RecruiterController extends Controller
                     } 
                 // BACK OUT
 
-                
-
                 // DECLINED INVITATION
                     public function recruiterDeclinedInvitaion(Request $request){
                         $data = declined ::join('operations', 'declined.operation_id', '=', 'operations.certainOperation_id')
@@ -724,42 +722,25 @@ class RecruiterController extends Controller
                         if($operations->slot == 0){
                             return response()->json(4);
                         }else{
-                            $data = applied::where([['operation_id','=', $operationId],['applicants_id', '=', $applicantId]])->get();
-                            if($data->isNotEmpty()){
+                            $ifAlreadyApplied= applied::where([['operation_id','=', $operationId],['applicants_id', '=', $applicantId]])->get();
+                            if($ifAlreadyApplied->isNotEmpty()){
                                 // ALREADY APPLIED
                                 return response()->json('2');
                             }else{
-                                $data2 = operations::where([['certainOperation_id','=', $operationId]])->select('operationStart')->get();
-                                foreach($data2 as $certainOperationInfo){
-                                    $applyingOperationStart = date('F d, Y | h:i:a',strtotime($certainOperationInfo->operationStart));
-                                }
-                                $data3 = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                                ->where([['applied.applicants_id' , '=' , $applicantId],['applied.is_recruited' ,'=', 1]])
-                                ->select('operationStart')->orderBy('applied.applied_id', 'desc')->get();
-                                if($data3->isNotEmpty()){
-                                    foreach($data3 as $certainAppliedInfo){
-                                        $scheduledOperationStart = date('F d, Y | h:i:a',strtotime($certainAppliedInfo->operationStart));
-                                    }
-                                    if($applyingOperationStart == $scheduledOperationStart){
-                                        return response()->json('3'); // NOT AVAILABLE ON THAT DAY
+                                $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->select('operationStart')->first();
+                                $applyingData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
+                                ->where([['applied.applicants_id' , '=' , $applicantId],['applied.is_recruited' ,'=', 1],
+                                ['operations.operationStart','=', $operationsData->operationStart]])->orderBy('applied.applied_id', 'asc')->get();
+                                if($applyingData->isNotEmpty()){
+                                    // NOT AVAILABLE IN THAT DAY
+                                    foreach($applyingData as $certainApplyingData){
+                                        $scheduledOperationStart = date('F d, Y | g:i:A',strtotime($certainApplyingData->operationStart));
+                                        $scheduledOperationEnd = date('F d, Y | g:i:A',strtotime($certainApplyingData->operationEnd));
+                                        $applying = employees::where([['employee_id','=', $certainApplyingData->recruiter]])
+                                        ->select('lastname','firstname','extention')->first();
+                                        $notAvailable = 'The project worker was already scheduled for the operation of '.$scheduledOperationStart.' until '.$scheduledOperationEnd.' because he/she already recruit by Mr '.$applying->firstname.' '.$applying->lastname.' '.$applying->extention;
+                                        return response()->json($notAvailable);
                                         exit();
-                                    }else{
-                                        $recommendApplicant = applied::create([
-                                            'operation_id' => $operationId,
-                                            'applicants_id' => $applicantId,
-                                            'is_recruited' => 0,
-                                            'is_recommend' => 1,
-                                            'recruiter' => auth()->guard('employeesModel')->user()->employee_id,
-                                            'date_time_applied' => now(),
-                                        ]);
-                                        if($recommendApplicant){
-                                            $updateSlot = operations::find($operationId)->decrement('slot');
-                                            if($updateSlot){
-                                                return response()->json('1'); // RECOMMEND APPLICANT
-                                            }else{
-                                                return response()->json('0');
-                                            }
-                                        }
                                     }
                                 }else{
                                     $recommendApplicant = applied::create([
@@ -1163,7 +1144,7 @@ class RecruiterController extends Controller
                 // APPLICANT EXPERIENCE
                     public function applicantExperience(Request $request){ 
                         $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
-                        ->where([['completed.applicant_id', '=' ,$request->applicantId]])->get();
+                        ->where([['completed.applicant_id', '=' ,$request->applicantId]])->orderBy('operationEnd','desc')->get();
                         if($data->isNotEmpty()){
                             foreach($data as $certainData){
                                 $startDate = date('F d, Y',strtotime($certainData->operationStart));
@@ -1185,7 +1166,7 @@ class RecruiterController extends Controller
                                 ";
                             }
                         }else{
-                            echo"<h5 class='text-center' style='margin:10.5rem 0 0 1.1rem; color:#800000;'>NO OPERATION FOUND</h5>";
+                            echo"<h5 class='text-center text-dark' style='margin:10.5rem 0 0 1.1rem;'>NO OPERATION FOUND</h5>";
                         }
                     }
 

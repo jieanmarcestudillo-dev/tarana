@@ -154,17 +154,17 @@ $(document).ready(function(){
                                 title: 'RECRUIT FAILED',
                                 text: 'Something wrong at the backend',
                             })
-                        }else if(response == 3){
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'RECRUIT FAILED',
-                                text: 'the applicant are not available on that day because they are already scheduled for the same date and time. Please select another applicant.',
-                            })
                         }else if(response == 4){
                             Swal.fire({
                                 icon: 'error',
                                 title: 'RECRUIT FAILED',
                                 title: 'No available slot on this operation'
+                            })
+                        }else if(response){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: response,
                             })
                         }
                     }

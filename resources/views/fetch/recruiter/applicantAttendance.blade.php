@@ -105,7 +105,7 @@
             <tr>
                 <th scope='col'>No.</th>
                 <th scope='col'>Project Workers</th>
-                <th scope='col'>Role</th>
+                <th scope='col'>Age</th>
                 <th scope='col'>Signature</th>
             </tr>
         </thead>
@@ -115,7 +115,7 @@
             <tr>
                 <td>{{$count}}.</td>
                 <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>
-                <td>{{$certainData->position}} </td>
+                <td>{{$certainData->age}} years old </td>
                 <td></td>
             </tr>
             @endforeach

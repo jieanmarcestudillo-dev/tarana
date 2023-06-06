@@ -23,6 +23,7 @@ use Session;
 use Hash;
 use Auth;
 
+
 class AdminController extends Controller
 {
     // ADMIN OPERATION FUNCTION
@@ -70,14 +71,47 @@ class AdminController extends Controller
                 // TOTAL APPLICANTS
 
                 // VISUALIZATION
-                    public function visualization(Request $request){
-                        $data = operations::select(operations::raw('operationStart as monthName'), 
-                        operations::raw('count(*) as totalOperation'))
-                        ->where('is_completed', '=', 0)->groupBy('monthName')->get();
-                        foreach($data as $certainData){
-                            $newMonthName = Carbon::parse($certainData->monthName)->format('F');
-                            return response()->json($newMonthName);
+                    public function visualization(Request $request)
+                    {
+                        $distinctMonths = operations::selectRaw('DATE_FORMAT(operationStart, "%M") as monthName')
+                        ->whereRaw('MONTH(operationStart) BETWEEN 1 AND 12')
+                        ->groupBy('monthName')
+                        ->orderByRaw('MONTH(operationStart)')
+                        ->get();
+                    
+                    $months = $distinctMonths->pluck('monthName')->toArray();
+                    
+                    // Ensure January is the first month
+                    $januaryIndex = array_search('January', $months);
+                    if ($januaryIndex !== false) {
+                        $months = array_merge(array_slice($months, $januaryIndex), array_slice($months, 0, $januaryIndex));
+                    }
+                    
+                    $data = operations::selectRaw('DATE_FORMAT(operationStart, "%M") as monthName, COUNT(*) as totalOperation')
+                        ->groupBy('monthName')
+                        ->orderByRaw('MONTH(operationStart)')
+                        ->get();
+                    
+                    $operations = [];
+                    foreach ($data as $monthData) {
+                        $operations[$monthData->monthName] = $monthData->totalOperation;
+                    }
+                    
+                    foreach ($months as $month) {
+                        if (!isset($operations[$month])) {
+                            $operations[$month] = 0;
                         }
+                    }
+                    
+                    $formattedOperations = [];
+                    foreach ($months as $month) {
+                        $formattedOperations[] = $operations[$month];
+                    }
+                    
+                    return response()->json([
+                        'months' => $months,
+                        'operations' => $formattedOperations
+                    ]);
                     }
                 // VISUALIZATION
             // FETCH
@@ -797,8 +831,8 @@ class AdminController extends Controller
         // PRINT COMPANY EMPLOYEE
     
         // DOWNLOAD TEMPLATE
-            public function downloadTemplate($filename){
-                return response()->download('C:/xampp/htdocs/tarana/storage/app/public/template/'.$filename);
+            public function downloadTemplate(){
+                return response()->download(storage_path('public/template/employeesImport.xlsx'));
             }
         // DOWNLOAD TEMPLATE
 

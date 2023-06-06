@@ -116,6 +116,7 @@ $(document).ready(function () {
                                     timer: 1000,
                                 }).then((result) => {
                                 if (result) {
+                                    totalInvitationOperation();
                                     operationInvitationContent();
                                 }
                                 });

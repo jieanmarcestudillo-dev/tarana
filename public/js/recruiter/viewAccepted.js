@@ -67,7 +67,7 @@ $(document).ready(function(){
                     }
                 }},
                 { "mData": function (data, type, row) {
-                    return "<button data-title='Project Workers Information' type='button' onclick=viewOnCallWorkers("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button>  <button data-title='Cancel Recruitment?' type='button' onclick=cancelRecruitRecommendedApplicants("+data.applicant_id+") class='btn btn-outline-danger rounded-0 btn-sm py-2 px-3'><i class='bi bi-x-lg'></i></button>";
+                    return "<button data-title='Project Workers Information' type='button' onclick=viewOnCallWorkers("+data.applicant_id+") class='btn btn-outline-secondary btn-sm py-2 px-3 rounded-0'><i class='bi bi-info-lg'></i></button>";
                 }},
             ],
             order: [[1, 'asc']],

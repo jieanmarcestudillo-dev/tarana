@@ -180,8 +180,11 @@ class ApplicantsController extends Controller
                                 <div class='card mb-2 shadow'>
                                     <div class='card-body'>
                                         <h5 class='card-title'>Dear $applicant,</h5>
-                                        <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (recruiter) are invites you to join in the operation from
-                                        <span class='fw-bold'>$newOperationStartDate until $newOperationEndDate</span> to manage the $certainData->shipCarry of the $certainData->shipName Cargo Ship. If you are available to work at Subic Consolidated Project Inc., please respond to our invitation to notify the recruiter. Thank you, and may God bless the workers.</p>
+                                        <p class='card-text mb-3'>$certainData->firstname $certainData->lastname (one of the manpower pooling) invites you to join the operation 
+                                        <span class='fw-bold'>from $newOperationStartDate to $newOperationEndDate</span> to handle the $certainData->shipCarry 
+                                        of the $certainData->shipName Cargo Ship. If you are insterested in working at 
+                                        Subic Consolidated Project Inc., please respond to our invitation to notify the manpower pooling. 
+                                        Thank you, and God bless the Project Workers.</p>
                                             <button onclick=acceptInvitation('$certainData->operation_id') class='btn btn-success btn-sm'>Accept</button>
                                             <button onclick='declineInvitation($certainData->certainOperation_id, $certainData->recruiter)' class='btn btn-danger btn-sm'>Decline</button>
                                     </div>
@@ -318,67 +321,36 @@ class ApplicantsController extends Controller
                 public function applicantApply(Request $request){
                     $applicantId =  auth()->guard('applicantsModel')->user()->applicant_id;
                     $operationId = $request->operationId;
-                    $applicantsData = applicants::where([['applicant_id', '=', $applicantId]])->get();
-                        foreach($applicantsData as $certainData){
-                            if($certainData->lastname == "" && $certainData->personal_id == ""){
-                                echo 2; // Please complete all of your information.
+                    $applicantsData = applicants::where([['applicant_id', '=', $applicantId]])->first();
+                    if($applicantsData->lastname == "" && $applicantsData->personal_id == ""){
+                        echo 2; // Please complete all of your information.
+                        exit();
+                    }else{
+                        $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->select('operationStart')->first();
+                        $applyingData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1],
+                        ['operations.operationStart','=', $operationsData->operationStart]])->orderBy('applied.applied_id', 'asc')->get();
+                        if($applyingData->isNotEmpty()){
+                            echo 3; // NOT AVAILABLE ON THAT DAY
+                            exit();
+                        }else{
+                            $applicationApply = applied::create([
+                                'operation_id' => $operationId,
+                                'applicants_id' => $applicantId,
+                                'is_recruited' => 0,
+                                'is_recommend' => 0,
+                                'recruiter' => 0,
+                                'date_time_applied' => now(),
+                            ]);
+                            if($applicationApply){
+                                echo 1; // SUCCESSFULLY APPLY
                                 exit();
                             }else{
-                                $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->select('operationStart')->get();
-                                if($operationsData->isNotEmpty()){
-                                    foreach($operationsData as $certainOperationsData){
-                                        // APPLYING OPERATION
-                                        $applyingOperationStart = date('m-d-Y g:i A',strtotime($certainOperationsData->operationStart));
-                                    }
-                                    $applyingData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
-                                    ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1]])
-                                    ->select('operationStart')->orderBy('applied.applied_id', 'desc')->get();
-                                    if($applyingData->isNotEmpty()){
-                                        foreach($applyingData as $certainApplyingData){
-                                            // CHECK IF THEY ARE ALREADY SCHEDULED ON SAME DATE/TIME
-                                            $scheduledOperationStart = date('m-d-Y g:i A',strtotime($certainApplyingData->operationStart));
-                                        }   
-                                        if($applyingOperationStart == $scheduledOperationStart){
-                                            echo 3; // NOT AVAILABLE ON THAT DAY
-                                            exit();
-                                        }else{
-                                            $applicationApply = applied::create([
-                                                'operation_id' => $operationId,
-                                                'applicants_id' => $applicantId,
-                                                'is_recruited' => 0,
-                                                'is_recommend' => 0,
-                                                'recruiter' => 0,
-                                                'date_time_applied' => now(),
-                                            ]);
-                                            if($applicationApply){
-                                                echo 1; // SUCCESSFULLY APPLY
-                                                exit();
-                                            }else{
-                                                echo 0; // ERROR ON BACKEND
-                                                exit();
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        $applicationApply = applied::create([
-                                            'operation_id' => $operationId,
-                                            'applicants_id' => $applicantId,
-                                            'is_recruited' => 0,
-                                            'is_recommend' => 0,
-                                            'recruiter' => 0,
-                                            'date_time_applied' => now(),
-                                        ]);
-                                        if($applicationApply){
-                                            echo 1; // SUCCESSFULLY APPLY
-                                            exit();
-                                        }else{
-                                            echo 0; // ERROR ON BACKEND
-                                            exit();
-                                        }
-                                    }
-                                }
+                                echo 0; // ERROR ON BACKEND
+                                exit();
                             }
                         }
+                    }
                 }
             // APPLY ON SPECIFIC OPERATION
 

@@ -138,7 +138,7 @@ use App\Http\Controllers\homeController;
                 Route::get('getAdminAllOldApplicantsData', [AdminController::class,'getAdminAllOldApplicantsData']);
                 Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
                 Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
-                Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
+                Route::get('downloadTemplate', [AdminController::class,'downloadTemplate']);
                 Route::get('getBackOutArchivedForAdmin', [AdminController::class,'getBackOutArchivedForAdmin']);
                 Route::get('getDeclinedArchivedForAdmin', [AdminController::class,'getDeclinedArchivedForAdmin']);
                 Route::get('getArchivedBlockedApplicantsForAdmin', [AdminController::class,'getArchivedBlockedApplicantsForAdmin']);

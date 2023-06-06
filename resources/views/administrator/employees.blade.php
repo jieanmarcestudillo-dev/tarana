@@ -56,7 +56,7 @@
                                         <a class="nav-link" href="/utilizedAppRecruiter">Currently Active</a>
                                     </li>
                                     <li class="nav-item ms-auto">
-                                        <a href="{{ url('downloadTemplate/employeesImport.xlsx') }}" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
+                                        <a href="{{ url('downloadTemplate') }}" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
                                         <button type="button" class="btn btn-success ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#importExcel">Import Employee <i class="bi bi-file-earmark-excel"></i></button>
                                         <button type="button" class="btn btn-primary ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#addEmployeesModal">Add Employees <i class="bi bi-plus-lg"></i></button>
                                     </li>
@@ -170,25 +170,15 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3 g-2">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label">Phone Number:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeePnumber" name="addEmployeePnumber">
                                     </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Nationality:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeNationality" name="addEmployeeNationality">
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Religion:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeReligion" name="addEmployeeReligion">
-                                    </div>
-                                </div>
-                                <div class="row mt-3 g-2">
-                                    <div class="col-8">
+                                     <div class="col-6">
                                         <label class="form-label">Address:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeAddress" name="addEmployeeAddress">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label">Email Address:</label>
                                         <input type="email" class="form-control shadow-sm bg-body rounded" required id="addEmployeeEmail" name="addEmployeeEmail">
                                     </div>

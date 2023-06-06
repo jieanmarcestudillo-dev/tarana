@@ -16,9 +16,9 @@
   
     <!-- HEADER -->
         <header id="header">
-        <nav class="navbar navbar-expand-md bg-white fixed-top ">
+        <nav class="navbar navbar-expand-md bg-white fixed-top">
             <div class="container">
-                <div class="navbar-brand fw-bold d-lg-block d-none">
+                <div class="navbar-brand fw-bold d-lg-block">
                     <img src="./assets/frontend/logo.webp" class="img-thumnail" width="50%">
                 </div>
             <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -44,7 +44,7 @@
             </div>
         </nav>
 
-        <section id="scrollspyHome" class="wave-bg-white py-3 mt-xl-0 mt-xxl-0">
+        <section id="scrollspyHome" class="wave-bg-white py-lg-3 py-0 mt-xl-0 mt-xxl-0">
             <div class="container overflow-hidden">
             <div class="row gy-5 gy-lg-0 align-items-lg-center justify-content-lg-between">
                 <div class="col-12 col-lg-6 order-1 order-lg-0">
@@ -55,7 +55,7 @@
                 </div>
                 </div>
                 <div class="col-12 col-lg-5 text-center">
-                    <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto rounded-pill" loading="lazy" src="./assets/frontend/scpi_logo.png" style="height:100px; filter: brightness(60%);">
+                    <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto d-lg-block d-none" loading="lazy" src="./assets/frontend/container.png" style="height:60vh; width:100%; filter:brightness(60%);">
                 </div>
             </div>
             </div>
@@ -574,5 +574,10 @@
         <script src="{{ asset('/js/mainHome/project-2.js') }}"></script>
         <script src="{{ asset('/js/mainHome/global.js') }}"></script>
     <!-- JS FUNCTION -->
+
+    <style>
+
+    </style>
+
   </body>
 </html>
