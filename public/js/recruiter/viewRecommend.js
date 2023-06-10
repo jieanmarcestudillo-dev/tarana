@@ -133,7 +133,7 @@ $(document).ready(function(){
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'RECRUIT FAILED',
-                                text: 'The Applicant are already applied/recruited',
+                                text: 'The project worker are already apply / invite',
                             })
                         }else if(response == 1){
                             Swal.fire({
