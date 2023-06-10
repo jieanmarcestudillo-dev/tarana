@@ -16,7 +16,7 @@
 
     <div class="d-flex" id="wrapper">
         {{-- SIDE NAV --}}
-            @include('layouts.recruiterSidebar')
+            @include('layouts.adminSidebar')
         {{-- SIDE NAV --}}
 
         {{-- MAIN CONTENT --}}
@@ -26,7 +26,7 @@
                     <nav class="navbar navbar-expand-lg text-white border-bottom">
                         <div class="container-fluid">
                             {{-- <button class="btn btn-lg text-white" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button> --}}
-                            <h4 class="ms-2">COMPLETED OPERATION</h4>
+                            <h4 class="ms-2">PROJECT WORKERS PER OPERATION</h4>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                     <li>
@@ -42,17 +42,8 @@
                 {{-- NAV BAR --}}
 
                 {{-- MAIN CONTENT --}}
-                    <div class="container-fluid mainBar">
-                        <div class="row">
-                            <div class="col-4 ms-auto">
-                                <form class="d-flex">
-                                    <input class="form-control rounded-0 text-center" id="searchRecruiterCompleted" name="searchRecruiterCompleted" 
-                                     type="search" placeholder="Search Operation Id" aria-label="Search">
-                                    <button class="btn btn-outline-success px-4 rounded-0" type="submit">Search</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row g-2 mt-1" id="showCompletedDetails"></div>
+                    <div class="container-fluid mainBar mb-2">
+                        <div class="row g-2" id="showFormedGroup"></div>
                     </div>
                 {{-- MAIN CONTENT --}}
             </div>
@@ -60,7 +51,7 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/recruiter/complete.js') }}"></script>
+        <script src="{{ asset('/js/administrator/schedule.js') }}"></script>
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
@@ -88,12 +79,12 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <img src="" loading="lazy" class="img-thumbnail mx-auto" style="width:50%; height:125px; clip-path:circle();" id="applicantsPhoto">
+                                                                <img src="" class="img-thumbnail mx-auto" style="width:50%; height:125px; clip-path:circle();" id="applicantsPhoto">
                                                             </div>
                                                             <div class="row">
                                                                 <ul class="list-group list-group-flush align-middle">
-                                                                    <li class="list-group-item fw-bold">Fullname: <span id="applicantsFirstname" class="fw-normal"></span> <span  class="fw-normal" id="applicantsMiddlename"> </span> <span  class="fw-normal" id="applicantsLastname"> <span  class="fw-normal" id="applicantsExt"></span></span>
-                                                                    <br> Role: <span  class="fw-normal">Cargo Handler</span>
+                                                                    <li class="list-group-item fw-bold">Name: <span id="applicantsFirstname" class="fw-normal"></span> <span  class="fw-normal" id="applicantsMiddlename"> </span> <span  class="fw-normal" id="applicantsLastname"> <span  class="fw-normal" id="applicantsExt"></span></span>
+                                                                    <br> Role: <span  class="fw-normal"> Cargo Handler</span>
                                                                     </li>
                                                                     <li class="list-group-item fw-bold">Gender: <span  class="fw-normal" id="applicantsGender"></span> <br> Birthdate: <span  class="fw-normal" id="applicantsBirthday"></span> <br>Age: <span  class="fw-normal" id="applicantsAge"> </span> <span class="fw-normal">years old</span></li>
                                                                     <li class="list-group-item fw-bold">Phone Number: <span  class="fw-normal" id="applicantsPnumber"></span> <br> Email:
@@ -130,15 +121,7 @@
                                                 <div class="card-header bg-white">
                                                     <h5 class="card-title">Latest Works</h5>
                                                 </div>
-                                                <div class="card-body" id="showExperience">
-                                                    {{-- <ul class="list-group text-center">
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Cable Operation: <span class="fw-normal" id="cableExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Wood Operation: <span class="fw-normal" id="woodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Plywood Operation: <span class="fw-normal" id="plyWoodExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Soya Operation: <span class="fw-normal"  id="soyaExp"></span></li>
-                                                        <li class="list-group-item py-4 text-uppercase fw-normal">Rice Operation: <span class="fw-normal"  id="riceExp"></span></li>
-                                                    </ul> --}}
-                                                </div>
+                                                <div class="card-body" id="showExperience"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -151,5 +134,6 @@
             </div>
         {{-- SHOW DETAILS OF APPLICANTS --}}
     {{-- MODAL --}}
+
 </body>
 </html>

@@ -10,48 +10,48 @@
         body {
          font-family: Arial, sans-serif;
        }
-   
+
        .header {
          text-align: center;
          margin-bottom: 20px;
        }
-   
+
        .name {
          font-size: 24px;
          font-weight: bold;
        }
-   
+
        .contact-info {
          font-size: 14px;
          margin-bottom: 10px;
        }
-   
+
        .section {
          margin-bottom: 20px;
        }
-   
+
        .section-title {
          font-size: 18px;
          font-weight: bold;
          margin-bottom: 10px;
        }
-   
+
        .subsection-title {
          font-size: 16px;
          font-weight: bold;
          margin-bottom: 10px;
        }
-   
+
        .item {
          margin-bottom: 5px;
        }
-   
+
        .item-title {
          font-weight: bold;
          display: inline-block;
          width: 160px;
        }
-   
+
        .item-content {
          display: inline-block;
        }
@@ -105,22 +105,22 @@
             <tr>
                 <th scope='col'>No.</th>
                 <th scope='col'>Project Workers</th>
-                <th scope='col'>Role</th>
+                <th scope='col'>Age</th>
                 <th scope='col'>Signature</th>
             </tr>
         </thead>
         <tbody>
           @foreach($data as $count => $certainData)
-          {{$count = $count + 1;}}
+          {{$count = $count + 1}}
             <tr>
                 <td>{{$count}}.</td>
                 <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>
-                <td>{{$certainData->position}} </td>
+                <td>{{$certainData->age}} years old </td>
                 <td></td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    
+
 </body>
 </html>

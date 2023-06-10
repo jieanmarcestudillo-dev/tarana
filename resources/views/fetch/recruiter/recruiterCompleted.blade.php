@@ -10,51 +10,51 @@
         body {
          font-family: Arial, sans-serif;
        }
-   
+
        .header {
          text-align: center;
          margin-bottom: 20px;
        }
-   
+
        .name {
          font-size: 24px;
          font-weight: bold;
          text-transform: uppercase;
        }
-   
+
        .contact-info {
          font-size: 14px;
          margin-bottom: 10px;
          text-transform: uppercase;
        }
-   
+
        .section {
          margin-bottom: 20px;
        }
-   
+
        .section-title {
          font-size: 18px;
          font-weight: bold;
          margin-bottom: 10px;
          text-transform: uppercase;
        }
-   
+
        .subsection-title {
          font-size: 16px;
          font-weight: bold;
          margin-bottom: 10px;
        }
-   
+
        .item {
          margin-bottom: 5px;
        }
-   
+
        .item-title {
          font-weight: bold;
          display: inline-block;
          width: 160px;
        }
-   
+
        .item-content {
          display: inline-block;
        }
@@ -111,7 +111,7 @@
         </thead>
         <tbody>
             @foreach($data as  $count => $certainData)
-            {{$count = $count + 1;}}
+            {{$count = $count + 1}}
             <tr>
                 <td>{{$count}}.</td>
                 <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>

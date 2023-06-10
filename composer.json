@@ -13,7 +13,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "maatwebsite/excel": "*",
-        "nesbot/carbon": "^2.66",
+        "nesbot/carbon": "^2.67",
         "phpoffice/phpspreadsheet": "^1.28"
     },
     "require-dev": {

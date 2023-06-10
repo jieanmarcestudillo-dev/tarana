@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="col-9 text-center" style="line-height:19px; padding-top:1.4rem">
                                                 <p class="card-text fw-bold" style="font-size: 2rem; color:#800000;" id="totalCompletedOperation">0</p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">COMPLETED OPERATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#800000;">COMPLETE OPERATION</p>
                                             </div>
                                         </div>
                                     </div>

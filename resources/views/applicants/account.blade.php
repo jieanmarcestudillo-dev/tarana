@@ -68,9 +68,9 @@
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Profile Picture</label>
-                                                    <input class="form-control shadow-sm bg-body rounded" type="file" name="appPhotos"  accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
+                                                    <input class="form-control shadow-sm bg-body rounded" type="file" name="appPhotos"  id="appPhotos2" accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
                                                 </div>
-                                            </div>                                                                                   
+                                            </div>
                                         </div>
                                         <div class="row gap-0">
                                             <div class="col-lg-3 col-sm-12">
@@ -102,7 +102,7 @@
                                                     </select>
                                                 </div>
                                             </div>
- 
+
                                         </div>
                                         <div class="row gap-0">
                                             <div class="col-lg-2 col-sm-12">
@@ -146,7 +146,7 @@
                                             <div class="col-lg-3 col-sm-12">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Email Address</label>
-                                                    <input required type="text" class="form-control shadow-sm bg-body rounded" id="appEmail" name="appEmail">
+                                                    <input required type="email" class="form-control shadow-sm bg-body rounded" id="appEmail" name="appEmail">
                                                 </div>
                                             </div>
                                         </div>
@@ -183,30 +183,22 @@
                             <div class="mt-3">
                                 <form id="updatePersonalIdForm" name="updatePersonalIdForm">
                                 <div class="card bg-light p-4 bg-body rounded shadow-lg">
-                                    <h5 class="mb-4 text-lg-start text-center">Personal Identification</h5>
+                                    <h5 class="mb-4 text-lg-start text-center">Project Workers Identification</h5>
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Personal Id (1)</label>
-                                                <input name="updatePersonalId" class="form-control shadow-sm bg-body rounded" type="file">
+                                                <label for="formFile" class="form-label">Insert here your id:</label>
+                                                <input name="updatePersonalId" id="updatePersonalId1" class="form-control shadow-sm bg-body rounded" type="file" accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
                                             </div>
                                             <div class="mb-3">
-                                                <img id="updatePersonalId" class="img-thumbnail border-0" style='width:100%'>
+                                                <img id="updatePersonalId" class="img-thumbnail border-0" style='width:100%;'>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-sm-12">
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Personal Id (2)</label>
-                                                <input name="updatePersonalId2" class="form-control shadow-sm bg-body rounded" type="file">
-                                            </div>
-                                            <div class="mb-3">
-                                                <img id="updatePersonalId2" class="img-thumbnail border-0" style='width:100%'>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2 ms-auto col-sm-12 text-lg-end text-center">
-                                            <button type="button" id="updatePersonalIdBtn" class="btn btn-primary px-3">Save Changes</button>
+                                        <div class="row">
+                                            <div class="col-lg-2 ms-auto col-sm-12 text-lg-end text-center">
+                                                <button type="button" id="updatePersonalIdBtn" class="btn btn-primary px-3">Save Changes</button>
+                                            </div>
                                         </div>
                                     </div>
                                     </form>
@@ -222,7 +214,7 @@
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/applicants/sidenav.js') }}"></script>
-        <script src="{{ asset('/js/applicants/account.js') }}"></script>
+        <script src="{{ asset('/js/applicants/manageAccount.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 </body>

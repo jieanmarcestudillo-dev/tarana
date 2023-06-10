@@ -79,7 +79,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/administrator/operation.js') }}"></script>
+        <script src="{{ asset('/js/administrator/operations.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 
@@ -90,7 +90,7 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <form name="addOperationForm" id="addOperationForm">
-                                @CSRF 
+                                @CSRF
                             <div class="row">
                                 <div class="col-11">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">New Operation</h1>
@@ -130,7 +130,7 @@
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <label class="form-label">Workers Slot:</label>
+                                    <label class="form-label">Total Workers:</label>
                                     <input type="number" value="0" min='0' class="form-control shadow-sm bg-body rounded text-center" id="addApplicantsSlot" name="addApplicantsSlot">
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <label class="form-label">Applicants Slot:</label>
+                                        <label class="form-label">Total Workers:</label>
                                         <input type="number" value="0" class="form-control shadow-sm bg-body rounded text-center" id="slot" name="slot">
                                     </div>
                                 </div>

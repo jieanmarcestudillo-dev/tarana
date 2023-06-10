@@ -61,7 +61,7 @@
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Age</th>
-                                                <th class="text-center">Phone Number</th>
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Actions</th>
                                             </tr>
                                         </thead>
@@ -81,75 +81,97 @@
     {{-- END JS --}}
 
     {{-- MODAL --}}
-        <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body pb-4 text-center">
-                        <div class="row">
-                            <div class="col-11">
-                                <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">Applicants Information</h1>
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                        </div>
-                        <div class="row my-2">
-                            <img src="" class="img-thumbnail mx-auto" style="width:30%; height:5%; clip-path:circle();" id="applicantsPhoto">
-                            <div class="row mt-3 g-2">
-                                <div class="col-3">
-                                    <label class="form-label">Last Name:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsLastname" name="applicantsLastname">
+        {{-- PROJECT WORKERS DETAILS --}}
+            <div class="modal fade" id="viewApplicantsDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body pb-4 text-center">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">Applicants Information</h1>
                                 </div>
-                                <div class="col-3">
-                                    <label class="form-label">First Name:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsFirstname" name="applicantsFirstname">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Middle Name:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsMiddlename" name="applicantsMiddlename">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Extention:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsExt" name="applicantsPosition">
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                             </div>
-                            <div class="row mt-3 g-2">
-                                <div class="col-3">
-                                    <label class="form-label">Status:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsStatus" name="applicantsStatus">
+                            <div class="row my-2">
+                                <img src="" class="img-thumbnail mx-auto" style="width:30%; height:5%; clip-path:circle();" id="applicantsPhoto">
+                                <div class="row mt-3 g-2">
+                                    <div class="col-3">
+                                        <label class="form-label">Last Name:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsLastname" name="applicantsLastname">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">First Name:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsFirstname" name="applicantsFirstname">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Middle Name:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsMiddlename" name="applicantsMiddlename">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Extention:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsExt" name="applicantsPosition">
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <label class="form-label">Sex:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsSex" name="applicantsSex">
+                                <div class="row mt-3 g-2">
+                                    <div class="col-3">
+                                        <label class="form-label">Status:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsStatus" name="applicantsStatus">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Sex:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsSex" name="applicantsSex">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Birthday:</label>
+                                        <input type="date" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsBirthday" name="applicantsBirthday">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Age:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAge" name="applicantsAge">
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <label class="form-label">Birthday:</label>
-                                    <input type="date" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsBirthday" name="applicantsBirthday">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Age:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAge" name="applicantsAge">
-                                </div>
-                            </div>
-                            <div class="row mt-3 g-2">
-                                <div class="col-3">
-                                    <label class="form-label">Phone Number:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPnumber" name="applicantsPnumber">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label">Address:</label>
-                                    <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAddress" name="applicantsAddress">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Email Address:</label>
-                                    <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsEmail" name="applicantsEmail">
+                                <div class="row mt-3 g-2">
+                                    <div class="col-3">
+                                        <label class="form-label">Phone Number:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsPnumber" name="applicantsPnumber">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Address:</label>
+                                        <input type="text" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsAddress" name="applicantsAddress">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Email Address:</label>
+                                        <input type="email" disabled class="form-control text-center shadow-sm bg-body rounded" id="applicantsEmail" name="applicantsEmail">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {{-- PROJECT WORKERS DETAILS --}}
+
+        {{-- PROJECT WORKERS SCHEDULE --}}
+              <div class="modal fade" id="viewScheduleDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <h5 class="modal-title">Project Workers Schedule</h5>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row" id="workersSched"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {{-- PROJECT WORKERS SCHEDULE --}}
     {{-- MODAL --}}
 </body>
 </html>

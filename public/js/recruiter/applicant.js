@@ -28,13 +28,17 @@ $(document).ready(function(){
             {"data":"lastname"},
             { "mData": function (data, type, row) {
                 return data.age+ " years old";
-            }},             
-            {"data":"phoneNumber"},
-            {"data": "applicant_id",
-                mRender: function (data, type, row) {
-                return '<button type="button" data-title="View Details?" onclick=viewOnCallWorkers('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <a href="printProjectWorker/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Worker?"><i class="bi bi-filetype-pdf"></i></a>'
-            }
-            }
+            }},
+            { "mData": function (data, type, row) {
+                if(data.is_recruited == 1){
+                    return '<span class="text-danger">Scheduled</span>';
+                }else{
+                    return '<span class="text-success">Available</span>';
+                }
+            }},
+            { "mData": function (data, type, row) {
+                return '<button type="button" data-title="View Their Details?" onclick=viewOnCallWorkers('+data.applicant_id+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <button type="button" data-title="View Their Schedule?" onclick=viewSchedule('+data.applicant_id+') class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-calendar-check"></i></button>  <button type="button" data-title="Invite Them?" onclick="setSchedule('+data.applicant_id+')" class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-envelope-check"></i></button>'
+            }}
         ],
         order: [[1, 'asc']],
     });
@@ -72,11 +76,17 @@ $(document).ready(function(){
             {"data":"lastname"},
             { "mData": function (data, type, row) {
                 return data.age+ " years old";
-            }},              
-            {"data":"phoneNumber"},
+            }},
+            { "mData": function (data, type, row) {
+                if(data.is_recruited == 1){
+                    return '<span class="text-danger">Scheduled</span>';
+                }else{
+                    return '<span class="text-success">No Schedule</span>';
+                }
+            }},
             {"data": "applicant_id",
                 mRender: function (data, type, row) {
-                return '<button type="button" data-title="View Details?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <a href="printProjectWorker/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print this Applicant?"><i class="bi bi-filetype-pdf"></i></a>'
+                return '<button type="button" data-title="View Details?" onclick=viewApplicants('+data+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <button type="button" data-title="View Their Schedule?" onclick=viewSchedule('+data+') class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-calendar-check"></i></button>'
             }
             }
         ],
@@ -106,18 +116,18 @@ $(document).ready(function(){
             }else{
                 $('#applicantsPhoto').attr("src","/assets/applicants/defaultImage.png")
             }
-            $('#applicantsLastname').val(response.lastname)           
-            $('#applicantsFirstname').val(response.firstname)           
+            $('#applicantsLastname').val(response.lastname)
+            $('#applicantsFirstname').val(response.firstname)
             $('#applicantsMiddlename').val(response.middlename)
-            $('#applicantsExt').val(response.extention)           
-            $('#applicantsPosition').val(response.position)           
-            $('#applicantsStatus').val(response.status)           
-            $('#applicantsSex').val(response.Gender)           
-            $('#applicantsAge').val(response.age)           
-            $('#applicantsBirthday').val(response.birthday)           
-            $('#applicantsAddress').val(response.address)           
-            $('#applicantsPnumber').val(response.phoneNumber)           
-            $('#applicantsEmail').val(response.emailAddress)           
+            $('#applicantsExt').val(response.extention)
+            $('#applicantsPosition').val(response.position)
+            $('#applicantsStatus').val(response.status)
+            $('#applicantsSex').val(response.Gender)
+            $('#applicantsAge').val(response.age)
+            $('#applicantsBirthday').val(response.birthday)
+            $('#applicantsAddress').val(response.address)
+            $('#applicantsPnumber').val(response.phoneNumber)
+            $('#applicantsEmail').val(response.emailAddress)
         })
     }
 // SHOW CERTAIN APPLICANTS DETAILS
@@ -132,81 +142,6 @@ $(document).ready(function(){
         data: {applicantId: id},
     })
     .done(function(response) {
-        // function applicantExperienceSoya(){
-        //     $.ajax({
-        //         url: "/applicantExperienceSoya",
-        //         method: 'GET',
-        //         data: {applicantId:response.applicant_id},
-        //         success : function(data) {
-        //             if(data != ''){
-        //                 $("#soyaExp").html("<span class='text-success'>"+data+" Total</span>");
-        //             }else{
-        //                 $("#soyaExp").html("<span class='text-danger'>No Experience</span>");
-        //             }
-        //         }
-        //     })
-        // }
-        // function applicantExperienceCable(){
-        //     $.ajax({
-        //         url: "/applicantExperienceCable",
-        //         method: 'GET',
-        //         data: {applicantId:response.applicant_id},
-        //         success : function(data) {
-        //             if(data != ''){
-        //                 $("#cableExp").html("<span class='text-success'>"+data+" Total</span>");
-        //             }else{
-        //                 $("#cableExp").html("<span class='text-danger'>No Experience</span>");
-        //             }
-        //         }
-        //     })
-        // }
-        // function applicantExperienceRice(){
-        //     $.ajax({
-        //         url: "/applicantExperienceRice",
-        //         method: 'GET',
-        //         data: {applicantId:response.applicant_id},
-        //         success : function(data) {
-        //             if(data != ''){
-        //                 $("#riceExp").html("<span class='text-success'>"+data+" Total</span>");
-        //             }else{
-        //                 $("#riceExp").html("<span class='text-danger'>No Experience</span>");
-        //             }
-        //         }
-        //     })
-        // }
-        // function applicantExperienceWood(){
-        //     $.ajax({
-        //         url: "/applicantExperienceWood",
-        //         method: 'GET',
-        //         data: {applicantId:response.applicant_id},
-        //         success : function(data) {
-        //             if(data != ''){
-        //                 $("#woodExp").html("<span class='text-success'>"+data+" Total</span>");
-        //             }else{
-        //                 $("#woodExp").html("<span class='text-danger'>No Experience</span>");
-        //             }
-        //         }
-        //     })
-        // }
-        // function applicantExperiencePlyWood(){
-        //     $.ajax({
-        //         url: "/applicantExperiencePlyWood",
-        //         method: 'GET',
-        //         data: {applicantId:response.applicant_id},
-        //         success : function(data) {
-        //             if(data != ''){
-        //                 $("#plyWoodExp").html("<span class='text-success'>"+data+" Total</span>");
-        //             }else{
-        //                 $("#plyWoodExp").html("<span class='text-danger'>No Experience</span>");
-        //             }
-        //         }
-        //     })
-        // }
-        // applicantExperiencePlyWood();
-        // applicantExperienceWood();
-        // applicantExperienceRice();
-        // applicantExperienceSoya();
-        // applicantExperienceCable();
         function applicantExperience(){
             $.ajax({
                 url: "/applicantExperience",
@@ -252,31 +187,155 @@ $(document).ready(function(){
         totalBackOutPerWorker();
         totalDeclinedPerWorker();
         $('#applicantsPhoto').attr("src", response.photos)
-        $('#applicantsLastname').html(response.lastname)           
-        $('#applicantsFirstname').html(response.firstname)           
-        $('#applicantsMiddlename').html(response.middlename)           
-        $('#applicantsExt').html(response.extention)           
-        $('#applicantsStatus').html(response.status)           
+        $('#applicantsLastname').html(response.lastname)
+        $('#applicantsFirstname').html(response.firstname)
+        $('#applicantsMiddlename').html(response.middlename)
+        $('#applicantsExt').html(response.extention)
+        $('#applicantsStatus').html(response.status)
         $('#applicantsPosition').html(response.position)
         $('#applicantsGender').html(response.Gender)
-        $('#applicantsAge').html(response.age)           
-        $('#applicantsAddress').html(response.address)           
-        $('#applicantsPnumber').html(response.phoneNumber)           
-        $('#applicantsEmail').html(response.emailAddress)   
+        $('#applicantsAge').html(response.age)
+        $('#applicantsAddress').html(response.address)
+        $('#applicantsPnumber').html(response.phoneNumber)
+        $('#applicantsEmail').html(response.emailAddress)
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId').attr("src", response.personal_id)
             $('#personalId2').attr("src", response.personal_id2)
         }else{
             $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
             $('#personalId2').attr("src","/storage/applicant_Id/noId.jpg")
-        }        
+        }
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',
             month: 'long',
             year: 'numeric'
         });
         var newDate = new Date(response.birthday);
-        $('#applicantsBirthday').html(dtFormat.format(newDate));    
-    })    
+        $('#applicantsBirthday').html(dtFormat.format(newDate));
+    })
     }
 // SHOW CERTAIN APPLICANTS DETAILS
+
+// VIEW SCHEDULE
+    function viewSchedule(id){
+        $('#viewScheduleDetails').modal('show')
+        $.ajax({
+            url: '/getSchedPerApplicant',
+            method: 'GET',
+            data: {applicantId: id},
+            success : function(data) {
+                $("#workersSched").html(data);
+            }
+        })
+    }
+// VIEW SCHEDULE
+
+// SET SCHEDULE
+    function setSchedule(applicantId, firstname , lastname){
+        localStorage.setItem('applicantId', applicantId);
+        localStorage.setItem('firstname', firstname);
+        localStorage.setItem('lastname', lastname);
+        $('#inviteWorkerModal').modal('show')
+        $.ajax({
+            url: '/inviteProjectWorker',
+            method: 'GET',
+            data: {applicantId: applicantId},
+            success:function(response){
+                var data = "";
+                for(i=0;i<response.length;i++){
+                    data+="<option value='"+response[i].certainOperation_id+"'>"+response[i].operationId+"</option>"
+                }
+                $('#operationId').html(data)
+            },
+            error:function(error){
+                console.log(error)
+            }
+        })
+    }
+
+    function fetchOperation() {
+        var operationId = $('#operationId').val();
+        $.ajax({
+            url: '/fetchOperation',
+            method: 'GET',
+            data: {operationId: operationId},
+            success : function(data) {
+                $("#fetchOperationData").html(data);
+            }
+        })
+    }
+
+    function recommendApplicantRecruit(id){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var applicantId = localStorage.getItem('applicantId');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to RECRUIT this applicant?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d72323',
+            confirmButtonText: 'Yes, Recruit it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                    $.ajax({
+                    url: "/recruitRecommendedApplicant",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {applicantId: applicantId, operationId: id},
+                    success: function(response) {
+                        if(response == 2){
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'RECRUIT FAILED',
+                                text: 'The project worker are already apply',
+                            })
+                        }else if(response == 1){
+                            Swal.fire({
+                                title: 'RECRUIT SUCCESSFULY',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then((result) => {
+                            if (result) {
+                                badgeRecommendApplicant();
+                                showOperationDetails();
+                                $('#viewRecommendedTable').DataTable().ajax.reload();
+                            }
+                            });
+                        }else if(response == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: 'Something wrong at the backend',
+                            })
+                        }else if(response == 4){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: 'No available slot on this operation'
+                            })
+                        }else if(response == 3){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: 'The Operation Was Already Done'
+                            })
+                        }else if(response){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: response,
+                            })
+                        }
+                    }
+                });
+            }
+        })
+    }
+// SET SCHEDULE
+

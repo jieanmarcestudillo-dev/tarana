@@ -1,5 +1,5 @@
     <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom pt-4 text-center">
+        <div class="sidebar-heading border-bottom pt-5 mt-3 text-center">
             <img class="scpiLogo" src="/assets/frontend/scpi.webp">
             <p class="portal pt-4">MANPOWER POOLING <BR> PORTAL</p>
         </div>

@@ -182,6 +182,7 @@
         
 
 @media (max-width: 900px) {
+
     .navbar {
         overflow-x: hidden !important;
         width: 100%;

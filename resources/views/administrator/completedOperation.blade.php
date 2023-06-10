@@ -76,7 +76,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/administrator/operation.js') }}"></script>
+        <script src="{{ asset('/js/administrator/operations.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 
@@ -88,7 +88,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-11">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">APPLICANTS PARTICIPATED</h1>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">PROJECT WORKERS JOINED</h1>
                             </div>
                             <div class="col-1">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -15,7 +15,7 @@ $(document).ready(function(){
 
 // FETCH CERTAIN OPERATION
     function showOperationDetails(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/showOperationDetails",
             method: 'GET',
@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 // FETCH RECOMMENDED APPLICANTS ON CERTAIN OPERATION
     function totalRecommendedApplicantsTable(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         var table = $('#viewRecommendedTable').DataTable({
             "language": {
                 "emptyTable": "No Applicants Found"
@@ -81,7 +81,7 @@ $(document).ready(function(){
                 }},
                 { "mData": function (data, type, row) {
                     return data.age+ " years old";
-                }},         
+                }},
                 { "mData": function (data, type, row) {
                     if(data.extention != null){
                         return data.employeeFirstName+ " " +data.employeeLastName+ " " +data.employeeExtension;
@@ -102,7 +102,7 @@ $(document).ready(function(){
             });
         }).draw();
     }
-// FETCH RECOMMENDED APPLICANTS ON CERTAIN OPERATION 
+// FETCH RECOMMENDED APPLICANTS ON CERTAIN OPERATION
 
 // RECRUIT RECOMMEND APPLICANTS
     function recommendApplicantRecruit(id){
@@ -111,7 +111,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var operationId = localStorage.getItem('operationId'); 
+        var operationId = localStorage.getItem('operationId');
         var applicantId = id;
         Swal.fire({
             title: 'Are you sure?',
@@ -154,17 +154,23 @@ $(document).ready(function(){
                                 title: 'RECRUIT FAILED',
                                 text: 'Something wrong at the backend',
                             })
-                        }else if(response == 3){
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'RECRUIT FAILED',
-                                text: 'the applicant are not available on that day because they are already scheduled for the same date and time. Please select another applicant.',
-                            })
                         }else if(response == 4){
                             Swal.fire({
                                 icon: 'error',
                                 title: 'RECRUIT FAILED',
-                                title: 'No available slot on this operation'
+                                text: 'No available slot on this operation'
+                            })
+                        }else if(response == 3){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: 'The Operation Was Already Done'
+                            })
+                        }else if(response){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'RECRUIT FAILED',
+                                text: response,
                             })
                         }
                     }
@@ -172,11 +178,11 @@ $(document).ready(function(){
             }
         })
     }
-// RECRUIT RECOMMEND APPLICANTS 
+// RECRUIT RECOMMEND APPLICANTS
 
 // CAMCEL RECOMMEND APPLICANTS
     function deleteRecommendApplicants(id){
-        var operationId = localStorage.getItem('operationId'); 
+        var operationId = localStorage.getItem('operationId');
         var applicantId = id;
         Swal.fire({
             title: 'Are you sure?',
@@ -305,7 +311,7 @@ $(document).ready(function(){
         // applicantExperienceRice();
         // applicantExperienceSoya();
         // applicantExperienceCable();
-        
+
         function applicantExperience(){
             $.ajax({
                 url: "/applicantExperience",
@@ -351,30 +357,30 @@ $(document).ready(function(){
         totalBackOutPerWorker();
         totalDeclinedPerWorker();
         $('#applicantsPhoto1').attr("src", response.photos)
-        $('#applicantsLastname1').html(response.lastname)           
-        $('#applicantsFirstname1').html(response.firstname)           
-        $('#applicantsMiddlename1').html(response.middlename)           
-        $('#applicantsExt1').html(response.extention)           
-        $('#applicantsStatus1').html(response.status)           
+        $('#applicantsLastname1').html(response.lastname)
+        $('#applicantsFirstname1').html(response.firstname)
+        $('#applicantsMiddlename1').html(response.middlename)
+        $('#applicantsExt1').html(response.extention)
+        $('#applicantsStatus1').html(response.status)
         $('#applicantsPosition1').html(response.position)
         $('#applicantsGender1').html(response.Gender)
-        $('#applicantsAge1').html(response.age)           
-        $('#applicantsAddress1').html(response.address)           
-        $('#applicantsPnumber1').html(response.phoneNumber)           
-        $('#applicantsEmail1').html(response.emailAddress)   
+        $('#applicantsAge1').html(response.age)
+        $('#applicantsAddress1').html(response.address)
+        $('#applicantsPnumber1').html(response.phoneNumber)
+        $('#applicantsEmail1').html(response.emailAddress)
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId1').attr("src", response.personal_id)
         }else{
             $('#personalId1').attr("src","/storage/applicant_id/noId.jpg")
-        }        
+        }
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',
             month: 'long',
             year: 'numeric'
         });
         var newDate = new Date(response[0].birthday);
-        $('#applicantsBirthday1').html(dtFormat.format(newDate));    
-    })    
+        $('#applicantsBirthday1').html(dtFormat.format(newDate));
+    })
     }
 // SHOW CERTAIN APPLICANTS DETAILS
 
@@ -433,36 +439,36 @@ $(document).ready(function(){
         totalBackOutPerWorker();
         totalDeclinedPerWorker();
         $('#applicantsPhoto').attr("src", response.photos)
-        $('#applicantsLastname').html(response.lastname)           
-        $('#applicantsFirstname').html(response.firstname)           
-        $('#applicantsMiddlename').html(response.middlename)           
-        $('#applicantsExt').html(response.extention)           
-        $('#applicantsStatus').html(response.status)           
+        $('#applicantsLastname').html(response.lastname)
+        $('#applicantsFirstname').html(response.firstname)
+        $('#applicantsMiddlename').html(response.middlename)
+        $('#applicantsExt').html(response.extention)
+        $('#applicantsStatus').html(response.status)
         $('#applicantsPosition').html(response.position)
         $('#applicantsGender').html(response.Gender)
-        $('#applicantsAge').html(response.age)           
-        $('#applicantsAddress').html(response.address)           
-        $('#applicantsPnumber').html(response.phoneNumber)           
-        $('#applicantsEmail').html(response.emailAddress)   
+        $('#applicantsAge').html(response.age)
+        $('#applicantsAddress').html(response.address)
+        $('#applicantsPnumber').html(response.phoneNumber)
+        $('#applicantsEmail').html(response.emailAddress)
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId').attr("src", response.personal_id)
         }else{
             $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
-        }        
+        }
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',
             month: 'long',
             year: 'numeric'
         });
         var newDate = new Date(response.birthday);
-        $('#applicantsBirthday').html(dtFormat.format(newDate));    
-    })    
+        $('#applicantsBirthday').html(dtFormat.format(newDate));
+    })
     }
 // SHOW CERTAIN APPLICANTS DETAILS
 
 // BADGE FOR APPLICANT TOTAL
     function badgeApplicantTotal(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeForTotalApplicants",
             method: 'GET',
@@ -476,7 +482,7 @@ $(document).ready(function(){
 
 // BADGE FOR APPLICANT TOTAL
     function badgeRecommendApplicant(){
-    operationId = localStorage.getItem('operationId'); 
+    operationId = localStorage.getItem('operationId');
     $.ajax({
         url: "/badgeForRecommendApplicants",
         method: 'GET',
@@ -490,7 +496,7 @@ $(document).ready(function(){
 
 // BADGE FOR APPLICANT TOTAL
     function badgeAcceptInvitation(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeAcceptInvitation",
             method: 'GET',
@@ -504,7 +510,7 @@ $(document).ready(function(){
 
 // BADGE FOR APPLICANT TOTAL
     function badgeForAll(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeForAll",
             method: 'GET',
@@ -518,7 +524,7 @@ $(document).ready(function(){
 
 // BADGE FOR RECRUITED APPLICANT
     function badgeForRecruitedApplicants(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeForRecruitedApplicants",
             method: 'GET',

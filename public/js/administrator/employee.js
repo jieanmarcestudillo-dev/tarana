@@ -33,11 +33,6 @@ $(document).ready(function(){
                 { "data": "middlename" },
                 { "data": "lastname" },
                 {
-                    mRender: function (data, type, row) {
-                        return 'Manpower Pooling';
-                    }
-                },
-                {
                     "data": "employee_id",
                     mRender: function (data, type, row) {
                         return '<button type="button" data-title="Edit Employee?" onclick=updateEmployees(' + data + ') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-pencil-square"></i></button> <button type="button" data-title="Deactivate This?" onclick=deactivateEmployees(' + data + ') class="btn rounded-0 btn-outline-danger btn-sm py-2 px-3"><i class="bi bi-archive-fill"></i></button> <a href="printCompanyEmployee/' + data + '" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print Recruiter?"><i class="bi bi-filetype-pdf"></i></a>';
@@ -61,7 +56,7 @@ $(document).ready(function(){
     }
 // FETCH ACTIVE EMPLOYEES FOR TABLES
 
-// FETCH INACTIVE EMPLOYEES FOR 
+// FETCH INACTIVE EMPLOYEES FOR
     function inactiveEmployeesTable(){
         var table = $('#inactiveEmployees').DataTable({
             "language": {
@@ -84,11 +79,6 @@ $(document).ready(function(){
                 {"data":"firstname"},
                 {"data":"middlename"},
                 {"data":"lastname"},
-                {
-                    mRender: function (data, type, row) {
-                        return 'Manpower Pooling';
-                    }
-                },               
                 {"data": "employee_id",
                     mRender: function (data, type, row) {
                     return '<button type="button" data-title="Edit Recruiter?" onclick=updateEmployees('+data+') class="btn rounded-0 btn-outline-secondary btn-sm px-3 py-2"><i class="bi bi-pencil-square"></i></button> <button data-title="Activate This?" type="button" onclick=activateEmployees('+data+') class="btn rounded-0 btn-outline-success btn-sm px-3 py-2"><i class="bi bi-person-check-fill"></i></button> <a href="printCompanyEmployees/'+data+'" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3" data-title="Print Recruiter?"><i class="bi bi-filetype-pdf"></i></a>'
@@ -117,28 +107,28 @@ $(document).ready(function(){
         })
         .done(function(response) {
             $('#employeePhoto').attr("src", response.photos)
-            $('#uniqueEmployeeId').val(response.employee_id)           
-            $('#employeeId').val(response.companyId)           
-            $('#employeeLastname').val(response.lastname)           
-            $('#employeeFirstname').val(response.firstname)           
-            $('#employeeMiddlename').val(response.middlename)          
-            $('#employeePosition').val(response.position)           
-            $('#employeeAge').val(response.age)           
-            $('#employeeStatus').val(response.status)  
-            $('#employeesSex').val(response.gender)           
-            $('#employeeBirthday').val(response.birthday)           
-            $('#employeeNationality').val(response.nationality)           
-            $('#employeeReligion').val(response.religion)           
-            $('#employeePnumber').val(response.phoneNumber)           
-            $('#employeeAddress').val(response.address)           
-            $('#employeeEmail').val(response.emailAddress)           
-            $('#employeeUsername').val(response.username)           
-            $('#employeePassword').val(response.password)   
+            $('#uniqueEmployeeId').val(response.employee_id)
+            $('#employeeId').val(response.companyId)
+            $('#employeeLastname').val(response.lastname)
+            $('#employeeFirstname').val(response.firstname)
+            $('#employeeMiddlename').val(response.middlename)
+            $('#employeePosition').val(response.position)
+            $('#employeeAge').val(response.age)
+            $('#employeeStatus').val(response.status)
+            $('#employeesSex').val(response.gender)
+            $('#employeeBirthday').val(response.birthday)
+            $('#employeeNationality').val(response.nationality)
+            $('#employeeReligion').val(response.religion)
+            $('#employeePnumber').val(response.phoneNumber)
+            $('#employeeAddress').val(response.address)
+            $('#employeeEmail').val(response.emailAddress)
+            $('#employeeUsername').val(response.username)
+            $('#employeePassword').val(response.password)
             if(response.extention != ''){
-                $('#employeeExt').val(response.extention)              
+                $('#employeeExt').val(response.extention)
             }else{
-                $('#employeeExt').val('none')              
-            }        
+                $('#employeeExt').val('none')
+            }
         })
     }
 // FETCH DATA FOR UPDATE EMPLOYEES
@@ -174,9 +164,9 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // DEACTIVATE ACCOUNT
-    
+
 // ACTIVATE ACCOUNT
     function activateEmployees(id){
         Swal.fire({
@@ -208,48 +198,95 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // ACTIVATE ACCOUNT
 
 // UPDATE EMPLOYEES ACCOUNT
     $(document).ready(function () {
         $('#editEmployeeForm').on( 'submit' , function(e){
             e.preventDefault();
-            var currentForm = $('#editEmployeeForm')[0];
-            var data = new FormData(currentForm);
-            $.ajax({
-                url: "/updateEmployees",
-                type:"POST",
-                method:"POST",
-                dataType: "text",
-                data:data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success:function(response){
-                    if(response == 1){
-                        // OPERATION SUBMIT SUCCESSFULY
-                        $('#activeEmployees').DataTable().ajax.reload();
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'EMPLOYEE HAS BEEN UPDATED',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }else{
-                        // SOMETHING WRONG IN BACKEND
-                        Swal.fire(
-                        'Added Failed',
-                        'Sorry operation has not stored',
-                        'error'
-                        )
+            if($('#employeePhoto').val() != ""){
+                var extension = /(\.jpg|\.jpeg|\.png)$/i;
+                if (!extension.exec($('#employeePhoto').val())) {
+                    Swal.fire(
+                    'Update Failed',
+                    'Sorry the file not supported',
+                    'error'
+                    )
+                }else{
+                var currentForm = $('#editEmployeeForm')[0];
+                var data = new FormData(currentForm);
+                $.ajax({
+                    url: "/updateEmployees",
+                    type:"POST",
+                    method:"POST",
+                    dataType: "text",
+                    data:data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(response){
+                        if(response == 1){
+                            // OPERATION SUBMIT SUCCESSFULY
+                            $('#activeEmployees').DataTable().ajax.reload();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'EMPLOYEE HAS BEEN UPDATED',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            // SOMETHING WRONG IN BACKEND
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry operation has not stored',
+                            'error'
+                            )
+                        }
+                    },
+                    error:function(error){
+                        console.log(error)
                     }
-                },
-                error:function(error){
-                    console.log(error)
-                }
-            }) 
+                });
+            }
+            }else{
+                var currentForm = $('#editEmployeeForm')[0];
+                var data = new FormData(currentForm);
+                $.ajax({
+                    url: "/updateEmployees",
+                    type:"POST",
+                    method:"POST",
+                    dataType: "text",
+                    data:data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(response){
+                        if(response == 1){
+                            // OPERATION SUBMIT SUCCESSFULY
+                            $('#activeEmployees').DataTable().ajax.reload();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'EMPLOYEE HAS BEEN UPDATED',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            // SOMETHING WRONG IN BACKEND
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry operation has not stored',
+                            'error'
+                            )
+                        }
+                    },
+                    error:function(error){
+                        console.log(error)
+                    }
+                });
+            }
         });
     });
 // UPDATE EMPLOYEES ACCOUNT
@@ -258,62 +295,123 @@ $(document).ready(function(){
     $(document).ready(function () {
         $('#addEmployeeForm').on( 'submit' , function(e){
             e.preventDefault();
-            var currentForm = $('#addEmployeeForm')[0];
-            var data = new FormData(currentForm);
-            $.ajax({
-                url: "/addEmployee",
-                type:"POST",
-                method:"POST",
-                dataType: "text",
-                data:data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success:function(response){
-                    if(response == 1){
-                        // OPERATION SUBMIT SUCCESSFULY
-                        $("#addEmployeeForm").trigger("reset");
-                        $("#fileImport").trigger("reset");
-                        $('#activeEmployees').DataTable().ajax.reload();
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'EMPLOYEE HAS BEEN UPDATED',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }else if(response == 2){
-                        Swal.fire(
-                        'Added Failed',
-                        'Sorry, The employee ID is already exist',
-                        'error'
-                        )
-                    }else if(response == 3){
-                        Swal.fire(
-                        'Added Failed',
-                        'Sorry, The employee EMAIL is already exist',
-                        'error'
-                        )
-                    }else{
-                        // SOMETHING WRONG IN BACKEND
-                        Swal.fire(
-                        'Added Failed',
-                        'Sorry employee has not stored',
-                        'error'
-                        )
+            if($('#addEmployeePhoto').val() != ""){
+                var extension = /(\.jpg|\.jpeg|\.png)$/i;
+                if (!extension.exec($('#addEmployeePhoto').val())) {
+                    Swal.fire(
+                    'Add Failed',
+                    'Sorry the file not supported',
+                    'error'
+                    )
+                }else{
+                var currentForm = $('#addEmployeeForm')[0];
+                var data = new FormData(currentForm);
+                $.ajax({
+                    url: "/addEmployee",
+                    type:"POST",
+                    method:"POST",
+                    dataType: "text",
+                    data:data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(response){
+                        if(response == 1){
+                            // OPERATION SUBMIT SUCCESSFULY
+                            $("#addEmployeeForm").trigger("reset");
+                            $("#fileImport").trigger("reset");
+                            $('#activeEmployees').DataTable().ajax.reload();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'EMPLOYEE HAS BEEN UPDATED',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else if(response == 2){
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry, The employee ID is already exist',
+                            'error'
+                            )
+                        }else if(response == 3){
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry, The employee EMAIL is already exist',
+                            'error'
+                            )
+                        }else{
+                            // SOMETHING WRONG IN BACKEND
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry employee has not stored',
+                            'error'
+                            )
+                        }
+                    },
+                    error:function(error){
+                        console.log(error)
                     }
-                },
-                error:function(error){
-                    console.log(error)
-                }
-            }) 
+                })
+            }
+            }else{
+                var currentForm = $('#addEmployeeForm')[0];
+                var data = new FormData(currentForm);
+                $.ajax({
+                    url: "/addEmployee",
+                    type:"POST",
+                    method:"POST",
+                    dataType: "text",
+                    data:data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success:function(response){
+                        if(response == 1){
+                            // OPERATION SUBMIT SUCCESSFULY
+                            $("#addEmployeeForm").trigger("reset");
+                            $("#fileImport").trigger("reset");
+                            $('#activeEmployees').DataTable().ajax.reload();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'EMPLOYEE HAS BEEN UPDATED',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else if(response == 2){
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry, The employee ID is already exist',
+                            'error'
+                            )
+                        }else if(response == 3){
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry, The employee EMAIL is already exist',
+                            'error'
+                            )
+                        }else{
+                            // SOMETHING WRONG IN BACKEND
+                            Swal.fire(
+                            'Added Failed',
+                            'Sorry employee has not stored',
+                            'error'
+                            )
+                        }
+                    },
+                    error:function(error){
+                        console.log(error)
+                    }
+                })
+            }
         });
     });
 // ADD EMPLOYEES ACCOUNT
 
-// GENERATE AGE 
+// GENERATE AGE
     function calculateAge() {
-        var birthDate = new Date(document.getElementById("addEmployeeBirthday").value); 
+        var birthDate = new Date(document.getElementById("addEmployeeBirthday").value);
         var birthDateDay = birthDate.getDate();
         var birthDateMonth = birthDate.getMonth();
         var birthDateYear = birthDate.getFullYear();
@@ -326,17 +424,25 @@ $(document).ready(function(){
         var calculateAge = 0;
 
         if(todayMonth > birthDateMonth) calculateAge  = todayYear - birthDateYear;
-        else calculateAge = todayYear - birthDateYear - 1; 
+        else calculateAge = todayYear - birthDateYear - 1;
 
         var outputValue = calculateAge;
         document.getElementById("addEmployeeAge").value = calculateAge;
     }
-// GENERATE AGE 
+// GENERATE AGE
 
 // IMPORT EMPLOYEE
     $(document).ready(function () {
         $('#importEmployeeForm').on( 'submit' , function(e){
             e.preventDefault();
+            var extension = /(\.xlsx)$/i;
+            // if (!extension.exec($('#addOperationPhoto').val())) {
+            //     Swal.fire(
+            //     'Import Failed',
+            //     'Sorry the file not supported',
+            //     'error'
+            //     )
+            // }else{
             var currentForm = $('#importEmployeeForm')[0];
             var data = new FormData(currentForm);
             $.ajax({
@@ -369,6 +475,7 @@ $(document).ready(function(){
                     }
                 }
             });
+            // }
         });
     });
 // IMPORT EMPLOYEE
@@ -394,15 +501,15 @@ $(document).ready(function(){
             "columns":[
                 {"data":"employee_id"},
                 {"data":"companyId"},
-                { 
+                {
                     data: {firstname : "firstname", lastname : "lastname", extention : "extention"},
                     mRender : function(data, type, full) {
                         if(data.extention == null){
-                            return data.firstname+' '+data.lastname+' '; 
+                            return data.firstname+' '+data.lastname+' ';
                         }else{
-                            return data.firstname+' '+data.lastname+' '+data.extention; 
+                            return data.firstname+' '+data.lastname+' '+data.extention;
                         }
-                    } 
+                    }
                 },
                 {"data": "employee_id",
                     mRender: function (data, type, row) {
@@ -452,5 +559,5 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // UNBLOCKED EmployeeS

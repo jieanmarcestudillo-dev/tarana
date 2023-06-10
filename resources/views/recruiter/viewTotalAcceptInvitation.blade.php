@@ -69,8 +69,8 @@
                                     <th class='text-center'>No.</th>
                                     <th class='text-center'>Project Workers</th>
                                     <th class='text-center'>Age</th>
-                                    <th class='text-center'>Recruit By</th>
-                                    <th class='text-center'>Actions</th>
+                                    <th class='text-center'>Accept / Recommend By</th>
+                                    <th class='text-center'>Details</th>
                                 </thead>
                                 <tbody class='text-center'></tbody>
                             </table>

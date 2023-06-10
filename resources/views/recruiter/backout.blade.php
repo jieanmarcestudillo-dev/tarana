@@ -48,12 +48,12 @@
                                 <div class="card shadow" style="height:8rem; border-radius:10px; background-color:#ffff;">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 <i class="fa-solid fa-ship"></i>
                                             </div>
-                                            <div class="col-8 text-center" style="line-height:19px; padding-top:1.4rem">
+                                            <div class="col-9 text-center" style="line-height:19px; padding-top:1.4rem">
                                                 <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalScbeduledOperation"></p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">SCHEDULE OPERATION</p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">SCHEDULED OPERATION</p>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="col-8 text-center" style="line-height:19px; padding-top:1.4rem">
                                                 <p class="card-text fw-bold" style="font-size: 2rem; color:#D72323;" id="totalBackout"></p>
-                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">BACK OUT</p>
+                                                <p class="card-text fw-bold" style="font-size: 13px; color:#D72323;">WORKERS BACK OUT</p>
                                             </div>
                                         </div>
                                     </div>

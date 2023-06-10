@@ -18,16 +18,16 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\employeesImport;
 use App\Imports\operationImport;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use PDF;
-use Session;
-use Hash;
-use Auth;
+use ZipArchive;
+
 
 class AdminController extends Controller
 {
     // ADMIN OPERATION FUNCTION
-        // ADMIN DASHBOARD 
-            // ROUTES 
+        // ADMIN DASHBOARD
+            // ROUTES
                 // ADMIN VISUALIZATION BLADE
                     public function adminDashboardRoutes(){
                         return view('administrator/dashboard');
@@ -70,18 +70,51 @@ class AdminController extends Controller
                 // TOTAL APPLICANTS
 
                 // VISUALIZATION
-                    public function visualization(Request $request){
-                        $data = operations::select(operations::raw('operationStart as monthName'), 
-                        operations::raw('count(*) as totalOperation'))
-                        ->where('is_completed', '=', 0)->groupBy('monthName')->get();
-                        foreach($data as $certainData){
-                            $newMonthName = Carbon::parse($certainData->monthName)->format('F');
-                            return response()->json($newMonthName);
+                    public function visualization(Request $request)
+                    {
+                        $distinctMonths = operations::selectRaw('DATE_FORMAT(operationStart, "%M") as monthName')
+                        ->whereRaw('MONTH(operationStart) BETWEEN 1 AND 12')
+                        ->groupBy('monthName')
+                        ->orderByRaw('MONTH(operationStart)')
+                        ->get();
+
+                    $months = $distinctMonths->pluck('monthName')->toArray();
+
+                    // Ensure January is the first month
+                    $januaryIndex = array_search('January', $months);
+                    if ($januaryIndex !== false) {
+                        $months = array_merge(array_slice($months, $januaryIndex), array_slice($months, 0, $januaryIndex));
+                    }
+
+                    $data = operations::selectRaw('DATE_FORMAT(operationStart, "%M") as monthName, COUNT(*) as totalOperation')
+                        ->groupBy('monthName')
+                        ->orderByRaw('MONTH(operationStart)')
+                        ->get();
+
+                    $operations = [];
+                    foreach ($data as $monthData) {
+                        $operations[$monthData->monthName] = $monthData->totalOperation;
+                    }
+
+                    foreach ($months as $month) {
+                        if (!isset($operations[$month])) {
+                            $operations[$month] = 0;
                         }
+                    }
+
+                    $formattedOperations = [];
+                    foreach ($months as $month) {
+                        $formattedOperations[] = $operations[$month];
+                    }
+
+                    return response()->json([
+                        'months' => $months,
+                        'operations' => $formattedOperations
+                    ]);
                     }
                 // VISUALIZATION
             // FETCH
-        // ADMIN DASHBOARD 
+        // ADMIN DASHBOARD
 
         // ADMIN OPERATION DASHBOARD
             // ROUTES
@@ -105,26 +138,26 @@ class AdminController extends Controller
             // ROUTES
 
             // FETCH
-                // UPCOMING OPERATION   
+                // UPCOMING OPERATION
                     public function getOperationData(Request $request){
-                        
-                        $data = operations::where([['is_completed','=',0],['is_archived','=',0]])->orderBy('operationStart')->get(); 
+
+                        $data = operations::where([['is_completed','=',0],['is_archived','=',0]])->orderBy('operationStart')->get();
                         return response()->json($data);
-                    } 
-                // UPCOMING OPERATION 
+                    }
+                // UPCOMING OPERATION
 
                 // COMPLETED OPERATION
                     public function getCompletedOperationData(Request $request){
                         $data = operations::where('is_completed' ,'=', 1)->get();
                         return response()->json($data);
-                    } 
+                    }
                 // COMPLETED OPERATION
 
                 // CERTAIN OPERATION
                     public function showCertainOperation(Request $request){
                         $data = operations::where('certainOperation_id', '=', $request->operationId)->first();
                         return response()->json($data);
-                    } 
+                    }
                 // CERTAIN OPERATION
 
                 // GENERATE ID
@@ -132,13 +165,13 @@ class AdminController extends Controller
                         $randomNumber = rand(00001,99999);
                         $year = date("Y");
                         echo $year.''.$randomNumber;
-                    }  
+                    }
                 // GENERATE ID
 
             // FETCH
 
             // ADD
-                public function addOperation(Request $request){ 
+                public function addOperation(Request $request){
                     date_default_timezone_set('Asia/Manila');
                     $currentDateTime = date('m-d-Y h:i A');
                     $newOperationStartDate = date('m-d-Y h:i A',strtotime($request->addOperationStart));
@@ -150,11 +183,11 @@ class AdminController extends Controller
                     }else if($newOperationStartDate == $newOperationEndDate){
                         // the date of both operation date and time must not the same';
                         return response()->json(2);
-                        exit();               
+                        exit();
                     }else if($newOperationEndDate < $newOperationStartDate ){
                         // invalid operation end date/time';
                         return response()->json(3);
-                        exit();    
+                        exit();
                     }else{
                         $filename = $request->file('addOperationPhoto');
                         $imageName =   time().rand() . '.' .  $filename->getClientOriginalExtension();
@@ -179,10 +212,10 @@ class AdminController extends Controller
             // ADD
 
             // UPDATE
-                public function updateOperation(Request $request){ 
+                public function updateOperation(Request $request){
                     // dd($request);
                     $currentDateTime = date('y-m-d h:i:a');
-                    $newOperationStart = date('y-m-d h:i:a', strtotime($request->operationStart)); 
+                    $newOperationStart = date('y-m-d h:i:a', strtotime($request->operationStart));
                     $newOperationEnd = date('y-m-d h:i:a', strtotime($request->operationEnd));
                     if($newOperationStart == $newOperationEnd){
                         // INVALID OPERATION START | DATE AND TIME
@@ -229,7 +262,7 @@ class AdminController extends Controller
                 public function cancelOperation(Request $request){
                     $cancelOperation = operations::where([['certainOperation_id', '=', $request->operationId]])->update(['is_archived' => 1]);
                     if($cancelOperation){
-                        $reasonOfCancel = cancelOperation::create([
+                        $reasonOfCancel = canceloperation::create([
                             'operation_id' => $request->operationId,
                             'reason' => $request->reason
                         ]);
@@ -260,33 +293,33 @@ class AdminController extends Controller
                     }
                 // INACTIVE EMPLOYEES ROUTES
 
-                // CURRENTLY UTILIZING 
+                // CURRENTLY UTILIZING
                     public function utilizedAppRecruiter(){
                         return view('administrator/utilizedAppRecruiter');
                     }
-                // CURRENTLY UTILIZING 
+                // CURRENTLY UTILIZING
             // ROUTES
 
             // FETCH
                 // ACTIVE EMPLOYEES DATA FOR TABLE
-                    public function getAllEmployeesData(Request $request){  
+                    public function getAllEmployeesData(Request $request){
                         $data = employees::where([['position', '=', 'Recruiter'],['is_active', '=', 1]])->get();
                         return response()->json($data);
-                    }  
+                    }
                 // ACTIVE EMPLOYEES DATA FOR TABLE
 
                 // INACTIVE EMPLOYEES DATA FOR TABLE
-                    public function getInactiveEmployees(Request $request){  
+                    public function getInactiveEmployees(Request $request){
                         $data = employees::where([['position', '=', 'Recruiter'],['is_active', '=', 0]])->get();
                         return response()->json($data);
-                    }  
+                    }
                 // INACTIVE EMPLOYEES DATA FOR TABLE
-                    
-                // FETCH SPECIFIC EMPLOYEES                   
-                    public function getCertainEmployee(Request $request){  
+
+                // FETCH SPECIFIC EMPLOYEES
+                    public function getCertainEmployee(Request $request){
                         $data = employees::where('employee_id', '=', $request->employeesId)->first();
                         return response()->json($data);
-                    }  
+                    }
                 // FETCH SPECIFIC EMPLOYEES
 
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
@@ -294,31 +327,31 @@ class AdminController extends Controller
                         $data = employees::where([['is_active', '=', 1],['is_utilized', '=', 1],
                         ['employee_id', '!=', auth()->guard('employeesModel')->user()->employee_id],])->get();
                         return response()->json($data);
-                    }  
+                    }
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
 
                 // DEACTIVATE EMPLOYEES
-                    public function deactivateEmployee(Request $request){  
+                    public function deactivateEmployee(Request $request){
                         $employee = employees::find($request->employee_id);
                         $employee->is_active = 0;
                         $employee->save();
-                    }  
+                    }
                 // DEACTIVATE EMPLOYEES
 
                 // ACTIVATE EMPLOYEES
-                    public function activateEmployee(Request $request){  
+                    public function activateEmployee(Request $request){
                         $employee = employees::find($request->employee_id);
                         $employee->is_active = 1;
                         $employee->save();
-                    }  
+                    }
                 // ACTIVATE EMPLOYEES
 
                 // UNUTILIZED APPLICANT
-                    public function unutilizedEmployee(Request $request){  
+                    public function unutilizedEmployee(Request $request){
                         $employees = employees::find($request->EmployeeId);
                         $employees->is_utilized = 0;
                         $employees->save();
-                    }  
+                    }
                 // UNUTILIZED APPLICANT
 
                 // UPDATE EMPLOYEES
@@ -330,7 +363,7 @@ class AdminController extends Controller
                             $imageData['employeePhoto'] = '/storage/'.$path;
                             $updateEmployee = employees::where('employee_id', $request->uniqueEmployeeId)->update([
                                 'companyId' => $request->employeeId,
-                                'photos' =>  $imageData['employeePhoto'], 
+                                'photos' =>  $imageData['employeePhoto'],
                                 'lastname' => $request->employeeLastname,
                                 'firstname' => $request->employeeFirstname,
                                 'middlename' => $request->employeeMiddlename,
@@ -357,7 +390,6 @@ class AdminController extends Controller
                                 'status' => $request->employeeStatus,
                                 'age' => $request->employeeAge,
                                 'birthday' => $request->employeeBirthday,
-                                'religion' => $request->employeeReligion,
                                 'address' => $request->employeeAddress,
                                 'phoneNumber' => $request->employeePnumber,
                                 'emailAddress' => $request->employeeEmail,
@@ -446,12 +478,12 @@ class AdminController extends Controller
                     }
                 // EMPLOYEES
 
-                // OPERATION 
+                // OPERATION
                     public function operationImport(Request $request){
                         $importOperation = Excel::import(new operationImport, $request->fileImport);
                         return response()->json($importOperation ? 1 : 0);
-                    } 
-                // OPERATION 
+                    }
+                // OPERATION
             // IMPORT
         // ADMIN EMPLOYEES DASHBOARD
 
@@ -507,44 +539,44 @@ class AdminController extends Controller
                     public function getAdminAllApplicantsData(Request $request){
                             $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro', '=' , 0]])->get();
                             return response()->json($data);
-                    }  
+                    }
                 // ALL ACTIVE APPLICANTS DATA
 
                 // ALL ACTIVE OLD APPLICANTS DATA
                     public function getAdminAllOldApplicantsData(Request $request){
                             $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro', '=' , 1]])->get();
                             return response()->json($data);
-                    }  
+                    }
                 // ALL ACTIVE OLD APPLICANTS DATA
 
                 // ALL INACTIVE APPLICANTS DATA
                     public function getInactiveApplicantsData(Request $request){
                         $data = applicants::where([['is_active', '=', 0], ['is_blocked', '!=', 1]])->get();
                         return response()->json($data);
-                    }  
+                    }
                 // ALL INACTIVE APPLICANTS DATA
 
                 // ALL INACTIVE APPLICANTS DATA
                         public function getInactiveOldApplicantsData(Request $request){
                             $data = applicants::where([['is_active', '=', 0], ['is_blocked', '!=', 1],['is_pro', '=' , 1]])->get();
                             return response()->json($data);
-                        }  
+                        }
                 // ALL INACTIVE APPLICANTS DATA
 
                 // ALL BLOCKED APPLICANTS DATA
                         public function getBlockedOldApplicantsData(Request $request){
                             $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
-                            ->where([['applicants.is_pro', '=' , 1],['blockedapplicants.is_archived', '=' , 0]])->get(['applicants.*', 'blockedapplicants.blockId', 
+                            ->where([['applicants.is_pro', '=' , 1],['blockedapplicants.is_archived', '=' , 0]])->get(['applicants.*', 'blockedapplicants.blockId',
                             'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
-                        }  
+                        }
                 // ALL BLOCKED APPLICANTS DATA
 
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
                         public function getCurrentlyUtilizing(Request $request){
                             $data = applicants::where([['is_active', '=', 1],['is_utilized', '=', 1]])->get();
                             return response()->json($data);
-                        }  
+                        }
                 // ALL APPLICANTS CURRENTLY USED APPLICATION
 
                 // ALL BLOCKED APPLICANTS DATA
@@ -553,53 +585,53 @@ class AdminController extends Controller
                             ->where([['applicants.is_pro', '=' , 0],['blockedapplicants.is_archived', '=' , 0]])
                             ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
-                        }  
+                        }
                 // ALL BLOCKED APPLICANTS DATA
-                
+
                 // FETCH SPECIFIC APPLICANTS
-                        public function viewApplicants(Request $request){ 
+                        public function viewApplicants(Request $request){
                             $data = applicants::where('applicant_id', '=', $request->applicantId)->first();
                             return response()->json($data);
-                        }  
+                        }
                 // FETCH SPECIFIC APPLICANTS
 
                 // DEACTIVATE APPLICANT
-                        public function deactivateApplicants(Request $request){  
+                        public function deactivateApplicants(Request $request){
                             $applicant = applicants::find($request->applicantId);
                             $applicant->is_active = 0;
                             $applicant->save();
-                        }  
+                        }
                 // DEACTIVATE APPLICANT
 
                 // ACTIVATE APPLICANT
-                    public function activateApplicant(Request $request){  
+                    public function activateApplicant(Request $request){
                         $applicant = applicants::find($request->applicantId);
                         $applicant->is_active = 1;
                         $applicant->save();
-                    }  
+                    }
                 // ACTIVATE APPLICANT
 
                 // UNUTILIZED APPLICANT
-                    public function unutilizedApplicant(Request $request){  
+                    public function unutilizedApplicant(Request $request){
                         $applicant = applicants::find($request->applicantId);
                         $applicant->is_utilized = 0;
                         $applicant->save();
-                    }  
+                    }
                 // UNUTILIZED APPLICANT
 
                 // BLOCKED APPLICANT
-                    public function blockedApplicant(Request $request){  
+                    public function blockedApplicant(Request $request){
                         // UPDATE DATA
                         $applicantUpdated = applicants::find($request->applicantId)->update(['is_active' => 0 , 'is_blocked' => 1]);
                         // INSERT DATA
                         $blockedApplicants = [
-                            'applicantId' => $request->applicantId, 
+                            'applicantId' => $request->applicantId,
                             'reason' => $request->reason,
                             'date_time_block' => now(),
                             'is_archived' => 0
                         ];
                         return response()->json(blockedApplicants::insert($blockedApplicants) ? 1 : 0);
-                    }  
+                    }
                 // BLOCKED APPLICANT
 
                 // UNBLOCK APPLICANT
@@ -618,12 +650,12 @@ class AdminController extends Controller
                         ->join('employees', 'completed.recruiter_id', '=', 'employees.employee_id')
                         ->where('completed.operation_id', '=', $request->operationId)->orderBy('completed.performanceRating' , 'desc')
                         ->select('completed.performanceRating','applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
-                        'applicants.extention AS applicantExtention', 'applicants.age','employees.lastname AS employeeLastName', 
+                        'applicants.extention AS applicantExtention', 'applicants.age','employees.lastname AS employeeLastName',
                         'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension')
                         ->get();
                         echo "
                         <table class='table table-bordered text-center align-middle'>
-                            <thead> 
+                            <thead>
                                 <tr>
                                     <th scope='col'>#</th>
                                     <th scope='col'>Applicant</th>
@@ -642,7 +674,7 @@ class AdminController extends Controller
                                         <td>Rating: $certainApplicantData->performanceRating%</td>
                                     </tr>
                                     ";
-                                }   
+                                }
                                     echo"
                             </tbody>
                         </table>";
@@ -661,10 +693,10 @@ class AdminController extends Controller
             public function getPersonalInfo(Request $request){
                 // FETCH ALL DATA
                     $data = employees::all()->where('employee_id' ,'=', auth()->guard('employeesModel')->user()->employee_id)
-                    ->first(); 
+                    ->first();
                     return response()->json($data);
                 // FETCH ALL DATA
-            }  
+            }
         // FETCH PERSONAL INFO | ACCOUNT
 
         // EDIT ADMIN ACCOUNT
@@ -730,7 +762,7 @@ class AdminController extends Controller
                     $update->password = Hash::make($request->input('confirmPassword'));
                     $update->save();
                     return response()->json(1);
-                }         
+                }
             }
         // UPDATE PASSWORD
 
@@ -740,7 +772,7 @@ class AdminController extends Controller
                 foreach($data as $certainData){
                     $operationInfo = [
                         'data' => $data
-                    ]; 
+                    ];
                 }
                 $pdf = PDF::loadView('fetch.admin.printOperation', $operationInfo)->setPaper('A4', 'portrait');
                 return $pdf->stream('operation_'.$certainData->operationId.'.pdf');
@@ -763,7 +795,7 @@ class AdminController extends Controller
                         'totalWorkers' => $operations->totalWorkers,
                         'slot' => $operations->slot,
                         'data' => $data,
-                    ]; 
+                    ];
                 }
                 $pdf = PDF::loadView('fetch.recruiter.recruiterCompleted', $operationCompleted);
                 return $pdf->stream('operation'.$operations->operationId.'.pdf');
@@ -776,7 +808,7 @@ class AdminController extends Controller
                 foreach($data as $count => $certainData){
                     $applicantInfo = [
                         'data' => $data
-                    ]; 
+                    ];
                 }
                 $pdf = PDF::loadView('fetch.applicants.applicantsInfo', $applicantInfo);
                 return $pdf->stream('Project_Worker_'.$certainData->lastname.','.$certainData->firstname.' '.$certainData->extention.'.pdf');
@@ -788,17 +820,17 @@ class AdminController extends Controller
                 $data = employees::where([['employee_id', '=', $id]])->get();
                 foreach($data as $count => $certainData){
                     $employeeInfo = [
-                        'data' => $data 
-                    ]; 
+                        'data' => $data
+                    ];
                 }
                 $pdf = PDF::loadView('fetch.admin.printEmployees', $employeeInfo);
                 return $pdf->stream('Manpower_Pooling_'.$certainData->lastname.','.$certainData->firstname.' '.$certainData->extention.'.pdf');
             }
         // PRINT COMPANY EMPLOYEE
-    
+
         // DOWNLOAD TEMPLATE
-            public function downloadTemplate($filename){
-                return response()->download('C:/xampp/htdocs/tarana/storage/app/public/template/'.$filename);
+            public function downloadExcel(){
+                return response()->download('C:/xampp/htdocs/tarana/public/storage/template/employeesImport.xlsx');
             }
         // DOWNLOAD TEMPLATE
 
@@ -808,7 +840,7 @@ class AdminController extends Controller
                         return view('administrator/backOutArchive');
                     }
                 // BACKOUT ARCHIVED ROUTES
-                
+
                 // DECLINED ARCHIVED ROUTES
                     public function adminDeclinedArchiveRoutes(){
                         return view('administrator/declinedArchive');
@@ -824,6 +856,12 @@ class AdminController extends Controller
                 // CANCELLED OPERATION ROUTES
                     public function adminCancelOperationArchiveRoutes(){
                         return view('administrator/cancelledOperation');
+                    }
+                // CANCELLED OPERATION ROUTES
+
+                // CANCELLED OPERATION ROUTES
+                    public function adminScheduleRoutes(){
+                        return view('administrator/operationSchedule');
                     }
                 // CANCELLED OPERATION ROUTES
 
@@ -858,13 +896,13 @@ class AdminController extends Controller
 
                     // CANCELLED OPERATION DATA
                         public function getCancelOperationData(Request $request){
-                            $data = operations::join('cancelOperation', 'cancelOperation.operation_id', '=', 'operations.certainOperation_id')
-                            ->select('operations.operationId','operations.shipName','operations.shipCarry','operations.operationStart', 
-                            'operations.operationEnd', 'cancelOperation.cancelOperation_id', 'cancelOperation.reason')
+                            $data = operations::join('canceloperation', 'canceloperation.operation_id', '=', 'operations.certainOperation_id')
+                            ->select('operations.operationId','operations.shipName','operations.shipCarry','operations.operationStart',
+                            'operations.operationEnd', 'canceloperation.cancelOperation_id', 'canceloperation.reason')
                             ->where([['is_completed','=',0],['is_archived','=',1]])
-                            ->get(); 
+                            ->get();
                             return response()->json($data);
-                        } 
+                        }
                     // CANCELLED OPERATION DATA
 
                     // ALL BLOCKED APPLICANTS DATA
@@ -872,12 +910,12 @@ class AdminController extends Controller
                             $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
                             ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
-                        }  
+                        }
                     // ALL BLOCKED APPLICANTS DATA
-                    
+
                     // VIEW REASON CANCELLED OPERATION
                         public function cancelOperationReason(Request $request){
-                            $reason = cancelOperation::select('reason')->where('cancelOperation_id', '=', $request->cancelOperationId)->first();
+                            $reason = canceloperation::select('reason')->where('cancelOperation_id', '=', $request->cancelOperationId)->first();
                             return response()->json($reason);
                         }
                     // VIEW REASON CANCELLED OPERATION
@@ -891,5 +929,96 @@ class AdminController extends Controller
                 // FETCH
 
         // ARCHIVE
+
+        // SHOW FORMED GROUP
+            public function adminFormedGroup(Request $request){
+                $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0]])->orderBy('operationStart')->get();
+                if($data->isNotEmpty()){
+                    foreach($data as $certainData){
+                        $startDate = date('F d, Y | D',strtotime($certainData->operationStart));
+                        $startTime = date('h:i: A ',strtotime($certainData->operationStart));
+                        $endDate = date('F d, Y | D',strtotime($certainData->operationEnd));
+                        $endTime = date('h:i: A ',strtotime($certainData->operationEnd));
+                        echo "
+                        <div class='card mb-3 shadow round'>
+                            <div class='row g-0'>
+                            <div class='col-md-3'>
+                                <img loading='lazy' src='$certainData->photos' class='card-img-top img-fluid img-thumdnail' style='height: 100%; width:100%;'>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class='card-body'>
+                                    <ul class='list-group list-group-flush'>
+                                        <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
+                                        <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
+                                        <li class='list-group-item fw-bold'>Slot:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->slot out of $certainData->totalWorkers Workers</a></li>
+                                        <li class='list-group-item fw-bold text-success'>Operation Start: </br>
+                                            <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>
+                                            <a class='nav-link text-dark'>Time: <span class='fw-normal'>$startTime</a>
+                                        </li>
+                                        <li class='list-group-item fw-bold text-danger'>Operation End: </br>
+                                            <a class='nav-link text-dark'>Date: <span class='fw-normal'>$endDate</span></br></a>
+                                            <a class='nav-link text-dark'>Time: <span class='fw-normal'>$endTime</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class='col-md-6'>
+                        ";
+                        $applicantData = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
+                        ->join('applicants', 'applied.applicants_id', '=', 'applicants.applicant_id')
+                        ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
+                        ->where([['applied.operation_id', '=', $certainData->certainOperation_id],['operations.certainOperation_id', '=', $certainData->certainOperation_id],
+                        ['applied.is_recruited', '!=' , 0]])
+                        ->select('applicants.applicant_id', 'applicants.lastname AS applicantLastName', 'applicants.firstname AS applicantFirstname',
+                        'applicants.extention AS applicantExtention', 'applicants.phoneNumber','employees.lastname AS employeeLastName',
+                        'employees.firstname AS employeeFirstName','employees.extention AS employeeExtension' )
+                        ->get();
+                        if($applicantData->isNotEmpty()){
+                            echo"
+                            <div class='card-body' style='height:300px; overflow-y:auto;'>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <h5 class='card-title text-start'>Project Workers Joined</h5>
+                                </div>
+                            </div>
+                                <table class='table table-bordered text-center align-middle'>
+                                    <thead>
+                                        <tr>
+                                            <th scope='col'>#</th>
+                                            <th scope='col'>Project Workers</th>
+                                            <th scope='col'>Phone Number</th>
+                                            <th scope='col'>Accept By</th>
+                                            <th scope='col'>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                            foreach($applicantData as $count => $certainApplicantData){
+                                $count = $count +1;
+                                echo"
+                                    <tr>
+                                        <td>$count
+                                            <input type='hidden' readonly value='$certainData->certainOperation_id' id='operationId' name='operationId'>
+                                        </td>
+                                        <td>$certainApplicantData->applicantFirstname $certainApplicantData->applicantLastName $certainApplicantData->applicantExtention</td>
+                                        <td>$certainApplicantData->phoneNumber</td>
+                                        <td>$certainApplicantData->employeeFirstName $certainApplicantData->employeeLastName $certainApplicantData->employeeExtension</td>
+                                        <td><button type='button' onclick='viewApplicants($certainApplicantData->applicant_id)' class='btn rounded-0 btn-outline-secondary btn-sm'>View</button></td>
+                                        </tr>
+                                        ";
+                                    }
+                                    echo "
+                                    </tbody>
+                                    </table>
+                                    ";
+                        }else{
+                            echo "<h5 class='text-center text-dark' style='margin-top:9rem;'>NO PROJECT WORKERS FOUND<br></h5>
+                            ";
+                        }echo "</div></div></div></div> ";
+                    }
+                }else{
+                    echo "<h5 class='fs-5 text-center' style='color:#800000; margin-top:16.5rem;'>NO SCHEDULED FOUND</h5>";
+                }
+            }
+        // SHOW FORMED GROUP
     }
     // ADMIN OPERATION FUNCTION

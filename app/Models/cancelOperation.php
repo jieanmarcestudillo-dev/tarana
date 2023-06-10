@@ -11,7 +11,7 @@ class cancelOperation extends Model
 
     protected $guard = 'cancelOperation';
 
-    protected $table = 'cancelOperation';
+    protected $table = 'canceloperation';
     
     protected $guard_name = 'web';
 

@@ -66,7 +66,7 @@
                                             <th class="text-center">Operation</th>
                                             <th class="text-center">Operation Start</th>
                                             <th class="text-center">Operation End</th>
-                                            <th class="text-center">Recommend By</th>
+                                            <th class="text-center">Accept / Recommend By</th>
                                             <th class="text-center">Reason</th>
                                         </tr>
                                     </thead>

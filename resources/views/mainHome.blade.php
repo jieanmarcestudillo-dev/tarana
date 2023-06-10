@@ -13,12 +13,12 @@
     @include('cdn')
 </head>
   <body class="has-fixed-navbar" data-bs-spy="scroll" data-bs-target="#navbar-wave" data-bs-smooth-scroll="true" tabindex="0">
-  
+
     <!-- HEADER -->
         <header id="header">
-        <nav class="navbar navbar-expand-md bg-white fixed-top ">
+        <nav class="navbar navbar-expand-md bg-white fixed-top">
             <div class="container">
-                <div class="navbar-brand fw-bold d-lg-block d-none">
+                <div class="navbar-brand fw-bold d-lg-block">
                     <img src="./assets/frontend/logo.webp" class="img-thumnail" width="50%">
                 </div>
             <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -33,7 +33,7 @@
                 <div class="offcanvas-body">
                 <ul id="navbar-wave" class="navbar-nav justify-content-end flex-grow-1 text-center mt-5 pt-5 mt-lg-0 pt-lg-0">
                     <li class="nav-item mt-5 pt-5 mt-lg-0 pt-lg-0">
-                        <a type="button" href="/applicantsAuthentication" class="btn py-2">Sign In</a> 
+                        <a type="button" href="/applicantsAuthentication" class="btn py-2">Sign In</a>
                     </li>
                     <li class="nav-item mt-2 pt-2 mt-lg-0 pt-lg-0">
                         <a type="button" href="/applicantSignUp" style="background-color:#800" class="btn text-white rounded-0 py-2 px-4 ms-2">Sign Up</a>
@@ -44,7 +44,7 @@
             </div>
         </nav>
 
-        <section id="scrollspyHome" class="wave-bg-white py-3 mt-xl-0 mt-xxl-0">
+        <section id="scrollspyHome" class="wave-bg-white py-lg-3 py-0 mt-xl-0 mt-xxl-0">
             <div class="container overflow-hidden">
             <div class="row gy-5 gy-lg-0 align-items-lg-center justify-content-lg-between">
                 <div class="col-12 col-lg-6 order-1 order-lg-0">
@@ -55,7 +55,7 @@
                 </div>
                 </div>
                 <div class="col-12 col-lg-5 text-center">
-                    <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto rounded-pill" loading="lazy" src="./assets/frontend/scpi_logo.png" style="height:100px; filter: brightness(60%);">
+                    <img class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto d-lg-block d-none" loading="lazy" src="./assets/frontend/container.png" style="height:60vh; width:100%; filter:brightness(60%);">
                 </div>
             </div>
             </div>
@@ -122,7 +122,7 @@
                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                         </svg>
                     </a>
-                    </div>            
+                    </div>
                     <div class="col-12 col-sm-6 col-lg-3">
                     <div class="badge wave-bg-cyan text-primary p-3 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-alarm" viewBox="0 0 16 16">
@@ -145,7 +145,7 @@
         <!-- SERVICES-->
 
         <!-- PORT IMAGES -->
-            <section class="px-2 py-8 py-xxl-16 background-position-center background-size-cover background-attachment-fixed bsb-overlay" style="background-image: url('./assets/frontend/cargo.webp');">
+            <section class="px-2 py-8 py-xxl-16 background-position-center background-size-cover background-attachment-fixed bsb-overlay" style="background-image: url('./assets/frontend/subic.png');">
                 <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-9 col-lg-8 col-xl-8 col-xxl-7">
@@ -389,7 +389,7 @@
                 <div class="container">
                 <div class="row gy-5 gy-lg-0 gx-lg-6 gx-xxl-8 align-items-lg-center">
                     <div class="col-12 col-lg-6">
-                    <img class="img-fluid rounded-0" loading="lazy" src="./assets/frontend/contact-img-1.webp" alt="">
+                    <img class="img-fluid rounded-0" loading="lazy" src="./assets/frontend/company.png" alt="">
                     </div>
                     <div class="col-12 col-lg-6">
                     <h2 class="h1 mb-3">Get in touch</h2>
@@ -574,5 +574,10 @@
         <script src="{{ asset('/js/mainHome/project-2.js') }}"></script>
         <script src="{{ asset('/js/mainHome/global.js') }}"></script>
     <!-- JS FUNCTION -->
+
+    <style>
+
+    </style>
+
   </body>
 </html>

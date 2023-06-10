@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         {{-- CARDS --}}
 
                         {{-- TABLES --}}
@@ -91,7 +91,7 @@
                                         <input type="text" id="operationId" name="operationId" class="text-white" style="outline: none; cursor:default;" readonly value="{{$certainData->certainOperation_id}}">
                                         @foreach($certainData->applicants as $count => $applicantInfo)
                                         <tr>
-                                            <td>{{$count = $count +1;}}</td>
+                                            <td>{{$count = $count +1}}</td>
                                             <td>{{$applicantInfo->firstname.' '.$applicantInfo->lastname.' '.$applicantInfo->extention}}</td>
                                             <td>{{$applicantInfo->phoneNumber}}</td>
                                             <td>{{$applicantInfo->age}} years old</td>

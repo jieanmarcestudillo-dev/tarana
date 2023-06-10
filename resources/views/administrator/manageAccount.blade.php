@@ -13,7 +13,7 @@
     <title>TARA NA</title>
 </head>
 <body>
-    
+
     <div class="d-flex" id="wrapper">
         {{-- SIDE NAV --}}
             @include('layouts.adminSidebar')
@@ -106,7 +106,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row gap-0">                                           
+                                        <div class="row gap-0">
                                             <div class="col-2">
                                                 <div class="mb-3">
                                                     <label class="form-label">Status: </label>
@@ -153,7 +153,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row gap-0">                              
+                                        <div class="row gap-0">
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Address</label>
@@ -177,7 +177,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/administrator/account.js') }}"></script>
+        <script src="{{ asset('/js/administrator/adminAccount.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 </body>

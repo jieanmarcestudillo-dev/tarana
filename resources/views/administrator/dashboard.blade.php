@@ -83,7 +83,7 @@
                                                 </div>
                                                 <div class="col-9 text-center" style="line-height:19px; padding-top:1.5rem">
                                                     <p class="card-text fw-bold pe-2" style="font-size: 2rem; color:#D72323;" id="totalForeman"></p>
-                                                    <p class="card-text fw-bold" style="font-size: 13px; letter-spacing:1px; color:#D72323;">TOTAL RECRUITER</p>
+                                                    <p class="card-text fw-bold" style="font-size: 13px; letter-spacing:1px; color:#D72323;">MANPOWER POOLING</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="col-9 text-center" style="line-height:19px; padding-top:1.5rem">
                                                     <p class="card-text fw-bold pe-2" style="font-size: 2rem; color:#D72323;" id="totalApplicants"></p>
-                                                    <p class="card-text fw-bold" style="font-size: 13px; letter-spacing:1px; color:#D72323;">TOTAL APPLICANTS</p>
+                                                    <p class="card-text fw-bold" style="font-size: 13px; letter-spacing:1px; color:#D72323;">PROJECT WORKERS</p>
                                                 </div>
                                             </div>
                                         </div>

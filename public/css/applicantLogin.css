@@ -139,6 +139,14 @@ section.right {
     color: #303841 !important;
 }
 
+#swal2-checkbox{
+    width: 5% !important;
+}
+
+.swal2-label{
+    padding-left: 1rem;
+}
+
 .form-check-input{
     padding: 0 5px !important;
 }

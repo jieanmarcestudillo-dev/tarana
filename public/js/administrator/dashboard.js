@@ -55,6 +55,7 @@ $(document).ready(function(){
     }
 // FUNCTION FOR SHOW TOTAL FOREMAM
 
+
 // VISUALIZATION
     function visualization(){
         $.ajax({
@@ -64,12 +65,12 @@ $(document).ready(function(){
                 if(data != ""){
                     const ctx = document.getElementById('myChart').getContext('2d');
                     new Chart(ctx, {
-                        type: 'bar',
+                        type: 'line',
                         data: {
-                        labels: [data[0].monthName],
+                        labels: data.months,
                         datasets: [{
                             label: '# of Operation Per Month',
-                            data : [data[0].totalOperations],
+                            data : data.operations,
                             borderWidth: 1,
                             backgroundColor: [
                                 '#800000',
@@ -82,6 +83,7 @@ $(document).ready(function(){
                         options: {
                             scales: {
                                 y: {
+                                    max: 15,
                                     beginAtZero: true
                                 },
                                 }

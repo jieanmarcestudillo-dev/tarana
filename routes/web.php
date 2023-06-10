@@ -13,14 +13,14 @@ use App\Http\Controllers\homeController;
 // EMPLOYEES USE
 
 // ADMINISTRATOR USE
-    use App\Http\Controllers\AdminController;  
+    use App\Http\Controllers\AdminController;
 // ADMINISTRATOR USE
 
 // RECRUITER USE
-    use App\Http\Controllers\RecruiterController;  
+    use App\Http\Controllers\RecruiterController;
 // RECRUITER USE
 
-    
+
 // Route::domain('tarana.mleystock-pile.com')->group(function(){
 // APPLICANT ROUTES
     // APPLICANT CREDENTIALS
@@ -85,6 +85,7 @@ use App\Http\Controllers\homeController;
             Route::get('adminDashboardRoutes', [AdminController::class,'adminDashboardRoutes'])->name('adminDashboardRoutes');
             Route::get('adminOperationRoutes', [AdminController::class,'adminOperationRoutes'])->name('adminOperationRoutes');
             Route::get('adminEmployeesRoutes', [AdminController::class,'adminEmployeesRoutes'])->name('adminEmployeesRoutes');
+            Route::get('adminScheduleRoutes', [AdminController::class,'adminScheduleRoutes'])->name('adminScheduleRoutes');
             Route::get('inactiveEmployees', [AdminController::class,'inactiveEmployees'])->name('inactiveEmployees');
             Route::get('adminApplicantsRoutes', [AdminController::class,'adminApplicantsRoutes'])->name('adminApplicantsRoutes');
             Route::get('inactiveApplicants', [AdminController::class,'inactiveApplicants'])->name('inactiveApplicants');
@@ -138,7 +139,7 @@ use App\Http\Controllers\homeController;
                 Route::get('getAdminAllOldApplicantsData', [AdminController::class,'getAdminAllOldApplicantsData']);
                 Route::get('getInactiveOldApplicantsData', [AdminController::class,'getInactiveOldApplicantsData']);
                 Route::get('getBlockedOldApplicantsData', [AdminController::class,'getBlockedOldApplicantsData']);
-                Route::get('downloadTemplate/{filename}', [AdminController::class,'downloadTemplate']);
+                Route::get('downloadExcel', [AdminController::class,'downloadExcel']);
                 Route::get('getBackOutArchivedForAdmin', [AdminController::class,'getBackOutArchivedForAdmin']);
                 Route::get('getDeclinedArchivedForAdmin', [AdminController::class,'getDeclinedArchivedForAdmin']);
                 Route::get('getArchivedBlockedApplicantsForAdmin', [AdminController::class,'getArchivedBlockedApplicantsForAdmin']);
@@ -149,12 +150,12 @@ use App\Http\Controllers\homeController;
                 Route::get('cancelOperationReason', [AdminController::class,'cancelOperationReason']);
                 Route::get('blockedReason', [AdminController::class,'blockedReason']);
                 Route::get('printOperation/{id}', [AdminController::class,'printOperation']);
+                Route::get('adminFormedGroup/', [AdminController::class,'adminFormedGroup']);
         // GET
 
         // POST
             Route::post('addOperation', [AdminController::class,'addOperation']);
             Route::post('updateOperation', [AdminController::class,'updateOperation']);
-            Route::post('updateEmployees', [AdminController::class,'updateEmployees']);
             Route::post('addEmployee', [AdminController::class,'addEmployee']);
             Route::post('generateOperationId', [AdminController::class,'generateOperationId']);
             Route::post('employeesImport', [AdminController::class,'employeesImport']);
@@ -241,8 +242,11 @@ use App\Http\Controllers\homeController;
             Route::get('declinedReason', [RecruiterController::class,'declinedReason']);
             Route::get('getBackOutArchivedForRecruiter', [RecruiterController::class,'getBackOutArchivedForRecruiter']);
             Route::get('getDeclinedArchivedForRecruiter', [RecruiterController::class,'getDeclinedArchivedForRecruiter']);
+            Route::get('getSchedPerApplicant', [RecruiterController::class,'getSchedPerApplicant']);
+            Route::get('inviteProjectWorker', [RecruiterController::class,'inviteProjectWorker']);
+            Route::get('fetchOperation', [RecruiterController::class,'fetchOperation']);
         // GET
-            
+
         // POST
             Route::post('submitApplicantAttendance',[RecruiterController::class,'submitApplicantAttendance']);
             Route::post('editRecruiterInfo', [RecruiterController::class,'editRecruiterInfo']);

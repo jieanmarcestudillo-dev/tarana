@@ -66,7 +66,7 @@
                                 <div class='col-2 text-end'>
                                     <button type='button' id='$certainData->certainOperation_id' class='btn btn-primary btn-sm rounded-0 px-3 py-2' onclick=recommendApplicantsModal(this.id)>Recommend</button>
                                 </div>
-                            </div>   
+                            </div>
                             <table class='table table-bordered text-center align-middle' id='viewRecommendedTable'>
                                 <thead class='text-center'>
                                     <th class='text-center'>No.</th>
@@ -87,7 +87,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/recruiter/viewRecommended.js') }}"></script>
+        <script src="{{ asset('/js/recruiter/viewRecommend.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 

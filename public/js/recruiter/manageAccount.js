@@ -10,6 +10,14 @@ $(document).ready(function(){
 // MANAGE EMPLOYEES
     $('#recruitInformationForm').on( 'submit' , function(e){
         e.preventDefault();
+        var extension = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!extension.exec($('#addOperationPhoto').val())) {
+            Swal.fire(
+            'Add Failed',
+            'Sorry the file not supported',
+            'error'
+            )
+        }else{
         var currentForm = $('#recruitInformationForm')[0];
         var data = new FormData(currentForm);
             $.ajax({
@@ -49,7 +57,8 @@ $(document).ready(function(){
                 error:function(error){
                     console.log(error)
                 }
-            }) 
+            });
+        }
     });
 // MANAGE EMPLOYEES
 
@@ -61,31 +70,31 @@ $(document).ready(function(){
             dataType: 'json',
         })
         .done(function(response) {
-            $('#uniqueEmployeeId').val(response[0].employee_id)           
-            $('#updateCompanyId').val(response[0].companyId)           
-            $('#updateEmployeeLastname').val(response[0].lastname)           
-            $('#updateEmployeeFirstname').val(response[0].firstname)           
-            $('#updateEmployeeMiddlename').val(response[0].middlename)           
-            $('#employeesStatus').val(response[0].status)           
-            $('#employeesPosition').val(response[0].position)           
-            $('#updateEmployeeAge').val(response[0].age)           
-            $('#updateEmployeeAddress').val(response[0].address)           
-            $('#updateEmployeeStatus').val(response[0].status)           
-            $('#updateEmployeeBirthday').val(response[0].birthday)           
-            $('#updateEmployeePnumber').val(response[0].phoneNumber)           
-            $('#updateEmployeeEmail').val(response[0].emailAddress)        
-            $('#updateEmployeesSex').val(response[0].gender)  
-            $('#empUsername').val(response[0].username)  
+            $('#uniqueEmployeeId').val(response[0].employee_id)
+            $('#updateCompanyId').val(response[0].companyId)
+            $('#updateEmployeeLastname').val(response[0].lastname)
+            $('#updateEmployeeFirstname').val(response[0].firstname)
+            $('#updateEmployeeMiddlename').val(response[0].middlename)
+            $('#employeesStatus').val(response[0].status)
+            $('#employeesPosition').val(response[0].position)
+            $('#updateEmployeeAge').val(response[0].age)
+            $('#updateEmployeeAddress').val(response[0].address)
+            $('#updateEmployeeStatus').val(response[0].status)
+            $('#updateEmployeeBirthday').val(response[0].birthday)
+            $('#updateEmployeePnumber').val(response[0].phoneNumber)
+            $('#updateEmployeeEmail').val(response[0].emailAddress)
+            $('#updateEmployeesSex').val(response[0].gender)
+            $('#empUsername').val(response[0].username)
             if(response[0].extention != ''){
-                $('#updateEmployeeExt').val(response[0].extention)           
+                $('#updateEmployeeExt').val(response[0].extention)
             }else{
-                $('#updateEmployeeExt').val      
-            }    
+                $('#updateEmployeeExt').val
+            }
             if(response[0].photos != ''){
                 $('#updateEmployeePhoto').attr("src",response[0].photos)
             }else{
                 $('#updateEmployeePhoto').attr("src","/storage/employees/defaultImage.png")
-            }      
+            }
         })
     }
 // FETCH INFO MANAGE ACCOUNT
@@ -132,7 +141,7 @@ $(document).ready(function(){
                 error:function(error){
                     console.log(error)
                 }
-            }) 
+            })
     });
 // MANAGE CREDENTIALS
 
@@ -147,7 +156,7 @@ $(document).ready(function(){
             x.type="password";
             a.type="password";
         }
-        
+
     }
 // FUNCTION FOR PASSWORD ENABLE
 
@@ -165,7 +174,7 @@ $(document).ready(function(){
             a.type="password";
             b.type="password";
         }
-        
+
     }
 // FUNCTION FOR PASSWORD ENABLE
 
@@ -204,13 +213,13 @@ $(document).ready(function(){
                         'UPDATE FAILED',
                         'Sorry current password was not correct',
                         'error'
-                    )   
+                    )
                 }
             },
             error:function(error){
                 console.log(error)
             }
-        }) 
+        })
     }
 
     });

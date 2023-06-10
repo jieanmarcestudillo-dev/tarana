@@ -64,8 +64,7 @@
                                                 <th class="text-center">First Name</th>
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
-                                                <th class="text-center">Position</th>
-                                                <th class="text-center col-2">Actions</th>
+                                                <th class="text-center col-3">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -79,7 +78,7 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/administrator/employees.js') }}"></script>
+        <script src="{{ asset('/js/administrator/employee.js') }}"></script>
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
@@ -130,7 +129,7 @@
                                     <div class="col-3">
                                         <label class="form-label">Extention:</label>
                                         <select class="form-select" aria-label="Default select example" id="employeeExt" name="employeeExt">
-                                            <option value="None">None</option>
+                                            <option value="">None</option>
                                             <option value="Sr.">Sr.</option>
                                             <option value="Jr.">Jr.</option>
                                         </select>
@@ -166,7 +165,7 @@
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select>
-                                    </div>                               
+                                    </div>
                                 </div>
                                 <div class="row mt-3 g-2">
                                     <div class="col-4">

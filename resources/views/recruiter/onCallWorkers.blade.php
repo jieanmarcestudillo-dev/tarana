@@ -61,7 +61,7 @@
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Age</th>
-                                                <th class="text-center">Phone Number</th>
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Actions</th>
                                             </tr>
                                         </thead>
@@ -143,7 +143,7 @@
                                         <div class="col-5">
                                             <div class="card" style="height:442px; overflow-y:auto;">
                                                 <div class="card-header bg-white">
-                                                    <h5 class="card-title">Latest Works</h5>
+                                                    <h5 class="card-title">Latest Work</h5>
                                                 </div>
                                                 <div class="card-body" id="showExperience">
                                                     {{-- <ul class="list-group text-center">
@@ -165,6 +165,56 @@
                 </div>
             </div>
         {{-- SHOW DETAILS OF APPLICANTS --}}
+
+        {{-- PROJECT WORKERS SCHEDULE --}}
+            <div class="modal fade" id="viewScheduleDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <h5 class="modal-title">Project Workers Schedule</h5>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row" id="workersSched"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {{-- PROJECT WORKERS SCHEDULE --}}
+
+        {{-- INVITE THE PROJECT WORKERS --}}
+            <div class="modal fade" id="inviteWorkerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <h5 class="modal-title">Send Invitation</h5>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="row" id="workersSched">
+                            <div class="my-3 col-5">
+                                <label class="form-label ms-1">Operation Id:</label>
+                                <select class="form-select rounded-0" id="operationId" value="" onchange="fetchOperation(this.val)"></select>
+                            </div>
+                            <div class="my-3 col-7">
+                                <label class="form-label ms-1 rounded-0">Project Workers:</label>
+                                <input type="text" class="text form-control" id="workersInvitation" value="Jiean Estudillo">
+                            </div>
+                        </div>
+                        <div class="row" id="fetchOperationData"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {{-- INVITE THE PROJECT WORKERS --}}
     {{-- MODAL --}}
 </body>
 </html>

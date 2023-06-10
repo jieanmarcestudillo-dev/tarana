@@ -4,14 +4,14 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    recruiterFormedGroup();
+    schedule();
     $('#applicantsAttendance').DataTable();
 });
 
 // SHOW TOTAL OPERATIONS
-    function recruiterFormedGroup(){
+    function schedule(){
         $.ajax({
-            url: "/recruiterFormedGroup",
+            url: "/adminFormedGroup",
             method: 'GET',
             success : function(data) {
                 $("#showFormedGroup").html(data);
@@ -165,100 +165,6 @@ $(document).ready(function(){
 // SHOW CERTAIN APPLICANTS DETAILS
 
 // FUNCTION
-    // SUBMIT ATTENDANCE
-        $("body").delegate("#operationCompleteBtn","click",function(e){
-            applicantId = [];
-            var operationId = $('#operationId').val();
-            var currentForm = $('#submitAttendanceForm')[0];
-            var data = new FormData(currentForm);
-            $(':checkbox:checked').each(function(applicant){
-                applicantId[applicant] = $(this).val();
-            });
-            if(applicantId.length === 0){
-                Swal.fire(
-                'CANNOT SUBMIT',
-                'Check the checkbox of an applicant who attend',
-                'error'
-                )
-            }else{
-                Swal.fire({
-                    icon: 'question',
-                    title: 'Are you sure?',
-                    text: "Do you want to COMPLETE this operation?",
-                    input: 'text',
-                    inputPlaceholder: 'Enter your password to confirm',
-                    inputAttributes: {autocapitalize: 'off'},
-                    showCancelButton: true,
-                    confirmButtonText: 'Submit',
-                    }).then((response) => {
-                    if(response.value === ""){
-                        Swal.fire(
-                            'Cancel Failed',
-                            'Please Enter Your Password',
-                            'error'
-                        )
-                    }else{
-                        $.ajax({
-                            url: '/confirmationPassword',
-                            type: 'GET',
-                            dataType: 'text',
-                            data: {employeePassword: response.value},
-                            success:function(response2){
-                                if(response2 == 1){
-                                    $.ajax({
-                                        url: '/submitApplicantAttendance',
-                                        method: 'POST',
-                                        dataType: 'text',
-                                        data:data,
-                                        cache: false,
-                                        contentType: false,
-                                        processData: false,
-                                        success: function(response3) {
-                                            if(response3 == 1){
-                                                Swal.fire({
-                                                    title: 'OPERATION WAS COMPLETE SUCCESSFULLY',
-                                                    icon: 'success',
-                                                    showConfirmButton: false,
-                                                    timer: 1500,
-                                                }).then((result) => {
-                                                if (result) {
-                                                    window.location = "/recruiterCompletedRoutes";
-                                                    recruiterFormedGroup();
-                                                }
-                                                });
-                                            }else if(response3 == 2){
-                                                Swal.fire(
-                                                    'SUBMIT FAILED',
-                                                    'The operation was not already done',
-                                                    'error'
-                                                )
-                                            }else{
-                                                console.log(response3);
-                                            }
-                                        }
-                                    });
-                                }else if(response2 == 0){
-                                    Swal.fire(
-                                    'Wrong Password',
-                                    'Please re-type your password',
-                                    'error'
-                                    )
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    // SUBMIT ATTENDANCE
-
-    // REDIRECT TO SPECIFIC OPERATION
-        function recruitRecommendedRoutes(id){
-            localStorage.setItem('operationId', id);
-            window.location.href = '/recruitRecommendedRoutes';
-        }
-    // REDIRECT TO SPECIFIC OPERATION
-
     // ENABLE BUTTON
         $(function() {
             const isAttendCheckBox = document.getElementsByClassName('isAttend');

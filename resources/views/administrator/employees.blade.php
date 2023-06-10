@@ -56,7 +56,7 @@
                                         <a class="nav-link" href="/utilizedAppRecruiter">Currently Active</a>
                                     </li>
                                     <li class="nav-item ms-auto">
-                                        <a href="{{ url('downloadTemplate/employeesImport.xlsx') }}" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
+                                        <a href="/downloadExcel" class="btn btn-secondary ms-auto py-2 px-3 btn-sm rounded-0 mb-1">Download Template <i class="bi bi-file-earmark-arrow-down"></i></a>
                                         <button type="button" class="btn btn-success ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#importExcel">Import Employee <i class="bi bi-file-earmark-excel"></i></button>
                                         <button type="button" class="btn btn-primary ms-auto py-2 px-3 btn-sm rounded-0 mb-1" data-bs-toggle="modal" data-bs-target="#addEmployeesModal">Add Employees <i class="bi bi-plus-lg"></i></button>
                                     </li>
@@ -68,7 +68,6 @@
                                                 <th class="text-center">First Name</th>
                                                 <th class="text-center">Middle Name</th>
                                                 <th class="text-center">Last Name</th>
-                                                <th class="text-center">Position</th>
                                                 <th class="text-center col-2">Actions</th>
                                             </tr>
                                         </thead>
@@ -82,7 +81,7 @@
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/administrator/employees.js') }}"></script>
+        <script src="{{ asset('/js/administrator/employee.js') }}"></script>
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
@@ -170,25 +169,15 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3 g-2">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label">Phone Number:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeePnumber" name="addEmployeePnumber">
                                     </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Nationality:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeNationality" name="addEmployeeNationality">
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label">Religion:</label>
-                                        <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeReligion" name="addEmployeeReligion">
-                                    </div>
-                                </div>
-                                <div class="row mt-3 g-2">
-                                    <div class="col-8">
+                                     <div class="col-6">
                                         <label class="form-label">Address:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="addEmployeeAddress" name="addEmployeeAddress">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label">Email Address:</label>
                                         <input type="email" class="form-control shadow-sm bg-body rounded" required id="addEmployeeEmail" name="addEmployeeEmail">
                                     </div>
@@ -237,7 +226,7 @@
                                     </div>
                                     <div class="col-5" style="padding-top: 6rem;">
                                         <label class="form-label">Employee Photo:</label>
-                                        <input type="file" class="form-control shadow-sm bg-body rounded" name="employeePhoto" 
+                                        <input type="file" class="form-control shadow-sm bg-body rounded" name="employeePhoto"
                                         accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
                                     </div>
                                     <div class="col-4 text-center">
@@ -260,7 +249,7 @@
                                     <div class="col-3">
                                         <label class="form-label">Extention:</label>
                                         <select class="form-select" aria-label="Default select example" id="employeeExt" name="employeeExt">
-                                            <option value="None">None</option>
+                                            <option value="">None</option>
                                             <option value="Sr.">Sr.</option>
                                             <option value="Jr.">Jr.</option>
                                         </select>
@@ -298,7 +287,7 @@
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select>
-                                    </div>                               
+                                    </div>
                                 </div>
                                 <div class="row mt-3 g-2">
                                     <div class="col-6">

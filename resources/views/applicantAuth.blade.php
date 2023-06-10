@@ -39,7 +39,7 @@
                                 <input type="checkbox" class="form-check-input ms-1" onclick="seePassword()">
                                 <label class="form-check-label">Show Password</label>
                             </div>
-                                <button type="submit" class="btn rounded-pill">SUBMIT</button>
+                                <button type="submit" class="btn rounded-0">SUBMIT</button>
                             <ul class="navbar-nav text-center">
                                 <li class="nav-item"><a href="#" class="nav-link bottomLink">Already Have an Account?</a></li>
                             </ul>
@@ -73,9 +73,9 @@
                                 <label class="form-check-label">Show Password</label>
                             </div>
                             <ul class="navbar-nav text-center">
-                                <li class="nav-item"><a href="/forgotPasswordRoutes" class="nav-link">Forgot Password?</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Forgot Password?</a></li>
                             </ul>
-                                <button type="submit" id="appLoginBtn" name="appLoginBtn" class="btn rounded-pill">LOGIN</button>
+                                <button type="submit" id="appLoginBtn" name="appLoginBtn" class="btn rounded-0">LOGIN</button>
                             <ul class="navbar-nav text-center">
                                 <li class="nav-item"><a href="#" class="nav-link bottomLink">Create Your Account</a></li>
                             </ul>
@@ -87,7 +87,18 @@
     {{-- END OF CONTENT --}}
 
     {{-- JS --}}
-        <script src="{{ asset('/js/applicantsAuthentication.js') }}"></script>
+        <script src="{{ asset('/js/applicantsAuth.js') }}"></script>
     {{-- JS --}}
+    <!---->
+        <style>
+             #swal2-checkbox{
+                width: 4% !important;
+            }
+
+            .swal2-label{
+                padding-left: 1rem;
+            }
+        </style>
+    <!---->
 </body>
 </html>

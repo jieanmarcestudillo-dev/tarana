@@ -14,13 +14,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-8 left text-white text-center">
-                 
+
                 </div>
                 <div class="col-4 right text-center px-5">
                     <a class='homeButton2' href="/" data-title='Back to Home?'><i class="bi bi-house"></i></a>
                     <form class="employeesLoginForm" name="employeesLoginForm" id="employeesLoginForm">
                         @csrf
-                        <img class="border-0 logo mt-5 pt-2" src="{{ URL('/assets/frontend/scpi.webp')}}">
+                        <img class="border-0 logo mt-5 pt-5" src="{{ URL('/assets/frontend/scpi.webp')}}">
                         <h5 class="welcome">Employees Portal</h5>
                         <div class="form-floating mb-3 textBox pt-2 text-start">
                             <input type="email" required class="form-control" name="employeesEmail" id="employeesEmail" placeholder="Email" required>
