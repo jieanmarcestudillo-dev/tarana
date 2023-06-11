@@ -75,6 +75,7 @@ use App\Http\Controllers\homeController;
 // EMPLOYEES ROUTES
     Route::get('employeesLoginRoutes', [EmployeesController::class,'employeesLoginRoutes'])->name('login');
     Route::get('/', [homeController::class,'tarana'])->name('tarana');
+    Route::get('termsandcondition', [homeController::class,'termsandcondition'])->name('termsandcondition');
     Route::get('employeesLogoutFunction', [EmployeesController::class,'employeesLogoutFunction'])->name('employeesLogoutFunction');
     Route::post('employeesLoginFunction', [EmployeesController::class,'employeesLoginFunction']);
 // EMPLOYEES ROUTES
@@ -151,6 +152,8 @@ use App\Http\Controllers\homeController;
                 Route::get('blockedReason', [AdminController::class,'blockedReason']);
                 Route::get('printOperation/{id}', [AdminController::class,'printOperation']);
                 Route::get('adminFormedGroup/', [AdminController::class,'adminFormedGroup']);
+                Route::get('getHighestRating/', [AdminController::class,'getHighestRating']);
+                Route::get('mostCommonCargo/', [AdminController::class,'mostCommonCargo']);
         // GET
 
         // POST

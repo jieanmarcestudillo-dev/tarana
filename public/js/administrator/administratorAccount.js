@@ -10,9 +10,9 @@ $(document).ready(function(){
 // MANAGE EMPLOYEES
     $('#updateAdminAccountForm').on( 'submit' , function(e){
         e.preventDefault();
-        if($('#updateEmployeePhoto').val() != ""){
+        if($('#updateEmployeePhoto1').val() != ""){
             var extension = /(\.jpg|\.jpeg|\.png)$/i;
-            if (!extension.exec($('#updateEmployeePhoto').val())) {
+            if (!extension.exec($('#updateEmployeePhoto1').val())) {
                 Swal.fire(
                 'Add Failed',
                 'Sorry the file not supported',

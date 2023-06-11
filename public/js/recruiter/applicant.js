@@ -274,7 +274,7 @@ $(document).ready(function(){
         var applicantId = localStorage.getItem('applicantId');
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want to RECRUIT this applicant?",
+            text: "Do you want to INVITE this applicant?",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

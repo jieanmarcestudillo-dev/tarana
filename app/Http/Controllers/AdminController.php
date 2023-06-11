@@ -113,6 +113,47 @@ class AdminController extends Controller
                     ]);
                     }
                 // VISUALIZATION
+
+                // GET HIGHEST RATING
+                    public function getHighestRating(Request $request){
+                        $data = applicants::join('completed', 'applicants.applicant_id', '=', 'completed.applicant_id')
+                        ->select(
+                            'applicants.applicant_id',
+                            'applicants.lastname',
+                            'applicants.firstname',
+                            'applicants.extention',
+                            'applicants.age',
+                            \DB::raw('AVG(completed.performanceRating) as averageRating')
+                        )
+                        ->orderBy('averageRating', 'desc')
+                        ->groupBy('applicants.applicant_id', 'applicants.lastname', 'applicants.firstname', 'applicants.extention', 'applicants.age')
+                        ->limit(10)
+                        ->get();
+                        return response()->json($data);
+                    }
+                // GET HIGHEST RATING
+
+                // MOST COMMON CARGO
+                    public function mostCommonCargo(Request $request){
+                        $data = operations::where([
+                            ['is_completed', '=', 1]
+                        ])
+                        ->orderBy('operationStart')
+                        ->select('shipCarry', \DB::raw('COUNT(*) as count'))
+                        ->groupBy('shipCarry')
+                        ->get();
+
+                    $shipCarry = $data->pluck('shipCarry');
+                    $count = $data->pluck('count');
+
+                    $response = [
+                        'shipCarry' => $shipCarry,
+                        'count' => $count
+                    ];
+
+                    return response()->json($response);
+                    }
+                // MOST COMMON CARGO
             // FETCH
         // ADMIN DASHBOARD
 
@@ -908,6 +949,7 @@ class AdminController extends Controller
                     // ALL BLOCKED APPLICANTS DATA
                         public function getArchivedBlockedApplicantsForAdmin(Request $request){
                             $data = applicants::join('blockedapplicants', 'applicants.applicant_id', '=', 'blockedapplicants.applicantId')
+                            ->orderBy('blockedapplicants.date_time_block', 'DESC')
                             ->get(['applicants.*', 'blockedapplicants.blockId', 'blockedapplicants.reason', 'blockedapplicants.date_time_block']);
                             return response()->json($data);
                         }
@@ -948,8 +990,8 @@ class AdminController extends Controller
                             <div class='col-md-3'>
                                 <div class='card-body'>
                                     <ul class='list-group list-group-flush'>
-                                        <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
-                                        <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
+                                        <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
+                                        <li class='list-group-item fw-bold'>Ship Load:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
                                         <li class='list-group-item fw-bold'>Slot:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->slot out of $certainData->totalWorkers Workers</a></li>
                                         <li class='list-group-item fw-bold text-success'>Operation Start: </br>
                                             <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>

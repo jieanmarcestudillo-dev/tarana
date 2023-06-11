@@ -66,7 +66,7 @@
                                                 <th class="text-center">Full Name</th>
                                                 <th class="text-center">Phone Number</th>
                                                 <th class="text-center">Reason</th>
-                                                <th class="text-center col-2">Actions</th>
+                                                <th class="text-center col-3">Actions</th>
                                             </tr>
                                         </thead>
                                     </table>

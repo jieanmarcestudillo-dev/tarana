@@ -478,7 +478,7 @@
                             <a href="#!" class="link-secondary text-decoration-none">Advertise</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#!" class="link-secondary text-decoration-none">Terms of Service</a>
+                            <a href="/termsandcondition" class="link-secondary text-decoration-none">Terms and condition</a>
                         </li>
                         <li class="mb-0">
                             <a href="/employeesLoginRoutes" class="link-secondary text-decoration-none">Employees Login</a>

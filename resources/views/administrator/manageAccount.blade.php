@@ -66,7 +66,7 @@
                                             <div class="col-6 pt-5" >
                                                 <div class="mb-3">
                                                     <label class="form-label" style="padding-top: 50px">Profile Picture:</label>
-                                                    <input class="form-control shadow-sm bg-body rounded-0" type="file" name="updateEmployeePhoto" accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
+                                                    <input class="form-control shadow-sm bg-body rounded-0" type="file" id="updateEmployeePhoto1" name="updateEmployeePhoto" accept="image/png, image/jpg, image/jpeg, image/gif, image/svg">
                                                 </div>
                                             </div>
                                             <div class="col-3 text-center">
@@ -177,7 +177,7 @@
 
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
-        <script src="{{ asset('/js/administrator/adminAccount.js') }}"></script>
+        <script src="{{ asset('/js/administrator/administratorAccount.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 </body>

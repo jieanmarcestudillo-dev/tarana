@@ -42,7 +42,7 @@
                 <!-- NAV BAR -->
 
                 <!-- MAIN CONTENT -->
-                    <div class="container-fluid mainBar">
+                    <div class="container-fluid mainBar mb-5">
                             <div class="row mb-3">
                                 <div class="col-3">
                                     <div class="card shadow" style="height:8rem; border-radius:10px; background-color:#ffff;">
@@ -94,7 +94,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-3 text-start">
-                                                    <i class="bi bi-people-fill"></i> 
+                                                    <i class="bi bi-people-fill"></i>
                                                 </div>
                                                 <div class="col-9 text-center" style="line-height:19px; padding-top:1.5rem">
                                                     <p class="card-text fw-bold pe-2" style="font-size: 2rem; color:#D72323;" id="totalApplicants"></p>
@@ -111,6 +111,35 @@
                                     <canvas id="myChart"></canvas>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card p-4">
+                                        <h5 class="text-uppercase">PROJECT WORKERS HIGHEST RATING</h5>
+                                        <table class="table text-center table-bordered" id="highestRating">
+                                            <thead>
+                                                <tr>
+                                                <th class="text-center">No.</th>
+                                                <th class="text-center">Project Wokers</th>
+                                                <th class="text-center">Age</th>
+                                                <th class="text-center">Ratings</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card p-4">
+                                            <h5 class="text-uppercase">THE MOST COMMON SHIP LOAD</h5>
+                                            <div class="card p-4" id="common" >
+                                                <canvas id="pie" width="300" height="300"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                     </div>
                 <!-- MAIN CONTENT -->
             </div>
@@ -122,5 +151,15 @@
             <script src="{{ asset('/js/dateTime.js') }}"></script>
             <script src="{{ asset('/js/logout.js') }}"></script>
         <!-- JS -->
+
+        <style>
+            div.dataTables_wrapper div.dataTables_filter input , #highestRating_filter label{
+                display: none
+            }
+            #pie{
+                width: 80% !important;
+                height: 300px !important;
+            }
+        </style>
 </body>
 </html>

@@ -67,7 +67,8 @@ class ApplicantsController extends Controller
                                 return response()->json(2);
                             }
                         }else{
-                            $data = blockedApplicants::where('applicantId', '=', auth()->guard('applicantsModel')->user()->applicant_id)->first('reason');
+                            $data = blockedApplicants::where([['applicantId', '=', auth()->guard('applicantsModel')->user()->applicant_id],
+                            ['is_archived', '!=', '1']])->first('reason');
                             return response()->json($data);
                         }
                     }else{

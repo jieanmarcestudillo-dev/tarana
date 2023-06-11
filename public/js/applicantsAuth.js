@@ -134,7 +134,7 @@ $(document).ready(function(){
                                 input: 'checkbox',
                                 inputValue: 1,
                                 inputPlaceholder:
-                                'I agree with the terms and conditions of the tara na application <br>',
+                                '<a>I agree with the terms of us and conditions of the tara na application</a>',
                                 confirmButtonText:
                                 'Continue <i class="fa fa-arrow-right"></i>',
                                 inputValidator: (result) => {
