@@ -10,27 +10,38 @@
     <title>Tara Na</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row mt-lg-5 pt-lg-5 pt-0 mt-0">
-            <div class="col-lg-3 col-12 mx-lg-auto mt-lg-5 pt-lg-5 pt-0 mt-0">
-                <div class="card" style="width: 22rem;">
-                    <div class="card-body">
-                        <form id='appForgotPassword' name='appForgotPassword'>
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Email address</label>
-                              <input type="email" class="form-control" name="applicantEmail" id="applicantEmail" aria-describedby="emailHelp">
-                              <div id="emailHelp" class="form-text">We send link to your email address</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary rounded-0">Submit</button>
-                        </form>
-                    </div>
+    <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center
+            min-vh-100 g-0">
+          <div class="col-12 col-md-8 col-lg-4 border-top border-3 border-danger">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="mb-4">
+                  <h5>Forgot Password?</h5>
+                  <p class="mb-2">Enter your registered email to receive a link for reset password page.
+                  </p>
                 </div>
+                <form id='userForgotPassword' name='userForgotPassword'>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="userEmail" id="userEmailForgotPass" class="form-control rounded-0" placeholder="Enter Your Email"
+                      required="">
+                  </div>
+                  <div class="mb-3 d-grid">
+                    <button type="submit" class="btn btn-danger rounded-0">
+                      Submit
+                    </button>
+                  </div>
+                  <span>Remember your password? <a class="text-danger" href="/applicantsAuthentication">sign in</a></span>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
     </div>
 
     {{-- JS --}}
-        <script src="{{ asset('/js/applicantsAuthentication.js') }}"></script>
+        <script src="{{ asset('/js/userForgotPassword.js') }}"></script>
     {{-- JS --}}
 </body>
 </html>

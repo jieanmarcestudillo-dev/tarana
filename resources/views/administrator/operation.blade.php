@@ -62,8 +62,8 @@
                                     <tr>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Operation ID</th>
-                                        <th class="text-center">Ship's Name</th>
-                                        <th class="text-center">Ship's Carry</th>
+                                        <th class="text-center">Ship Name</th>
+                                        <th class="text-center">Ship Load</th>
                                         <th class="text-center">Operation Start</th>
                                         <th class="text-center">Operation End</th>
                                         <th class="text-center">Actions</th>
@@ -115,11 +115,11 @@
                             </div>
                             <div class="row g-1 mt-3">
                                 <div class="col-4">
-                                    <label class="form-label">Ship's Name:</label>
+                                    <label class="form-label">Ship Name:</label>
                                     <input type="text" class="form-control shadow-sm bg-body rounded" required id="addShipsName" name="addShipsName">
                                 </div>
                                 <div class="col-4">
-                                    <label class="form-label">Ship's Carry:</label>
+                                    <label class="form-label">Ship Load:</label>
                                     <select class="form-select" aria-label="Default select example" required id="addShipsCarry" name="addShipsCarry">
                                         <option selected>Select Here</option>
                                         <option value="Wood">Wood</option>
@@ -186,11 +186,11 @@
                                 </div>
                                 <div class="row g-1 mt-3">
                                     <div class="col-5">
-                                        <label class="form-label">Ship's Name:</label>
+                                        <label class="form-label">Ship Name:</label>
                                         <input type="text" class="form-control shadow-sm bg-body rounded" required id="shipName" name="shipName">
                                     </div>
                                     <div class="col-4">
-                                        <label class="form-label">Ship's Carry:</label>
+                                        <label class="form-label">Ship Load:</label>
                                         <select class="form-select" aria-label="Default select example" required id="shipCarry" name="shipCarry">
                                             <option selected>Open this select menu</option>
                                             <option value="Wood">Wood</option>

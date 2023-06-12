@@ -100,3 +100,6 @@ $(document).ready(function(){
       }
     }
 // FUNCTION FOR PASSWORD ENABLE
+
+
+// FORGOT PASSWORD

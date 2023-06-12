@@ -59,6 +59,46 @@ $(document).ready(function(){
                     }
                 });
             }
+        }else{
+            var currentForm = $('#manageAccountForm')[0];
+            var data = new FormData(currentForm);
+            $.ajax({
+                url: "/editApplicantInfo",
+                method:"POST",
+                dataType: "text",
+                data:data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(response){
+                    if(response == 1){
+                        manageAccount();
+                        $("#manageAccountForm").trigger("reset");
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'INFORMATION HAS BEEN UPDATE SUCCESSFULLY',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }else if(response == 2){
+                        Swal.fire(
+                        'SUBMIT FAILED',
+                        'Sorry, The email is already exist',
+                        'error'
+                        )
+                    }else if(response == 3){
+                        Swal.fire(
+                        'SUBMIT FAILED',
+                        'File is not an image.',
+                        'warning'
+                        )
+                    }
+                },
+                error:function(error){
+                    console.log(error)
+                }
+            });
         }
     });
 // MANAGE APPLICANTS

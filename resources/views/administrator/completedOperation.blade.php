@@ -58,8 +58,8 @@
                                         <tr>
                                             <th class="text-center">No.</th>
                                             <th class="text-center">Operation ID</th>
-                                            <th class="text-center">Ship's Name</th>
-                                            <th class="text-center">Ship's Carry</th>
+                                            <th class="text-center">Ship Name</th>
+                                            <th class="text-center">Ship Load</th>
                                             <th class="text-center">Operation Start</th>
                                             <th class="text-center">Operation End</th>
                                             <th class="text-center">Actions</th>
@@ -110,7 +110,7 @@
                                 <div class="row">
                                     <div class="row">
                                         <div class="col-11">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Applicant Information</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Project Workers Information</h1>
                                         </div>
                                         <div class="col-1">
                                             <button class="btn btn-outline-secondary btn-sm" data-bs-target="#operationDetailsModal" data-bs-toggle="modal">X</button>

@@ -119,7 +119,7 @@
                                         <div class="col-5">
                                             <div class="card" style="height:442px; overflow-y:auto;">
                                                 <div class="card-header bg-white">
-                                                    <h5 class="card-title">Latest Works</h5>
+                                                    <h5 class="card-title">Latest Work</h5>
                                                 </div>
                                                 <div class="card-body" id="showExperience"></div>
                                             </div>

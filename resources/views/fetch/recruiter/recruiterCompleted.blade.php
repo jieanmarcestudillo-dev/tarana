@@ -93,7 +93,7 @@
             <span class="item-content">{{$totalWorkers}} Total</span>
         </div>
         <div class="item">
-            <span class="item-title">Workers Participate:</span>
+            <span class="item-title">Workers Joined:</span>
             <span class="item-content">{{$totalWorkers - $slot}} Total</span>
         </div>
     </div>

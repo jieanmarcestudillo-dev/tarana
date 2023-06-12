@@ -83,52 +83,52 @@
 	<!-- END PAGE TITLE AREA -->
 
 	<!-- START TERMS AND CONDITION-->
-	<section class="terms-conditions ptb-100">
-		<div class="container">
-			<div class="single-terms">
-				<h3 class="mt-0">Terms and Conditions</h3>
-                <P>Please read these Terms of Use and Conditions ("Terms") carefully before using our services or accessing our website. By using our services or accessing our website, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please do not use our services or access our website.</P>
+        <section class="terms-conditions ptb-100">
+            <div class="container">
+                <div class="single-terms">
+                    <h3 class="mt-0">Terms and Conditions</h3>
+                    <P>Please read these Terms of Use and Conditions ("Terms") carefully before using our services or accessing our website. By using our services or accessing our website, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please do not use our services or access our website.</P>
 
-				<p class="fw-bold">1. Acceptance of Terms</p>
-                <p>By accessing our website or using our services, you agree to comply with and be legally bound by these Terms. If you do not agree to these Terms, you are not authorized to use our services or access our website</p>
+                    <p class="fw-bold">1. Acceptance of Terms</p>
+                    <p>By accessing our website or using our services, you agree to comply with and be legally bound by these Terms. If you do not agree to these Terms, you are not authorized to use our services or access our website</p>
 
-                <p class="fw-bold">2. Use of Services</p>
-                <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
+                    <p class="fw-bold">2. Use of Services</p>
+                    <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
 
-                <p class="fw-bold">3. Intellectual Property</p>
-                <p>All content and materials available on our website or through our services, including but not limited to text, graphics, logos, images, videos, and software, are the property of our company and are protected by intellectual property laws. You may not use, reproduce, modify, or distribute any content from our website or services without our prior written permission.</p>
+                    <p class="fw-bold">3. Intellectual Property</p>
+                    <p>All content and materials available on our website or through our services, including but not limited to text, graphics, logos, images, videos, and software, are the property of our company and are protected by intellectual property laws. You may not use, reproduce, modify, or distribute any content from our website or services without our prior written permission.</p>
 
-                <p class="fw-bold">4. User Conduct</p>
-                <p>You are solely responsible for your conduct while using our services. You agree not to engage in any of the following activities:
-                   <br> a. Violating any applicable laws or regulations.
-                   <br> b. Interfering with the security of our website or services.
-                   <br> c. Impersonating any person or entity.
-                   <br> d. Uploading or transmitting any viruses, malware, or other malicious code.
-                   <br> e. Collecting or storing personal information about other users without their consent.
-                   <br> f. Engaging in any activity that could harm our company, its reputation, or its users</p>
+                    <p class="fw-bold">4. User Conduct</p>
+                    <p>You are solely responsible for your conduct while using our services. You agree not to engage in any of the following activities:
+                    <br> a. Violating any applicable laws or regulations.
+                    <br> b. Interfering with the security of our website or services.
+                    <br> c. Impersonating any person or entity.
+                    <br> d. Uploading or transmitting any viruses, malware, or other malicious code.
+                    <br> e. Collecting or storing personal information about other users without their consent.
+                    <br> f. Engaging in any activity that could harm our company, its reputation, or its users</p>
 
-                <p class="fw-bold">5. Privacy Policy</p>
-                <p>Our services and website are provided on an "as is" and "as available" basis without any warranties or representations, express or implied. We do not warrant that our services will be uninterrupted, secure, or error-free. We disclaim all warranties of any kind, including but not limited to the accuracy, completeness, or reliability of any content or information provided through our services.</p>
+                    <p class="fw-bold">5. Privacy Policy</p>
+                    <p>Our services and website are provided on an "as is" and "as available" basis without any warranties or representations, express or implied. We do not warrant that our services will be uninterrupted, secure, or error-free. We disclaim all warranties of any kind, including but not limited to the accuracy, completeness, or reliability of any content or information provided through our services.</p>
 
-                <p class="fw-bold">6. Disclaimer of Warranties</p>
-                <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
+                    <p class="fw-bold">6. Disclaimer of Warranties</p>
+                    <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
 
-                <p class="fw-bold">7. Limitation of Liability</p>
-                <p>In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of our services or website, even if we have been advised of the possibility of such damages.</p>
+                    <p class="fw-bold">7. Limitation of Liability</p>
+                    <p>In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of our services or website, even if we have been advised of the possibility of such damages.</p>
 
-                <p class="fw-bold">8. Indemnification</p>
-                <p>You agree to indemnify and hold us harmless from any claims, damages, losses, or expenses arising out of your use of our services or website or violation of these Terms.</p>
+                    <p class="fw-bold">8. Indemnification</p>
+                    <p>You agree to indemnify and hold us harmless from any claims, damages, losses, or expenses arising out of your use of our services or website or violation of these Terms.</p>
 
-                <p class="fw-bold">9. Modifications to Terms</p>
-                <p>We reserve the right to modify these Terms at any time without prior notice. Your continued use of our services or access to our website after any modifications to these Terms constitutes your acceptance of the modified Terms.</p>
+                    <p class="fw-bold">9. Modifications to Terms</p>
+                    <p>We reserve the right to modify these Terms at any time without prior notice. Your continued use of our services or access to our website after any modifications to these Terms constitutes your acceptance of the modified Terms.</p>
 
-                <p class="fw-bold">10. Governing Law and Jurisdiction</p>
-                <p>These Terms shall be governed by and construed in accordance with the laws of [jurisdiction]. Any disputes arising out of these Terms shall be subject to the exclusive jurisdiction of the courts located in [jurisdiction].</p>
+                    <p class="fw-bold">10. Governing Law and Jurisdiction</p>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of [jurisdiction]. Any disputes arising out of these Terms shall be subject to the exclusive jurisdiction of the courts located in [jurisdiction].</p>
 
-                <p>If you have any questions or concerns about these Terms, please contact us at tarana@gmail.com.</p>
+                    <p>If you have any questions or concerns about these Terms, please contact us at tarana@gmail.com.</p>
+                </div>
             </div>
-		</div>
-	</section>
+        </section>
 	<!-- End TERMS AND CONDITION-->
 
     <!-- FOOTER -->

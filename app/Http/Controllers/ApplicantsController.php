@@ -242,10 +242,10 @@ class ApplicantsController extends Controller
                                             <li class='list-group-item'>
                                                 <div class='row'>
                                                     <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                                        Workers In Operation: <span class='fw-normal'>$item->totalWorkers Total</span>
+                                                        Total Workers: <span class='fw-normal'>$item->totalWorkers Total</span>
                                                     </div>
                                                     <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                                        Slot:<span class='fw-normal'> $item->slot Total</span>
+                                                        Available Slot:<span class='fw-normal'> $item->slot Total</span>
                                                     </div>
                                                 </div>
                                             </li>
@@ -474,7 +474,8 @@ class ApplicantsController extends Controller
                  join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                 ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
                 ->where([['applied.applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
-                ['is_recruited', '=', 1]])->get(['applied.*','employees.employee_id','employees.lastname','employees.firstname','employees.extention',
+                ['applied.is_recruited', '=', 1],['operations.is_completed', '!=', 1]
+                ])->get(['applied.*','employees.employee_id','employees.lastname','employees.firstname','employees.extention',
                 'operations.*']);
                 if($applicantScheduled->isNotEmpty()){
                     foreach($applicantScheduled as $certainData){

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     onCallWorkersTable();
     applicantsTable();
+    user();
 });
 
 // FETCH ACTIVE EMPLOYEES FOR TABLES
@@ -30,15 +31,18 @@ $(document).ready(function(){
                 return data.age+ " years old";
             }},
             { "mData": function (data, type, row) {
-                if(data.is_recruited == 1){
+                if(data.status == 'Scheduled'){
                     return '<span class="text-danger">Scheduled</span>';
                 }else{
                     return '<span class="text-success">Available</span>';
                 }
             }},
-            { "mData": function (data, type, row) {
-                return '<button type="button" data-title="View Their Details?" onclick=viewOnCallWorkers('+data.applicant_id+') class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <button type="button" data-title="View Their Schedule?" onclick=viewSchedule('+data.applicant_id+') class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-calendar-check"></i></button>  <button type="button" data-title="Invite Them?" onclick="setSchedule('+data.applicant_id+')" class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-envelope-check"></i></button>'
-            }}
+            {
+                "mData": function (data, type, row) {
+                  return '<button type="button" data-title="View Their Details?" onclick="viewOnCallWorkers(' + data.applicant_id + ')" class="btn rounded-0 btn-outline-secondary btn-sm py-2 px-3"><i class="bi bi-eye"></i></button> <button type="button" data-title="View Their Schedule?" onclick="viewSchedule(' + data.applicant_id + ')" class="btn rounded-0 btn-outline-primary btn-sm py-2 px-3"><i class="bi bi-calendar-check"></i></button>  <button type="button" data-title="Invite Them?" onclick="setSchedule(' + data.applicant_id + ', \'' + data.firstname + '\', \'' + data.lastname + '\')" class="btn rounded-0 btn-outline-success btn-sm py-2 px-3"><i class="bi bi-envelope-check"></i></button>';
+                }
+              }
+
         ],
         order: [[1, 'asc']],
     });
@@ -78,10 +82,10 @@ $(document).ready(function(){
                 return data.age+ " years old";
             }},
             { "mData": function (data, type, row) {
-                if(data.is_recruited == 1){
+                if(data.status == 'Scheduled'){
                     return '<span class="text-danger">Scheduled</span>';
                 }else{
-                    return '<span class="text-success">No Schedule</span>';
+                    return '<span class="text-success">Available</span>';
                 }
             }},
             {"data": "applicant_id",
@@ -182,6 +186,17 @@ $(document).ready(function(){
                 }
             })
         }
+        function totalNotAttend(){
+            $.ajax({
+                url: "/totalNotAttend",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalNotAttend").html(data);
+                }
+            })
+        }
+        totalNotAttend();
         applicantExperience();
         overallRatingPerWorker();
         totalBackOutPerWorker();
@@ -246,6 +261,7 @@ $(document).ready(function(){
                     data+="<option value='"+response[i].certainOperation_id+"'>"+response[i].operationId+"</option>"
                 }
                 $('#operationId').html(data)
+                user();
             },
             error:function(error){
                 console.log(error)
@@ -263,6 +279,11 @@ $(document).ready(function(){
                 $("#fetchOperationData").html(data);
             }
         })
+    }
+
+    function user(){
+        $("#workersInvitation").val(localStorage.getItem("firstname") + " " + localStorage.getItem("lastname"));
+        $("#workersUniqueId").val(localStorage.getItem("applicantId"));
     }
 
     function recommendApplicantRecruit(id){
@@ -288,6 +309,7 @@ $(document).ready(function(){
                     dataType: 'json',
                     data: {applicantId: applicantId, operationId: id},
                     success: function(response) {
+                        localStorage.clear();
                         if(response == 2){
                             Swal.fire({
                                 icon: 'warning',
@@ -295,6 +317,7 @@ $(document).ready(function(){
                                 text: 'The project worker are already apply / invite',
                             })
                         }else if(response == 1){
+                            localStorage.clear();
                             Swal.fire({
                                 title: 'RECRUIT SUCCESSFULY',
                                 icon: 'success',
@@ -302,9 +325,8 @@ $(document).ready(function(){
                                 timer: 1000,
                             }).then((result) => {
                             if (result) {
-                                badgeRecommendApplicant();
-                                showOperationDetails();
-                                $('#viewRecommendedTable').DataTable().ajax.reload();
+                                $("#fetchOperationData").html('');
+                                $('#inviteWorkerModal').modal('hide');
                             }
                             });
                         }else if(response == 0){

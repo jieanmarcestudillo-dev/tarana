@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-4 ms-auto">
                                 <form class="d-flex">
-                                    <input class="form-control rounded-0 text-center" id="searchRecruiterCompleted" name="searchRecruiterCompleted" 
+                                    <input class="form-control rounded-0 text-center" id="searchRecruiterCompleted" name="searchRecruiterCompleted"
                                      type="search" placeholder="Search Operation Id" aria-label="Search">
                                     <button class="btn btn-outline-success px-4 rounded-0" type="submit">Search</button>
                                 </form>
@@ -120,6 +120,8 @@
                                                             <li class="list-group-item">Performance Rating: <span id='overallRatingPerWorker'></span>%</li>
                                                             <li class="list-group-item">Back Out In Operation: <span id='totalBackOutPerWorker'></span> Total</li>
                                                             <li class="list-group-item">Declined Invitation: <span id='totalDeclinedPerWorker'></span> Total</li>
+                                                            <li class="list-group-item">Not Attend: <span id='totalNotAttend'></span> Total</li>
+
                                                         </ul>
                                                     </div>
                                                 </div>

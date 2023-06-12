@@ -1022,11 +1022,14 @@ class AdminController extends Controller
                                 <div class='col-6'>
                                     <h5 class='card-title text-start'>Project Workers Joined</h5>
                                 </div>
+                                <div class='col-6 text-end align-middle'>
+                                    <a href='printAttendance/$certainData->certainOperation_id' class='btn rounded-0 btn-outline-secondary btn-sm'>Export to PDF</a>
+                                </div>
                             </div>
                                 <table class='table table-bordered text-center align-middle'>
                                     <thead>
                                         <tr>
-                                            <th scope='col'>#</th>
+                                            <th scope='col'>No.</th>
                                             <th scope='col'>Project Workers</th>
                                             <th scope='col'>Phone Number</th>
                                             <th scope='col'>Accept By</th>

@@ -38,7 +38,7 @@
                             <button type="submit" class="btn loginBtn mt-2" name="employeesLoginBtn" id="employeesLoginBtn">LOGIN</button>
                         </div>
                         <div class="mb-4 forgot mt-4">
-                            <ul class="navbar-nav ms-auto"><li class="nav-item fw-bold"><a class="nav-link" href="employeesForgotPassword">Forgot Password?</a></li></ul>
+                            <ul class="navbar-nav ms-auto"><li class="nav-item fw-bold"><a class="nav-link" href="/forgotPassword">Forgot Password?</a></li></ul>
                         </div>
                         <div class="mb-4 version">
                             <p class="fw-bold">v1.0</p>

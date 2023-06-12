@@ -4,28 +4,28 @@
             <div class='row g-0'>
                     <img src='{{$item->photos}}' class='card-img-top img-thumdnail' style='height:230px; width:100%;'>
                 <div class='col-md-12'>
-                    <ul class='list-group list-group-flush fw-bold'>      
+                    <ul class='list-group list-group-flush fw-bold'>
                         <li class='list-group-item'>
                             <div class='row'>
                                 <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                    Ship's Name: <span class='fw-normal'> {{$item->shipName}}</span>
+                                    Ship Name: <span class='fw-normal'> {{$item->shipName}}</span>
                                 </div>
                                 <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
-                                    Ship's Carry:<span class='fw-normal'> {{$item->shipCarry}}</span>
+                                    Ship Carry:<span class='fw-normal'> {{$item->shipCarry}}</span>
                                 </div>
                             </div>
                         </li>
                         <li class='list-group-item'>
                             <div class='row'>
                                 <div class='col-12 col-lg-6 ps-0 ps-lg-4'>
-                                    Foreman: <span class='fw-normal'>{{$item->employees->firstname}} {{$item->employees->lastname}}  {{$item->employees->extention}}</span>                                                    
+                                    Foreman: <span class='fw-normal'>{{$item->employees->firstname}} {{$item->employees->lastname}}  {{$item->employees->extention}}</span>
                                 </div>
                                 <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
                                     Available Slot:<span class='fw-normal'> {{$item->slot}} Applicants</span>
                                 </div>
                             </div>
                         </li>
-                        <li class='list-group-item fw-bold' style='color:#'>    
+                        <li class='list-group-item fw-bold' style='color:#'>
                             <div class='row'>
                                 <div class='col-12 col-lg-6 pt-2 pt-lg-0 ps-0 ps-lg-4'>
                                     <p class='fw-bold text-success'>Operation Start:</p>
@@ -40,10 +40,10 @@
                             </div>
                         </li>
                         <li class='list-group-item text-center text-lg-end'>
-                            
+
                             @foreach($item->applicants as $perAplicant)
                                 <a>{{$perAplicant->applicant_id}}</a>
-                            @endforeach 
+                            @endforeach
                             {{-- @if($item->applicants == 0)
                             @else
                                 <a>none</a>

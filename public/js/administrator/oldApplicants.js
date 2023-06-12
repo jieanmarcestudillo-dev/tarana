@@ -7,7 +7,7 @@ $(document).ready(function(){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    }); 
+    });
 });
 
 // FETCH ACTIVE APPLICANTS FOR TABLES
@@ -112,15 +112,15 @@ $(document).ready(function(){
             },
             "columns":[
                 {"data":"applicant_id"},
-                { 
+                {
                     data: {firstname : "firstname", lastname : "lastname", extention : "extention"},
                     mRender : function(data, type, full) {
                         if(data.extention == null){
-                            return data.firstname+' '+data.lastname+' '; 
+                            return data.firstname+' '+data.lastname+' ';
                         }else{
-                            return data.firstname+' '+data.lastname+' '+data.extention; 
+                            return data.firstname+' '+data.lastname+' '+data.extention;
                         }
-                    } 
+                    }
                 },
                 {"data":"phoneNumber"},
                 {"data":"reason"},
@@ -307,37 +307,48 @@ $(document).ready(function(){
                     }
                 })
             }
+            function totalNotAttend(){
+                $.ajax({
+                    url: "/totalNotAttend",
+                    method: 'GET',
+                    data: {applicantId:response.applicant_id},
+                    success : function(data) {
+                        $("#totalNotAttend").html(data);
+                    }
+                })
+            }
+            totalNotAttend();
             overallRatingPerWorker();
             totalBackOutPerWorker();
             totalDeclinedPerWorker();
             applicantExperience();
             $('#applicantsPhoto').attr("src", response.photos)
-            $('#applicantsLastname').html(response.lastname)           
-            $('#applicantsFirstname').html(response.firstname)           
-            $('#applicantsMiddlename').html(response.middlename)           
-            $('#applicantsExt').html(response.extention)           
-            $('#applicantsStatus').html(response.status)           
+            $('#applicantsLastname').html(response.lastname)
+            $('#applicantsFirstname').html(response.firstname)
+            $('#applicantsMiddlename').html(response.middlename)
+            $('#applicantsExt').html(response.extention)
+            $('#applicantsStatus').html(response.status)
             $('#applicantsPosition').html(response.position)
             $('#applicantsGender').html(response.Gender)
-            $('#applicantsAge').html(response.age)           
-            $('#applicantsAddress').html(response.address)           
-            $('#applicantsPnumber').html(response.phoneNumber)           
-            $('#applicantsEmail').html(response.emailAddress)   
+            $('#applicantsAge').html(response.age)
+            $('#applicantsAddress').html(response.address)
+            $('#applicantsPnumber').html(response.phoneNumber)
+            $('#applicantsEmail').html(response.emailAddress)
             if(response.personal_id != '' && response.personal_id2 != ''){
                 $('#personalId').attr("src", response.personal_id)
                 $('#personalId2').attr("src", response.personal_id2)
             }else{
                 $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
                 $('#personalId2').attr("src","/storage/applicant_Id/noId.jpg")
-            }        
+            }
             let dtFormat = new Intl.DateTimeFormat('en-Us',{
                 day: '2-digit',
                 month: 'long',
                 year: 'numeric'
             });
             var newDate = new Date(response.birthday);
-            $('#applicantsBirthday').html(dtFormat.format(newDate));    
-        })    
+            $('#applicantsBirthday').html(dtFormat.format(newDate));
+        })
     }
 // FETCH DATA FOR UPDATE OPERATION
 
@@ -372,7 +383,7 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // DEACTIVATE APPLICANTS ACCOUNT
 
 // ACTIVATE APPLICANTS ACCOUNT
@@ -406,7 +417,7 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // ACTIVATE APPLICANTS ACCOUNT
 
 // BLOCKED APPLICANTS ACCOUNT
@@ -431,7 +442,7 @@ $(document).ready(function(){
                     },
                     showCancelButton: true
                 })
-                
+
                 if (reason) {
                     $.ajax({
                         url: '/blockedApplicant',
@@ -463,7 +474,7 @@ $(document).ready(function(){
             })()
         }
         });
-    } 
+    }
 // BLOCKED APPLICANTS ACCOUNT
 
 // UNBLOCKED APPLICANTS
@@ -497,7 +508,7 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // UNBLOCKED APPLICANTS
 
 // UNUTILIZED APPLICANTS
@@ -531,5 +542,5 @@ $(document).ready(function(){
         });
         }
         });
-    } 
+    }
 // UNUTILIZED APPLICANTS

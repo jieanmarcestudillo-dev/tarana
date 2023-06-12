@@ -125,7 +125,7 @@
                                                         <div class="card-header bg-white">
                                                             <h5 class="card-title pt-1" style="font-size:16px;">Identity</h5>
                                                         </div>
-                                                        <img src="" loading="lazy" style="width:100%; height:13rem;" id="personalId">
+                                                        <img src="" loading="lazy" style="width:100%; height:12rem;" id="personalId">
                                                     </div>
                                                     <div class="card">
                                                         <div class="card-header bg-white">
@@ -135,6 +135,7 @@
                                                             <li class="list-group-item">Performance Rating: <span id='overallRatingPerWorker'></span>%</li>
                                                             <li class="list-group-item">Back Out In Operation: <span id='totalBackOutPerWorker'></span> Total</li>
                                                             <li class="list-group-item">Declined Invitation: <span id='totalDeclinedPerWorker'></span> Total</li>
+                                                            <li class="list-group-item">Not Attend: <span id='totalNotAttend'></span> Total</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -206,7 +207,8 @@
                             </div>
                             <div class="my-3 col-7">
                                 <label class="form-label ms-1 rounded-0">Project Workers:</label>
-                                <input type="text" class="text form-control" id="workersInvitation" value="Jiean Estudillo">
+                                <input readonly type="text" class="text form-control" id="workersInvitation" value="">
+                                <input readonly type="hidden" class="text form-control" id="workersUniqueId" value="">
                             </div>
                         </div>
                         <div class="row" id="fetchOperationData"></div>

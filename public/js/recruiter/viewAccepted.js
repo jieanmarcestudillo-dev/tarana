@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 // FETCH CERTAIN OPERATION
     function showOperationDetails(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/showOperationDetails",
             method: 'GET',
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 // FETCH APPLICANTS WHO ACCEPT INVITATION
     function totalApplicantsWhoRecruited(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         var table = $('#tableRecruitedWorkers').DataTable({
             "language": {
                 "emptyTable": "No Applicants Found"
@@ -58,7 +58,7 @@ $(document).ready(function(){
                 }},
                 { "mData": function (data, type, row) {
                     return data.age+ " years old";
-                }},  
+                }},
                 { "mData": function (data, type, row) {
                     if(data.extention != null){
                         return data.employeeFirstName+ " " +data.employeeLastName+ " " +data.employeeExtension;
@@ -84,7 +84,7 @@ $(document).ready(function(){
 // CAMCEL RECRUIT APPLICANTS
     function cancelRecruitRecommendedApplicants(id){
         applicantId = id;
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you want to CANCEL this applicant's RECRUITMENT?",
@@ -170,41 +170,52 @@ $(document).ready(function(){
                 }
             })
         }
+        function totalNotAttend(){
+            $.ajax({
+                url: "/totalNotAttend",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalNotAttend").html(data);
+                }
+            })
+        }
+        totalNotAttend();
         applicantExperience();
         overallRatingPerWorker();
         totalBackOutPerWorker();
         totalDeclinedPerWorker();
         $('#applicantsPhoto').attr("src", response.photos)
-        $('#applicantsLastname').html(response.lastname)           
-        $('#applicantsFirstname').html(response.firstname)           
-        $('#applicantsMiddlename').html(response.middlename)           
-        $('#applicantsExt').html(response.extention)           
-        $('#applicantsStatus').html(response.status)           
+        $('#applicantsLastname').html(response.lastname)
+        $('#applicantsFirstname').html(response.firstname)
+        $('#applicantsMiddlename').html(response.middlename)
+        $('#applicantsExt').html(response.extention)
+        $('#applicantsStatus').html(response.status)
         $('#applicantsPosition').html(response.position)
         $('#applicantsGender').html(response.Gender)
-        $('#applicantsAge').html(response.age)           
-        $('#applicantsAddress').html(response.address)           
-        $('#applicantsPnumber').html(response.phoneNumber)           
-        $('#applicantsEmail').html(response.emailAddress)   
+        $('#applicantsAge').html(response.age)
+        $('#applicantsAddress').html(response.address)
+        $('#applicantsPnumber').html(response.phoneNumber)
+        $('#applicantsEmail').html(response.emailAddress)
         if(response.personal_id != '' && response.personal_id2 != ''){
             $('#personalId').attr("src", response.personal_id)
         }else{
             $('#personalId').attr("src","/storage/applicant_Id/noId.jpg")
-        }        
+        }
         let dtFormat = new Intl.DateTimeFormat('en-Us',{
             day: '2-digit',
             month: 'long',
             year: 'numeric'
         });
         var newDate = new Date(response.birthday);
-        $('#applicantsBirthday').html(dtFormat.format(newDate));    
-    })    
+        $('#applicantsBirthday').html(dtFormat.format(newDate));
+    })
     }
 // SHOW CERTAIN APPLICANTS DETAILS
 
 // BADGE FOR APPLICANT TOTAL
     function badgeApplicantTotal(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeForTotalApplicants",
             method: 'GET',
@@ -218,7 +229,7 @@ $(document).ready(function(){
 
 // BADGE FOR APPLICANT TOTAL
     function badgeRecommendApplicant(){
-        operationId = localStorage.getItem('operationId'); 
+        operationId = localStorage.getItem('operationId');
         $.ajax({
             url: "/badgeForRecommendApplicants",
             method: 'GET',
@@ -232,7 +243,7 @@ $(document).ready(function(){
 
 // BADGE FOR APPLICANT TOTAL
     function badgeForRecruitedApplicants(){
-    operationId = localStorage.getItem('operationId'); 
+    operationId = localStorage.getItem('operationId');
     $.ajax({
         url: "/badgeAcceptInvitation",
         method: 'GET',

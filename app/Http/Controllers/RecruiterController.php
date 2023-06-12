@@ -95,12 +95,12 @@ class RecruiterController extends Controller
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
-                            <table class='table text-center align-middle table-striped' id='pendingInvitationTable'>
+                            <table class='table text-center align-middle table-bordered' id='pendingInvitationTable'>
                             <thead>
                             <tr>
                                 <th scope='col'>#</th>
                                 <th scope='col'>Project Workers</th>
-                                <th scope='col'>Role</th>
+                                <th scope='col'>Phone Number</th>
                                 <th scope='col'>Operation</th>
                                 <th scope='col'>Operation Start</th>
                                 <th scope='col'>Operation End</th>
@@ -125,7 +125,7 @@ class RecruiterController extends Controller
                                         <td>Date: $newOperationStartDate <br> Time: $newOperationStartTime</td>
                                         <td>Date: $newOperationEndDate <br> Time: $newOperationEndTime</td>
                                         <td>$certainData->recruiterFname $certainData->recruiterLname $certainData->recruiterExtention</td>
-                                        <td><button type='button' onclick=deleteRecommendApplicants($certainData->applied_id) class='btn btn-danger btn-sm'>Cancel</button></td>
+                                        <td><button type='button' onclick=deleteRecommendApplicants($certainData->applied_id) class='btn btn-danger btn-sm rounded-0'>Cancel</button></td>
                                     </tr>
                             ";
                         }
@@ -165,7 +165,7 @@ class RecruiterController extends Controller
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
-                            <table class='table text-center align-middle table-striped' id='backoutTableContent'>
+                            <table class='table text-center align-middle table-bordered' id='backoutTableContent'>
                             <thead>
                             <tr>
                                 <th scope='col'>#</th>
@@ -278,7 +278,7 @@ class RecruiterController extends Controller
                         if($data->isNotEmpty()){
                             echo"
                             <div class='row gap-0'>
-                            <table class='table text-center align-middle table-striped' id='backoutTableContent'>
+                            <table class='table text-center align-middle table-bordered' id='backoutTableContent'>
                             <thead>
                                 <tr>
                                     <th scope='col'>#</th>
@@ -412,8 +412,8 @@ class RecruiterController extends Controller
                                         </div>
                                         <div class='col-md-4'>
                                             <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'>$shipName</a></li>
-                                                <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $shipCarry</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'>$shipName</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Load:<a class='fw-normal text-dark' style='text-decoration:none;'> $shipCarry</a></li>
                                                 <li class='list-group-item fw-bold'>Operation Start: </br>
                                                     <a class='fw-normal nav-link'>Date: <span>$startData</span></br></a>
                                                     <a class='fw-normal nav-link'>Time: <span>$startTime</span></a>
@@ -515,8 +515,8 @@ class RecruiterController extends Controller
                                     <div class='col-md-3'>
                                         <div class='card-body'>
                                             <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
-                                                <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Load:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
                                                 <li class='list-group-item fw-bold text-success'>Operation Start: </br>
                                                     <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>
                                                     <a class='nav-link text-dark'>Time: <span class='fw-normal'>$startTime</a>
@@ -549,7 +549,7 @@ class RecruiterController extends Controller
                                             <thead>
                                                 <tr>
                                                     <th scope='col'>No.</th>
-                                                    <th scope='col'>Applicant</th>
+                                                    <th scope='col'>Project Workers</th>
                                                     <th scope='col'>Age</th>
                                                     <th scope='col'>Performance</th>
                                                     <th scope='col'>Details</th>
@@ -610,8 +610,8 @@ class RecruiterController extends Controller
                                     <div class='col-md-3'>
                                         <div class='card-body'>
                                             <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $operations->shipName</a></li>
-                                                <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $operations->shipCarry</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $operations->shipName</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Load:<a class='fw-normal text-dark' style='text-decoration:none;'> $operations->shipCarry</a></li>
                                                 <li class='list-group-item fw-bold text-success'>Operation Start: </br>
                                                     <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>
                                                     <a class='nav-link text-dark'>Time: <span class='fw-normal'>$startTime</a>
@@ -871,8 +871,8 @@ class RecruiterController extends Controller
                                     <div class='col-md-3'>
                                         <div class='card-body'>
                                             <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
-                                                <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipName</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Load:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->shipCarry</a></li>
                                                 <li class='list-group-item fw-bold'>Slot:<a class='fw-normal text-dark' style='text-decoration:none;'> $certainData->slot out of $certainData->totalWorkers Workers</a></li>
                                                 <li class='list-group-item fw-bold text-success'>Operation Start: </br>
                                                     <a class='nav-link text-dark'>Date: <span class='fw-normal'> $startDate</br></a>
@@ -1127,80 +1127,154 @@ class RecruiterController extends Controller
             // FETCH
                 // ALL APPLICANTS
                     public function getAllApplicantsData(Request $request){
-                        // $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro' ,'=', 0]])->get();
+                        // $data = applicants::where([['is_active', '=' , 1],['is_pro', '=' , 0]])->get();
                         // return response()->json($data);
 
-                        $currentDate = date('Y/m/d H:i:s');
-                        $data = applicants::leftJoin('applied', 'applicants.applicant_id', '=', 'applied.applicants_id')
-                        ->join('operations','applied.operation_id', '=', 'operations.certainOperation_id')
-                        ->where('applicants.is_active', 1)
-                        ->where('applicants.lastname', '!=', '')
-                        ->where('applicants.firstname', '!=', '')
-                        ->where('applicants.is_pro', 0)
-                        ->where('operations.is_completed', 0)
-                        ->where('operations.operationStart','>=', $currentDate)
-                        ->select(
-                            'applicants.applicant_id',
-                            'applicants.firstname',
-                            'applicants.middlename',
-                            'applicants.lastname',
-                            'applicants.age',
-                            'applicants.phoneNumber',
-                            'applied.applicants_id as applied_applicants_id',
-                            'applied.is_recruited'
-                        )
-                        ->distinct()
+                        // $currentDate = date('Y/m/d H:i:s');
+                        // $data = applicants::leftJoin('applied', 'applicants.applicant_id', '=', 'applied.applicants_id')
+                        // ->join('operations','applied.operation_id', '=', 'operations.certainOperation_id')
+                        // ->where('applicants.is_active', 1)
+                        // ->where('applicants.is_pro', 0)
+                        // ->where('operations.is_completed', 0)
+                        // ->where('operations.operationStart','>=', $currentDate)
+                        // ->select(
+                        //     'applicants.applicant_id',
+                        //     'applicants.firstname',
+                        //     'applicants.middlename',
+                        //     'applicants.lastname',
+                        //     'applicants.age',
+                        //     'applicants.phoneNumber',
+                        //     'applied.applicants_id as applied_applicants_id',
+                        //     'applied.is_recruited'
+                        // )
+                        // ->distinct()
+                        // ->get();
+                        // $data = $data->unique('applicant_id')->values();
+                        // return response()->json($data);
+
+                        // $data = applicants::where([['is_active', '=', 1], ['is_pro', '=', 0]])->get();
+                        // $allWorkers = [];
+
+                        // foreach ($data as $certainData) {
+                        //     $worker = [
+                        //         'applicant_id' => $certainData->applicant_id,
+                        //         'firstname' => $certainData->firstname,
+                        //         'middlename' => $certainData->middlename,
+                        //         'lastname' => $certainData->lastname,
+                        //         'age' => $certainData->age,
+                        //         'phoneNumber' => $certainData->phoneNumber,
+                        //         'status' => 'Available'
+                        //     ];
+
+                        //     $appliedData = applied::where([['applicants_id', '=' ,$certainData->applicant_id],
+                        //     ['is_recruited', '=' , 1]])->first();
+
+                        //     if ($appliedData) {
+                        //         $worker['status'] = 'Scheduled';
+                        //     }
+
+                        //     $allWorkers[] = $worker;
+                        // }
+
+                        // return response()->json($allWorkers);
+
+                        $data = applicants::where([['is_active', '=', 1], ['is_pro', '=', 0]])
                         ->get();
 
-                    $data->transform(function ($item) {
-                        $item->is_applied = !is_null($item->is_recruited);
-                        return $item;
-                    });
+                        $allWorkers = [];
 
-                    $data = $data->unique('applicant_id')->values();
+                        foreach ($data as $certainData) {
+                            $worker = [
+                                'applicant_id' => $certainData->applicant_id,
+                                'firstname' => $certainData->firstname,
+                                'middlename' => $certainData->middlename,
+                                'lastname' => $certainData->lastname,
+                                'age' => $certainData->age,
+                                'phoneNumber' => $certainData->phoneNumber,
+                                'status' => 'Available'
+                            ];
 
-                    return response()->json($data);
+                            $appliedData = applied::where([
+                                ['applicants_id', '=', $certainData->applicant_id],
+                                ['is_recruited', '=', 1]
+                            ])->first();
 
-                    }
+                            if ($appliedData) {
+                                $worker['status'] = 'Scheduled';
+                            }
+
+                            $allWorkers[] = $worker;
+                        }
+
+                        // Sort workers by status: Available first, then Scheduled
+                        usort($allWorkers, function ($a, $b) {
+                            return $a['status'] === 'Scheduled' ? -1 : 1;
+                        });
+
+                        return response()->json($allWorkers);
+
+                        }
                 // ALL APPLICANTS
 
                 // ALL APPLICANTS
                     public function getAllOnCallWorkers(Request $request)
                     {
-                        // $data = applicants::where([['is_active', '=', 1],['lastname', '!=', ''],['firstname', '!=', ''],['is_pro' ,'=', 1]])->get();
+                        $data = applicants::where([['is_active', '=', 1], ['is_pro', '=', 1]])
+                            ->get();
+
+                        $allWorkers = [];
+
+                        foreach ($data as $certainData) {
+                            $worker = [
+                                'applicant_id' => $certainData->applicant_id,
+                                'firstname' => $certainData->firstname,
+                                'middlename' => $certainData->middlename,
+                                'lastname' => $certainData->lastname,
+                                'age' => $certainData->age,
+                                'phoneNumber' => $certainData->phoneNumber,
+                                'status' => 'Available'
+                            ];
+
+                            $appliedData = applied::where([
+                                ['applicants_id', '=', $certainData->applicant_id],
+                                ['is_recruited', '=', 1]
+                            ])->first();
+
+                            if ($appliedData) {
+                                $worker['status'] = 'Scheduled';
+                            }
+
+                            $allWorkers[] = $worker;
+                        }
+
+                        // Sort workers by status: Available first, then Scheduled
+                        usort($allWorkers, function ($a, $b) {
+                            return $a['status'] === 'Scheduled' ? -1 : 1;
+                        });
+
+                        return response()->json($allWorkers);
+
+
+                        // $currentDate = date('Y/m/d H:i:s');
+                        // $data = applicants::leftJoin('applied', 'applicants.applicant_id', '=', 'applied.applicants_id')
+                        // ->leftJoin('operations','applied.operation_id', '=', 'operations.certainOperation_id')
+                        // ->where('applicants.is_active', 1)
+                        // ->where('applicants.is_pro', 1)
+                        // ->where('operations.is_completed', 0)
+                        // ->select(
+                        //     'applicants.applicant_id',
+                        //     'applicants.firstname',
+                        //     'applicants.middlename',
+                        //     'applicants.lastname',
+                        //     'applicants.age',
+                        //     'applicants.phoneNumber',
+                        //     'applied.applicants_id as applied_applicants_id',
+                        //     'applied.is_recruited'
+                        // )
+                        // ->distinct()
+                        // ->get();
+                        // $data = $data->unique('applicant_id')->values();
                         // return response()->json($data);
-                        $currentDate = date('Y/m/d H:i:s');
-                        $data = applicants::leftJoin('applied', 'applicants.applicant_id', '=', 'applied.applicants_id')
-                        ->join('operations','applied.operation_id', '=', 'operations.certainOperation_id')
-                        ->where('applicants.is_active', 1)
-                        ->where('applicants.lastname', '!=', '')
-                        ->where('applicants.firstname', '!=', '')
-                        ->where('applicants.is_pro', 1)
-                        ->where('operations.is_completed', 0)
-                        ->where('operations.operationStart','>=', $currentDate)
-                        ->select(
-                            'applicants.applicant_id',
-                            'applicants.firstname',
-                            'applicants.middlename',
-                            'applicants.lastname',
-                            'applicants.age',
-                            'applicants.phoneNumber',
-                            'applied.applicants_id as applied_applicants_id',
-                            'applied.is_recruited',
-                            'operations.certainOperation_id'
-                        )
-                        ->distinct()
-                        ->get();
-
-                    $data->transform(function ($item) {
-                        $item->is_applied = !is_null($item->is_recruited);
-                        return $item;
-                    });
-
-                    $data = $data->unique('applicant_id')->values();
-
-                    return response()->json($data);
-
                     }
                 // ALL APPLICANTS
 
@@ -1278,20 +1352,29 @@ class RecruiterController extends Controller
                 // APPLICANT OVERALL RATING
 
                 // TOTAL BACKOUT PER WORKER
-                        public function totalBackOutPerWorker(Request $request){
-                            $data = backout::where('applicant_id', '=', $request->applicantId)->get();
-                            $countData = $data->count();
-                            return response()->json($countData != '' ? $countData : '0');
-                        }
+                    public function totalBackOutPerWorker(Request $request){
+                        $data = backout::where('applicant_id', '=', $request->applicantId)->get();
+                        $countData = $data->count();
+                        return response()->json($countData != '' ? $countData : '0');
+                    }
                 // TOTAL BACKOUT PER WORKER
 
                 // TOTAL BACKOUT PER WORKER
-                        public function totalDeclinedPerWorker(Request $request){
-                            $data = declined::where('applicant_id', '=', $request->applicantId)->get();
-                            $countData = $data->count();
-                            return response()->json($countData != '' ? $countData : '0');
-                        }
+                    public function totalDeclinedPerWorker(Request $request){
+                        $data = declined::where('applicant_id', '=', $request->applicantId)->get();
+                        $countData = $data->count();
+                        return response()->json($countData != '' ? $countData : '0');
+                    }
                 // TOTAL BACKOUT PER WORKER
+
+                // TOTAL NOT ATTEND
+                    public function totalNotAttend(Request $request){
+                        $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
+                        ->where([['operations.is_completed', '=' , 1],['applied.applicants_id', '=' , $request->applicantId]])->get();
+                        $countData = $data->count();
+                        return response()->json($countData != '' ? $countData : '0');
+                    }
+                // TOTAL NOT ATTEND
             // FETCH
         // RECRUITER VIEW APPLICANTS
 
@@ -1426,7 +1509,8 @@ class RecruiterController extends Controller
                     $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                     ->join('employees AS recruiter', 'applied.recruiter', '=', 'recruiter.employee_id')
                     ->where([['applied.is_recruited', '=' ,1],['applicants_id','=',$request->applicantId],
-                    ['operations.operationStart', '>=', $currentDate]])
+                    // ['operations.operationStart', '>=', $currentDate]
+                    ])
                     ->orderBy('operations.operationStart', 'DESC')
                     ->select('operations.*','applied.applied_id','recruiter.firstname as recruiterFname',
                     'recruiter.lastname as recruiterLname','recruiter.extention as recruiterExtention',)->get();

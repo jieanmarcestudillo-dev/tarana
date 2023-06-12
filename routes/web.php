@@ -32,8 +32,6 @@ use App\Http\Controllers\homeController;
             Route::get('applicantsAuthentication', [ApplicantsController::class,'applicantsAuthentication'])->name('applicantsAuthentication');
             Route::get('applicantSignUp', [ApplicantsController::class,'applicantSignUp'])->name('applicantSignUp');
             Route::get('applicantLogout', [ApplicantsController::class,'applicantLogout'])->name('applicantLogout');
-            Route::get('forgotPasswordRoutes', [ApplicantsController::class,'forgotPasswordRoutes']);
-            Route::post('forgotPassword', [ApplicantsController::class,'forgotPassword']);
             Route::middleware(['auth:applicantsModel', 'single.user'])->group(function () {
                 Route::get('applicantDashboardRoutes', [ApplicantsController::class,'applicantDashboardRoutes'])->name('applicantDashboardRoutes');
                 Route::get('upcomingOperationRoutes', [ApplicantsController::class,'upcomingOperationRoutes'])->name('upcomingOperationRoutes');
@@ -76,7 +74,11 @@ use App\Http\Controllers\homeController;
     Route::get('employeesLoginRoutes', [EmployeesController::class,'employeesLoginRoutes'])->name('login');
     Route::get('/', [homeController::class,'tarana'])->name('tarana');
     Route::get('termsandcondition', [homeController::class,'termsandcondition'])->name('termsandcondition');
+    Route::get('forgotPassword', [homeController::class,'forgotPassword'])->name('forgotPassword');
     Route::get('employeesLogoutFunction', [EmployeesController::class,'employeesLogoutFunction'])->name('employeesLogoutFunction');
+    Route::get('resetPassword', [homeController::class,'resetPassword'])->name('resetPassword');
+    Route::post('resetPasswordFunction', [homeController::class,'resetPasswordFunction'])->name('resetPasswordFunction');
+    Route::post('newPasswordFunction', [homeController::class,'newPasswordFunction'])->name('newPasswordFunction');
     Route::post('employeesLoginFunction', [EmployeesController::class,'employeesLoginFunction']);
 // EMPLOYEES ROUTES
 
@@ -219,6 +221,7 @@ use App\Http\Controllers\homeController;
             Route::get('overallRatingPerWorker', [RecruiterController::class,'overallRatingPerWorker']);
             Route::get('totalBackOutPerWorker', [RecruiterController::class,'totalBackOutPerWorker']);
             Route::get('totalDeclinedPerWorker', [RecruiterController::class,'totalDeclinedPerWorker']);
+            Route::get('totalNotAttend', [RecruiterController::class,'totalNotAttend']);
             Route::get('recruiterFormedGroup', [RecruiterController::class,'recruiterFormedGroup']);
             Route::get('pendingInvitationContent', [RecruiterController::class,'pendingInvitationContent']);
             Route::get('applicantBackoutContent', [RecruiterController::class,'applicantBackoutContent']);

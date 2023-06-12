@@ -139,6 +139,7 @@
                                                             <li class="list-group-item">Performance Rating: <span id='overallRatingPerWorker'></span>%</li>
                                                             <li class="list-group-item">Back Out In Operation: <span id='totalBackOutPerWorker'></span> Total</li>
                                                             <li class="list-group-item">Declined Invitation: <span id='totalDeclinedPerWorker'></span> Total</li>
+                                                            <li class="list-group-item">Not Attend: <span id='totalNotAttend'></span> Total</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -147,7 +148,7 @@
                                         <div class="col-5">
                                             <div class="card" style="height:442px; overflow-y:auto;">
                                                 <div class="card-header bg-white">
-                                                    <h5 class="card-title">Latest Works</h5>
+                                                    <h5 class="card-title">Latest Work</h5>
                                                 </div>
                                                 <div class="card-body" id="showExperience">
                                                     {{-- <ul class="list-group text-center">

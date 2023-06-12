@@ -214,7 +214,7 @@
     {{-- JS --}}
         <script src="{{ asset('/js/dateTime.js') }}"></script>
         <script src="{{ asset('/js/applicants/sidenav.js') }}"></script>
-        <script src="{{ asset('/js/applicants/manageAccount.js') }}"></script>
+        <script src="{{ asset('/js/applicants/account.js') }}"></script>
         <script src="{{ asset('/js/logout.js') }}"></script>
     {{-- END JS --}}
 </body>

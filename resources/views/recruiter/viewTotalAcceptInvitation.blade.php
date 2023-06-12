@@ -63,7 +63,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>   
+                            </div>
                             <table class='table table-bordered text-center align-middle' id='tableRecruitedWorkers'>
                                 <thead class='text-center'>
                                     <th class='text-center'>No.</th>
@@ -142,6 +142,7 @@
                                                             <li class="list-group-item">Performance Rating: <span id='overallRatingPerWorker'></span>%</li>
                                                             <li class="list-group-item">Back Out In Operation: <span id='totalBackOutPerWorker'></span> Total</li>
                                                             <li class="list-group-item">Declined Invitation: <span id='totalDeclinedPerWorker'></span> Total</li>
+                                                            <li class="list-group-item">Not Attend: <span id='totalNotAttend'></span> Total</li>
                                                         </ul>
                                                     </div>
                                                 </div>

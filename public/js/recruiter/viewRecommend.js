@@ -352,6 +352,17 @@ $(document).ready(function(){
                 }
             })
         }
+        function totalNotAttend(){
+            $.ajax({
+                url: "/totalNotAttend",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalNotAttend").html(data);
+                }
+            })
+        }
+        totalNotAttend();
         applicantExperience();
         overallRatingPerWorker();
         totalBackOutPerWorker();
@@ -434,6 +445,17 @@ $(document).ready(function(){
                 }
             })
         }
+        function totalNotAttend(){
+            $.ajax({
+                url: "/totalNotAttend",
+                method: 'GET',
+                data: {applicantId:response.applicant_id},
+                success : function(data) {
+                    $("#totalNotAttend").html(data);
+                }
+            })
+        }
+        totalNotAttend();
         applicantExperience();
         overallRatingPerWorker();
         totalBackOutPerWorker();

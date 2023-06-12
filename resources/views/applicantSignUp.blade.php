@@ -39,7 +39,7 @@
                                 <label class="form-check-label">Show Password</label>
                             </div>
                             <ul class="navbar-nav text-center">
-                                <li class="nav-item"><a href="#" class="nav-link">Forgot Password?</a></li>
+                                <li class="nav-item"><a href="/forgotPassword" class="nav-link">Forgot Password?</a></li>
                             </ul>
                                 <button type="submit" id="appLoginBtn" name="appLoginBtn" class="btn rounded-0">LOGIN</button>
                             <ul class="navbar-nav text-center">
@@ -87,7 +87,7 @@
     {{-- END OF CONTENT --}}
 
     {{-- JS --}}
-        <script src="{{ asset('/js/applicantsAuthenticate.js') }}"></script>
+    <script src="{{ asset('/js/applicantsAuth.js') }}"></script>
     {{-- JS --}}
 </body>
 </html>

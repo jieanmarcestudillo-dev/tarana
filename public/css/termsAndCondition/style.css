@@ -1835,7 +1835,7 @@ p:last-child {
 .page-title-area {
 	position: relative;
 	z-index: 1;
-	background-image: url(../img/page-title-bg.jpg);
+	background-image: url(../../assets/frontend/subic.png   );
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -1851,8 +1851,8 @@ p:last-child {
 	left: 0;
 	top: 0;
 	opacity: 0.5;
-    background-color: #800000;
-    background-image: linear-gradient(-135deg, #611bdd 0%, #800000 100%);
+    background-color: #fff !important;
+    background-image: linear-gradient(-135deg, #fff 0%, #800000 60%);
 }
 
 .page-title-content {
@@ -1892,7 +1892,7 @@ p:last-child {
 }
 
 .page-title-content ul li a:hover {
-	color: #800000;
+	color: #ffffff;
 }
 
 .page-title-content ul li::before {
@@ -1903,7 +1903,7 @@ p:last-child {
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
-	background-color: #800000;
+	background-color: #ffff;
 }
 
 .page-title-content ul li:last-child::before {

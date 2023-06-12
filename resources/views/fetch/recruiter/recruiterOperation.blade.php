@@ -8,8 +8,8 @@
                 </div>
                 <div class='col-md-6'>
                     <ul class='list-group list-group-flush'>
-                        <li class='list-group-item fw-bold' style='color:#'>Ship's Name: <a class='fw-normal text-decoration-none text-dark'>{{$item->shipName}}</a></li>
-                        <li class='list-group-item fw-bold' style='color:#'>Ship's Carry: <a class='fw-normal text-decoration-none text-dark'>{{$item->shipCarry}}</a></li>
+                        <li class='list-group-item fw-bold' style='color:#'>Ship Name: <a class='fw-normal text-decoration-none text-dark'>{{$item->shipName}}</a></li>
+                        <li class='list-group-item fw-bold' style='color:#'>Ship Carry: <a class='fw-normal text-decoration-none text-dark'>{{$item->shipCarry}}</a></li>
                         <li class='list-group-item fw-bold' style='color:#'>Operation Start: </br>
                             <a class='fw-normal nav-link'>Date: {{date('F d, Y | D',strtotime($item->operationStart))}} </br></a>
                             <a class='fw-normal nav-link'>Time:  {{date('h:i: A ',strtotime($item->operationStart))}} </a>
@@ -18,8 +18,8 @@
                             <a class='fw-normal nav-link'>Date: {{date('F d, Y | D',strtotime($item->operationEnd))}}</br></a>
                             <a class='fw-normal nav-link'>Time: {{date('h:i: A ',strtotime($item->operationEnd))}}</a>
                         </li>
-                        <li class='list-group-item fw-bold'>Available: <span class='fw-normal'>{{$item->slot}} Slot out of {{$item->totalWorkers}} Total</span> 
-                    
+                        <li class='list-group-item fw-bold'>Available: <span class='fw-normal'>{{$item->slot}} Slot out of {{$item->totalWorkers}} Total</span>
+
                             <br> <span class='fw-bold'>Applicants: <span class='fw-normal'>{{count($item->applicants)}} Total</span></li>
                         <li class='list-group-item text-end'></span>
                             <a type='button' onclick="recruitApplicantsRoutes('{{$item->certainOperation_id}}')" class='btn btn-sm text-danger btn-link text-end'>View Applicants</a>

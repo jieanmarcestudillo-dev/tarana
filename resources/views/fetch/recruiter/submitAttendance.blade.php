@@ -52,8 +52,8 @@
                                         </div>
                                         <div class='col-md-4'>
                                             <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item fw-bold'>Ship's Name:<a class='fw-normal text-dark' style='text-decoration:none;'> {{$certainData->shipName}}</a></li>
-                                                <li class='list-group-item fw-bold'>Ship's Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> {{$certainData->shipCarry}}</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Name:<a class='fw-normal text-dark' style='text-decoration:none;'> {{$certainData->shipName}}</a></li>
+                                                <li class='list-group-item fw-bold'>Ship Carry:<a class='fw-normal text-dark' style='text-decoration:none;'> {{$certainData->shipCarry}}</a></li>
                                                 <li class='list-group-item fw-bold'>Operation Start: </br>
                                                     <a class='fw-normal nav-link'>Date: <span>{{date('F d, Y | D',strtotime($data[0]->operationStart))}}</span></br></a>
                                                     <a class='fw-normal nav-link'>Time: <span>{{date('h:i: A ',strtotime($data[0]->operationStart))}}</span></a>

@@ -13,7 +13,7 @@ class applicants extends Authenticatable
     protected $guard = 'applicantsModel';
 
     protected $table = 'applicants';
-    
+
     protected $guard_name = 'web';
 
     protected $primaryKey  = 'applicant_id';
