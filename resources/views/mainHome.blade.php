@@ -475,7 +475,7 @@
                             <a href="#!" class="link-secondary text-decoration-none">Contact</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#!" class="link-secondary text-decoration-none">Advertise</a>
+                            <a href="/privacypolicy" class="link-secondary text-decoration-none">Privacy Policy</a>
                         </li>
                         <li class="mb-2">
                             <a href="/termsandcondition" class="link-secondary text-decoration-none">Terms and condition</a>

@@ -13,7 +13,7 @@
 <body>
     {{-- CONTENT --}}
         <div class="back-image">
-            <img src="./assets/frontend/background2.webp" alt="background image">
+            <img src="./assets/frontend/subic.png" alt="background image">
         </div>
         {{-- FOR REGISTRATION --}}
             <section class="left">
@@ -63,13 +63,13 @@
                             @csrf
                             <p class="title mt-lg-3">CREATE ACCOUNT</p>
                             <div class="mb-3">
-                                <input type="email" class="form-control rounded-pill" required id="applicantSignUpEmail" name="applicantSignUpEmail" placeholder="Email">
+                                <input type="email" class="form-control rounded-0" required id="applicantSignUpEmail" name="applicantSignUpEmail" placeholder="Email">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control rounded-pill" required id="applicantSignUpPassword" name="applicantSignUpPassword" placeholder="Password">
+                                <input type="password" class="form-control rounded-0" required id="applicantSignUpPassword" name="applicantSignUpPassword" placeholder="Password">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control rounded-pill" required id="applicantSignUpConfirmPassword" name="applicantSignUpConfirmPassword" placeholder="Confirm Password">
+                                <input type="password" class="form-control rounded-0" required id="applicantSignUpConfirmPassword" name="applicantSignUpConfirmPassword" placeholder="Confirm Password">
                             </div>
                             <div class="mb-3 checkBox">
                                 <input type="checkbox" class="form-check-input ms-1" onclick="seePassword()">
@@ -87,7 +87,7 @@
     {{-- END OF CONTENT --}}
 
     {{-- JS --}}
-    <script src="{{ asset('/js/applicantsAuth.js') }}"></script>
+    <script src="{{ asset('/js/appAuth.js') }}"></script>
     {{-- JS --}}
 </body>
 </html>

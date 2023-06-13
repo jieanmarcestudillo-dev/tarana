@@ -26,6 +26,8 @@ body {
 
 .back-image img {
     width: 100%;
+    height: 140vh;
+    filter: brightness(70%);
 }
 
 .side {
@@ -181,7 +183,7 @@ input ~i {
 
 input:focus ~i {
     color: #134e5e;
-} 
+}
 
 
 .btn {
@@ -340,7 +342,7 @@ body.signup .back-image {
     }
     form {
         padding: 0 !important;
-    } 
+    }
     .btn{
         margin-bottom: 0rem !important;
     }

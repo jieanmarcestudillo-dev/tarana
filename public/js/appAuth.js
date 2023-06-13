@@ -121,7 +121,7 @@ $(document).ready(function(){
                 )
             }else{
                 Swal.fire({
-                    title: 'Have you ever worked before?',
+                    title: 'Have you ever worked with the SCPI before?',
                     showDenyButton: true,
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
@@ -134,7 +134,7 @@ $(document).ready(function(){
                                 input: 'checkbox',
                                 inputValue: 1,
                                 inputPlaceholder:
-                                '<a>I agree with the terms of us and conditions of the tara na application</a>',
+                                '<a>I agree with the terms of us and conditions and privacy policy of the tara na application</a>',
                                 confirmButtonText:
                                 'Continue <i class="fa fa-arrow-right"></i>',
                                 inputValidator: (result) => {
@@ -149,16 +149,25 @@ $(document).ready(function(){
                                     data:{email:email,password:password,isPro:1},
                                     success: function(response) {
                                     if(response == 1){
-                                    Swal.fire({
-                                    icon: 'success',
-                                    title: 'REGISTER SUCCESSFULLY',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    }).then((result) => {
-                                    if (result) {
-                                        $("#applicantRegistrationForm").trigger("reset");
-                                    }
-                                    })
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            },
+                                            didClose: () =>{
+                                                window.location = "/applicantAccountRoutes";
+                                            }
+                                          })
+                                            Toast.fire({
+                                            icon: 'success',
+                                            title: 'Hello, Workers',
+                                            text: 'Please, Complete all of your information before participate',
+                                        })
                                     }
                                     else if(response == 2){
                                     Swal.fire(
@@ -195,7 +204,7 @@ $(document).ready(function(){
                                 input: 'checkbox',
                                 inputValue: 1,
                                 inputPlaceholder:
-                                'I agree with the terms and conditions tara na application',
+                                '<a>I agree with the terms of us and conditions and privacy policy of the tara na application</a>',
                                 confirmButtonText:
                                 'Continue <i class="fa fa-arrow-right"></i>',
                                 inputValidator: (result) => {
@@ -210,21 +219,30 @@ $(document).ready(function(){
                                     data:{email:email,password:password,isPro:0},
                                     success: function(response) {
                                     if(response == 1){
-                                    Swal.fire({
-                                    icon: 'success',
-                                    title: 'REGISTER SUCCESSFULLY',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    }).then((result) => {
-                                    if (result) {
-                                        $("#applicantRegistrationForm").trigger("reset");
-                                    }
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        },
+                                        didClose: () =>{
+                                            window.location = "/applicantAccountRoutes";
+                                        }
+                                      })
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: 'Hello, Workers',
+                                        text: 'Please, Complete all of your information before participate',
                                     })
                                     }
                                     else if(response == 2){
                                     Swal.fire(
-                                        'PASSWORD MISMATCH',
-                                        'Please, check your password',
+                                        'EMAIL NOT AVAILABLE',
+                                        'Please, choose another email',
                                         'error'
                                     )
                                     }

@@ -71,9 +71,9 @@
                                 <thead class='text-center'>
                                     <th class='text-center'>No.</th>
                                     <th class='text-center'>Project Workers</th>
-                                    <th class='text-center'>Age</th>
+                                    <th class='text-center col-2'>Age</th>
                                     <th class='text-center'>Recommend By</th>
-                                    <th class='text-center'>Actions</th>
+                                    <th class='text-center col-2'>Actions</th>
                                 </thead>
                                 <tbody class='text-center'></tbody>
                             </table>

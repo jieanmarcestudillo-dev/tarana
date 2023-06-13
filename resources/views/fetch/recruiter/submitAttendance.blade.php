@@ -98,7 +98,7 @@
                                             <td scope='col'>
                                                 <div class='form-check form-check-inline'>
                                                     <input class='form-check-input isAttend' type='checkbox' name='applicantPresent[]' value='{{$applicantInfo->applicant_id}}'>
-                                                    <label class='form-check-label'>Is Attend</label>
+                                                    <label class='form-check-label'>Attended</label>
                                                 </div>
                                             </td>
                                             <td scope='col'>

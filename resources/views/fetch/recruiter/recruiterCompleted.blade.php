@@ -7,40 +7,40 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Completed Operation</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
+        *{
+            font-family: 'Roboto', sans-serif;
+        }
         body {
-         font-family: Arial, sans-serif;
+            width: 100%;
        }
+        header {
+            width: 100%;
+            margin-top: -2.5rem;
+        }
 
-       .header {
-         text-align: center;
-         margin-bottom: 20px;
-       }
-
-       .name {
-         font-size: 24px;
-         font-weight: bold;
-         text-transform: uppercase;
-       }
-
-       .contact-info {
-         font-size: 14px;
-         margin-bottom: 10px;
-         text-transform: uppercase;
-       }
+        h1 {
+            margin: 0;
+            font-size: 20px;
+        }
 
        .section {
-         margin-bottom: 20px;
+            margin-bottom: 20px;
+       }
+
+       .body{
+        margin-top: 1rem;
        }
 
        .section-title {
-         font-size: 18px;
+         font-size: 15px;
          font-weight: bold;
          margin-bottom: 10px;
          text-transform: uppercase;
        }
 
        .subsection-title {
-         font-size: 16px;
+         font-size: 14px;
          font-weight: bold;
          margin-bottom: 10px;
        }
@@ -55,19 +55,76 @@
          width: 160px;
        }
 
+       .item-title2{
+        font-size: 14px;
+        text-transform: uppercase;
+         font-weight: bold;
+         display: inline-block;
+         width: 200px;
+       }
+
+       .item-title3{
+        font-size: 14px;
+        text-transform: uppercase;
+         font-weight: bold;
+         display: inline-block;
+         width: 130px;
+       }
+
        .item-content {
          display: inline-block;
+       }
+
+       .item-content2{
+         display: inline-block;
+       }
+
+       .th1{
+        width: 20%;
+       }
+
+       .scpiLogo{
+        width: 40%;
+       }
+       .th2{
+        font-weight: bold;
+        line-height: 20px;
+        margin-right: 2rem;
+       }
+       .th2 h5{
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-align: center;
+        font-size:13px;
+       }
+
+       .th3{
+        float: right;
+        padding-left: 2rem;
+        width: 20%;
+       }
+       .taranaLogo{
+        margin-top: -10px;
+        width: 100%;
        }
    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="name">Completed Operation Details</div>
-      <div class="contact-info">Subic Consolidated Projects, Inc.</div>
-    </div>
-    </div>
-    <div class="section">
-      <div class="section-title">Operation Summary</div>
+    <header>
+        <table>
+            <tr>
+                <th class="th1"><img class="scpiLogo" src="./assets/frontend/scpi.webp"></th>
+                <th class="th2">
+                    <h5>Subic Consolidated Projects, Inc.</h5>
+                    <h5 style="margin: 6px 2rem">Bldg. 867 Remy Field Cmpd Canal Rd CBD Area, Olongapo, Philippines</h5>
+                    <h5>scpi.ph@gmail.com | (047) 252 1877</h5>
+                </th>
+                <th class="th3"><img class="taranaLogo" src="./assets/frontend/logo.webp"></th>
+            </tr>
+        </table>
+    </header>
+    <div class="section body">
+      <div class="section-title">Completed Operation Summary:</div>
         <div class="item">
             <span class="item-title">Operation Id:</span>
             <span class="item-content">{{$operationId}}</span>
@@ -98,9 +155,9 @@
         </div>
     </div>
     <div class="section">
-        <div class="section-title">Project Workers Joined</div>
+        <div class="section-title">Project Workers PARTICIPATED:</div>
     </div>
-    <table class='table table-bordered text-center align-middle'>
+    <table class='table table-bordered text-center align-middle' style="margin-top: -1rem">
         <thead>
             <tr>
                 <th scope='col'>No.</th>
@@ -114,12 +171,20 @@
             {{$count = $count + 1}}
             <tr>
                 <td>{{$count}}.</td>
-                <td>{{$certainData->firstname}} {{$certainData->lastname}} {{$certainData->extention}}</td>
+                <td>{{$certainData->applicantFirstname}} {{$certainData->applicantLastname}} {{$certainData->applicantExtention}}</td>
                 <td>{{$certainData->age}} years old</td>
                 <td>Rating: {{$certainData->performanceRating}}%</td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="item">
+        <span class="item-title2">Submitted and rated by:</span>
+        <span class="item-content2">{{ $employeeFirstname}} {{$employeeLastname}} {{$employeeExtention}}</span>
+    </div>
+    <div class="item">
+        <span class="item-title3">Date Submitted: </span>
+        <span class="item-content2">{{ $created_at}}</span>
+    </div>
 </body>
 </html>

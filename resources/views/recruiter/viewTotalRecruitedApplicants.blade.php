@@ -65,7 +65,7 @@
                                     </div>
                                     <div class='col-2 text-end'>
                                     </div>
-                                </div>   
+                                </div>
                                 <table class='table table-bordered text-center align-middle' id='viewRecruitedApplicantTable'>
                                     <thead class='text-center text-uppercase' style="font-size: 15px;">
                                         <th class='text-center'>#</th>

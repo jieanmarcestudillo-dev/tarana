@@ -995,7 +995,7 @@ class RecruiterController extends Controller
                                 'operationStart' => $certainData->operationStart,
                                 'operationEnd' => $certainData->operationEnd,
                                 'totalWorkers' => $certainData->totalWorkers,
-                                'slot' => $count,
+                                'slot' => $certainData->slot,
                                 'data' => $data
                             ];
                         }

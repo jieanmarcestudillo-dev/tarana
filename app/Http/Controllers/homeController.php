@@ -19,6 +19,9 @@ class homeController extends Controller
     public function termsandcondition(){
         return view('termsandcondition');
     }
+    public function privacypolicy(){
+        return view('privacypolicy');
+    }
     public function forgotPassword(){
         return view('forgotPassword');
     }

@@ -825,8 +825,14 @@ class AdminController extends Controller
             public function printCompletedOperation(Request $request, $id){
                 $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                 ->join('applicants', 'completed.applicant_id', '=', 'applicants.applicant_id')
-                ->where([['completed.operation_id', '=', $id],['operations.certainOperation_id', '=', $id]])->get();
+                ->join('employees', 'completed.recruiter_id', '=', 'employees.employee_id')
+                ->where([['completed.operation_id', '=', $id],['operations.certainOperation_id', '=', $id]])
+                ->select('operations.*','employees.firstname as employeeFirstname','employees.lastname as employeeLastname',
+                'employees.extention as employeeExtention','applicants.firstname as applicantFirstname','applicants.lastname as applicantLastname',
+                'applicants.extention as applicantExtention','applicants.age','completed.performanceRating','completed.created_at')
+                ->get();
                 foreach($data as $operations){
+                    $created_at = date('F d, Y | h:i: a',strtotime($operations->created_at));
                     $operationCompleted = [
                         'operationId' => $operations->operationId,
                         'shipName' => $operations->shipName,
@@ -835,6 +841,10 @@ class AdminController extends Controller
                         'operationEnd' => $operations->operationEnd,
                         'totalWorkers' => $operations->totalWorkers,
                         'slot' => $operations->slot,
+                        'employeeFirstname' => $operations->employeeFirstname,
+                        'employeeLastname' => $operations->employeeLastname,
+                        'employeeExtention' => $operations->employeeExtention,
+                        'created_at' => $created_at,
                         'data' => $data,
                     ];
                 }

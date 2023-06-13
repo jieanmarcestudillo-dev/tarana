@@ -84,7 +84,7 @@ class ApplicantsController extends Controller
                     if($existingEmail->isNotEmpty()){
                         return response()->json(2); // CHOOSE ANOTHER EMAIL
                     }else{
-                        $applicantSignUp = applicants::create([
+                        $applicantData = [
                             'photos' => '/storage/applicants/defaultImage.png',
                             'emailAddress' => $request->email,
                             'password' => Hash::make($request->password),
@@ -94,8 +94,16 @@ class ApplicantsController extends Controller
                             'is_utilized' => 0,
                             'personal_id' => '/storage/applicant_Id/noId.jpg',
                             'personal_id2' => '/storage/applicant_Id/noId.jpg'
-                        ]);
-                        return response()->json($applicantSignUp ? 1 : 0);
+                        ];
+
+                        $applicant = Applicants::create($applicantData);
+
+                        if (auth()->guard('applicantsModel')->  loginUsingId($applicant->applicant_id, TRUE)) {
+                            $request->session()->regenerate();
+                            return response()->json(1);
+                        } else {
+                            return response()->json(0);
+                        }
                     }
                 }
             // APPLICANTS SIGNUP

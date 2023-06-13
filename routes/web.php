@@ -74,6 +74,7 @@ use App\Http\Controllers\homeController;
     Route::get('employeesLoginRoutes', [EmployeesController::class,'employeesLoginRoutes'])->name('login');
     Route::get('/', [homeController::class,'tarana'])->name('tarana');
     Route::get('termsandcondition', [homeController::class,'termsandcondition'])->name('termsandcondition');
+    Route::get('privacypolicy', [homeController::class,'privacypolicy'])->name('privacypolicy');
     Route::get('forgotPassword', [homeController::class,'forgotPassword'])->name('forgotPassword');
     Route::get('employeesLogoutFunction', [EmployeesController::class,'employeesLogoutFunction'])->name('employeesLogoutFunction');
     Route::get('resetPassword', [homeController::class,'resetPassword'])->name('resetPassword');

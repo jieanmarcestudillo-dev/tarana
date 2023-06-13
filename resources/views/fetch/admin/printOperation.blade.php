@@ -8,66 +8,123 @@
     <title>SCPI Operation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <title>Operation {{$item->operationId}}</title>
     <style>
-         body {
-          font-family: Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
+        *{
+            font-family: 'Roboto', sans-serif;
         }
-    
-        .header {
-          text-align: center;
-          margin-bottom: 20px;
+        body {
+            width: 100%;
+       }
+        header {
+            width: 100%;
+            margin-top: -2.5rem;
         }
-    
-        .name {
-          font-size: 24px;
-          font-weight: bold;
-          text-transform: uppercase;
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
         }
-    
-        .contact-info {
-          font-size: 14px;
-          margin-bottom: 10px;
-          text-transform: uppercase;
-        }
-    
-        .section {
-          margin-bottom: 20px;
-        }
-    
-        .section-title {
-          font-size: 18px;
-          font-weight: bold;
-          margin-bottom: 10px;
-          text-transform: uppercase;
-        }
-    
-        .subsection-title {
-          font-size: 16px;
-          font-weight: bold;
-          margin-bottom: 10px;
-        }
-    
-        .item {
-          margin-bottom: 5px;
-        }
-    
-        .item-title {
-          font-weight: bold;
-          display: inline-block;
-          width: 140px;
-        }
-    
-        .item-content {
-          display: inline-block;
-        }
+
+       .section {
+            margin-bottom: 20px;
+       }
+
+       .body{
+        margin-top: 1rem;
+       }
+
+       .section-title {
+         font-size: 15px;
+         font-weight: bold;
+         margin-bottom: 10px;
+         text-transform: uppercase;
+       }
+
+       .subsection-title {
+         font-size: 14px;
+         font-weight: bold;
+         margin-bottom: 10px;
+       }
+
+       .item {
+         margin-bottom: 5px;
+       }
+
+       .item-title {
+         font-weight: bold;
+         display: inline-block;
+         width: 160px;
+       }
+
+       .item-title2{
+        font-size: 14px;
+        text-transform: uppercase;
+         font-weight: bold;
+         display: inline-block;
+         width: 200px;
+       }
+
+       .item-title3{
+        font-size: 14px;
+        text-transform: uppercase;
+         font-weight: bold;
+         display: inline-block;
+         width: 130px;
+       }
+
+       .item-content {
+         display: inline-block;
+       }
+
+       .item-content2{
+         display: inline-block;
+       }
+
+       .th1{
+        width: 20%;
+       }
+
+       .scpiLogo{
+        width: 40%;
+       }
+       .th2{
+        font-weight: bold;
+        line-height: 20px;
+        margin-right: 2rem;
+       }
+       .th2 h5{
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-align: center;
+        font-size:13px;
+       }
+
+       .th3{
+        float: right;
+        padding-left: 2rem;
+        width: 20%;
+       }
+       .taranaLogo{
+        margin-top: -10px;
+        width: 100%;
+       }
     </style>
 </head>
 <body>
-        <div class="header">
-            <div class="name">Operation Details</div>
-          <div class="contact-info">Subic Consolidated Projects, Inc.</div>
-        </div>
-        </div>
-        <div class="section">
+    <header>
+        <table>
+            <tr>
+                <th class="th1"><img class="scpiLogo" src="./assets/frontend/scpi.webp"></th>
+                <th class="th2">
+                    <h5>Subic Consolidated Projects, Inc.</h5>
+                    <h5 style="margin: 6px 2rem">Bldg. 867 Remy Field Cmpd Canal Rd CBD Area, Olongapo, Philippines</h5>
+                    <h5>scpi.ph@gmail.com | (047) 252 1877</h5>
+                </th>
+                <th class="th3"><img class="taranaLogo" src="./assets/frontend/logo.webp"></th>
+            </tr>
+        </table>
+    </header>
+        <div class="section mt-4">
           <div class="section-title">Operation Summary</div>
             <div class="item">
                 <span class="item-title">Operation Id:</span>

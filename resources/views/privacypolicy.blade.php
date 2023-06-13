@@ -46,10 +46,10 @@
 								<a href="#" class="nav-link">Contact Us</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link">Terms & Condition</a>
+								<a href="/termsandcondition" class="nav-link">Terms & Condition</a>
 							</li>
 							<li class="nav-item">
-								<a href="/privacypolicy" class="nav-link">Privacy Policy</a>
+								<a href="#" class="nav-link">Privacy Policy</a>
 							</li>
 						</ul>
 						<div class="other-option">
@@ -69,11 +69,11 @@
 			<div class="d-table-cell">
 				<div class="container">
 					<div class="page-title-content">
-						<h2>Terms & Conditions</h2>
+						<h2>Privacy Policy</h2>
 						<ul>
 							<li><a href="/">Home</a>
 							</li>
-							<li>Terms & Conditions</li>
+							<li>Privacy Policy</li>
 						</ul>
 					</div>
 				</div>
@@ -86,46 +86,45 @@
         <section class="terms-conditions ptb-100">
             <div class="container">
                 <div class="single-terms">
-                    <h3 class="mt-0">Terms and Conditions</h3>
-                    <P>Please read these Terms of Use and Conditions ("Terms") carefully before using our services or accessing our website. By using our services or accessing our website, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please do not use our services or access our website.</P>
+                    <h3 class="mt-0">Privacy Policy</h3>
+                    <p>In The Script Developers Team, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy describes how we collect, use, disclose, and protect the information you provide on our website [Your Website URL] (the "Website").</p>
+                    <p>Please read this Privacy Policy carefully before using our Website or submitting any personal information. By using our Website, you signify your consent to the terms of this Privacy Policy.</p>
 
-                    <p class="fw-bold">1. Acceptance of Terms</p>
-                    <p>By accessing our website or using our services, you agree to comply with and be legally bound by these Terms. If you do not agree to these Terms, you are not authorized to use our services or access our website</p>
+                    <p class="fw-bold">1. Information We Collect</p>
+                    <p>We may collect various types of information from you, including:</p>
 
-                    <p class="fw-bold">2. Use of Services</p>
-                    <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
+                    <p>1.1 Personal Information: When you visit our Website, we may collect personally identifiable information, such as your name, email address, postal address, telephone number, and any other information you voluntarily provide to us.</p>
 
-                    <p class="fw-bold">3. Intellectual Property</p>
-                    <p>All content and materials available on our website or through our services, including but not limited to text, graphics, logos, images, videos, and software, are the property of our company and are protected by intellectual property laws. You may not use, reproduce, modify, or distribute any content from our website or services without our prior written permission.</p>
+                    <p>1.2 Usage Information: We may automatically collect certain information about how you interact with our Website, including your IP address, browser type, operating system, referring URLs, page views, and access times. This information is used to analyze trends, administer the Website, and gather demographic information.</p>
 
-                    <p class="fw-bold">4. User Conduct</p>
-                    <p>You are solely responsible for your conduct while using our services. You agree not to engage in any of the following activities:
-                    <br> a. Violating any applicable laws or regulations.
-                    <br> b. Interfering with the security of our website or services.
-                    <br> c. Impersonating any person or entity.
-                    <br> d. Uploading or transmitting any viruses, malware, or other malicious code.
-                    <br> e. Collecting or storing personal information about other users without their consent.
-                    <br> f. Engaging in any activity that could harm our company, its reputation, or its users</p>
+                    <p>1.3 Cookies and Similar Technologies: We may use cookies, web beacons, and similar technologies to enhance your experience on our Website. These technologies enable us to automatically collect certain information about your browsing activities, preferences, and other statistical data.</p>
 
-                    <p class="fw-bold">5. Privacy Policy</p>
-                    <p>Our services and website are provided on an "as is" and "as available" basis without any warranties or representations, express or implied. We do not warrant that our services will be uninterrupted, secure, or error-free. We disclaim all warranties of any kind, including but not limited to the accuracy, completeness, or reliability of any content or information provided through our services.</p>
+                    <p class="fw-bold">2. How We Use Your Information</p>
+                    <p>We may use the information we collect from you for the following purposes:</p>
 
-                    <p class="fw-bold">6. Disclaimer of Warranties</p>
-                    <p>Our services are provided for personal, non-commercial use only. You may not use our services for any illegal or unauthorized purpose. You agree to comply with all applicable laws and regulations while using our services.</p>
+                    <p>2.1 To Provide and Improve Our Services: We may use your information to process your requests, respond to your inquiries, personalize your experience, and improve our products and services.</p>
 
-                    <p class="fw-bold">7. Limitation of Liability</p>
-                    <p>In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of our services or website, even if we have been advised of the possibility of such damages.</p>
+                    <p>2.2 Marketing Communications: With your consent, we may send you promotional emails or newsletters about our products, services, and special offers that may be of interest to you. You may opt-out of receiving these communications at any time.</p>
 
-                    <p class="fw-bold">8. Indemnification</p>
-                    <p>You agree to indemnify and hold us harmless from any claims, damages, losses, or expenses arising out of your use of our services or website or violation of these Terms.</p>
+                    <p>2.3 Legal Compliance: We may use your information to comply with applicable laws, regulations, or legal processes, and to protect our rights, privacy, safety, or property, as well as those of our customers and the public.</p>
 
-                    <p class="fw-bold">9. Modifications to Terms</p>
-                    <p>We reserve the right to modify these Terms at any time without prior notice. Your continued use of our services or access to our website after any modifications to these Terms constitutes your acceptance of the modified Terms.</p>
+                    <p class="fw-bold">3. Information Sharing and Disclosure</p>
+                    <p>We may share your information with third parties in the following circumstances:</p>
 
-                    <p class="fw-bold">10. Governing Law and Jurisdiction</p>
-                    <p>These Terms shall be governed by and construed in accordance with the laws of [jurisdiction]. Any disputes arising out of these Terms shall be subject to the exclusive jurisdiction of the courts located in [jurisdiction].</p>
+                    <p>3.1 Service Providers: We may engage third-party service providers to perform certain functions on our behalf, such as website hosting, data analysis, marketing assistance, and customer support. These service providers have access to your information only to the extent necessary to perform their functions and are obligated to maintain its confidentiality.                    </p>
 
-                    <p>If you have any questions or concerns about these Terms, please contact us at tarana@gmail.com.</p>
+                    <p>3.2 Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests from public authorities (e.g., a court or government agency).</p>
+
+                    <p>3.3 Business Transfers: In the event of a merger, acquisition, or sale of all or a portion of our assets, your information may be transferred as part of the transaction. We will notify you via email and/or a prominent notice on our Website of any such change in ownership or control.</p>
+
+                    <p class="fw-bold">4. Data Security </p>
+                    <p>We take reasonable measures to protect the security of your information. However, please be aware that no security measures are perfect or impenetrable. We cannot guarantee the absolute security of your information and disclaim any liability for unauthorized access or use.</p>
+
+                    <p class="fw-bold">5. Third-Party Websites</p>
+                    <p>Our Website may contain links to third-party websites that are not operated by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites. We encourage you to review the privacy policies of these websites before providing any personal information.</p>
+
+                    <p  class="fw-bold">6. Children's Privacy</p>
+                    <p>Our Website is not intended for individuals under the age of 16. We do not knowingly collect personal information from children under 16. If you are a parent or</p>
                 </div>
             </div>
         </section>
