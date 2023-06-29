@@ -13,7 +13,7 @@
 <body>
     {{-- CONTENT --}}
         <div class="back-image">
-            <img src="./assets/frontend/subic.png" alt="background image">
+            <img src="./assets/frontend/background2.webp" alt="background image">
         </div>
         {{-- FOR REGISTRATION --}}
             <section class="left">

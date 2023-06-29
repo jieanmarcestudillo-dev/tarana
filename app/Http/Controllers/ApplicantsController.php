@@ -21,8 +21,6 @@ use Hash;
 
 class ApplicantsController extends Controller
 {
-    // APPLICANT AUTHENTICATION
-        // ROUTES
             public function applicantsAuthentication(){
                 return view('applicantAuth');
             }
@@ -32,9 +30,7 @@ class ApplicantsController extends Controller
             public function forgotPasswordRoutes(){
                 return view('forgotPassword');
             }
-        // ROUTES
 
-        // FUNCTION
             protected function applicantCredentials(Request $request){
                 return [
                     'emailAddress' => request()->{$this->applicantEmail()},
@@ -45,7 +41,6 @@ class ApplicantsController extends Controller
                 return 'applicantEmail';
             }
 
-            // APPLICANTS LOGIN
                 public function applicantLoginFunction(Request $request){
                     if(auth()->guard('applicantsModel')->attempt($this->applicantCredentials($request))){
                         if(auth()->guard('applicantsModel')->user()->is_blocked != 1){
@@ -54,16 +49,13 @@ class ApplicantsController extends Controller
                                     $updateUtilized = applicants::where('applicant_id', '=', auth()->guard('applicantsModel')->user()->applicant_id)
                                     ->update(['is_utilized' => '1']);
                                     if($updateUtilized){
-                                        // SUCCESSFULLY LOGIN
                                         $request->session()->regenerate();
                                         return response()->json(1);
                                     }
                                 }else{
-                                    // ALREADY LOGGED IN
                                     return response()->json(3);
                                 }
                             }else{
-                                // INACTIVE ACCOUNT
                                 return response()->json(2);
                             }
                         }else{
@@ -72,17 +64,13 @@ class ApplicantsController extends Controller
                             return response()->json($data);
                         }
                     }else{
-                        // WRONG CREDENTIALS
                         return response()->json(0);
                     }
                 }
-            // APPLICANTS LOGIN
 
-            // APPLICANTS SIGNUP
                 public function applicantSignUpFunction(Request $request){
                     $existingEmail = applicants::select('emailAddress')->where('emailAddress','=',$request->email)->get();
                     if($existingEmail->isNotEmpty()){
-                        return response()->json(2); // CHOOSE ANOTHER EMAIL
                     }else{
                         $applicantData = [
                             'photos' => '/storage/applicants/defaultImage.png',
@@ -106,11 +94,8 @@ class ApplicantsController extends Controller
                         }
                     }
                 }
-            // APPLICANTS SIGNUP
 
-        // FUNCTION
 
-        // LOGOUT FUNCTION
             public function applicantLogout(){
                 $update = applicants::where('applicant_id', auth()->guard('applicantsModel')->user()->applicant_id)
                 ->update(array('is_utilized' => 0));
@@ -120,9 +105,7 @@ class ApplicantsController extends Controller
                     return response()->json(1);
                 }
             }
-        // LOGOUT FUNCTION
 
-        // RESET PASSWORD
             public function forgotPassword(Request $request){
                 $data = applicants::where('emailAddress', '=', $request->applicantEmail)->first();
                 if($data != '' ){
@@ -131,27 +114,18 @@ class ApplicantsController extends Controller
                     return response()->json(0);
                 }
             }
-        // RESET PASSWORD
-    // APPLICANT AUTHENTICATION
 
-    // APPLICANT DASHBOARD
-        // ROUTES
             public function applicantDashboardRoutes(){
                 return view('applicants/dashboard');
             }
-        // ROUTES
 
-        // FETCH
-            // UPCOMING OPERATION
                 public function totalUpcomingOperationForApp(Request $request){
                     $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
                     $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>',$date]])->get();
                     $countData = $data->count();
                     return response()->json($countData != '' ? $countData : '0');
                 }
-            // UPCOMING OPERATION
 
-            // TOTAL INVITATION
                 public function totalInvitationOperationForApp(Request $request){
                     $data = applied::where([
                     ['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
@@ -159,9 +133,7 @@ class ApplicantsController extends Controller
                     $countData = $data->count();
                     return response()->json($countData != '' ? $countData : '0');
                 }
-            // TOTAL INVITATION
 
-            // TOTAL SCHEDULED
                public function totalScheduledOperationForApp(Request $request){
                     $data = applied::where([
                     ['applicants_id', '=', auth()->guard('applicantsModel')->user()->applicant_id],
@@ -169,9 +141,7 @@ class ApplicantsController extends Controller
                     $countData = $data->count();
                     return response()->json($countData != '' ? $countData : '0');
                 }
-            // TOTAL SCHEDULED
 
-            // APPLICANT INVITATION
                 public function applicantInvitationForApp(Request $request){
                     $data = applied::join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
                     ->join('employees', 'applied.recruiter', '=', 'employees.employee_id')
@@ -207,19 +177,11 @@ class ApplicantsController extends Controller
                         ";
                     }
                 }
-            // APPLICANT INVITATION
-        // FETCH
-    // APPLICANT DASHBOARD
 
-    // OPERATION DASHBOARD
-        // ROUTES
             public function upcomingOperationRoutes(){
                 return view('applicants/operations');
             }
-        // ROUTES
 
-        // FETCH
-            // FETCH APPLICANT OPERATION
                 public function applicantOperation(Request $request){
                     $date = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(now())));
                     $data = operations::where([['is_completed', '=', 0],[ 'is_archived' , '=' ,0],['operationEnd','>=',$date]
@@ -277,7 +239,6 @@ class ApplicantsController extends Controller
                                         if(!$checkStatus->isEmpty()){
                                             foreach($checkStatus as $appliedData){
                                                 if($appliedData != ''){
-                                                    // CONDITIONS FOR BUTTONS
                                                         if($appliedData->is_recommend == 1 && $appliedData->is_recruited == 0){
                                                             echo"
                                                                 <button onclick=acceptInvitation('$appliedData->operation_id') class='btn btn-sm btn-success px-4 py-2'>Accept</button>
@@ -296,7 +257,6 @@ class ApplicantsController extends Controller
                                                                 <button type='button' onclick=cancelApplied('$appliedData->applied_id') class='btn btn-sm btn-danger px-4 py-2'>Cancel Apply</button>
                                                             ";
                                                         }
-                                                    // CONDITIONS FOR BUTTONS
                                                 }else{
                                                     echo"
                                                         <button type='button' id='taraNaBtn' onclick=taraNaBtn('$item->certainOperation_id') class='btn btn-sm btn-primary px-4 py-2'>APPLY</button>
@@ -324,15 +284,12 @@ class ApplicantsController extends Controller
                         ";
                     }
                 }
-            // FETCH APPLICANT OPERATION
 
-            // APPLY ON SPECIFIC OPERATION
                 public function applicantApply(Request $request){
                     $applicantId =  auth()->guard('applicantsModel')->user()->applicant_id;
                     $operationId = $request->operationId;
                     $applicantsData = applicants::where([['applicant_id', '=', $applicantId]])->first();
                     if($applicantsData->lastname == "" || $applicantsData->personal_id == ""){
-                        echo 2; // Please complete all of your information.
                         exit();
                     }else{
                         $operationsData = operations::where([['certainOperation_id', '=', $operationId]])->select('operationStart')->first();
@@ -340,7 +297,6 @@ class ApplicantsController extends Controller
                         ->where([['applied.applicants_id', '=' ,$applicantId],['applied.is_recruited','=',1],
                         ['operations.operationStart','=', $operationsData->operationStart]])->orderBy('applied.applied_id', 'asc')->get();
                         if($applyingData->isNotEmpty()){
-                            echo 3; // NOT AVAILABLE ON THAT DAY
                             exit();
                         }else{
                             $applicationApply = applied::create([
@@ -352,25 +308,19 @@ class ApplicantsController extends Controller
                                 'date_time_applied' => now(),
                             ]);
                             if($applicationApply){
-                                echo 1; // SUCCESSFULLY APPLY
                                 exit();
                             }else{
-                                echo 0; // ERROR ON BACKEND
                                 exit();
                             }
                         }
                     }
                 }
-            // APPLY ON SPECIFIC OPERATION
 
-            // CANCEL APPLIED
                 public function cancelApply(Request $request){
                     $cancelApplied = applied::where([['applied_id', '=', $request->appliedId]])->delete();
                     return response()->json($cancelApplied  ? 1 : 0);
                 }
-            // CANCEL APPLIED
 
-            // DECLINED INVITATION
                 public function declinedInvitation(Request $request){
                     $addDeclined = declined::create([
                         'operation_id' => $request->operationId,
@@ -389,9 +339,7 @@ class ApplicantsController extends Controller
                         }
                     }
                 }
-            // DECLINED INVITATION
 
-            // BACK OUT SCHEDULED OPERATION
                 public function backOutOperation(Request $request){
                     $addBackout = backout::create([
                         'operation_id' => $request->operationId,
@@ -409,9 +357,7 @@ class ApplicantsController extends Controller
                         }
                     }
                 }
-            // BACK OUT SCHEDULED OPERATION
 
-            // ACCEPT INVITATION
                 public function acceptInvitation(Request $request){
                     $operationId = $request->operationId;
                     $applicantId = auth()->guard('applicantsModel')->user()->applicant_id;
@@ -422,9 +368,7 @@ class ApplicantsController extends Controller
                         return response()->json($updateSlot ? 1 : 0);
                     }
                 }
-            // ACCEPT INVITATION
 
-            // COWORKERS DETAILS
                 public function coWorkers(Request $request){
                     $applicantId = auth()->guard('applicantsModel')->user()->applicant_id;
                     $coWorkersDetails = applied::
@@ -465,18 +409,11 @@ class ApplicantsController extends Controller
                         ";
                    }
                 }
-            // COWORKERS DETAILS
-        // FETCH
-    // OPERATION DASHBOARD
 
-    // SCHEDULED DASHBOARD
-        // ROUTES
             public function applicationScheduleRoutes(){
                 return view('applicants/scheduled');
             }
-        // ROUTES
 
-        // FETCH
             public function applicantScheduled(Request $request){
                 $applicantScheduled = applied::
                  join('operations', 'applied.operation_id', '=', 'operations.certainOperation_id')
@@ -550,17 +487,11 @@ class ApplicantsController extends Controller
                     ";
                 }
             }
-        // FETCH
-    // SCHEDULED DASHBOARD
 
-    // COMPLETED DASHBOARD
-        // ROUTES
             public function applicantCompletedRoutes(){
                 return view('applicants/completed');
             }
-        // ROUTES
 
-        // FETCH
             public function applicantCompletedOperation(Request $request){
                 $data = completed::join('operations', 'completed.operation_id', '=', 'operations.certainOperation_id')
                 ->join('employees', 'employees.employee_id', '=', 'completed.recruiter_id')
@@ -568,11 +499,7 @@ class ApplicantsController extends Controller
                 ->get(['operations.*', 'employees.lastname', 'employees.firstname', 'employees.extention']);
                 return response()->json($data);
             }
-        // FETCH
-    // COMPLETED DASHBOARD
 
-    // MANAGE ACCOUNT
-        // ROUTES
             public function applicantAccountRoutes(){
                 return view('applicants/account');
             }
@@ -580,31 +507,24 @@ class ApplicantsController extends Controller
             public function applicantCredentialsRoutes(){
                 return view('applicants/applicantCredentials');
             }
-        // ROUTES
 
-        // FETCH DATA
-            // APPLICANT PERSONAL INFO
                 public function getApplicantData(Request $request){
                     $data = applicants::where([['applicant_id', '=', auth()->guard('applicantsModel')->user()->applicant_id]])->get();
                     return response()->json($data);
                 }
-            // APPLICANT PERSONAL INFO
 
-            // EDIT ACCOUNT
                 public function editApplicantInfo(Request $request){
                     $data = applicants::select('emailAddress')->where('applicant_id', $request->appId)->get();
                     foreach($data as $certainData){
                         $certainData->emailAddress;
                     }
                     if($certainData->emailAddress = $request->emailAddress){
-                        return response()->json(2); // EMAIL ADDRESS ALREADY EXIST
                     }else{
                         if ($request->hasFile('appPhotos')) {
                                 $filename = $request->file('appPhotos');
                                 $imageName =   time().rand() . '.' .  $filename->getClientOriginalExtension();
                                 $path = $request->file('appPhotos')->storeAs('applicants', $imageName, 'public');
                                 $imageData['appPhotos'] = '/storage/'.$path;
-                                // EDIT ONE
                                     $update = applicants::find($request->appId);
                                     $update->photos=$imageData['appPhotos'];
                                     $update->lastname=$request->input('appLastName');
@@ -623,9 +543,7 @@ class ApplicantsController extends Controller
                                     if($update){
                                         return response()->json(1);
                                     }
-                                // EDIT ONE
                         }else{
-                                // EDIT TWO
                                     $update = applicants::find($request->appId);
                                     $update->lastname=$request->input('appLastName');
                                     $update->firstname=$request->input('appFirstName');
@@ -643,17 +561,13 @@ class ApplicantsController extends Controller
                                     if($update){
                                         return response()->json(1);
                                     }
-                                // EDIT TWO
                         }
                     }
                 }
-            // EDIT ACCOUNT
 
-            // SUBMIT APPLICANT ID
                 public function submitApplicantId(Request $request){
                     $applicantId = auth()->guard('applicantsModel')->user()->applicant_id;
                     if(!$request->hasFile('updatePersonalId2') && $request->hasFile('updatePersonalId')){
-                        // CODE FOR PERSONAL ID 1
                                 $filename = $request->file('updatePersonalId');
                                 $imageName =   time().rand() . '.' .  $filename->getClientOriginalExtension();
                                 $path = $request->file('updatePersonalId')->storeAs('applicant_Id', $imageName, 'public');
@@ -663,9 +577,7 @@ class ApplicantsController extends Controller
                                 $update->personal_id=$imageData1['updatePersonalId'];
                                 $update->save();
                                 return response()->json(1);
-                        // CODE FOR PERSONAL ID 1
                     }elseif(!$request->hasFile('updatePersonalId') && $request->hasFile('updatePersonalId2')){
-                        // CODE FOR PERSONAL ID 2
                                 $filename2 = $request->file('updatePersonalId2');
                                 $imageName2 =   time().rand() . '.' .  $filename2->getClientOriginalExtension();
                                 $path2 = $request->file('updatePersonalId2')->storeAs('applicant_Id', $imageName2, 'public');
@@ -674,22 +586,16 @@ class ApplicantsController extends Controller
                                 $update->personal_id2=$imageData2['updatePersonalId2'];
                                 $update->save();
                                     return response()->json(1);
-                        // CODE FOR PERSONAL ID 2
                     }else{
-                        // CODE FOR BOTH ID
-                            // APPLICANT ID
                                 $filename = $request->file('updatePersonalId');
                                 $imageName =   time().rand() . '.' .  $filename->getClientOriginalExtension();
                                 $path = $request->file('updatePersonalId')->storeAs('applicant_Id', $imageName, 'public');
                                 $imageData1['updatePersonalId'] = '/storage/'.$path;
-                            // APPLICANT ID
 
-                            // APPLICANT ID 2
                                 $filename2 = $request->file('updatePersonalId2');
                                 $imageName2 =   time().rand() . '.' .  $filename2->getClientOriginalExtension();
                                 $path2 = $request->file('updatePersonalId2')->storeAs('applicant_Id', $imageName2, 'public');
                                 $imageData2['updatePersonalId2'] = '/storage/'.$path2;
-                            // APPLICANT ID 2
                             $update = applicants::find($applicantId);
                             $update->personal_id=$imageData1['updatePersonalId'];
                             $update->personal_id2=$imageData2['updatePersonalId2'];
@@ -697,12 +603,9 @@ class ApplicantsController extends Controller
                             if($update){
                                 return response()->json(1);
                             }
-                        // CODE FOR BOTH ID
                     }
                 }
-            // SUBMIT APPLICANT ID
 
-                    // UPDATE PASSWORD
                         public function updateUsersPassword(Request $request){
                             $passwordVerify = applicants::select('password')->where('applicant_id', '=',  auth()->guard('applicantsModel')->user()->applicant_id)->first();
                             if(!Hash::check($request->currentPassword, $passwordVerify->password)){
@@ -714,7 +617,4 @@ class ApplicantsController extends Controller
                                 return response()->json(1);
                             }
                         }
-                    // UPDATE PASSWORD
-        // FETCH DATA
-    // MANAGE ACCOUNT
 }
