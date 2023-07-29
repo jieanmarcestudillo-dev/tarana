@@ -308,8 +308,10 @@ class ApplicantsController extends Controller
                                 'date_time_applied' => now(),
                             ]);
                             if($applicationApply){
+                                return response()->json(1);
                                 exit();
                             }else{
+                                return response()->json(0);
                                 exit();
                             }
                         }

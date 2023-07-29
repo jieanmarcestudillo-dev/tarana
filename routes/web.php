@@ -21,7 +21,7 @@ use App\Http\Controllers\homeController;
 // RECRUITER USE
 
 
-// Route::domain('tarana.mleystock-pile.com')->group(function(){
+// Route::domain('tarana.mleystock-pile.com')->group(function()
 // APPLICANT ROUTES
     // APPLICANT CREDENTIALS
         Route::get('applicantLoginFunction', [ApplicantsController::class,'applicantLoginFunction'])->name('login');
